@@ -1,4 +1,5 @@
-# **It's a Bop!**
+# **Bop**
+
 [Preview](https://htmlpreview.github.io/?https://github.com/nwelchr/its-a-bop/blob/master/index.html)
 
 ![](screenshot.png)
@@ -13,13 +14,13 @@
 <a name="introduction"></a>
 ## Introduction
 
-[It's a Bop!](http://www.google.com) is a simple single-page Spotify clone. It allows users to search, discover, stream, and share music.
+[Bop](http://www.google.com) is a simple single-page Spotify clone. It allows users to search, discover, stream, and share music.
 
 This application works on mobile and web devices.
 
 <a name="how-it-works"></a>
 ## How It Works
-**It's a Bop!** is built on a `Rails 5` backend, connected to `PostgresSQL` for database management. Communication between frontend and backend was made through Fetch AJAX requests. Responses are manipulated and rendered by `React` and `Redux`. The `howler.js` API was used to have greater control over music. CSS `@media` queries allow for compatibility with all devices and screen sizes.
+**Bop!** is built on a `Rails 5` backend, connected to `PostgresSQL` for database management. Communication between frontend and backend was made through Fetch AJAX requests. Responses are manipulated and rendered by `React` and `Redux`. The `howler.js` API was used to have greater control over music. CSS `@media` queries allow for compatibility with all devices and screen sizes.
 
 <a name="features"></a>
 ## Summary of Features
@@ -32,7 +33,7 @@ This application works on mobile and web devices.
 
 <a name="project-design"></a>
 ## Project Design
-**It's a Bop!** was built over a 10-day period in April 2018 as a part of App Academy's Software Engineering Bootcamp.
+**Bop!** was built over a 10-day period in April 2018 as a part of App Academy's Software Engineering Bootcamp.
 
 <a name="additional-features"></a>
 ## Additional Features (to be implemented)
