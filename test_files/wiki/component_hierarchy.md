@@ -6,9 +6,16 @@
     - `FooterBar`
 
 ## Session
+
+![Login Page](https://github.com/nwelchr/bop/blob/master/wiki/images/wireframes/login_page.svg)
+
 - `SessionFormContainer` + `SessionForm`
   - Route: `/#/login` and `/#/signup`
   - State: `errors.session` (`errors.login`?)
+
+## MainPage:
+
+![Main Page](https://github.com/nwelchr/bop/blob/master/wiki/images/wireframes/main_page.svg)
 
 ## SideNavBar
 - `SideNavBar`
@@ -28,17 +35,6 @@
     - State: `songs[:id]`, `ui`
     - `VolumeBarContainer` + `VolumeBar`
     - State: `ui`
-
-  ### Bonus: Queue
-  - Note: Would be loaded from a toggle-able `queue` button in the `FooterBar`. It may need to be a modal superimposed on the current DOM because un-toggling it would bring you back to the same screen you were previously at. It also isn't accessible elsewhere in the app(?).
-  - `QueueContainer` + `Queue`
-    - Route: `/#/queue`
-    - State: `songs[:id]`, `queue`, `ui`
-    - Components:
-      - `QueueIndexItem` (**DRYer**: `SongIndexItem`?)
-      - State: `songs[:id]`, `ui`
-
-## MainPage:
 
 ## Browse
 - `BrowseContainer` + `Browse`
@@ -72,7 +68,19 @@
       - `BrowseIndexItem`
       - State: (passed down through `<Route />`)
 
+### Bonus: Queue
+- Note: Would be loaded from a toggle-able `queue` button in the `FooterBar`. It may need to be a modal superimposed on the current DOM because un-toggling it would bring you back to the same screen you were previously at. It also isn't accessible elsewhere in the app(?).
+- `QueueContainer` + `Queue`
+   - Route: `/#/queue`
+   - State: `songs[:id]`, `queue`, `ui`
+   - Components:
+     - `QueueIndexItem` (**DRYer**: `SongIndexItem`?)
+     - State: `songs[:id]`, `ui`
+
 ## Your Music (Collection)
+
+![Your Music Page](https://github.com/nwelchr/bop/blob/master/wiki/images/wireframes/your_music_page.svg)
+
 - `CollectionContainer` + `Collection`
   - `CollectionPlaylistsIndexContainer` + `CollectionPlaylistsIndex`
   - Route: `/#/collection/playlists`
@@ -130,8 +138,10 @@
 
 ## Show Pages:
 
+![Library Show Page](https://github.com/nwelchr/bop/blob/master/wiki/images/wireframes/library_show_page.svg)
+
 ## Playlist Show Page
-- 'PlaylistPageContainer' + 'PlaylistShow'
+- `PlaylistPageContainer` + `PlaylistShow`
   - Route: `/#/playlist/playlistId`
   - State: `playlistId`, `ui`, `errors.deletePlaylist`
   - Components:
@@ -143,7 +153,7 @@
         - `SongItem` ??
 
 ## Album Show Page
-- 'AlbumPageContainer' + 'AlbumShow'
+- `AlbumPageContainer` + `AlbumShow`
   - Route: `/#/playlist/playlistId`
   - State: `playlistId`, `ui`, `errors.deleteAlbum`
   - Components:
@@ -155,7 +165,10 @@
         - `SongItem` ??
 
 ## Artist Show Page
-- 'ArtistPageContainer' + 'ArtistShow'
+
+![Artist Show Page](https://github.com/nwelchr/bop/blob/master/wiki/images/wireframes/artist_show_page.svg)
+
+- `ArtistPageContainer` + `ArtistShow`
   - Route: `/#/artist/artistId`
   - State: `artistId`, `ui`
   - Components:
@@ -167,7 +180,10 @@
         - `SongItem` ??
 
 ## User Show Page
-- 'UserPageContainer' + 'UserShow'
+
+![Main Page](https://github.com/nwelchr/bop/blob/master/wiki/images/wireframes/user_profile_page.svg)
+
+- `UserPageContainer` + `UserShow`
   - Route: `/#/user/userId`
   - State: `userId`, `ui`
   - Components:
@@ -179,7 +195,7 @@
         - `GenericIndexItem` / `SongItem` ?
 
 ### Attempt at DRYer code:
-- 'ArtistPageContainer' + 'ArtistShow'
+- `ArtistPageContainer` + `ArtistShow`
   - Route: `/#/${passed_through_route}/passed_through_route_Id`
   - State: (passed in through route)
   - Components:
@@ -191,6 +207,9 @@
         - `SongItem` ??
 
 ## Music Search
+
+![Music Search Page](https://github.com/nwelchr/bop/blob/master/wiki/images/wireframes/search_page.svg)
+
 - `SearchFormContainer` + `SearchForm`
   - Route: `/#/search`
   - State: `songs`, `albums`, `playlists`, `artists`
@@ -201,6 +220,10 @@
     - Components:
       - `SearchResultsIndexItem`
       - State: `songs[:id]`, `albums[:id]`, `playlists[:id]`, `artists[:id]`
+
+## Account Page Modal
+
+![Account Page](https://github.com/nwelchr/bop/blob/master/wiki/images/wireframes/account_page.svg)
 
 #### Things to discuss:
 - `/#/` vs. `/` as a route (in the lecture demo `/#/` wasn't used, but in the Bluebird example it is used...)

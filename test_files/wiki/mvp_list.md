@@ -2,17 +2,17 @@
 
 **Bop**, a Spotify clone, is a music streaming service that allows users to stream and save songs, create and follow playlists as well as artists and other users, and search through songs, artists, albums, and playlists.
 
-### Hosting on Heroku
-### New account creation, login, and guest/demo login
-### Songs and Playlists
+### 1. New account creation, login, and guest/demo login (1.5 days)
+### 2. Songs and Playlists (1.5 days)
 - Users have the ability to save songs to a user's personal collection. They also have the ability to create, edit, and delete playlists.
-### Search
+### 3. Search (1 day)
 - Users can search through songs, albums, playlists, or artists.
-### Browse with Continuous Play
+### 4. Hosting on Heroku (0.5 days)
+### 5. Browse with Continuous Play (2 days)
 - Users can browse through the library of artists, playlists, genres, and songs, playing individual songs or entire albums or playlists. A fixed now playing bar will allow the user to play and pause music, seek through a song, go to the next or previous song, and adjust the volume.
-### Following Playlists and Friending Users
+### 6. Following Playlists and Friending Users (1 day)
 - Users will have a profile page with their public playlists. Users may follow other user's playlists and friend each other.
-### Production README (04/13/2018, 0.5 days)
+### 7. Production README (0.5 days)
 
 ## Bonus:
 ### Shuffle
