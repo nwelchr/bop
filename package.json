@@ -12,6 +12,31 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
     "webpack": "^3.9.1"
-  }
+  },
+  "scripts": {
+    "postinstall": "webpack",
+    "webpack": "webpack --watch"
+  },
+  "description": "[Preview](https://htmlpreview.github.io/?https://github.com/nwelchr/its-a-bop/blob/master/index.html)",
+  "version": "1.0.0",
+  "main": "bundle.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nwelchr/bop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nwelchr/bop/issues"
+  },
+  "homepage": "https://github.com/nwelchr/bop#readme"
 }

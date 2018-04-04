@@ -78,7 +78,7 @@ username        | string    | not null, indexed, unique
 email           | strings   | not null, indexed, unique
 password_digest | string    | not null
 session_token   | string    | not null, indexed, unique
-profile_image   | blob/string? | default: 'profile_image.png'
+profile_picture  | blob/string? | default: 'default_avatar.png'
 created_at      | datetime  | not null
 updated_at      | datetime  | not null
 

@@ -6,14 +6,20 @@ class SearchesController < ApplicationController
       @songs = Song.where(title: params[:query_string])
       @tracks = Track.where(title: params[:query_string])
 
-      concat(@albums, @artists, @songs, @tracks)
+      sort_by_popularity(concat(@albums, @artists, @songs, @tracks))
+      sort_by_num_plays(concat(@albums, @artists, @songs, @tracks))
+      sort_by_relevance(concat(@albums, @artists, @songs, @tracks))
+      sort_by_query_exactness(concat(@albums, @artists, @songs, @tracks))
     end
 
   end
 
   private
   def query_string
-    /#{params[:query].downcase}/
+    Regexp.new(Regexp.escape(params[:query]), Regexp::IGNORECASE)
+    /#{Regexp.escape params[:query]}/i
+    %r(#{Regexp.escape(params[:query])})i
+    /#{params[:query]}/i
   end
 
   def search(&prc)
@@ -24,7 +30,6 @@ class SearchesController < ApplicationController
 end
 
 ##############################
-
 
 class SearchesController < ApplicationController
 
@@ -41,7 +46,10 @@ class SearchesController < ApplicationController
   private
 
   def query_string
-    /#{params[:query].downcase}/
+    Regexp.new(Regexp.escape(params[:query]), Regexp::IGNORECASE)
+    /#{Regexp.escape params[:query]}/i
+    %r(#{Regexp.escape(input_str)})i
+    /#{params[:query]}/i
   end
 
 
