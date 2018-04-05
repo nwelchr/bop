@@ -5,11 +5,9 @@ const loggedInComponent = (currentUser, logout) => (
     <div id="wrapper">
         <nav className="navbar navbar-logged-in">
             <nav className="navbar-collapse">
-                <span className="navbar-logo"><a href=""><img src="assets/logo-white-text-separated.png" className="logo"/></a></span>
+                <span className="navbar-logo"><Link to="/"><img src="assets/logo-white-text-sseparated.png" className="logo"/></Link></span>
                 <ul className="navbar-links">
-                    <li><a>Premium</a></li>
-                    <li><a>Help</a></li>
-                    <li><a>Download</a></li>
+                    <li><a href="https://github.com/nwelchr/bop">Dev Info</a></li>
                     <li className="divider"></li>
                     <li className="dropdown"><a><img id="profile" src={currentUser.profile_picture} /> <span>Profile</span><i className="fas fa-angle-down"></i></a>
                         <ul className="dropdown-menu">
@@ -33,11 +31,9 @@ const loggedOutComponent = () => (
     <div id="wrapper">
     <nav className="navbar navbar-logged-out">
         <nav className="navbar-collapse">
-            <span className="navbar-logo"><a href=""><img src="assets/logo-white.png" className="logo"/></a><a>Bop</a></span>
+            <span className="navbar-logo"><Link to="/"><img src="assets/logo-white-text-separated.png" className="logo"/></Link></span>
             <ul className="navbar-links">
-                <li><a>Premium</a></li>
-                <li><a>Help</a></li>
-                <li><a>Download</a></li>
+                <li><a href="https://github.com/nwelchr/bop">Dev Info</a></li>
                 <li className="divider"></li>
                 <li><Link to="/signup" className="log-in">Sign Up</Link></li>
                 <li><Link to="/login" className="log-in">Log In</Link></li>

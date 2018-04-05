@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
+
 class SessionForm extends React.Component {
 
     constructor(props) {
@@ -11,11 +12,15 @@ class SessionForm extends React.Component {
             password: ""
         };
 
+        window.setState = this.setState;
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(e) {
         e.preventDefault();
+        if (!this.state.email.includes('@')) {
+            this.state = { username: this.state.email, email: "", password: this.state.password };
+        }
         const user = Object.assign({}, this.state);
         this.props.processForm(user);
     }
@@ -35,42 +40,43 @@ class SessionForm extends React.Component {
     }
 
     render () {
+
+        if (this.props.usernameInput) {
+            this.usernameInput = (<input 
+            type="text"
+            onChange={this.update('username')} 
+            value={this.state.username}
+            placeholder="What should we call you?"
+        />);
+        }
+
         return (
             <div>
                 <nav className="session-form-nav">
                     <img src="assets/logo-black-text-separated.png" />
                 </nav>
-                <main class="session-form-main">
-                    <h1>{this.props.formType}</h1>
+                <main className="session-form-main">
+                    <div className="divider">
+                        <strong>{this.props.formType}</strong>
+                    </div>
                     {this.renderErrors()}
                     <form onSubmit={this.handleSubmit}>
-                        <label>
-                            <input 
-                                type="email"
-                                onChange={this.update('email')}  
-                                value={this.state.email}
-                                placeholder="Email address"
-                                />
-                        </label>
-                        <label>
-                            <input 
-                                type="password"
-                                onChange={this.update('password')}  
-                                value={this.state.password}
-                                placeholder="Password"
-                                />
-                        </label>
-                        <label>
-                            <input 
-                                type="text"
-                                onChange={this.update('username')}  
-                                value={this.state.username}
-                                placeholder="What should we call you?"
-                                />
-                        </label>
+                        <input 
+                            type="text"
+                            onChange={this.update('email')}  
+                            value={this.state.email}
+                            placeholder={this.props.emailPlaceholder}
+                            />
+                        <input 
+                            type="password"
+                            onChange={this.update('password')}  
+                            value={this.state.password}
+                            placeholder="Password"
+                            />
+                        {this.usernameInput}
                         <input type="submit" value={this.props.formType} />
                     </form>
-                    <h1>{this.props.navLink}</h1>
+                    <h2>{this.props.navLink}</h2>
                 </main>
             </div>
         );

@@ -8,6 +8,8 @@ const mapStateToProps = (state, ownProps) => ({
     errors: Object.values(state.errors),
     formType: 'Sign Up',
     navLink: <p>Already have an account? <Link to="/login">Log In</Link></p>,
+    usernameInput: true,
+    emailPlaceholder: "Email address",
 });
 
 const mapDispatchToProps = (dispatch) => ({
