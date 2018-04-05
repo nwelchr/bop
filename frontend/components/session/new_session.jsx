@@ -27,7 +27,7 @@ const loggedInComponent = (currentUser, logout) => (
     </div>
 );
 
-const loggedOutComponent = () => (
+const loggedOutComponent = (login) => (
     <div id="wrapper">
     <nav className="navbar navbar-logged-out">
         <nav className="navbar-collapse">
@@ -37,6 +37,7 @@ const loggedOutComponent = () => (
                 <li className="divider"></li>
                 <li><Link to="/signup" className="log-in">Sign Up</Link></li>
                 <li><Link to="/login" className="log-in">Log In</Link></li>
+                <li><a onClick={() => login({username: 'demo', email: 'demo@demo.com', password: 'password'})}>Demo User</a></li>
             </ul>
         </nav>
     </nav>
@@ -47,8 +48,8 @@ const loggedOutComponent = () => (
 );
 
 
-const NewSession = ({ currentUser, logout }) => (
-    currentUser ? loggedInComponent(currentUser, logout) : loggedOutComponent()
+const NewSession = ({ currentUser, logout, login }) => (
+    currentUser ? loggedInComponent(currentUser, logout) : loggedOutComponent(login)
 );
 
 export default NewSession;

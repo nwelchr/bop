@@ -138,6 +138,13 @@ a {
 //   100% {color: red;}
 // }
 
+.navbar-logged-out {
+	background-color: #00000088;
+
+	a:hover {
+		color: $light-green !important;
+	}
+}
 
 #profile {
 	height: 40px;
@@ -209,5 +216,5 @@ a {
 		linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
 		linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%),
 		linear-gradient(white, white);
-	height: 2000px;
+	height: 1500px;
 }

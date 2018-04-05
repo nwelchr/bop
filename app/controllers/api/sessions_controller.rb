@@ -9,7 +9,7 @@ class Api::SessionsController < ApplicationController
     if session_params[:username] == "" && session_params[:email]
       session_params[:username] = User.find_by_email(session_params[:email]).username
       @user = User.find_by_credentials(session_params[:email], session_params[:password], "email")
-    elsif session_params[:email] == "" && session_params[:username] 
+    elsif session_params[:email] == "" && session_params[:username] || session_params[:email] && session_params[:username]
       session_params[:email] = User.find_by_username(session_params[:username]).email
       @user = User.find_by_credentials(session_params[:username], session_params[:password], "username")
     end
