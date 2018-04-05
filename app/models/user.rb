@@ -3,13 +3,18 @@ class User < ApplicationRecord
   attr_reader :password
 
   validates :username, :email, :password_digest, :session_token, presence: true
-  validates :username, :email, uniqueness: true
+  validates :username, :email, uniqueness: { case_sensitive: true }
   validates :password, length: { minimum: 6, allow_nil: true }
 
   after_initialize :ensure_session_token!
 
+  has_many :playlists,
+    class_name: :Playlist,
+    foreign_key: :creator_id
+
   def self.find_by_credentials(login_credential, password, login_type)
     if login_type == "username"
+      # user = User.where("lower(login_credential) = ?", username.downcase).first
       user = User.find_by_username(login_credential)
     elsif login_type == "email"
       user = User.find_by_email(login_credential)
