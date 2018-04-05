@@ -9,7 +9,12 @@ const mapStateToProps = ({ session }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     logout: () => dispatch(logout()),
-    login: (user) => dispatch(login(user))
+    login: (user) => dispatch(login(user)),
+    loginDemoUser: () => dispatch(login({
+        username: 'Demo User',
+        email: 'demo@demo.com',
+        password: 'password'
+    }))
 });
 
 export default connect(

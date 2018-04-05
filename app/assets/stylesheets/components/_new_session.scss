@@ -11,6 +11,7 @@ a {
 }
 
 .navbar {
+	z-index: 1;
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -22,7 +23,7 @@ a {
 		font-size: 30px;
 		font-weight: 500;
 		letter-spacing: -1.5px;
-		flex: 1;
+		flex: 2;
 
 		a {
 			padding: 20px 17px;
@@ -44,11 +45,9 @@ a {
 	}
 
 	.navbar-collapse {
-		width: 1000px;
+		width: 90%;
 		margin: 0 auto;
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
 		color: white;
 	}
 
@@ -60,7 +59,7 @@ a {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		/* flex: .5; */
+		// flex: 1;
 
 		a, .log-out {
 			font-size: 16px;
@@ -92,6 +91,10 @@ a {
 			height: 22px;
 			width: 1px;
 			background-color: white;
+		}
+
+		.dropdown-menu {
+			z-index: 2;
 		}
 		
 		.dropdown a {
@@ -203,17 +206,76 @@ a {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	z-index: -1;
+	z-index: 1;
 }
 
-.main-content {
+#wrapper {
 	background: linear-gradient(
-			217deg,
-			rgba(255, 0, 0, 0.8),
-			rgba(255, 0, 0, 0) 70.71%
-		),
-		linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
-		linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%),
-		linear-gradient(white, white);
-	height: 1500px;
+		217deg,
+		rgba(255, 0, 0, 0.8),
+		rgba(255, 0, 0, 0) 70.71%
+	),
+	linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
+	linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%),
+	linear-gradient(white, white);
+}
+
+.main-content-wrapper {
+	display: flex;
+	justify-content: center;
+	padding-top: 150px;
+	width: 100%;
+	margin: 0 auto;
+
+	.main-content-intro {
+		color: #fff;
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		h1 {
+			font-size: 25px;
+			font-weight: bold;
+		}
+
+		img {
+			width: 700px;
+		}
+
+	}
+
+	.web-player-link {
+		margin: 15px;
+		align-self: center;
+		display: inline-block;
+		padding: 15px 40px;
+		background-color: $dark-green;
+		border-radius: 20px;
+		text-transform: uppercase;
+		font-size: 12px;
+		color: #fff;
+		font-weight: bold;
+		letter-spacing: 1.5px;
+		transition: background-color .5s ease;
+	}
+
+	.web-player-link:hover {
+		background-color: $light-green;
+		cursor: pointer;
+	}
+}
+
+.footer-wrapper {
+	background-color: #000;
+	padding: 50px 0px;
+
+	.footer-content {
+		width: 90%;
+		margin: 0 auto;
+
+		.logo {
+		height: 50px;
+		}
+	}
 }

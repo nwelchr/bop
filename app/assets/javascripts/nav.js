@@ -11,19 +11,4 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // dropdown navbar fix
-  const dropdown = document.querySelector('.dropdown');
-  const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-  const modalScreen = document.querySelector('.modal-screen');
-
-  dropdown.addEventListener('click', e => {
-    e.preventDefault();
-
-    const i = dropdown.querySelector('i');
-    i.classList.toggle('fa-angle-down');
-    i.classList.toggle('fa-angle-up');
-
-    dropdownMenu.classList.toggle('clicked');
-
-    modalScreen.classList.toggle('clicked');
-  });
 });

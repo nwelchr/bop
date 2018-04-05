@@ -1,0 +1,86 @@
+body {
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    color: rgba(255, 255, 255, .6);
+  }
+  
+  .main-wrapper {
+    display: flex;
+    width: 100%;
+    height: calc(100vh);
+  }
+  
+  .sidebar {
+    padding: 20px;
+    position: fixed;
+    // background-color: blue!important;
+    width: 160px;
+    height: 100%;
+    background: rgba(0, 0, 0, .6);
+
+
+    .logo {
+        width: 30px;
+        margin-bottom: 10px;
+    }
+
+    .sidebar-main {
+
+        // background-color: purple!important;
+
+        .search {
+            // background-color: red!important;
+            a {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+
+        a {
+            // background-color: orange!important;
+            width: 100%;
+            display: block
+        }
+}
+  }
+  
+  .sidebar li {
+    padding: 10px;
+    // background-color: green!important;
+  }
+  
+  .sidebar .sidebar-divider {
+    padding: 0;
+    height: 1px;
+    background-color: rgba(255, 255, 255, .25);
+    width: 100%;
+  }
+  
+  .recently-played {
+    text-transform: lowercase;
+    font-variant: small-caps;
+    letter-spacing: 1px;
+  }
+  
+  .main {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+    width: 100%;
+    height: 100%;
+    background-color: #3c3f5b;
+    padding-left: 200px;
+    // background-color: #705a27;
+    // background-color: #2e263b;
+    // background-color: #613136;
+    // background-color: #20415e;
+    // background-color: #868611;
+  }
+  
+  .player {
+    position: fixed;
+    bottom: 0;
+    background-color: #282828;
+    width: 100%;
+    height: 90px;
+    border-top: 1px solid #000;
+  }
+  

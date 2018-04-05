@@ -16,6 +16,10 @@ class SessionForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentWillUnmount() {
+        this.props.clearSessionErrors();
+    }
+
     handleSubmit(e) {
         console.log(this.props);
         e.preventDefault();
@@ -54,13 +58,13 @@ class SessionForm extends React.Component {
         return (
             <div>
                 <nav className="session-form-nav">
-                    <img src="assets/logo-black-text-separated.png" />
+                    <img src="assets/logo/logo-black-text-separated.png" />
                 </nav>
                 <main className="session-form-main">
+                    {this.renderErrors()}
                     <div className="divider">
                         <strong>{this.props.formType}</strong>
                     </div>
-                    {this.renderErrors()}
                     <form onSubmit={this.handleSubmit}>
                         <input 
                             type="text"
