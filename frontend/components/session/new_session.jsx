@@ -35,8 +35,8 @@ const loggedOutComponent = (login) => (
             <ul className="navbar-links">
                 <li><a href="https://github.com/nwelchr/bop">Dev Info</a></li>
                 <li className="divider"></li>
-                <li><Link to="/signup" className="log-in">Sign Up</Link></li>
-                <li><Link to="/login" className="log-in">Log In</Link></li>
+                <li><Link to="/signup">Sign Up</Link></li>
+                <li><Link to="/login">Log In</Link></li>
                 <li><a onClick={() => login({username: 'demo', email: 'demo@demo.com', password: 'password'})}>Demo User</a></li>
             </ul>
         </nav>

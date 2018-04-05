@@ -21,6 +21,11 @@
 
     font-family: Helvetica, Arial, sans-serif;
 
+    .session-errors {
+        display: flex;
+        justify-content: space-around;
+    }
+
     form {
         padding: 10px;
         display: flex;

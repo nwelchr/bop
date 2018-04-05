@@ -17,6 +17,7 @@ class SessionForm extends React.Component {
     }
 
     handleSubmit(e) {
+        console.log(this.props);
         e.preventDefault();
         if (!this.state.email.includes('@')) {
             this.state = { username: this.state.email, email: "", password: this.state.password };
@@ -31,7 +32,7 @@ class SessionForm extends React.Component {
 
     renderErrors() {
         return (
-            <ul>
+            <ul class="session-errors">
                 {this.props.errors.map((error, idx) => (
                     <li key={idx}>{error}</li>
                 ))}
@@ -40,7 +41,7 @@ class SessionForm extends React.Component {
     }
 
     render () {
-
+        console.log(this.props);
         if (this.props.usernameInput) {
             this.usernameInput = (<input 
             type="text"
