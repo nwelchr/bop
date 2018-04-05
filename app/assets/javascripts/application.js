@@ -16,4 +16,4 @@
 //= require jquery_ujs
 //= require_tree .
 
-import 'font-awesome/css/font-awesome.min.css';
+// import 'font-awesome/css/font-awesome.min.css';
