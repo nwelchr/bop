@@ -26,5 +26,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
     modalScreen.classList.toggle('clicked');
   });
-
 });
