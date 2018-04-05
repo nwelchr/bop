@@ -9,6 +9,7 @@ import { AuthRoute } from '../util/route_util';
 window.login = login;
 window.logout = logout;
 window.signup = signup;
+console.log("?????");
 
 const App = () => (
   <div>
