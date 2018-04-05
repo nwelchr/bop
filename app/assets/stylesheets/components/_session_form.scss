@@ -1,0 +1,32 @@
+$light-green: #2bd968;
+$dark-green: #27bb5a;
+
+.session-form-nav {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    border-bottom: 1px solid #ddd;
+
+    img {
+        height: 75px;
+    }
+}
+
+.session-form-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    a {
+        color: $dark-green;
+    }
+
+    a:hover {
+        color: $light-green;
+    }
+}

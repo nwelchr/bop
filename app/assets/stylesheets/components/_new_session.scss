@@ -1,14 +1,8 @@
+$light-green: #2bd968;
+$dark-green: #27bb5a;
+
 body {
-	background: linear-gradient(
-			217deg,
-			rgba(255, 0, 0, 0.8),
-			rgba(255, 0, 0, 0) 70.71%
-		),
-		linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
-		linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%),
-		linear-gradient(white, white);
-	height: 2000px;
-    background-color: #000;
+    background-color: #fff;
     font-family: 'HelveticaNeue-Light', sans-serif;
 }
 
@@ -35,32 +29,19 @@ a {
 			padding: 20px 17px;
 		}
 
-		a:hover {
-			animation: logo .5s linear infinite alternate;
+		// a:hover {
+		// 	animation: logo .5s linear infinite alternate;
 
-			// @keyframes logo {
-			// 	0% {text-shadow: 0px 0px 15px red;}
-			// 	16.666% {text-shadow: 0px 0px 15px orange;}
-			// 	33.333% {text-shadow: 0px 0px 15px yellow;}
-			// 	50% {text-shadow: 0px 0px 15px green;}
-			// 	66.666% {text-shadow: 0px 0px 15px blue;}
-			// 	83.333% {text-shadow: 0px 0px 15px purple;}
-			//   100% {text-shadow: 0px 0px 15px red;}
-			// }
-		}
-	}
-
-	body {
-		animation: slideshow 20s linear infinite;
-
-		@keyframes slideshow {
-			0% {text-shadow: 0px 0px 15px red;}
-			33.333% {text-shadow: 0px 0px 15px yellow;}
-			50% {text-shadow: 0px 0px 15px green;}
-			66.666% {text-shadow: 0px 0px 15px blue;}
-			83.333% {text-shadow: 0px 0px 15px purple;}
-		  100% {text-shadow: 0px 0px 15px red;}
-		}
+		// 	@keyframes logo {
+		// 		0% {text-shadow: 0px 0px 15px red;}
+		// 		16.666% {text-shadow: 0px 0px 15px orange;}
+		// 		33.333% {text-shadow: 0px 0px 15px yellow;}
+		// 		50% {text-shadow: 0px 0px 15px green;}
+		// 		66.666% {text-shadow: 0px 0px 15px blue;}
+		// 		83.333% {text-shadow: 0px 0px 15px purple;}
+		// 	  100% {text-shadow: 0px 0px 15px red;}
+		// 	}
+		// }
 	}
 
 	.navbar-collapse {
@@ -73,7 +54,6 @@ a {
 	}
 
 	.logo {
-		width: 50px;
 		height: 50px;
 	}
 
@@ -118,9 +98,12 @@ a {
 }
 
 .sticky {
+
+	transition: background-color 0.2s linear;
+	background-color: #00000088;
 	
 	.navbar-links a:hover {
-		color: #1ed760;
+		color: $light-green;
 	}
 }
 
@@ -149,12 +132,6 @@ a {
 //   100% {color: red;}
 // }
 
-
-
-.sticky {
-	transition: background-color 0.2s linear;
-	background-color: #00000088;
-}
 
 #profile {
 	height: 40px;
@@ -219,4 +196,16 @@ a {
 	left: 0;
 	right: 0;
 	z-index: -1;
+}
+
+.main-content {
+	background: linear-gradient(
+			217deg,
+			rgba(255, 0, 0, 0.8),
+			rgba(255, 0, 0, 0) 70.71%
+		),
+		linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
+		linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%),
+		linear-gradient(white, white);
+	height: 2000px;
 }
