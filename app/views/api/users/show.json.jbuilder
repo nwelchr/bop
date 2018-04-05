@@ -1,2 +1,1 @@
-json.extract! @user, :username, :email
-json.image_url asset_path(@user.profile_picture)
+json.partial! 'api/users/user', user: @user

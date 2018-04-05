@@ -1,5 +1,20 @@
 body {
-	font-family: 'HelveticaNeue-Light', sans-serif;
+	background: linear-gradient(
+			217deg,
+			rgba(255, 0, 0, 0.8),
+			rgba(255, 0, 0, 0) 70.71%
+		),
+		linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
+		linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%),
+		linear-gradient(white, white);
+	height: 2000px;
+    background-color: #000;
+    font-family: 'HelveticaNeue-Light', sans-serif;
+}
+
+a {
+	text-decoration: none;
+	color: white;
 }
 
 .navbar {
@@ -27,6 +42,11 @@ body {
 
 .navbar .navbar-logo a {
 	padding: 20px 17px;
+}
+
+.logo {
+	width: 50px;
+	height: 50px;
 }
 
 /* .navbar .navbar-logo a:hover {

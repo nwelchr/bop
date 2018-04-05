@@ -1,9 +1,12 @@
 class Api::SessionsController < ApplicationController
+
+  before_action :require_logged_out!, only: [:create]
+  
   def new
   end
 
   def create
-    @user = User.find_by_credentials(session_params)
+    @user = User.find_by_credentials(session_params[:username], session_params[:password])
     if @user
       login(@user)
       render "api/users/show"
