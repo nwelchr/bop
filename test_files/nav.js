@@ -18,9 +18,9 @@ document.addEventListener("DOMContentLoaded", function() {
   dropdown.addEventListener('click', e => {
     e.preventDefault();
 
-    const svg = dropdown.querySelector('svg');
-    svg.classList.toggle('fa-angle-down');
-    svg.classList.toggle('fa-angle-up');
+    const i = dropdown.querySelector('i');
+    i.classList.toggle('fa-angle-down');
+    i.classList.toggle('fa-angle-up');
 
     dropdownMenu.classList.toggle('clicked');
 

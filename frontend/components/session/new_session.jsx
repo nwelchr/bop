@@ -5,11 +5,11 @@ const loggedInComponent = (currentUser, logout) => (
     <div id="wrapper">
         <nav className="navbar navbar-logged-in">
             <nav className="navbar-collapse">
-                <span className="navbar-logo"><Link to="/"><img src="assets/logo-white-text-sseparated.png" className="logo"/></Link></span>
+                <span className="navbar-logo"><Link to="/"><img src="assets/logo-white-text-separated.png" className="logo"/></Link></span>
                 <ul className="navbar-links">
                     <li><a href="https://github.com/nwelchr/bop">Dev Info</a></li>
                     <li className="divider"></li>
-                    <li className="dropdown"><a><img id="profile" src={currentUser.profile_picture} /> <span>Profile</span><i className="fas fa-angle-down"></i></a>
+                    <li className="dropdown"><a><img id="profile" src={currentUser.profile_picture} /> <span>Profile</span><i className="fas fa-angle-down">Why</i></a>
                         <ul className="dropdown-menu">
                         <div className="arrow-up"></div>
                         <li><a className="account" href="">Account</a></li>
