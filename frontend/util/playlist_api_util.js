@@ -28,9 +28,9 @@ export const updatePlaylist = (playlist) => {
     });
 };
 
-export const deletePlaylist = (playlist) => {
+export const deletePlaylist = (playlistId) => {
     return $.ajax({
-        url: `api/playlists/${playlist.id}`,
+        url: `api/playlists/${playlistId}`,
         method: 'DELETE',
     });
 };

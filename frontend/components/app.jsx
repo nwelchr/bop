@@ -7,6 +7,8 @@ import MainPageContainer from './main_page/main_page_container';
 import { Route } from 'react-router-dom';
 import { AuthRoute } from '../util/route_util';
 
+
+
 window.login = login;
 window.logout = logout;
 window.signup = signup;
