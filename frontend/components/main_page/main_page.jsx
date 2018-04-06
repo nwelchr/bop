@@ -34,7 +34,9 @@ class MainPage extends React.Component {
                     </ul>
                     </ul>
                 </aside>
-                <main className="main">wefwef<Route path="/collection/playlists" component={PlaylistIndexContainer} />wefwef</main>
+                <main className="main">
+                <Route path="/collection/playlists" component={PlaylistIndexContainer} />
+                <Link to="/collection/playlists">Go to your playlists!</Link></main>
                 <footer className="player"><MediaPlayer /></footer>
             </div>
         );
