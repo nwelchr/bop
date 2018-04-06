@@ -16,6 +16,6 @@ class Artist < ApplicationRecord
 
     validates :name, :artist_artwork_url, :genre_id, presence: true
 
-    belongs_to :genre
+    # belongs_to :genre
     has_many :albums
 end
