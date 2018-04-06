@@ -36,7 +36,9 @@ class Api::PlaylistsController < ApplicationController
   end
 
   def destroy
-    @playlist = P
+    @playlist = Playlist.find(params[:id])
+    @playlist.destroy!
+    render 'api/playlists/show'
   end
 
   private 
