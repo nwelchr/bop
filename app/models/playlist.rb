@@ -18,6 +18,6 @@ class Playlist < ApplicationRecord
     has_many :saved_songs
 
     has_many :songs,
-        through: :saved_songs
+        through: :saved_songs,
         source: :song
 end
