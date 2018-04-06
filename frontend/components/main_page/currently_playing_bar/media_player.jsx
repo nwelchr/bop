@@ -9,7 +9,7 @@ class MediaPlayer extends React.Component {
 
     this.state = {
       url: null,
-      playing: true,
+      playing: false,
       volume: 0.8,
       muted: false,
       played: 0,
@@ -45,7 +45,7 @@ class MediaPlayer extends React.Component {
     this.setState({ url: null, playing: false, played: 0 });
   }
 
-  handleVolume(e) {
+  handleVolume(e) { 
     this.setState({ volume: e.target.value });
   }
 
@@ -80,7 +80,6 @@ class MediaPlayer extends React.Component {
   }
 
   onProgress(state) {
-    console.log('onProgress', this.state);
     if (!this.state.seeking) {
       this.setState({played: state.played});
     }
@@ -93,12 +92,27 @@ class MediaPlayer extends React.Component {
 
   render () {
     const { url, playing, volume, muted, played, loaded, duration, loop } = this.state;
-    
+
+    const playIcon = <i class="fa fa-play-circle"></i>;
+    const pauseIcon = <i className="fa fa-pause-circle"></i>;
+    const loopIcon = <i className="fa fa-exchange"></i>;
+    const noloopIcon = <i className="fa fa-exchange selected"></i>;
+    const volumeUp = <i class="fa fa-volume-up"></i>;
+    const volumeDown = <i class="fa fa-volume-down"></i>;
+    const volumeOff = <i class="fa fa-volume-off"></i>;
+
     return (
-          <div>
-            jowpefjwef
-            <ReactPlayer 
-            url='https://s3.us-east-2.amazonaws.com/bop-songs/an-offering/m-ghthaunt+-+an+offering+-+05+who+house-+(feat.+toni+morrison).mp3' 
+      <div class="footer-bar">
+          <div class="song-info col-3-11">sdf</div>
+          <div class="play-bar col-5-11">
+            <div class="play-button">
+              <button className="play-pause" onClick={this.togglePlay}>{playing ? pauseIcon : playIcon}</button>
+              <button className="loop" onClick={this.toggleLoop}>{loop ? noloopIcon : loopIcon}</button>
+            </div>
+          <div class="progress-bar">
+            <Duration seconds={duration * played} />
+          <ReactPlayer 
+            url='https://a.tumblr.com/tumblr_m71074DUbH1qck9hho1.mp3' 
             // setting ref to the dom element for seekTo() helper method
             ref={this.ref}
             width="0px"
@@ -114,16 +128,6 @@ class MediaPlayer extends React.Component {
             onProgress={this.onProgress}
             onDuration={this.onDuration}
             />
-            owejfwe
-            
-            <button className="play-pause" onClick={this.togglePlay}>{playing ? 'Pause' : 'Play'}</button>
-            <button className="stop" onClick={this.stop}>Stop</button>
-
-            <button className="mute" onClick={this.toggleMuted}>{muted ? 'Unmute' : 'Mute'}</button>
-            <button className="loop" onClick={this.toggleLoop}>{loop ? 'No loop' : 'Loop'}</button>
-
-            <progress max={1} value={played} />
-
 
             <input 
               type="range" 
@@ -135,18 +139,20 @@ class MediaPlayer extends React.Component {
               onChange={this.onSeekChange}
               onMouseUp={this.onSeekMouseUp} />
 
-            <input 
-              type="range" 
-              step="any" 
-              min="0" 
-              max="1" 
-              value={volume}
-              onChange={this.handleVolume} />
-
             <Duration seconds={duration} />
-            <Duration seconds={duration * played} />
-            <Duration seconds={duration * (1 - played)} />
-
+             {/* <progress max={1} value={played} /> */}
+             </div>
+          </div>
+            <div class="volume-bar col-3-11">
+              <button className="mute" onClick={this.toggleMuted}>{muted ? volumeOff : volumeUp}</button>
+              <input 
+                type="range" 
+                step="any" 
+                min="0" 
+                max="1" 
+                value={volume}
+                onChange={this.handleVolume} />
+            </div>
           </div>
       );
   }
