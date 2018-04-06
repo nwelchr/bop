@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 
+import Duration from './Duration';
+
 class MediaPlayer extends React.Component {
   constructor(props) {
     super(props);
@@ -26,13 +28,14 @@ class MediaPlayer extends React.Component {
       this.onSeekMouseDown = this.onSeekMouseDown.bind(this);
       this.onSeekChange = this.onSeekChange.bind(this);
       this.onSeekMouseUp = this.onSeekMouseUp.bind(this);
-      // this.onProgress = this.onProgress.bind(this);
+      this.onProgress = this.onProgress.bind(this);
       this.onDuration = this.onDuration.bind(this);
+      this.ref = this.ref.bind(this);
   }
 
-  // ref = player => {
-  //   this.player = player;
-  // };
+  ref(player) {
+    this.player = player;
+  }
 
   togglePlay() {
     this.setState({ playing: !this.state.playing });
@@ -72,15 +75,18 @@ class MediaPlayer extends React.Component {
 
   onSeekMouseUp(e) {
     this.setState({ seeking: false });
+    // this.setState({played: e.target.value});
     this.player.seekTo(e.target.value);
   }
 
   onProgress(state) {
+    console.log('onProgress', this.state);
     if (!this.state.seeking) {
-      this.setState(state);
+      this.setState({played: state.played});
     }
   }
 
+  // happens as soon as the component renders
   onDuration(duration) {
     this.setState({ duration });
   }
@@ -90,11 +96,13 @@ class MediaPlayer extends React.Component {
     
     return (
           <div>
+            jowpefjwef
             <ReactPlayer 
-            url='https://www.youtube.com/watch?v=ysz5S6PUM-U' 
-
-            width="100px"
-            height="100px"
+            url='https://s3.us-east-2.amazonaws.com/bop-songs/an-offering/m-ghthaunt+-+an+offering+-+05+who+house-+(feat.+toni+morrison).mp3' 
+            // setting ref to the dom element for seekTo() helper method
+            ref={this.ref}
+            width="0px"
+            height="0px"
             playing={playing}
             onPlay={this.onPlay}
             onPause={this.onPause}
@@ -102,13 +110,12 @@ class MediaPlayer extends React.Component {
             muted={muted}
             loop={loop}
             played={played}
-            onSeek={() => console.log("I'm seeking!!!!")}
             onEnded={this.onEnded}
-             onProgress={this.onProgress}
-             onDuration={this.onDuration}
+            onProgress={this.onProgress}
+            onDuration={this.onDuration}
             />
-
-
+            owejfwe
+            
             <button className="play-pause" onClick={this.togglePlay}>{playing ? 'Pause' : 'Play'}</button>
             <button className="stop" onClick={this.stop}>Stop</button>
 
@@ -135,6 +142,10 @@ class MediaPlayer extends React.Component {
               max="1" 
               value={volume}
               onChange={this.handleVolume} />
+
+            <Duration seconds={duration} />
+            <Duration seconds={duration * played} />
+            <Duration seconds={duration * (1 - played)} />
 
           </div>
       );

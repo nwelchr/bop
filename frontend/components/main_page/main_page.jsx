@@ -29,8 +29,8 @@ class MainPage extends React.Component {
                     </ul>
                     </ul>
                 </aside>
-                <main className="main"><MediaPlayer /></main>
-                <footer className="player">jopwefje</footer>
+                <main className="main">Ayyy</main>
+                <footer className="player"><MediaPlayer /></footer>
             </div>
         );
     }
