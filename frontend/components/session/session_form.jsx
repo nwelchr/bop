@@ -21,7 +21,6 @@ class SessionForm extends React.Component {
     }
 
     handleSubmit(e) {
-        console.log(this.props);
         e.preventDefault();
         if (!this.state.email.includes('@')) {
             this.state = { username: this.state.email, email: "", password: this.state.password };
@@ -45,7 +44,6 @@ class SessionForm extends React.Component {
     }
 
     render () {
-        console.log(this.props);
         if (this.props.usernameInput) {
             this.usernameInput = (<input 
             type="text"
@@ -58,7 +56,7 @@ class SessionForm extends React.Component {
         return (
             <div>
                 <nav className="session-form-nav">
-                    <img src="assets/logo/logo-black-text-separated.png" />
+                    <img src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-black-text.png" />
                 </nav>
                 <main className="session-form-main">
                     {this.renderErrors()}

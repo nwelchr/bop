@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20180405214559) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.string "session_token", null: false
-    t.string "profile_picture", default: "profile_pictures/default_avatar.png"
+    t.string "profile_picture", default: "https://s3.us-east-2.amazonaws.com/bop-images/profile_pictures/default_avatar.png", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email"

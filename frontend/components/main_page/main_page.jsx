@@ -11,7 +11,7 @@ class MainPage extends React.Component {
         return(
             <div className="main-wrapper">
                 <aside className="sidebar">
-                    <span className="logo"><Link to="/browse"><img src="assets/logo/logo-white.png" className="logo" /></Link></span>
+                    <span className="logo"><Link to="/browse"><img src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png" className="logo" /></Link></span>
                     <ul className="sidebar-main">
                         <li className="sidebar-divider"></li>
                         <li className="search"><a><p>Search</p> <i className="fa fa-search"></i></a></li>

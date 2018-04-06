@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :email, null: false, unique: true
       t.string :password_digest, null: false
       t.string :session_token, null: false
-      t.string :profile_picture, null: false, default: 'profile_pictures/default_avatar.png'
+      t.string :profile_picture, null: false, default: 'https://s3.us-east-2.amazonaws.com/bop-images/profile_pictures/default_avatar.png'
 
       t.timestamps
     end

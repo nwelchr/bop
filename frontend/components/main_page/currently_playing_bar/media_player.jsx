@@ -22,7 +22,6 @@ class MediaPlayer extends Component {
 
   handleVolume(e) {
     this.setState({ volume: e.target.value });
-    console.log(this.state);
   }
 
   // toggleLoop() {

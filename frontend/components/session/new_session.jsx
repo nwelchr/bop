@@ -32,7 +32,7 @@ class LoggedInComponent extends React.Component {
             <div id="wrapper">
                 <nav className="navbar navbar-logged-in">
                     <nav className="navbar-collapse">
-                        <span className="navbar-logo"><Link to="/"><img src="assets/logo/logo-white-text-separated.png" className="logo"/></Link></span>
+                        <span className="navbar-logo"><Link to="/"><img src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png" className="logo"/></Link></span>
                         <ul className="navbar-links">
                             <li><a href="https://github.com/nwelchr/bop">Dev Info</a></li>
                             <li className="divider"></li>
@@ -63,7 +63,7 @@ class LoggedInComponent extends React.Component {
                 </main>
                 <footer className="footer-wrapper">
                     <footer className="footer-content">
-                        <span className="navbar-logo"><Link to="/"><img src="assets/logo/logo-white-text-separated.png" className="logo"/></Link></span>
+                        <span className="navbar-logo"><Link to="/"><img src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png" className="logo"/></Link></span>
                     </footer>
                 </footer>
             </div>
@@ -82,7 +82,7 @@ class LoggedOutComponent extends React.Component {
             <div id="wrapper">
                 <nav className="navbar navbar-logged-out">
                     <nav className="navbar-collapse">
-                        <span className="navbar-logo"><Link to="/"><img src="assets/logo/logo-white-text-separated.png" className="logo"/></Link></span>
+                        <span className="navbar-logo"><Link to="/"><img src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png" className="logo"/></Link></span>
                         <ul className="navbar-links">
                             <li><a href="https://github.com/nwelchr/bop">Dev Info</a></li>
                             <li className="divider"></li>
@@ -108,7 +108,7 @@ class LoggedOutComponent extends React.Component {
                 </main>
                 <footer className="footer-wrapper">
                     <footer className="footer-content">
-                        <span className="navbar-logo"><Link to="/"><img src="assets/logo/logo-white-text-separated.png" className="logo"/></Link></span>
+                        <span className="navbar-logo"><Link to="/"><img src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png" className="logo"/></Link></span>
                     </footer>
                 </footer>
             </div>
