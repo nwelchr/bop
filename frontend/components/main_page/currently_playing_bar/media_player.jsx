@@ -93,23 +93,23 @@ class MediaPlayer extends React.Component {
   render () {
     const { url, playing, volume, muted, played, loaded, duration, loop } = this.state;
 
-    const playIcon = <i class="fa fa-play-circle"></i>;
+    const playIcon = <i className="fa fa-play-circle"></i>;
     const pauseIcon = <i className="fa fa-pause-circle"></i>;
     const loopIcon = <i className="fa fa-exchange"></i>;
     const noloopIcon = <i className="fa fa-exchange selected"></i>;
-    const volumeUp = <i class="fa fa-volume-up"></i>;
-    const volumeDown = <i class="fa fa-volume-down"></i>;
-    const volumeOff = <i class="fa fa-volume-off"></i>;
+    const volumeUp = <i className="fa fa-volume-up"></i>;
+    const volumeDown = <i className="fa fa-volume-down"></i>;
+    const volumeOff = <i className="fa fa-volume-off"></i>;
 
     return (
-      <div class="footer-bar">
-          <div class="song-info col-3-11">sdf</div>
-          <div class="play-bar col-5-11">
-            <div class="play-button">
+      <div className="footer-bar">
+          <div className="song-info col-3-11">sdf</div>
+          <div className="play-bar col-5-11">
+            <div className="play-button">
               <button className="play-pause" onClick={this.togglePlay}>{playing ? pauseIcon : playIcon}</button>
               <button className="loop" onClick={this.toggleLoop}>{loop ? noloopIcon : loopIcon}</button>
             </div>
-          <div class="progress-bar">
+          <div className="progress-bar">
             <Duration seconds={duration * played} />
           <ReactPlayer 
             url='https://a.tumblr.com/tumblr_m71074DUbH1qck9hho1.mp3' 
@@ -143,7 +143,7 @@ class MediaPlayer extends React.Component {
              {/* <progress max={1} value={played} /> */}
              </div>
           </div>
-            <div class="volume-bar col-3-11">
+            <div className="volume-bar col-3-11">
               <button className="mute" onClick={this.toggleMuted}>{muted ? volumeOff : volumeUp}</button>
               <input 
                 type="range" 

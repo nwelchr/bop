@@ -1,10 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import MediaPlayer from './currently_playing_bar/media_player';
+import PlaylistIndexContainer from '../playlists/playlist_index_container';
 
 class MainPage extends React.Component {
     constructor(props){
         super(props);
+    }
+
+    componentDidMount() {
+        this.props.fetchPlaylists();
     }
 
     render(){
@@ -29,7 +34,7 @@ class MainPage extends React.Component {
                     </ul>
                     </ul>
                 </aside>
-                <main className="main">Ayyy</main>
+                <main className="main">wefwef<Route path="/collection/playlists" component={PlaylistIndexContainer} />wefwef</main>
                 <footer className="player"><MediaPlayer /></footer>
             </div>
         );

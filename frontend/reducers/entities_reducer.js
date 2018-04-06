@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import playlistsReducer from './session_errors_reducer';
+import playlistsReducer from './playlists_reducer';
 
 const entitiesReducer = combineReducers({
     playlists: playlistsReducer
