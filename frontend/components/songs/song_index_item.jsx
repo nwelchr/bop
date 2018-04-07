@@ -6,12 +6,15 @@ class SongIndexItem extends React.Component {
     //     this.setState( { url: url });
     // }
 
+    handleClick() {
+        this.props.fetchSong(this.props.song.id).then(song => this.props.play(song));
+    }
+
     render() {
         const { title, mp3_url } = this.props.song;
         return (
             <div>
-                <li>{title}</li>
-                {/* <button onClick={this.load(mp3_url).bind(this)} /> */}
+                <li onClick={() => this.handleClick()}>{title}</li>
             </div>
 
         );

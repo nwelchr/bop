@@ -1,22 +1,22 @@
-// import * as APIUtil from '../util/playlist_api_util';
+import * as APIUtil from '../util/song_api_util';
 
-// export const RECEIVE_SONGS = "RECEIVE_SONGS";
-// export const RECEIVE_SONG = "RECEIVE_SONG";
+export const RECEIVE_SONGS = "RECEIVE_SONGS";
+export const RECEIVE_SONG = "RECEIVE_SONG";
 
-// const receiveSongs = (playlists) => ({
-//     type: RECEIVE_SONGS,
-//     playlists
-// });
+const receiveSongs = (songs) => ({
+    type: RECEIVE_SONGS,
+    songs
+});
 
-// const receivePlaylist = (playlist) => ({
-//     type: RECEIVE_PLAYLIST,
-//     playlist
-// });
+const receiveSong = (song) => ({
+    type: RECEIVE_SONG,
+    song
+});
 
-// export const fetchPlaylists = () => (dispatch) => (
-//     APIUtil.fetchPlaylists().then(playlists => dispatch(receivePlaylists(playlists)))
-// );
+export const fetchSongs = () => (dispatch) => (
+    APIUtil.fetchSongs().then(songs => dispatch(receiveSongs(songs)))
+);
 
-// export const fetchPlaylist = (playlistId) => (dispatch) => (
-//     APIUtil.fetchPlaylist(playlistId).then(playlist => dispatch(receivePlaylist(playlist)))
-// );
+export const fetchSong = (songId) => (dispatch) => (
+    APIUtil.fetchSong(songId).then(song => dispatch(receiveSong(song)))
+);

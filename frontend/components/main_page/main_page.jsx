@@ -16,7 +16,7 @@ class MainPage extends React.Component {
                     <Route exact path="/collection/playlists" component={PlaylistIndexContainer} />
                     <Route path="/collection/playlists/:playlistId" component={PlaylistShowContainer} />
                     </main>
-                <FooterPlayerBar />
+                <FooterPlayerBar playing={this.props.playing} />
             </div>
         );
     }

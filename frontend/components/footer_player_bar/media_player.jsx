@@ -23,8 +23,8 @@ class MediaPlayer extends React.Component {
       this.handleVolume = this.handleVolume.bind(this);
       this.toggleMuted = this.toggleMuted.bind(this);
       this.toggleLoop = this.toggleLoop.bind(this);
-      this.onPlay = this.onPlay.bind(this);
-      this.onPause = this.onPause.bind(this);
+      // this.onPlay = this.onPlay.bind(this);
+      // this.onPause = this.onPause.bind(this);
       this.onSeekMouseDown = this.onSeekMouseDown.bind(this);
       this.onSeekChange = this.onSeekChange.bind(this);
       this.onSeekMouseUp = this.onSeekMouseUp.bind(this);
@@ -32,6 +32,10 @@ class MediaPlayer extends React.Component {
       this.onDuration = this.onDuration.bind(this);
       this.ref = this.ref.bind(this);
       this.load = this.load.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState( {playing: nextProps.playing} );
   }
 
   load(url) {
@@ -47,7 +51,8 @@ class MediaPlayer extends React.Component {
   }
 
   togglePlay() {
-    this.setState({ playing: !this.state.playing });
+    if (this.state.playing === true) this.props.pause();
+    else this.props.play();
   }
 
   stop() {
@@ -66,13 +71,13 @@ class MediaPlayer extends React.Component {
     this.setState({ loop: !this.state.loop });
   }
 
-  onPlay() {
-    this.setState({ playing: true });
-  }
+  // onPlay() {
+  //   this.setState({ playing: true });
+  // }
 
-  onPause() {
-    this.setState({ playing: false });
-  }
+  // onPause() {
+  //   this.setState({ playing: false });
+  // }
 
   onSeekMouseDown() {
     this.setState({ seeking: true });
@@ -113,7 +118,6 @@ class MediaPlayer extends React.Component {
     return (
       <div className="footer-bar">
           <div className="song-info col-3-11">
-          <button onClick={() => console.log("hi")}>fwef</button>
             <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/01.+Idle+Delilah.mp3')}>Idle Delilah</button>
             <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/03.+Desperado.mp3')}>Desperado</button>
             <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/04.+Jfk+(feat.+Theophilus+London).mp3')}>JFK</button>

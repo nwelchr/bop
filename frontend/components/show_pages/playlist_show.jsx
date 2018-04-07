@@ -24,7 +24,13 @@ class PlaylistShow extends React.Component {
             return (
                 <div>
                     {this.props.playlist.songs.map(song => {
-                        return <SongIndexItem key={song.id} song={song} />;
+                        return (
+                        <SongIndexItem 
+                            key={song.id} 
+                            song={song} 
+                            fetchSong={this.props.fetchSong}
+                            play={this.props.play}
+                            />);
                     })}
                 </div>
             );
