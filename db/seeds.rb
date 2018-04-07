@@ -48,7 +48,7 @@ Song.create!(
     title: 'Idle Delilah',
     album_id: broke_with_expensive_taste.id,
     ord: 1,
-    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/01.+Idle+Delilafh.mp3'
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/01.+Idle+Delilah.mp3'
 )
 
 Song.create!(

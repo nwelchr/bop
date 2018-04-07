@@ -8,7 +8,7 @@ class MediaPlayer extends React.Component {
     super(props);
 
     this.state = {
-      url: null,
+      url: 'https://a.tumblr.com/tumblr_m71074DUbH1qck9hho1.mp3',
       playing: false,
       volume: 0.8,
       muted: false,
@@ -31,6 +31,15 @@ class MediaPlayer extends React.Component {
       this.onProgress = this.onProgress.bind(this);
       this.onDuration = this.onDuration.bind(this);
       this.ref = this.ref.bind(this);
+      this.load = this.load.bind(this);
+  }
+
+  load(url) {
+    this.setState({
+      url: url,
+      played: 0,
+      playing: true
+    });
   }
 
   ref(player) {
@@ -103,7 +112,13 @@ class MediaPlayer extends React.Component {
 
     return (
       <div className="footer-bar">
-          <div className="song-info col-3-11">sdf</div>
+          <div className="song-info col-3-11">
+          <button onClick={() => console.log("hi")}>fwef</button>
+            <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/01.+Idle+Delilah.mp3')}>Idle Delilah</button>
+            <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/03.+Desperado.mp3')}>Desperado</button>
+            <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/04.+Jfk+(feat.+Theophilus+London).mp3')}>JFK</button>
+            <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/05.+212+(feat.+Lazy+Jay).mp3')}>212</button>
+          </div>
           <div className="play-bar col-5-11">
             <div className="play-button">
               <button className="play-pause" onClick={this.togglePlay}>{playing ? pauseIcon : playIcon}</button>
@@ -112,7 +127,7 @@ class MediaPlayer extends React.Component {
           <div className="progress-bar">
             <Duration seconds={duration * played} />
           <ReactPlayer 
-            url='https://a.tumblr.com/tumblr_m71074DUbH1qck9hho1.mp3' 
+            url={url} 
             // setting ref to the dom element for seekTo() helper method
             ref={this.ref}
             width="0px"

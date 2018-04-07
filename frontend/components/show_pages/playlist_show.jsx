@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { AuthRoute } from '../../util/route_util';
+import SongIndexItem from '../songs/song_index_item';
 
 class PlaylistShow extends React.Component {
     constructor(props) {
@@ -8,33 +9,27 @@ class PlaylistShow extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchPlaylist(parseInt(this.props.match.params.playlistId));
+        console.log("this is when we start fetching the playlist");
+        this.props.fetchPlaylist(this.props.match.params.playlistId);
     }
-    
-    render () {
-        debugger;
-        return this.props.loading ? <div>loading...</div> :
-        (
-            <div>
-                {this.props.playlist.songs.map(song => {
-                    return <SongIndexItem key={song.id} song={song} />;
-                })}
-            </div>
-        );
+
+    render() {
+        if (this.props.loading) { console.log("loading...");}
+        if ((typeof this.props.playlist === "undefined") || (typeof this.props.playlist.songs === "undefined")) {
+            console.log("maybe loaded, maybe not");
+            return <div>"loading..."</div>;
+        }
+        else {
+            console.log("not loading...");
+            return (
+                <div>
+                    {this.props.playlist.songs.map(song => {
+                        return <SongIndexItem key={song.id} song={song} />;
+                    })}
+                </div>
+            );
+        }
     }
 }
 
 export default PlaylistShow;
-
-// {playlist.songs.map(song => <li>{song.title}</li>)
-
-class SongIndexItem extends React.Component {
-    render() {
-        return (
-            <div>
-                <li>{this.props.song.title}</li>
-            </div>
-
-        );
-    }
-}

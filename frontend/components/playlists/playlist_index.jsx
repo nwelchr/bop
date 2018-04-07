@@ -6,21 +6,25 @@ import PlaylistIndexItem from './playlist_index_item';
 class PlaylistIndex extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
     }
 
     componentDidMount() {
+        console.log("start fetching all playlists...");
         this.props.fetchPlaylists();
     }
     
     render () {
-        return this.props.loading ?  "loading..." : (
+        if (this.props.loading) { console.log("loading..."); return <div>loading...</div>;}
+        else {
+            console.log("not loading...");
+            return (
             <div>
                 {this.props.playlists.map(playlist => 
                             <PlaylistIndexItem key={playlist.id} playlist={playlist} />
                 )}
             </div>
         );
+    }
     }
 }
 
