@@ -5,7 +5,8 @@ import { fetchPlaylists, fetchPlaylist } from '../../actions/playlist_actions';
 
 const mapStateToProps = (state) => {
     return({
-    playlists: Object.values(state.entities.playlists)
+        playlists: Object.values(state.entities.playlists),
+        loading: state.ui.loading.global
     });
 };
 
