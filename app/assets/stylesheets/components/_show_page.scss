@@ -10,6 +10,11 @@
             margin-left: auto;
             width: 320px;
 
+            .media__image {
+                width: 320px;
+                height: 320px;
+            }
+
             .music-index-item:hover {
                 cursor: default;
             }

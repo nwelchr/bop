@@ -48,6 +48,9 @@
             display: block;
             transition: 0.2s ease;
             transform: scale(1);
+            object-fit: cover;
+            width: 225px;
+            height: 225px;
         }
     }
     p {

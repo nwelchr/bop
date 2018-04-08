@@ -70,6 +70,8 @@
 
         .song-info-album-cover {
             width: 55px;
+            height: 55px;
+            object-fit: cover;
         }
 
         .song-info-links {
