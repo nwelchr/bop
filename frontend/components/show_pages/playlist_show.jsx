@@ -10,18 +10,15 @@ class PlaylistShow extends React.Component {
     }
 
     componentDidMount() {
-        console.log("this is when we start fetching the playlist");
         this.props.fetchPlaylist(this.props.match.params.playlistId);
     }
 
     render() {
         if (this.props.loading) { console.log("loading...");}
         if ((typeof this.props.playlist === "undefined") || (typeof this.props.playlist.songs === "undefined")) {
-            console.log("maybe loaded, maybe not");
             return <div>"loading..."</div>;
         }
         else {
-            console.log("not loading...");
             return (
                 <main className="main" style={this.props.background}>
                 <main class="show-page-main">

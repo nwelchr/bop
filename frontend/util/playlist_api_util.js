@@ -1,7 +1,8 @@
-export const fetchPlaylists = () => {
+export const fetchPlaylists = (shouldFetchAll) => {
     return $.ajax({
         url: 'api/playlists',
-        method: 'GET'
+        method: 'GET',
+        data: { shouldFetchAll: shouldFetchAll }
     });
 };
 

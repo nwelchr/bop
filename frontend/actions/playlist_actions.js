@@ -21,20 +21,15 @@ const removePlaylist = (id) => ({
     id
 });
 
-export const fetchPlaylists = () => (dispatch) => {
-    console.log("hit fetchPlaylists thunk action creator");
+export const fetchPlaylists = (shouldFetchAll) => (dispatch) => {
     dispatch(startLoading());
-    console.log("dispatched startLoading");
-    return APIUtil.fetchPlaylists().then(playlists => {
-        console.log("hit callback upon successful return of fetched playlists");
+    return APIUtil.fetchPlaylists(shouldFetchAll).then(playlists => {
         return dispatch(receivePlaylists(playlists));});
 };
 
 export const fetchPlaylist = (playlistId) => (dispatch) => {
-    console.log("hit the fetchPlaylist thunk action creator");
     dispatch(startLoading());
     return APIUtil.fetchPlaylist(playlistId).then(playlist => {
-        console.log("hit callback upon successful return of fetched playlist");
         return dispatch(receivePlaylist(playlist));
     });
 };

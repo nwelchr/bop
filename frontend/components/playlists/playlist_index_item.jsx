@@ -20,10 +20,10 @@ class PlaylistIndexItem extends React.Component {
                 <button className="play-pause" onClick={this.props.play} style={{ display: 'none' }}>{playIcon}</button>
             </div>
             <Link className="music-index-item" to={`/collection/playlists/${this.props.playlist.id}`}><li class="item-wrapper">
-                <div class="media"><img alt="" class="media__image" src={this.props.playlist.album_cover_url} />
-                    <div class="media__body">
+                <div className="media"><img alt="" class="media__image" src={this.props.playlist.album_cover_url} />
+                    <div className="media__body">
                     </div>
-                    <div class="media-loaded">
+                    <div className="media-loaded">
                     </div>
                 </div>
                 <p>{this.props.playlist.name}</p>

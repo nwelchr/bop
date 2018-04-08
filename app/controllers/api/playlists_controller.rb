@@ -12,7 +12,7 @@ class Api::PlaylistsController < ApplicationController
   end
 
   def index
-    @playlists = Playlist.all
+    @playlists = params[:shouldFetchAll] ? Playlist.all : current_user.playlists
     render :index
   end
 
