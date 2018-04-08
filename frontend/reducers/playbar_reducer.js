@@ -1,4 +1,4 @@
-import { PLAY, PAUSE } from '../actions/audio_actions';
+import { PLAY, PLAY_SONG, PAUSE } from '../actions/audio_actions';
 
 import merge from 'lodash/merge';
 
@@ -12,6 +12,8 @@ const playbarReducer = (oldState = initialState, action) => {
     switch (action.type) {
         case PLAY:
             return merge({}, oldState, { playing: true });
+        case PLAY_SONG:
+            return merge({}, oldState, { playing: true, currentSong: action.song });
         case PAUSE:
             return merge({}, oldState, { playing: false });
         default:

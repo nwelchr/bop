@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { fetchPlaylist } from '../../actions/playlist_actions';
 import { fetchSong } from '../../actions/song_actions';
-import { play } from '../../actions/audio_actions';
+import { play, playSong } from '../../actions/audio_actions';
 
 const mapStateToProps = (state, ownProps) => {
     console.log("mapping state to props on PlaylistShow...");
@@ -18,7 +18,8 @@ const mapDispatchToProps = (dispatch) => {
     return ({
     fetchPlaylist: (playlistId) => dispatch(fetchPlaylist(playlistId)),
     fetchSong: (songId) => dispatch(fetchSong(songId)),
-    play: () => dispatch(play())
+    play: () => dispatch(play()),
+    playSong: () => dispatch(playSong())
 });
 };
 

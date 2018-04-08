@@ -8,7 +8,7 @@ class MediaPlayer extends React.Component {
     super(props);
 
     this.state = {
-      url: 'https://a.tumblr.com/tumblr_m71074DUbH1qck9hho1.mp3',
+      currentSong: 'https://a.tumblr.com/tumblr_m71074DUbH1qck9hho1.mp3',
       playing: false,
       volume: 0.8,
       muted: false,
@@ -35,7 +35,10 @@ class MediaPlayer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState( {playing: nextProps.playing} );
+    this.setState( {
+      playing: nextProps.playing,
+      currentSong: nextProps.currentSong.mp3_url
+    });
   }
 
   load(url) {
@@ -105,7 +108,7 @@ class MediaPlayer extends React.Component {
   }
 
   render () {
-    const { url, playing, volume, muted, played, loaded, duration, loop } = this.state;
+    const { currentSong, playing, volume, muted, played, loaded, duration, loop } = this.state;
 
     const playIcon = <i className="fa fa-play-circle"></i>;
     const pauseIcon = <i className="fa fa-pause-circle"></i>;
@@ -131,7 +134,7 @@ class MediaPlayer extends React.Component {
           <div className="progress-bar">
             <Duration seconds={duration * played} />
           <ReactPlayer 
-            url={url} 
+            url={currentSong} 
             // setting ref to the dom element for seekTo() helper method
             ref={this.ref}
             width="0px"

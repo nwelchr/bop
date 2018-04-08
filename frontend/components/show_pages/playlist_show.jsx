@@ -30,6 +30,7 @@ class PlaylistShow extends React.Component {
                             song={song} 
                             fetchSong={this.props.fetchSong}
                             play={this.props.play}
+                            playSong={this.props.playSong}
                             />);
                     })}
                 </div>

@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 
 import { play, pause } from '../../actions/audio_actions';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return ({
-        playing: state.ui.playbar.playing
+        playing: state.ui.playbar.playing,
+        currentSong: Object.values(state.entities.songs)[0]
     });
 };
 

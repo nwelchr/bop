@@ -7,7 +7,7 @@ class SongIndexItem extends React.Component {
     // }
 
     handleClick() {
-        this.props.fetchSong(this.props.song.id).then(song => this.props.play(song));
+        this.props.fetchSong(this.props.song.id).then(song => this.props.playSong(song));
     }
 
     render() {
