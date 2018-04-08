@@ -18,11 +18,13 @@ class PlaylistIndex extends React.Component {
         else {
             console.log("not loading...");
             return (
-            <div>
-                {this.props.playlists.map(playlist => 
-                            <PlaylistIndexItem key={playlist.id} playlist={playlist} />
-                )}
-            </div>
+            <main className="music-index">
+                <ul>
+                    {this.props.playlists.map(playlist => 
+                                <PlaylistIndexItem key={playlist.id} playlist={playlist} />
+                    )}
+                </ul>
+            </main>
         );
     }
     }

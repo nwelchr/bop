@@ -1,0 +1,69 @@
+.music-index {
+
+    h1 a img {
+        display: none;
+    }
+
+    .music-index-item:hover img {
+        
+    }
+
+    h1 a img:hover {
+        display: block;
+    }
+
+    .music-index-item {
+        display: block;
+        margin: 15px;
+    }
+
+    ul { 
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .media {
+        width: 200px;
+        height: 200px;
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+    }
+    
+    .media__image { 
+        max-width: 100%;
+        display: block;
+        transition: 0.3s;
+        transform: scale(1);
+    }
+    
+    .media__body {
+      background: #000;
+      opacity: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      transition: 0.3s;
+      margin: 0 auto;
+      transform: scale(1);
+    }
+    
+    a:hover .media__body { opacity: .7; }
+
+    a:active .media__body, a:active .media__image {
+        transform: scale(.98);
+    }
+    
+    p { padding: 10px; }
+    
+
+}
