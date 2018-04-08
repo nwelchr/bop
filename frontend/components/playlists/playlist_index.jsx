@@ -9,21 +9,22 @@ class PlaylistIndex extends React.Component {
     }
 
     componentDidMount() {
-        console.log("start fetching all playlists...");
         this.props.fetchPlaylists();
     }
     
     render () {
-        if (this.props.loading) { console.log("loading..."); return <div>loading...</div>;}
+        if (this.props.loading) { return <div>loading...</div>;}
         else {
-            console.log("not loading...");
             return (
+            <main className="main" style={this.props.background}>
+            <Link to="/collection/playlists">Go to all playlists!</Link>
             <main className="music-index">
                 <ul>
                     {this.props.playlists.map(playlist => 
                                 <PlaylistIndexItem key={playlist.id} playlist={playlist} />
                     )}
                 </ul>
+                </main>
             </main>
         );
     }

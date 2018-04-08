@@ -10,6 +10,7 @@ const mapStateToProps = (state, ownProps) => {
     return({
         playlist: state.entities.playlists[parseInt(ownProps.match.params.playlistId)],
         loading: state.ui.loading.global,
+        background: { 'background-color': '#932963' }
     });
 };
 

@@ -23,6 +23,7 @@ class PlaylistShow extends React.Component {
         else {
             console.log("not loading...");
             return (
+                <main className="main" style={this.props.background}>
                 <main class="show-page-main">
                     <section class="show-info">
                         <PlaylistIndexItem key={this.props.playlist.id} playlist={this.props.playlist} />
@@ -42,6 +43,7 @@ class PlaylistShow extends React.Component {
                             })}
                         </ol>
                     </section>
+                </main>
                 </main>
             );
         }
