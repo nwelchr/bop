@@ -3,6 +3,8 @@ import ReactPlayer from 'react-player';
 
 import Duration from './Duration';
 
+import CurrentSongInfoContainer from './current_song_info_container';
+
 class MediaPlayer extends React.Component {
   constructor(props) {
     super(props);
@@ -120,12 +122,11 @@ class MediaPlayer extends React.Component {
 
     return (
       <div className="footer-bar">
-          <div className="song-info col-3-11">
-            <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/01.+Idle+Delilah.mp3')}>Idle Delilah</button>
+            <CurrentSongInfoContainer />        
+            {/* <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/01.+Idle+Delilah.mp3')}>Idle Delilah</button>
             <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/03.+Desperado.mp3')}>Desperado</button>
             <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/04.+Jfk+(feat.+Theophilus+London).mp3')}>JFK</button>
-            <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/05.+212+(feat.+Lazy+Jay).mp3')}>212</button>
-          </div>
+            <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/05.+212+(feat.+Lazy+Jay).mp3')}>212</button> */}
           <div className="play-bar col-5-11">
             <div className="play-button">
               <button className="play-pause" onClick={this.togglePlay}>{playing ? pauseIcon : playIcon}</button>

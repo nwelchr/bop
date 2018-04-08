@@ -23,4 +23,6 @@ class Song < ApplicationRecord
         through: :saved_songs,
         source: :playlist
     
+    has_one :artist,
+        through: :album
 end

@@ -18,4 +18,7 @@ class Artist < ApplicationRecord
 
     # belongs_to :genre
     has_many :albums
+
+    has_many :songs,
+        through: :albums
 end
