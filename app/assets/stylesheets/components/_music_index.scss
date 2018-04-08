@@ -1,10 +1,8 @@
 .music-index {
-
-    ul { 
+    ul {
         display: flex;
         flex-wrap: wrap;
     }
-
 }
 
 .item-wrapper {
@@ -17,8 +15,6 @@
     width: 225px;
     position: relative;
     margin: 15px;
-
-
     button {
         position: absolute;
         vertical-align: center;
@@ -27,43 +23,36 @@
         border: 0;
         margin: 0;
         padding: 0;
-        z-index: 3;
+        z-index: 4;
         outline: 0;
-
-        transition: .1s ease;
-
+        transition: .2s ease;
         top: calc(50% - 45px);
         left: calc(50% - 30px);
-
         .fa-play-circle {
             color: #eee;
             font-size: 60px;
         }
     }
-
     button:active {
         transform: scale(.95);
     }
-
     .music-index-item {
         display: block;
     }
-
     .media {
         display: inline-block;
         position: relative;
         vertical-align: top;
-
-        .media__image { 
+        .media__image {
             max-width: 100%;
             display: block;
-            transition: 0.1s;
+            transition: 0.2s ease;
             transform: scale(1);
         }
-        
     }
-
-    p { padding: 10px; }
+    p {
+        padding: 10px;
+    }
 }
 
 .media__body {
@@ -75,18 +64,38 @@
     left: 0;
     overflow: hidden;
     position: absolute;
-    transition: 0.1s;
+    transition: 0.2s ease;
     margin: 0 auto;
     transform: scale(1);
     z-index: 2;
-  }
-  
-  .music-index-item:hover .media__body { opacity: .7; }
+}
 
-  .music-index-item:active .media__body {
-      transform: scale(.98);
-  }
+.music-index-item:hover .media__body {
+    opacity: .7;
+}
 
-  .music-index-item:active .media .media__image {
-      transform: scale(.975);
-  }
+.music-index-item:active .media__body {
+    transform: scale(.98);
+}
+
+.music-index-item:active .media .media__image {
+    transform: scale(.975);
+}
+
+.media-loaded {
+    background: #000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    animation: disappear .5s linear forwards;
+    margin: 0 auto;
+    z-index: 3;
+
+    @keyframes disappear {
+        0% { opacity: .8; }
+        100% {opacity: 0; display: none; }
+    }
+}

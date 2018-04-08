@@ -23,6 +23,8 @@ class PlaylistIndexItem extends React.Component {
                 <div class="media"><img alt="" class="media__image" src={this.props.playlist.album_cover_url} />
                     <div class="media__body">
                     </div>
+                    <div class="media-loaded">
+                    </div>
                 </div>
                 <p>{this.props.playlist.name}</p>
             </li>
