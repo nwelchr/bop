@@ -1,0 +1,43 @@
+@import './base/colors.scss';
+
+.top-nav-bar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 15px 0px;
+
+    .top-nav-link-wrapper {
+        margin: 20px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        a {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'HelveticaNeue';
+            color: #bbb;
+            transition: .3s ease;
+        }
+
+        a:hover {
+            color: #fff;
+        }
+
+        .nav-link-selected {
+            color: #fff;
+            position: relative;
+        }
+
+        .selected {
+            content: '';
+            padding-top: 5px;
+            width: 30px;
+            height: 1px;
+            border-bottom: 2px solid $dark-green;
+        }
+    }
+
+}

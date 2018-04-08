@@ -17,7 +17,13 @@ class PlaylistIndex extends React.Component {
         else {
             return (
             <main className="main" style={this.props.background}>
-            <Link to="/collection/playlists">Go to all playlists!</Link>
+             <nav class="top-nav-bar">
+                <li className="top-nav-link-wrapper"><Link to="/collection/playlists" className="nav-link-selected">Playlists</Link><span class="selected" /></li>
+                <li className="top-nav-link-wrapper"><Link to="#">Your Daily Mix</Link></li>
+                <li className="top-nav-link-wrapper"><Link to="#">Songs</Link></li>
+                <li className="top-nav-link-wrapper"><Link to="#">Albums</Link></li>
+                <li className="top-nav-link-wrapper"><Link to="#">Artists</Link></li>
+            </nav>
             <main className="music-index">
                 <ul>
                     {this.props.playlists.map(playlist => 
