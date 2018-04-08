@@ -1,20 +1,38 @@
 .music-index {
 
-    h1 a img {
-        display: none;
-    }
+    .media-wrapper {
+        position: relative;
+        margin: 15px;
 
-    .music-index-item:hover img {
-        
-    }
+        button {
+            position: absolute;
+            vertical-align: center;
+            text-align: center;
+            background: transparent;
+            border: 0;
+            margin: 0;
+            padding: 0;
+            z-index: 3;
+            outline: 0;
 
-    h1 a img:hover {
-        display: block;
+            transition: .2s ease;
+
+            top: calc(50% - 45px);
+            left: calc(50% - 30px);
+
+            .fa-play-circle {
+                color: #eee;
+                font-size: 60px;
+            }
+        }
+
+        button:active {
+            transform: scale(.95);
+        }
     }
 
     .music-index-item {
         display: block;
-        margin: 15px;
     }
 
     ul { 
@@ -55,6 +73,7 @@
       transition: 0.3s;
       margin: 0 auto;
       transform: scale(1);
+      z-index: 2;
     }
     
     a:hover .media__body { opacity: .7; }

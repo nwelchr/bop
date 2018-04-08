@@ -2,6 +2,7 @@ import PlaylistIndex from './playlist_index';
 import { connect } from 'react-redux';
 
 import { fetchPlaylists, fetchPlaylist } from '../../actions/playlist_actions';
+import { play } from '../../actions/audio_actions';
 
 const mapStateToProps = (state) => {
     console.log("map state to props for playlist index");
@@ -14,7 +15,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     console.log("map dispatch to props for playlist index");
     return ({
-    fetchPlaylists: () => dispatch(fetchPlaylists())
+    fetchPlaylists: () => dispatch(fetchPlaylists()),
+    play: () => dispatch(play())
 });};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaylistIndex);
