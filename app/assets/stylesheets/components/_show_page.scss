@@ -28,11 +28,11 @@
 
         ol {
 
-            li {
+            .index-item {
                 list-style: decimal inside;
                 padding: 15px;
                 padding-left: 30px;
-                transition: background .2s ease;
+                transition: background .3s ease;
 
                 span {
                     margin-left: 10px;

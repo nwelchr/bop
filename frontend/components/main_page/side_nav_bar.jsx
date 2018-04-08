@@ -11,7 +11,7 @@ class SideNavBar extends React.Component {
                 <li className="search"><a><p>Search</p> <i className="fa fa-search"></i></a></li>
                 <li className="sidebar-divider"></li>
                 <li className="home"><Link to="/">Home</Link></li>
-                <li className="your-music"><Link to="/browse/collection">Your Music</Link></li>
+                <li className="your-music"><Link to="/collection/playlists">Your Music</Link></li>
                 <li className="sidebar-divider"></li>
                 <ul className="recently-played-music">
                     <li className="recently-played">Recently Played</li>
