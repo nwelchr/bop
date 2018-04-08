@@ -11,7 +11,7 @@ const Duration = ({ seconds }) => {
 const parseDuration = (seconds) => {
   const date = new Date(seconds * 1000);
   const hh = date.getUTCHours();
-  const mm = pad(date.getUTCMinutes());
+  const mm = date.getUTCMinutes();
   const ss = pad(date.getUTCSeconds());
   if (hh) {
     return `${hh}:${pad(mm)}:${ss}`;

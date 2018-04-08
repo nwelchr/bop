@@ -1,0 +1,47 @@
+.show-page-main {
+   display: flex;
+   width: 100%;
+
+   .show-info {
+        flex: 1;
+        margin-right: 50px;
+
+        .media-wrapper {
+            margin-left: auto;
+            width: 320px;
+
+            .music-index-item:hover {
+                cursor: default;
+            }
+
+            p {
+                font-size: 28px;
+                line-height: 36px;
+                letter-spacing: -.005em;
+                font-weight: 600;
+            }
+        }
+   }
+
+   .show-songs {
+        flex: 2;
+
+        ol {
+
+            li {
+                list-style: decimal inside;
+                padding: 15px;
+                padding-left: 30px;
+                transition: background .2s ease;
+
+                span {
+                    margin-left: 10px;
+                }
+            }
+
+            li:hover {
+                background: rgba(0, 0, 0, .5);
+            }
+        }
+   }
+}

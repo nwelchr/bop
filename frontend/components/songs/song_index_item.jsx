@@ -14,7 +14,9 @@ class SongIndexItem extends React.Component {
         const { title, mp3_url } = this.props.song;
         return (
             <div>
-                <li onClick={() => this.handleClick()}>{title}</li>
+                <li onClick={() => this.handleClick()}>
+                    <span>{title}</span>
+                </li>
             </div>
 
         );
