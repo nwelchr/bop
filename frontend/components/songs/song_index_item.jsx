@@ -82,8 +82,8 @@ class SongIndexItem extends React.Component {
       <div>
         <div
           className={`song-index-item-wrapper ${indexItemClass}`}
-          onDoubleClick={() => this.handleClick()}
-        >
+          onDoubleClick={() => this.handleClick()}>
+          <div className="single-click-handler" onClick={() => this.handleClick()}></div>
           <li className="song-index-item">
             <span>{title}</span>
           </li>
@@ -93,7 +93,7 @@ class SongIndexItem extends React.Component {
             </span>
             <div
               className={
-                ("dropdown-menu") + (this.state.dropdownIsOpen ? "clicked" : ""
+                ("dropdown-menu ") + (this.state.dropdownIsOpen ? "clicked" : ""
                 )}>
               {songDropdown}
             </div>

@@ -34,9 +34,22 @@
         }
    }
 
+   .song-index-item-wrapper {
+    position: relative;
+    }
+
+   .single-click-handler {
+        padding: 15px;
+        left: 12px;
+        top: 7px;
+        position: absolute;
+        z-index: 5;
+   }
+
    .show-songs {
         flex: 2;
         margin-left: 30px;
+        padding-right: 120px;
 
         ol {
 
@@ -92,8 +105,48 @@
 .song-index-item-wrapper {
     display: flex;
 
-    .add-song-wrapper {
+    .song-index-item {
+        flex: 6;
+    }
 
+    .song-dropdown-wrapper {
+        flex: 1;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .dropdown-handler {
+            letter-spacing: 2px;
+            font-size: 25px;
+            padding: 0;
+            margin: 0;
+            border: 0;
+            line-height: 0px;
+            transform: scale(1);
+            transition: .05s ease;
+            color: #fff;
+        }
+
+        .dropdown-handler:hover {
+        }
+
+        .dropdown-handler:active {
+            transform: scale(.92);
+        }
+    
+        .dropdown-menu {
+            position: absolute;
+            top: 0;
+            margin-top: 15px;
+            left: 0;
+            background-color: red;
+            z-index: 1;
+            
+            .song-dropdown {
+                background-color: red!important;
+            }
+        }
     }
 }
 
@@ -125,13 +178,4 @@
     cursor: default;
     transform: scale(1.05);
     border-color: #eee;
-}
-
-.dropdown-menu {
-    background-color: red;
-    color: red!important;
-
-    .song-dropdown {
-        background-color: red!important;
-    }
 }
