@@ -11,3 +11,11 @@ export const fetchSong = (id) => {
         method: 'GET'
     });
 };
+
+export const saveTrackToPlaylist = (trackId, playlistId) => (
+    $.ajax({
+        method: 'POST',
+        url: `api/playlists/${playlistId}/tracks`,
+        data: { trackId }
+    })
+);

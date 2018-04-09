@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     resources :songs, only: [:index, :show]
     resources :users, only: [:create, :destroy]
     resource :session, only: [:new, :create, :destroy]
+
+    post 'playlists/:id/tracks', to: 'playlists#add_song'
+    post 'playlists/:id/tracks', to: 'playlists#remove_song'
   end
 
   root "static_pages#root"
