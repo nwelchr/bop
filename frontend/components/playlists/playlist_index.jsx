@@ -30,7 +30,8 @@ class PlaylistIndex extends React.Component {
                     </nav>
 
                     <nav className="new-playlist">
-                        <Link className="new-playlist-button" to="/playlists/new">New Playlist</Link>
+                        {/* <Modal /> */}
+                        <button className="new-playlist-button">New Playlist</button>
                     </nav>
 
                 </nav>

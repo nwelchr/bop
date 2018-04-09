@@ -67,6 +67,8 @@
 }
 
 .new-playlist-button {
+    border: 0;
+    outline: 0;
     padding: 11px 18px;
     background-color: $dark-green;
     border-radius: 20px;
@@ -82,4 +84,8 @@
     cursor: default;
     transform: scale(1.05);
     background-color: $light-green;
+}
+
+.new-playlist-button:active {
+    transform: scale(1);
 }

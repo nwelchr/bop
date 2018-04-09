@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
     return({
         playlists: Object.values(state.entities.playlists),
         loading: state.ui.loading.global,
-        background: { 'background-color': '#3c3f5b' },
+        background: { 'backgroundColor': '#3c3f5b' },
         shouldFetchAll: true
     });
 };

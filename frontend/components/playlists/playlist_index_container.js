@@ -5,10 +5,11 @@ import { fetchPlaylists, fetchPlaylist } from '../../actions/playlist_actions';
 import { play } from '../../actions/audio_actions';
 
 const mapStateToProps = (state) => {
+    console.log(state);
     return({
         playlists: Object.values(state.entities.playlists),
         loading: state.ui.loading.global,
-        background: { 'background-color': '#2e263b' }
+        background: { 'backgroundColor': '#2e263b' }
     });
 };
 

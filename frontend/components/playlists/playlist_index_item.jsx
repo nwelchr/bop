@@ -15,12 +15,12 @@ class PlaylistIndexItem extends React.Component {
         const playIcon = <i className="fa fa-play-circle"></i>;
         const pauseIcon = <i className="fa fa-pause-circle"></i>;
 
-        return (<div class="media-wrapper">
-            <div class="button-wrapper">
+        return (<div className="media-wrapper">
+            <div className="button-wrapper">
                 <button className="play-pause" onClick={this.props.play} style={{ display: 'none' }}>{playIcon}</button>
             </div>
-            <Link className="music-index-item" to={`/collection/playlists/${this.props.playlist.id}`}><li class="item-wrapper">
-                <div className="media"><img alt="" class="media__image" src={this.props.playlist.album_cover_url} />
+            <Link className="music-index-item" to={`/collection/playlists/${this.props.playlist.id}`}><li className="item-wrapper">
+                <div className="media"><img alt="" className="media__image" src={this.props.playlist.album_cover_url} />
                     <div className="media__body">
                     </div>
                     <div className="media-loaded">

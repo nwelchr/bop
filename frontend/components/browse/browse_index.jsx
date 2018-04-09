@@ -18,12 +18,12 @@ class BrowseIndex extends React.Component {
             return (
             <main className="main" style={this.props.background}>
                 <main className="index-page-wrapper">
-                    <nav class="top-nav-bar">
+                    <nav className="top-nav-bar">
                     <li className="top-nav-link-wrapper"><NavLink exact to="/browse" activeClassName="nav-link-selected"><span>Featured</span></NavLink>
                         </li>
                         <li className="top-nav-link-wrapper"><NavLink exact to="#" activeClassName="nav-link-selected"><span>Genres & Moods</span></NavLink></li>
                         <li className="top-nav-link-wrapper"><NavLink exact to="#" activeClassName="nav-link-selected"><span>New Releases</span></NavLink></li>
-                        <li className="top-nav-link-wrapper"><NavLink to="#" activeClassName="nav-link-selected"><span>Discover</span></NavLink></li>
+                        <li className="top-nav-link-wrapper"><NavLink to="#" activeClassName="nav-link-selected"><span>Discover</span></NavLink></li>-
                     </nav>
 
                     <main className="music-index">
