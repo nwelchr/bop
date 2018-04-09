@@ -5,6 +5,8 @@ import { RECEIVE_PLAYLISTS,
     REMOVE_PLAYLIST
 } from '../actions/playlist_actions';
 
+import { RECEIVE_PLAYLIST_SONG_SAVE } from '../actions/song_actions';
+
 const playlistsReducer = (oldState = [], action) => {
     Object.freeze(oldState);
     switch(action.type) {
@@ -16,6 +18,8 @@ const playlistsReducer = (oldState = [], action) => {
             const newState = merge({}, oldState);
             delete newState[action.playlistId];
             return newState;
+        case RECEIVE_PLAYLIST_SONG_SAVE:
+            debugger;
         default:
             return oldState;
     }

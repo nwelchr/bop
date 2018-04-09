@@ -15,21 +15,22 @@ class PlaylistShow extends React.Component {
 
     render() {
         let PlaylistSongs;
-        if (!(typeof this.props.playlist.songs === "undefined"))
-        { PlaylistSongs = (<ol>
-            {this.props.playlist.songs.map(song => {
-                return (
-                <SongIndexItem 
-                    key={song.id} 
-                    song={song} 
-                    fetchSong={this.props.fetchSong}
-                    play={this.props.play}
-                    playSong={this.props.playSong}
-                    />);
-            })}
-        </ol>);
-        } else {
+        if ((typeof this.props.playlist === "undefined") || (typeof this.props.playlist.songs === "undefined"))
+        { 
             PlaylistSongs = <div />;
+        } else {
+            PlaylistSongs = (<ol>
+                {this.props.playlist.songs.map(song => {
+                    return (
+                    <SongIndexItem 
+                        key={song.id} 
+                        song={song} 
+                        fetchSong={this.props.fetchSong}
+                        play={this.props.play}
+                        playSong={this.props.playSong}
+                        />);
+                })}
+            </ol>);
         }
 
         if (this.props.loading) { console.log("loading...");}
@@ -43,7 +44,7 @@ class PlaylistShow extends React.Component {
                     <section className="show-info">
                         <PlaylistIndexItem key={this.props.playlist.id} playlist={this.props.playlist} />
                     </section>
-                    <section class="show-songs">
+                    <section className="show-songs">
                         {PlaylistSongs}
                     </section>
                 </main>
