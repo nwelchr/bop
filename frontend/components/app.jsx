@@ -4,17 +4,18 @@ import { login, logout, signup } from '../actions/session_actions';
 import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
 import MainPageContainer from './main_page/main_page_container';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { AuthRoute } from '../util/route_util';
 
 const App = () => (
   <div>
-    <Route exact path="/" component={NewSessionContainer} />
-    <AuthRoute path="/login" component={LoginFormContainer} />
-    <AuthRoute path="/signup" component={SignupFormContainer} />
-    <Route path="/playlists" component={MainPageContainer} />
-    <Route path="/browse" component={MainPageContainer} />
-    <Route path="/collection" component={MainPageContainer} />
+    <Switch>
+      <Route exact path="/" component={NewSessionContainer} />
+      <AuthRoute path="/login" component={LoginFormContainer} />
+      <AuthRoute path="/signup" component={SignupFormContainer} />
+      {/* <Route path="/" component={MainPageContainer} /> */}
+      <MainPageContainer />
+    </Switch>
   </div>
 );
 

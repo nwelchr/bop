@@ -10,6 +10,10 @@ import BrowseIndexContainer from '../browse/browse_index_container';
 import NewPlaylist from '../playlists/new_playlist';
 
 class MainPage extends React.Component {
+
+    componentDidMount() {
+        console.log("main page mounted!");
+    }
     render() {
         return (
             <div className="app-wrapper">

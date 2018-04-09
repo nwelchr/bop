@@ -24,12 +24,12 @@ class NewPlaylistModal extends React.Component {
 
   handleSubmit(e) {
       e.preventDefault(); 
-      this.props.createPlaylist(this.state).then(playlist => this.redirect());
+      this.props.createPlaylist(this.state).then(response => this.redirect(response.playlist.id));
   }
 
-  redirect() {
+  redirect(id) {
     this.props.closePlaylistForm();
-    this.props.history.push(`/collection/playlists/${this.props.playlistId}`);
+    this.props.history.push(`/collection/playlists/${id}`);
   }
 
   handleCancel() {

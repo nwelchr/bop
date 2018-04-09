@@ -4,6 +4,9 @@
    width: 100%;
 
    .show-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
         flex: 1;
         padding-left: 50px;
         margin-right: 50px;
@@ -33,14 +36,16 @@
 
    .show-songs {
         flex: 2;
+        margin-left: 30px;
 
         ol {
 
-            .index-item {
-                list-style: decimal inside;
+            .song-index-item {
+                list-style: decimal outside;
                 padding: 15px;
-                padding-left: 30px;
-                transition: background .3s ease;
+                padding-left: 0px;
+                transition: .3s ease;
+                position: relative;
 
                 span {
                     color: #fff;
@@ -48,9 +53,52 @@
                 }
             }
 
+            .song-index-item:hover {
+                list-style: none;
+            }
+
+            .song-index-item:hover:before {
+                content: '';
+                position: absolute;
+                left: -50px;
+                background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Play_font_awesome.svg/512px-Play_font_awesome.svg.png');
+                width: 20px;
+                height: 20px;
+            }
+
             li:hover {
                 background: rgba(0, 0, 0, .5);
             }
         }
    }
+}
+
+
+.playlist-index-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.delete-button-wrapper {
+    align-self: center;
+}
+
+.delete-playlist-button {
+    outline: 0;
+    padding: 11px 18px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: #fff;
+    letter-spacing: 2px;
+    transition: .05s ease;
+    transform: scale(1);
+    background: rgba(35, 35, 35, .8);
+    border: 2px solid #bbb;
+}
+
+.delete-playlist-button:hover {
+    cursor: default;
+    transform: scale(1.05);
+    border-color: #eee;
 }

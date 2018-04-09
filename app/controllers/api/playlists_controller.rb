@@ -37,9 +37,14 @@ class Api::PlaylistsController < ApplicationController
   end
 
   def destroy
+    debugger;
     @playlist = Playlist.find(params[:id])
-    @playlist.destroy!
-    render 'api/playlists/show'
+    if current_user.playlists.include?(@playlist)
+      @playlist.destroy!
+      render 'api/playlists/show'
+    else
+      render json: ['You do not own this playlist.']
+    end
   end
 
   def add_song

@@ -41,7 +41,7 @@ export const fetchPlaylist = (playlistId) => (dispatch) => {
 };
 
 export const createPlaylist = (playlist) => (dispatch) => (
-    APIUtil.createPlaylist(playlist).then(playlist => dispatch(receiveCreatedPlaylist(playlist)))
+    APIUtil.createPlaylist(playlist).then(receivedPlaylist => dispatch(receiveCreatedPlaylist(receivedPlaylist)))
 );
 
 export const updatePlaylist = (playlist) => (dispatch) => (

@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 
 class PlaylistIndexItem extends React.Component {
 
+    constructor(props) {
+        super(props);
+    }
+
     componentDidMount() {
         $(document).on('mouseenter', '.media-wrapper', function () {
             $(this).find(":button").show();

@@ -36,7 +36,12 @@ class MediaPlayer extends React.Component {
       this.load = this.load.bind(this);
   }
 
+  componentDidMount() {
+    console.log("component mounted!");
+  }
+
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps, "media player willReceiveProps");
     this.setState( {
       playing: nextProps.playing,
       currentSong: nextProps.currentSong.mp3_url
