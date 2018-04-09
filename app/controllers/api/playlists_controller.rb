@@ -47,12 +47,12 @@ class Api::PlaylistsController < ApplicationController
   end
 
   def add_song
-    if current_user.playlists.include?(Playlist.find(params[:id]))
-      @playlist_id = params[:id]
+    @playlist = Playlist.find(params[:id])
+    if current_user.playlists.include?(@playlist)
       @song_id = params[:songId]
-      @saved_song = SavedSong.new(playlist_id: @playlist_id, song_id: @song_id)
+      @saved_song = SavedSong.new(playlist_id: @playlist.id, song_id: @song_id)
       if @saved_song.save
-        render json: ['Song successfully saved!']
+        render :show
       else
         render json: @saved_song.errors.full_messages, status: 422
       end

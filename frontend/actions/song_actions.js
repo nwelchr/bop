@@ -5,6 +5,8 @@ export const RECEIVE_SONG = "RECEIVE_SONG";
 export const RECEIVE_PLAYLIST_SONG_SAVE = "RECEIVE_PLAYLIST_SONG_SAVE";
 // export const REMOVE_PLAYLIST_SONG_SAVE = "REMOVE_PLAYLIST_SONG_SAVE";
 
+import { receivePlaylist } from './playlist_actions';
+
 const receiveSongs = (songs) => ({
     type: RECEIVE_SONGS,
     songs
@@ -35,8 +37,9 @@ export const fetchSong = (songId) => (dispatch) => (
 );
 
 export const saveSongToPlaylist = (songId, playlistId) => (dispatch) => {
-    APIUtil.saveSongToPlaylist(songId, playlistId).then(response => {
-        dispatch(receivePlaylistSongSave(response));
+    APIUtil.saveSongToPlaylist(songId, playlistId).then(playlist => {
+        dispatch(receivePlaylist(playlist));
+        // dispatch(receivePlaylistSongSave(response));
         }
     );
 };

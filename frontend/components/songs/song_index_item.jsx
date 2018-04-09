@@ -63,7 +63,7 @@ class SongIndexItem extends React.Component {
   render() {
     const songDropdown = (
       <ul class="song-dropdown">
-        <li class="dropdown-li"><button onClick={this.handleAddSongClick}>Add to Playlist</button></li>
+        <li class="dropdown-li">Add to Playlist</li>
         <li class="dropdown-li">Copy Song Link</li>
       </ul>
     );

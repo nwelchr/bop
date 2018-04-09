@@ -5,6 +5,7 @@ import configureStore from './store/store';
 
 import { fetchPlaylists } from './actions/playlist_actions';
 
+import { saveSongToPlaylist } from './actions/song_actions';
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;
@@ -16,7 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
     store = configureStore();
   }
 
+
+  
   // for testing
+  window.saveSongToPlaylist = saveSongToPlaylist;
   window.getState = store.getState;
   window.dispatch = store.dispatch;
   //
