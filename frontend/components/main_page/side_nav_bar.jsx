@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
+import { NavLink, Link, Route } from 'react-router-dom';
 
 class SideNavBar extends React.Component {
     render() {
@@ -10,8 +10,8 @@ class SideNavBar extends React.Component {
                 <li className="sidebar-divider"></li>
                 <li className="search"><a><p>Search</p> <i className="fa fa-search"></i></a></li>
                 <li className="sidebar-divider"></li>
-                <li className="home"><Link to="/browse">Home</Link></li>
-                <li className="your-music"><Link to="/collection/playlists">Your Music</Link></li>
+                <li className="home"><NavLink exact to="/browse" activeClassName="selected">Home</NavLink></li>
+                <li className="your-music"><NavLink exact to="/collection/playlists" activeClassName="selected">Your Music</NavLink></li>
                 <li className="sidebar-divider"></li>
             </ul>
                 <ul className="recently-played-music">

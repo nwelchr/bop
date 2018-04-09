@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { AuthRoute } from '../../util/route_util';
 import PlaylistIndexItem from '../playlists/playlist_index_item';
 
@@ -19,10 +19,11 @@ class BrowseIndex extends React.Component {
             <main className="main" style={this.props.background}>
                 <main className="index-page-wrapper">
                     <nav class="top-nav-bar">
-                        <li className="top-nav-link-wrapper"><Link to="/collection/playlists" className="nav-link-selected">Featured</Link><span class="selected" /></li>
-                        <li className="top-nav-link-wrapper"><Link to="#">Genres & Moods</Link></li>
-                        <li className="top-nav-link-wrapper"><Link to="#">New Releases</Link></li>
-                        <li className="top-nav-link-wrapper"><Link to="#">Discover</Link></li>
+                    <li className="top-nav-link-wrapper"><NavLink exact to="/browse" activeClassName="nav-link-selected"><span>Featured</span></NavLink>
+                        </li>
+                        <li className="top-nav-link-wrapper"><NavLink exact to="#" activeClassName="nav-link-selected"><span>Genres & Moods</span></NavLink></li>
+                        <li className="top-nav-link-wrapper"><NavLink exact to="#" activeClassName="nav-link-selected"><span>New Releases</span></NavLink></li>
+                        <li className="top-nav-link-wrapper"><NavLink to="#" activeClassName="nav-link-selected"><span>Discover</span></NavLink></li>
                     </nav>
 
                     <main className="music-index">

@@ -31,11 +31,14 @@
             position: relative;
         }
 
-        .selected {
+        .nav-link-selected span:before {
+            position: absolute;
             content: '';
-            padding-top: 5px;
             width: 30px;
             height: 1px;
+            bottom: 0;
+            margin-bottom: -5px;
+            left: calc(50% - 15px);
             border-bottom: 2px solid $dark-green;
         }
     }
