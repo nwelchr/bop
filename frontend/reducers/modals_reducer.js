@@ -1,6 +1,6 @@
 import {
-    OPEN_MODAL,
-    CLOSE_MODAL,
+    OPEN_PLAYLIST_FORM,
+    CLOSE_PLAYLIST_FORM,
 } from '../actions/ui_actions';
 
 import merge from 'lodash/merge';
@@ -13,11 +13,14 @@ const initialState = {
 
 const modalsReducer = (oldState = initialState, action) => {
     Object.freeze(oldState);
+    let newState = merge({}, oldState);
     switch(action.type) {
-        case OPEN_MODAL:
-            return merge({}, oldState, { [oldState.newPlaylistModal.isOpen]: true });
-        case CLOSE_MODAL:
-            return merge({}, oldState, { [oldState.newPlaylistModal.isOpen]: false });
+        case OPEN_PLAYLIST_FORM:
+            newState.newPlaylistModal.isOpen = true;
+            return newState;
+        case CLOSE_PLAYLIST_FORM:
+            newState.newPlaylistModal.isOpen = false;
+            return newState;    
         default:
             return oldState;
     }

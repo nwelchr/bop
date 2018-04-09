@@ -5,9 +5,9 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, .9);
-}
+    background: rgba(0, 0, 0, .8);
 
-.your-music .selected {
-    color: green;
+    button {
+        border: 0!important;
+    }
 }

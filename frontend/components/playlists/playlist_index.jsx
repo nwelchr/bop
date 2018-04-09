@@ -3,15 +3,28 @@ import { NavLink, Link } from 'react-router-dom';
 import { AuthRoute } from '../../util/route_util';
 import PlaylistIndexItem from './playlist_index_item';
 
+import NewPlaylistModal from '../modals/new_playlist_modal';
+
 class PlaylistIndex extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = this.props;
     }
 
     componentDidMount() {
         this.props.fetchPlaylists();
     }
+
+    openModal() {
+        this.setState({ isModalOpen: true });
+    }
+
+    closeModal() {
+        this.setState({ isModalOpen: false });
+    }
     
+
     render () {
         if (this.props.loading) { return <div>loading...</div>;}
         else {
@@ -30,8 +43,9 @@ class PlaylistIndex extends React.Component {
                     </nav>
 
                     <nav className="new-playlist">
-                        {/* <Modal /> */}
-                        <button className="new-playlist-button">New Playlist</button>
+                        <button onClick={() => this.props.openPlaylistForm()}className="new-playlist-button">New Playlist</button>
+                        {/* <Modal className="new-playlist-page" isOpen={this.state.isModalOpen} onClose={() => this.closeModal()}/> */}
+                        <NewPlaylistModal />
                     </nav>
 
                 </nav>
@@ -52,4 +66,23 @@ class PlaylistIndex extends React.Component {
 
 export default PlaylistIndex;
 
-// {playlist.songs.map(song => <li>{song.title}</li>)
+class Modal extends React.Component {
+    render() {
+      if (this.props.isOpen === false) {return null;}
+        else {
+      return (
+        <div>
+            <button onClick={e => this.close(e)}>close</button>
+        </div>
+      );
+    }
+    }
+
+    close(e) {
+      e.preventDefault();
+
+      if (this.props.onClose) {
+        this.props.onClose();
+      }
+    }
+  }
