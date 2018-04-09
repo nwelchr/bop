@@ -7,7 +7,7 @@ export const play = () => ({
 });
 
 export const playSong = (song) => ({
-    type: PLAY,
+    type: PLAY_SONG,
     song
 });
 

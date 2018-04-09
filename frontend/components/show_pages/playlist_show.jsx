@@ -52,6 +52,9 @@ class PlaylistShow extends React.Component {
                 fetchSong={this.props.fetchSong}
                 play={this.props.play}
                 playSong={this.props.playSong}
+                currentSong={this.props.currentSong}
+                playing={this.props.playing}
+                pause={this.props.pause}
               />
             );
           })}

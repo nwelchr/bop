@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => {
     return ({
-        currentSong: Object.values(state.entities.songs)[0]
+        currentSong: state.ui.playbar.currentSong
     });
 };
 

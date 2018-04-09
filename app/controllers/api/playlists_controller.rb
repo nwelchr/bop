@@ -37,7 +37,6 @@ class Api::PlaylistsController < ApplicationController
   end
 
   def destroy
-    debugger;
     @playlist = Playlist.find(params[:id])
     if current_user.playlists.include?(@playlist)
       @playlist.destroy!

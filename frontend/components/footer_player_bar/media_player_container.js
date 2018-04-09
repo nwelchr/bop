@@ -6,7 +6,7 @@ import { play, pause } from '../../actions/audio_actions';
 const mapStateToProps = (state, ownProps) => {
     return ({
         playing: state.ui.playbar.playing,
-        currentSong: Object.values(state.entities.songs)[0]
+        currentSong: state.ui.playbar.currentSong
     });
 };
 

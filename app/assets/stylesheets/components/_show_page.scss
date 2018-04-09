@@ -40,12 +40,20 @@
 
         ol {
 
+            .song-index-item-wrapper {
+                padding: 15px 15px 15px 40px;
+                transition: .3s ease;
+
+                &.playing {
+                   
+                }
+            }
+
             .song-index-item {
                 list-style: decimal outside;
-                padding: 15px;
-                padding-left: 0px;
-                transition: .3s ease;
                 position: relative;
+                width: 100%;
+                height: 100%;
 
                 span {
                     color: #fff;
@@ -53,24 +61,40 @@
                 }
             }
 
-            .song-index-item:hover {
+            .song-index-item-wrapper:hover .song-index-item, .playing .song-index-item {
                 list-style: none;
             }
 
-            .song-index-item:hover:before {
+            .song-index-item-wrapper:hover .song-index-item:before, .playing .song-index-item:before {
                 content: '';
                 position: absolute;
-                left: -50px;
-                background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Play_font_awesome.svg/512px-Play_font_awesome.svg.png');
-                width: 20px;
-                height: 20px;
+                left: -20px;
+                background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/utility/play_large.png');
+                background-size: 13px;
+                background-position: auto;
+                width: 13px;
+                height: 15px;
             }
 
-            li:hover {
+            .playing .song-index-item:before, .playing:hover .song-index-item:before {
+                background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/utility/pause_large.png');
+
+            }
+
+
+            .song-index-item-wrapper:hover, .playing {
                 background: rgba(0, 0, 0, .5);
             }
         }
    }
+}
+
+.song-index-item-wrapper {
+    display: flex;
+
+    .add-song-wrapper {
+
+    }
 }
 
 
@@ -101,4 +125,13 @@
     cursor: default;
     transform: scale(1.05);
     border-color: #eee;
+}
+
+.dropdown-menu {
+    background-color: red;
+    color: red!important;
+
+    .song-dropdown {
+        background-color: red!important;
+    }
 }
