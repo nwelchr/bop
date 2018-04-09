@@ -4,7 +4,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 15px 0px;
+    padding: 30px 0px 15px 0px;
 
     .top-nav-link-wrapper {
         margin: 20px;
@@ -40,4 +40,43 @@
         }
     }
 
+}
+
+.nav-flex-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.nav-empty, .new-playlist {
+    flex: 1;
+}
+
+.top-nav-bar {
+    flex: 2;
+}
+
+
+.new-playlist {
+    transition: .05s ease;
+    display: flex;
+    justify-content: center;
+}
+
+.new-playlist-button {
+    padding: 11px 18px;
+    background-color: $dark-green;
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: #fff;
+    letter-spacing: 2px;
+    transition: .05s ease;
+    transform: scale(1);
+}
+
+.new-playlist-button:hover {
+    cursor: default;
+    transform: scale(1.05);
+    background-color: $light-green;
 }

@@ -5,7 +5,6 @@ import { fetchPlaylists, fetchPlaylist } from '../../actions/playlist_actions';
 import { play } from '../../actions/audio_actions';
 
 const mapStateToProps = (state) => {
-    debugger;
     return({
         playlists: Object.values(state.entities.playlists),
         loading: state.ui.loading.global,

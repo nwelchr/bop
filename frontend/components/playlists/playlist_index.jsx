@@ -18,6 +18,8 @@ class PlaylistIndex extends React.Component {
             return (
             <main className="main" style={this.props.background}>
                 <main className="index-page-wrapper">
+                <nav class="nav-flex-wrapper">
+                <nav class="nav-empty" />
                     <nav class="top-nav-bar">
                         <li className="top-nav-link-wrapper"><Link to="/collection/playlists" className="nav-link-selected">Playlists</Link><span class="selected" /></li>
                         <li className="top-nav-link-wrapper"><Link to="#">Your Daily Mix</Link></li>
@@ -25,6 +27,12 @@ class PlaylistIndex extends React.Component {
                         <li className="top-nav-link-wrapper"><Link to="#">Albums</Link></li>
                         <li className="top-nav-link-wrapper"><Link to="#">Artists</Link></li>
                     </nav>
+
+                    <nav class="new-playlist">
+                        <Link className="new-playlist-button" to="/playlists/new">New Playlist</Link>
+                    </nav>
+
+                </nav>
 
                     <main className="music-index">
                         <ul>
