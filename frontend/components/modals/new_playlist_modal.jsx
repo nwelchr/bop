@@ -9,7 +9,7 @@ class NewPlaylistModal extends React.Component {
     super(props);
 
     this.state = {
-        name: '',
+        name: ''
     };
 
     this.handleInput = this.handleInput.bind(this);
@@ -23,12 +23,13 @@ class NewPlaylistModal extends React.Component {
   }
 
   handleSubmit(e) {
+      e.preventDefault(); 
       this.props.createPlaylist(this.state).then(playlist => this.redirect());
   }
 
   redirect() {
     this.props.closePlaylistForm();
-    // this.props.history.goBack();
+    this.props.history.push(`/collection/playlists/${this.props.playlistId}`);
   }
 
   handleCancel() {
@@ -72,10 +73,17 @@ class NewPlaylistModal extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  let playlistId;
+  if (state.entities.playlists.newId) {
+    playlistId = state.entities.playlists.newId;
+  } else {
+    playlistId = null;
+  }
   return {
     isModalOpen: state.ui.modals.newPlaylistModal.isOpen,
-    currentUser: state.session.currentUser
+    currentUser: state.session.currentUser,
+    playlistId
   };
 };
 
