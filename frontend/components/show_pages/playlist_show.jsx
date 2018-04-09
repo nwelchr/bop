@@ -14,6 +14,24 @@ class PlaylistShow extends React.Component {
     }
 
     render() {
+        let PlaylistSongs;
+        if (!(typeof this.props.playlist.songs === "undefined"))
+        { PlaylistSongs = (<ol>
+            {this.props.playlist.songs.map(song => {
+                return (
+                <SongIndexItem 
+                    key={song.id} 
+                    song={song} 
+                    fetchSong={this.props.fetchSong}
+                    play={this.props.play}
+                    playSong={this.props.playSong}
+                    />);
+            })}
+        </ol>);
+        } else {
+            PlaylistSongs = <div />;
+        }
+
         if (this.props.loading) { console.log("loading...");}
         if ((typeof this.props.playlist === "undefined") || (typeof this.props.playlist.songs === "undefined")) {
             return <div>"loading..."</div>;
@@ -21,24 +39,12 @@ class PlaylistShow extends React.Component {
         else {
             return (
                 <main className="main" style={this.props.background}>
-                <main class="show-page-main">
-                    <section class="show-info">
+                <main className="show-page-main">
+                    <section className="show-info">
                         <PlaylistIndexItem key={this.props.playlist.id} playlist={this.props.playlist} />
-                        
                     </section>
                     <section class="show-songs">
-                        <ol>
-                            {this.props.playlist.songs.map(song => {
-                                return (
-                                <SongIndexItem 
-                                    key={song.id} 
-                                    song={song} 
-                                    fetchSong={this.props.fetchSong}
-                                    play={this.props.play}
-                                    playSong={this.props.playSong}
-                                    />);
-                            })}
-                        </ol>
+                        {PlaylistSongs}
                     </section>
                 </main>
                 </main>

@@ -1,5 +1,10 @@
 @import './base/colors.scss';
 
+
+.player {
+    z-index: 3;
+}
+
 .footer-bar {
     font-size: 10px;
     display: flex;

@@ -59,33 +59,6 @@
     flex: 2;
 }
 
-
-.new-playlist {
-    transition: .05s ease;
-    display: flex;
-    justify-content: center;
-}
-
-.new-playlist-button {
-    border: 0;
-    outline: 0;
-    padding: 11px 18px;
-    background-color: $dark-green;
-    border-radius: 20px;
-    text-transform: uppercase;
-    font-size: 11px;
-    color: #fff;
-    letter-spacing: 2px;
-    transition: .05s ease;
-    transform: scale(1);
-}
-
-.new-playlist-button:hover {
-    cursor: default;
-    transform: scale(1.05);
-    background-color: $light-green;
-}
-
-.new-playlist-button:active {
-    transform: scale(1);
+.top-nav-link-wrapper span {
+    white-space: nowrap;
 }

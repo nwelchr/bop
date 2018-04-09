@@ -7,7 +7,6 @@ import { play } from '../../actions/audio_actions';
 import { openPlaylistForm } from '../../actions/ui_actions';
 
 const mapStateToProps = (state) => {
-    // console.log(state.ui.modals.newPlaylistModal.isOpen);
     return({
         playlists: Object.values(state.entities.playlists),
         loading: state.ui.loading.global,

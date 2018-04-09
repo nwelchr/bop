@@ -1,133 +1,132 @@
 @import "./base/colors.scss";
 
 body {
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    color: rgba(255, 255, 255, .6);
-  }
-  
-  .app-wrapper {
-    display: flex;
-    width: 100%;
-    height: calc(100vh);
-  }
-
-  .main-wrapper {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
-    background-color: #222;
-    width: 100%;
-    height: 100%;
-  }
-
-  
-  .sidebar {
-    padding: 20px;
-    position: fixed;
-    // background-color: blue!important;
-    width: 220px;
-    box-sizing: border-box;
-    height: 100%;
-    background: rgba(0, 0, 0, .6);
-
-
-    .logo {
-        margin-left: 3px;
-        width: 35px;
-        margin-bottom: 10px;
-    }
-
-    .sidebar-main {
-
-        // background-color: purple!important;
-
-        .search {
-            // background-color: red!important;
-            a {
-                display: flex;
-                justify-content: space-between;
-            }
-        }
-
-        .search:hover {
-          cursor: pointer;
-        }
-
-        a {
-            color: #bbb;
-            width: 100%;
-            display: block;
-            transition: color .3s ease;
-            letter-spacing: .5px;
-        }
-
-        a:hover {
-          color: #fff;
-        }
-        
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  color: rgba(255, 255, 255, 0.6);
 }
-  }
-  
-  .sidebar li {
-    margin: 15px 10px;
-    // background-color: green!important;
-    font-size: 14px;
+
+.app-wrapper {
+  display: flex;
+  width: 100%;
+  height: calc(100vh);
+}
+
+.main-wrapper {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+  background-color: #222;
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar {
+  padding: 20px;
+  position: fixed;
+  // background-color: blue!important;
+  width: 220px;
+  box-sizing: border-box;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+
+  .logo {
+    margin-left: 3px;
+    width: 35px;
+    margin-bottom: 10px;
   }
 
-  .sidebar-main li {
-    font-size: 16px;
-    font-weight: bold;
+  .sidebar-main {
+    // background-color: purple!important;
 
-    .selected {
-      color: $dark-green;
+    .search {
+      // background-color: red!important;
+      a {
+        display: flex;
+        justify-content: space-between;
+      }
     }
 
-    .selected:hover {
-      color: $dark-green;
+    .search:hover {
+      cursor: pointer;
+    }
+
+    a {
+      color: #bbb;
+      width: 100%;
+      display: block;
+      transition: color 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    a:hover {
+      color: #fff;
     }
   }
+}
 
-  .recently-played-music li {
+.sidebar li {
+  margin: 15px 10px;
+  // background-color: green!important;
+  font-size: 14px;
+}
 
+.sidebar-main li {
+  font-size: 16px;
+  font-weight: bold;
+
+  .selected {
+    color: $dark-green;
   }
-  
-  .sidebar .sidebar-divider {
-    padding: 0;
-    height: 1px;
-    background-color: rgba(255, 255, 255, .25);
-    width: 100%;
+
+  .selected:hover {
+    color: $dark-green;
   }
-  
-  .recently-played {
-    text-transform: lowercase;
-    font-variant: small-caps;
-    letter-spacing: 1px;
-  }
-  
-  .main {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
-    width: calc(100% - 200px);
-    height: calc(100% - 200px);
-    background-color: #3c3f5b;
-    padding-left: 200px;
-    padding-bottom: 200px;
+}
+
+.recently-played-music li {
+}
+
+.sidebar .sidebar-divider {
+  padding: 0;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.25);
+  width: 100%;
+}
+
+.recently-played {
+  text-transform: lowercase;
+  font-variant: small-caps;
+  letter-spacing: 1px;
+}
+
+.main {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+  width: calc(100% - 200px);
+  height: calc(100% - 200px);
+  background-color: #3c3f5b;
+  padding-left: 200px;
+  padding-bottom: 200px;
+  overflow: scroll;
 
   .index-page-wrapper {
     padding: 0px 75px;
   }
 
-    // background-color: #705a27;
-    // background-color: #2e263b;
-    // background-color: #613136;
-    // background-color: #20415e;
-    // background-color: #868611;
-  }
-  
-  .player {
-    position: fixed;
-    bottom: 0;
-    background-color: #282828;
-    width: 100%;
-    height: 90px;
-    border-top: 1px solid #000;
-  }
-  
+  // background-color: #705a27;
+  // background-color: #2e263b;
+  // background-color: #613136;
+  // background-color: #20415e;
+  // background-color: #868611;
+}
+
+.player {
+  position: fixed;
+  bottom: 0;
+  background-color: #282828;
+  width: 100%;
+  height: 90px;
+  border-top: 1px solid #000;
+}
+
+* {
+  background-attachment: fixed!important;
+}
