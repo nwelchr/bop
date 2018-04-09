@@ -12,10 +12,18 @@ export const fetchSong = (id) => {
     });
 };
 
-export const saveTrackToPlaylist = (trackId, playlistId) => (
+export const saveSongToPlaylist = (songId, playlistId) => (
     $.ajax({
         method: 'POST',
-        url: `api/playlists/${playlistId}/tracks`,
-        data: { trackId }
+        url: `api/playlists/${playlistId}/songs`,
+        data: { songId }
+    })
+);
+
+export const removeSongFromPlaylist = (songId, playlistId) => (
+    $.ajax({
+        method: 'DELETE',
+        url: `api/playlists/${playlistId}/songs`,
+        data: { songId }
     })
 );

@@ -43,16 +43,37 @@ class Api::PlaylistsController < ApplicationController
   end
 
   def add_song
-    debugger
-    @playlist_id = params[:id]
-    @song_id = params[:songId]
-
-    @saved_song = SavedSong.new(playlist_id: @playlist_id, song_id: @song_id)
-    if @saved_song.save
-      render json: ['Song successfully saved!']
+    if current_user.playlists.include?(Playlist.find(params[:id]))
+      @playlist_id = params[:id]
+      @song_id = params[:songId]
+      @saved_song = SavedSong.new(playlist_id: @playlist_id, song_id: @song_id)
+      if @saved_song.save
+        render json: ['Song successfully saved!']
+      else
+        render json: @saved_song.errors.full_messages, status: 422
+      end
     else
-      render json: @saved_song.errors.full_messages, status: 422
+      render json: ['Cannot add song to other user\'s playlist']
     end
+  end
+
+  def remove_song
+    if current_user.playlists.include?(Playlist.find(params[:id]))
+      @playlist_id = params[:id]
+      @song_id = params[:songId]
+
+      @saved_song = SavedSong.where("playlist_id = :playlist_id AND song_id = :song_id", playlist_id: @playlist_id, song_id: @song_id).first
+
+      if @saved_song.destroy
+        render json: ['Successfully removed song!']
+      else
+        render json: ['Issue with removing song']
+      end
+    else
+      render json: ['Cannot remove song from other user\'s playlist']
+    end
+
+    
   end
 
   private 
