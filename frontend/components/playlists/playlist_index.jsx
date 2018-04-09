@@ -17,19 +17,22 @@ class PlaylistIndex extends React.Component {
         else {
             return (
             <main className="main" style={this.props.background}>
-             <nav class="top-nav-bar">
-                <li className="top-nav-link-wrapper"><Link to="/collection/playlists" className="nav-link-selected">Playlists</Link><span class="selected" /></li>
-                <li className="top-nav-link-wrapper"><Link to="#">Your Daily Mix</Link></li>
-                <li className="top-nav-link-wrapper"><Link to="#">Songs</Link></li>
-                <li className="top-nav-link-wrapper"><Link to="#">Albums</Link></li>
-                <li className="top-nav-link-wrapper"><Link to="#">Artists</Link></li>
-            </nav>
-            <main className="music-index">
-                <ul>
-                    {this.props.playlists.map(playlist => 
-                                <PlaylistIndexItem key={playlist.id} playlist={playlist} />
-                    )}
-                </ul>
+                <main className="index-page-wrapper">
+                    <nav class="top-nav-bar">
+                        <li className="top-nav-link-wrapper"><Link to="/collection/playlists" className="nav-link-selected">Playlists</Link><span class="selected" /></li>
+                        <li className="top-nav-link-wrapper"><Link to="#">Your Daily Mix</Link></li>
+                        <li className="top-nav-link-wrapper"><Link to="#">Songs</Link></li>
+                        <li className="top-nav-link-wrapper"><Link to="#">Albums</Link></li>
+                        <li className="top-nav-link-wrapper"><Link to="#">Artists</Link></li>
+                    </nav>
+
+                    <main className="music-index">
+                        <ul>
+                            {this.props.playlists.map(playlist => 
+                                        <PlaylistIndexItem key={playlist.id} playlist={playlist} />
+                            )}
+                        </ul>
+                    </main>
                 </main>
             </main>
         );

@@ -22,13 +22,15 @@ body {
     padding: 20px;
     position: fixed;
     // background-color: blue!important;
-    width: 160px;
+    width: 220px;
+    box-sizing: border-box;
     height: 100%;
     background: rgba(0, 0, 0, .6);
 
 
     .logo {
-        width: 30px;
+        margin-left: 3px;
+        width: 35px;
         margin-bottom: 10px;
     }
 
@@ -44,17 +46,38 @@ body {
             }
         }
 
-        a {
-            // background-color: orange!important;
-            width: 100%;
-            display: block
+        .search:hover {
+          cursor: pointer;
         }
+
+        a {
+            color: #bbb;
+            width: 100%;
+            display: block;
+            transition: color .3s ease;
+            letter-spacing: .5px;
+        }
+
+        a:hover {
+          color: #fff;
+        }
+        
 }
   }
   
   .sidebar li {
-    padding: 10px;
+    margin: 15px 10px;
     // background-color: green!important;
+    font-size: 14px;
+  }
+
+  .sidebar-main li {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .recently-played-music li {
+
   }
   
   .sidebar .sidebar-divider {
@@ -77,6 +100,11 @@ body {
     background-color: #3c3f5b;
     padding-left: 200px;
     padding-bottom: 200px;
+
+  .index-page-wrapper {
+    padding: 0px 75px;
+  }
+
     // background-color: #705a27;
     // background-color: #2e263b;
     // background-color: #613136;

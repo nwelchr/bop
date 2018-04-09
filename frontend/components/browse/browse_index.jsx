@@ -17,19 +17,21 @@ class BrowseIndex extends React.Component {
         else {
             return (
             <main className="main" style={this.props.background}>
-            <nav class="top-nav-bar">
-                <li className="top-nav-link-wrapper"><Link to="/collection/playlists" className="nav-link-selected">Featured</Link><span class="selected" /></li>
-                <li className="top-nav-link-wrapper"><Link to="#">Genres & Moods</Link></li>
-                <li className="top-nav-link-wrapper"><Link to="#">New Releases</Link></li>
-                <li className="top-nav-link-wrapper"><Link to="#">Discover</Link></li>
-            </nav>
-            
-            <main className="music-index">
-                <ul>
-                    {this.props.playlists.map(playlist => 
-                                <PlaylistIndexItem key={playlist.id} playlist={playlist} />
-                    )}
-                </ul>
+                <main className="index-page-wrapper">
+                    <nav class="top-nav-bar">
+                        <li className="top-nav-link-wrapper"><Link to="/collection/playlists" className="nav-link-selected">Featured</Link><span class="selected" /></li>
+                        <li className="top-nav-link-wrapper"><Link to="#">Genres & Moods</Link></li>
+                        <li className="top-nav-link-wrapper"><Link to="#">New Releases</Link></li>
+                        <li className="top-nav-link-wrapper"><Link to="#">Discover</Link></li>
+                    </nav>
+
+                    <main className="music-index">
+                        <ul>
+                            {this.props.playlists.map(playlist => 
+                                        <PlaylistIndexItem key={playlist.id} playlist={playlist} />
+                            )}
+                        </ul>
+                    </main>
                 </main>
             </main>
         );

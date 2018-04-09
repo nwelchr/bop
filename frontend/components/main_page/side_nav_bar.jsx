@@ -13,6 +13,7 @@ class SideNavBar extends React.Component {
                 <li className="home"><Link to="/browse">Home</Link></li>
                 <li className="your-music"><Link to="/collection/playlists">Your Music</Link></li>
                 <li className="sidebar-divider"></li>
+            </ul>
                 <ul className="recently-played-music">
                     <li className="recently-played">Recently Played</li>
                     <li>Azealia</li>
@@ -21,7 +22,6 @@ class SideNavBar extends React.Component {
                     <li>Azealia</li>
                     <li>Azealia</li>
                 </ul>
-            </ul>
         </aside>
         );
     }
