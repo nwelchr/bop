@@ -1,17 +1,16 @@
 class SearchesController < ApplicationController
   def index
     search do
-      @albums = Album.where(title: params[:query_string])
-      @artists = Artist.where(name: params[:query_string])
-      @songs = Song.where(title: params[:query_string])
-      @tracks = Track.where(title: params[:query_string])
-
-      sort_by_popularity(concat(@albums, @artists, @songs, @tracks))
-      sort_by_num_plays(concat(@albums, @artists, @songs, @tracks))
-      sort_by_relevance(concat(@albums, @artists, @songs, @tracks))
-      sort_by_query_exactness(concat(@albums, @artists, @songs, @tracks))
+      @playlists = Playlist.where("name ~* ?", params[:query_string])
+      @albums = Album.where("title ~* ?", params[:query_string])
+      @artists = Artist.where("name ~* ?" params[:query_string])
+      @songs = Song.where("title ~* ?" params[:query_string])
+      @users = User.where("username ~* ?", params[:query_string])
     end
 
+  end
+
+  def weight(query)
   end
 
   private
