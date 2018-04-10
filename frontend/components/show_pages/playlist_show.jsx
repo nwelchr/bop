@@ -68,6 +68,7 @@ class PlaylistShow extends React.Component {
                 removeSongFromPlaylist={this.props.removeSongFromPlaylist}
                 playlist={this.props.playlist}
                 fetchPlaylist={this.props.fetchPlaylist}
+                currentUser={this.props.currentUser}
               />
             );
           })}

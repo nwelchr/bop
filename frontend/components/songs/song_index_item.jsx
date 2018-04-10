@@ -77,7 +77,7 @@ class SongIndexItem extends React.Component {
     const songDropdown = (
       <ul class="song-dropdown">
         <li onClick={(e) => this.openAddToPlaylistModal(e)} class="dropdown-li">Add to Playlist</li>
-        <li onClick={(e) => this.removeFromPlaylist(e)} class="dropdown-li">Remove from this Playlist</li>
+        {(this.props.currentUser.id === this.props.playlist.creator_id) ? (<li onClick={(e) => this.removeFromPlaylist(e)} class="dropdown-li">Remove from this Playlist</li>) : ""}
       </ul>
     );
 
