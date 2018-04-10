@@ -1,0 +1,54 @@
+@import './base/colors.scss';
+
+
+// SEARCHBAR
+
+.search-container {
+    margin-left: 220px;
+    padding: 0;
+    margin-top: 0!important;
+}
+
+.main-search-bar {
+    padding: 0;
+    margin: 0!important;
+}
+
+.search-heading {
+    font-size: 13px;
+    font-weight: normal;
+    color: #fff;
+    letter-spacing: .8px;
+    padding-bottom: 3px;
+}
+
+.search-form-input {
+    padding: 30px;
+    width: 100%;
+    background-color: #282828;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.search-input {
+    width: 100%;
+}
+
+.search-input {
+    background-color: transparent;
+    font-size: 50px;
+    font-weight: bold;
+    color: #fff;
+    border: 0;
+    outline: 0;
+    caret-color: $dark-green;
+}
+
+.search-input::placeholder {
+    color: #535353;
+    font-weight: bold;
+}
+
+// RESULTS
+

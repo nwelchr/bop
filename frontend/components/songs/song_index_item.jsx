@@ -70,7 +70,7 @@ class SongIndexItem extends React.Component {
 
   removeFromPlaylist(e) {
     e.stopPropagation();
-    this.props.removeSongFromPlaylist(this.props.song.id, this.props.playlist.id);
+    this.props.removeSongFromPlaylist(this.props.song.id, this.props.playlist.id).then(response => this.props.fetchPlaylist(this.props.playlist.id));
   }
 
   render() {

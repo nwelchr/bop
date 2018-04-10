@@ -35,15 +35,15 @@ export const fetchSong = (songId) => (dispatch) => (
     APIUtil.fetchSong(songId).then(song => dispatch(receiveSong(song)))
 );
 
-export const saveSongToPlaylist = (songId, playlistId) => (dispatch) => {
+export const saveSongToPlaylist = (songId, playlistId) => (dispatch) => (
     APIUtil.saveSongToPlaylist(songId, playlistId).then(response => {
         dispatch(receivePlaylistSongSave(response));
         }
-    );
-};
+    )
+);
 
-export const removeSongFromPlaylist = (songId, playlistId) => (dispatch) => {
+export const removeSongFromPlaylist = (songId, playlistId) => (dispatch) => (
     APIUtil.removeSongFromPlaylist(songId, playlistId).then(response => {
         dispatch(removePlaylistSongSave(response));
-    });
-};
+    })
+);

@@ -18,8 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     store = configureStore();
   }
-
-
   
   // for testing
   window.fetchSearchResults = fetchSearchResults;

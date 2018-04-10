@@ -1,7 +1,8 @@
 import React from "react";
-import { closePlaylistForm } from "../../actions/ui_actions";
+// import { closePlaylistForm } from "../../actions/ui_actions";
 import { connect } from "react-redux";
-import fetchSearchResults from '../../actions/search_actions';
+import { withRouter } from 'react-router-dom';
+import { fetchSearchResults } from '../../actions/search_actions';
 
 
 const WAIT_INTERVAL = 500;
@@ -28,16 +29,19 @@ class SearchBar extends React.Component {
     clearTimeout(this.timer);
     this.setState({ query: e.target.value });
     this.timer = setTimeout(this.triggerChange, WAIT_INTERVAL);
+    this.triggerChange();
   }
 
   triggerChange() {
       const { query } = this.state;
-      console.log (query);
-      this.props.fetchSearchResults(query);
+      console.warn(this.props.fetchSearchResults(query));
+      // .then(results => query ? this.props.history.push(`/search/results/${query}`) : this.props.history.push(`/search`));
+      // query ? this.props.history.push(`/search/results/${query}`) : this.props.history.push(`/search`);
   }
 
   handleKeyDown(e) {
     if (e.keyCode === ENTER_KEY) {
+        e.preventDefault();
         this.triggerChange();
     }
   }
@@ -45,12 +49,12 @@ class SearchBar extends React.Component {
   render() {
       console.log(this.props);
     return (
-      <div className="search-bar-wrapper">
-          <h1 className="create-new-playlist-h1">Search for an Artist, Song, Album, or Playlist</h1>
-          <form className="new-playlist-form">
-            <section className="new-playlist-form-input">
+        <main class="main-search-bar">
+          <form className="search-form">
+            <section className="search-form-input">
+          <h1 className="search-heading">Search for an Artist, Song, Album, or Playlist</h1>
               <input
-                className="new-playlist-input"
+                className="search-input"
                 value={this.state.query}
                 onChange={this.handleChange}
                 onKeyDown={this.handleKeyDown}
@@ -59,7 +63,7 @@ class SearchBar extends React.Component {
               />
             </section>
           </form>
-        </div>
+          </main>
     );
   }
 }
@@ -67,8 +71,8 @@ class SearchBar extends React.Component {
 const mapStateToProps = (state, ownProps) => {
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     fetchSearchResults: (query) => dispatch(fetchSearchResults(query))
 });
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+export default withRouter(connect(null, mapDispatchToProps)(SearchBar));

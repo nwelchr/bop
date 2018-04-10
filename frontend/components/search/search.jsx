@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Route } from 'react-router-dom';
 import SearchBar from './search_bar';
 import SearchResults from './search_results';
 
@@ -10,9 +11,9 @@ class Search extends React.Component {
 
   render() {
     return (
-        <div>
+        <div class="search-container">
             <SearchBar />
-            <SearchResults />
+            <Route path="/search/results/" component={SearchResults} />
         </div>
     );
   }
