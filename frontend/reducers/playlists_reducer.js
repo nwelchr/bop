@@ -30,9 +30,8 @@ const playlistsReducer = (oldState = [], action) => {
         case RECEIVE_MODAL_PLAYLISTS:
             return merge({}, oldState, { playlists: action.playlists }, { songId: action.songId });
         case RECEIVE_PLAYLIST_SONG_SAVE:
-            return action.data;
+            return merge({}, oldState, action.payload.playlist);
         case REMOVE_PLAYLIST_SONG_SAVE:
-            return action.data;
         default:
             return oldState;
     }

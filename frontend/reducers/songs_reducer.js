@@ -1,10 +1,14 @@
 import merge from 'lodash/merge';
 
-import { RECEIVE_SONGS,
+import { 
+    RECEIVE_SONGS,
     RECEIVE_SONG
 } from '../actions/song_actions';
 
-import { RECEIVE_PLAYLIST } from '../actions/playlist_actions';
+import { 
+    RECEIVE_PLAYLIST,
+    RECEIVE_PLAYLIST_SONG_SAVE
+ } from '../actions/playlist_actions';
 
 const songsReducer = (oldState = [], action) => {
     Object.freeze(oldState);
@@ -14,6 +18,8 @@ const songsReducer = (oldState = [], action) => {
         case RECEIVE_SONG:
             return ({}, oldState, {[action.song.id]: action.song} );
         case RECEIVE_PLAYLIST:
+            return ({}, oldState, action.payload.songs || []);
+        case RECEIVE_PLAYLIST_SONG_SAVE:
             return ({}, oldState, action.payload.songs);
         default:
             return oldState;

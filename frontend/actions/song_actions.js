@@ -17,14 +17,14 @@ const receiveSong = (song) => ({
     song
 });
 
-const receivePlaylistSongSave = (data) => ({
+const receivePlaylistSongSave = (payload) => ({
     type: RECEIVE_PLAYLIST_SONG_SAVE,
-    data
+    payload
 });
 
-const removePlaylistSongSave = (data) => ({
+const removePlaylistSongSave = (payload) => ({
     type: REMOVE_PLAYLIST_SONG_SAVE,
-    data
+    payload
 });
 
 export const fetchSongs = () => (dispatch) => (
