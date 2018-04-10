@@ -29,9 +29,9 @@ const receiveModalPlaylists = (playlists, songId) => ({
     songId
 });
 
-export const receiveCreatedPlaylist = (playlist) => ({
+export const receiveCreatedPlaylist = (payload) => ({
     type: RECEIVE_CREATED_PLAYLIST, 
-    playlist
+    payload
 });
 
 export const fetchPlaylists = (shouldFetchAll) => (dispatch) => {

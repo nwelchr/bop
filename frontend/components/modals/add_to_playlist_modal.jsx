@@ -32,7 +32,7 @@ class AddToPlaylistModal extends React.Component {
     if (!this.props.isModalOpen) {
       return null;
     }
-
+    
     return (
       <div className="add-song-to-playlist-modal">
         <div className="add-song-to-playlist-wrapper">
@@ -59,13 +59,10 @@ class AddToPlaylistModal extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    let playlists = state.entities.playlists.playlists;
-    if (typeof playlists === "undefined" || typeof Object.values(playlists) === "undefined" || typeof Object.values(playlists) === "undefined") { playlists = null; }
-    else { playlists = Object.values(playlists); }
   return {
+    playlists: Object.values(state.entities.playlists),
     isModalOpen: state.ui.modals.addToPlaylistModal.isOpen,
     currentUser: state.session.currentUser,
-    playlists: playlists,
     songId: state.entities.playlists.songId
   };
 };
@@ -75,7 +72,7 @@ const mapDispatchToProps = dispatch => {
     closeAddToPlaylistForm: () => dispatch(closeAddToPlaylistForm()),
     saveSongToPlaylist: (songId, playlistId) => dispatch(saveSongToPlaylist(songId, playlistId)),
     fetchPlaylists: () => dispatch(fetchPlaylists()),
-    fetchModalPlaylists: () => dispatch(fetchModalPlaylists()),
+    // fetchModalPlaylists: () => dispatch(fetchModalPlaylists()),
   };
 };
 

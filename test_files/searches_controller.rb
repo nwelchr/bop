@@ -11,6 +11,7 @@ class SearchesController < ApplicationController
   end
 
   def weight(query)
+    result.scan(/regex/)
   end
 
   private

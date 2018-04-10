@@ -1,8 +1,5 @@
 json.playlist do 
     json.partial! 'api/playlists/playlist', playlist: @playlist
-    json.songs do
-        json.array! @playlist.songs.collect { |song| song.id }
-    end
 end
 
 if @playlist.songs.length > 0
