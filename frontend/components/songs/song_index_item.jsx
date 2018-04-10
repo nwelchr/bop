@@ -1,16 +1,22 @@
 import React from "react";
+import merge from 'lodash/merge';
+
+import AddToPlaylistModal from '../modals/add_to_playlist_modal';
 
 class SongIndexItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      dropdownIsOpen: false
-    };
+    this.state = merge({}, this.props, { dropdownIsOpen: false });
 
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
     this.handleFetchSong = this.handleFetchSong.bind(this);
+    this.handleDropdownClick = this.handleDropdownClick.bind(this);
 }
+
+  componentWillUnmount() {
+    console.log('hi');
+  }
 
   handleClick() {
     // crazy logic: 
@@ -60,10 +66,15 @@ class SongIndexItem extends React.Component {
       e.preventDefault();
   }
 
+  handleDropdownClick(e) {
+      e.stopPropagation();
+      this.props.fetchModalPlaylists(this.props.song.id).then(response => this.props.openAddToPlaylistForm());
+  }
+
   render() {
     const songDropdown = (
       <ul class="song-dropdown">
-        <li class="dropdown-li">Add to Playlist</li>
+        <li onClick={(e) => this.handleDropdownClick(e)} class="dropdown-li">Add to Playlist</li>
         <li class="dropdown-li">Copy Song Link</li>
       </ul>
     );
@@ -94,7 +105,7 @@ class SongIndexItem extends React.Component {
             <div
               className={
                 ("dropdown-menu ") + (this.state.dropdownIsOpen ? "clicked" : ""
-                )}>
+              )}>
               {songDropdown}
             </div>
           </div>

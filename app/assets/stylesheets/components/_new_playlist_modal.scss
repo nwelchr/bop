@@ -1,0 +1,44 @@
+.add-song-to-playlist-modal {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .8);
+    background-attachment: fixed;
+    overflow: scroll;
+    
+    z-index: 5;
+    top: 0;
+    left: 0;
+
+    .add-song-to-playlist-wrapper {
+        padding: 100px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .close-modal-button {
+        background-color: transparent;
+        border: 0;
+        outline: 0;
+
+        .fa-times {
+            font-size: 70px;
+            transform: scale(1);
+            color: #bbb;
+            transition: .1s ease;
+        }
+
+        .fa-times:hover {
+            transform: scale(1.1);
+            color: #fff;
+        }
+
+    }
+            .modal-index ul {
+                justify-content: center;
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+}

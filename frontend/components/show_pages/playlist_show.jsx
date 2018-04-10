@@ -4,6 +4,8 @@ import { AuthRoute } from "../../util/route_util";
 import SongIndexItem from "../songs/song_index_item";
 import PlaylistIndexItem from "../playlists/playlist_index_item";
 
+import AddToPlaylistModal from '../modals/add_to_playlist_modal';
+
 class PlaylistShow extends React.Component {
   constructor(props) {
     super(props);
@@ -23,6 +25,12 @@ class PlaylistShow extends React.Component {
     this.props
       .fetchPlaylist(this.props.match.params.playlistId)
       .then(response => this.handleResponse());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.playlistId != nextProps.match.params.playlistId) {
+      this.props.fetchPlaylist(nextProps.match.params.playlistId).then(response => this.handleResponse());
+    }
   }
 
   handleResponse() {
@@ -55,6 +63,8 @@ class PlaylistShow extends React.Component {
                 currentSong={this.props.currentSong}
                 playing={this.props.playing}
                 pause={this.props.pause}
+                openAddToPlaylistForm={this.props.openAddToPlaylistForm}
+                fetchModalPlaylists={this.props.fetchModalPlaylists}
               />
             );
           })}
@@ -97,12 +107,14 @@ class PlaylistShow extends React.Component {
                 <PlaylistIndexItem
                   key={this.props.playlist.id}
                   playlist={this.props.playlist}
+                  renderButton={true}
                 />
                 <section className="delete-button-wrapper">
                   {this.DeletePlaylistButton}
                 </section>
               </section>
             </section>
+            {/* <AddToPlaylistModal /> */}
             <section className="show-songs">{this.PlaylistSongs}</section>
           </main>
         </main>

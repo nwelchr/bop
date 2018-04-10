@@ -37,9 +37,8 @@ export const fetchSong = (songId) => (dispatch) => (
 );
 
 export const saveSongToPlaylist = (songId, playlistId) => (dispatch) => {
-    APIUtil.saveSongToPlaylist(songId, playlistId).then(playlist => {
-        dispatch(receivePlaylist(playlist));
-        // dispatch(receivePlaylistSongSave(response));
+    APIUtil.saveSongToPlaylist(songId, playlistId).then(response => {
+        dispatch(receivePlaylistSongSave(response));
         }
     );
 };

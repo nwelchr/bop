@@ -6,6 +6,7 @@ export const RECEIVE_PLAYLISTS = "RECEIVE_PLAYLISTS";
 export const RECEIVE_PLAYLIST = "RECEIVE_PLAYLIST";
 export const REMOVE_PLAYLIST = "REMOVE_PLAYLIST";
 export const RECEIVE_CREATED_PLAYLIST = "RECEIVE_CREATED_PLAYLIST";
+export const RECEIVE_MODAL_PLAYLISTS = "RECEIVE_MODAL_PLAYLISTS";
 
 const receivePlaylists = (playlists) => ({
     type: RECEIVE_PLAYLISTS,
@@ -22,6 +23,12 @@ const removePlaylist = (id) => ({
     id
 });
 
+const receiveModalPlaylists = (playlists, songId) => ({
+    type: RECEIVE_MODAL_PLAYLISTS,
+    playlists,
+    songId
+});
+
 export const receiveCreatedPlaylist = (playlist) => ({
     type: RECEIVE_CREATED_PLAYLIST, 
     playlist
@@ -31,6 +38,12 @@ export const fetchPlaylists = (shouldFetchAll) => (dispatch) => {
     dispatch(startLoading());
     return APIUtil.fetchPlaylists(shouldFetchAll).then(playlists => {
         return dispatch(receivePlaylists(playlists));});
+    };
+    
+export const fetchModalPlaylists = (songId) => (dispatch) => {
+    return APIUtil.fetchPlaylists().then(playlists => {
+        return dispatch(receiveModalPlaylists(playlists, songId));
+    });
 };
 
 export const fetchPlaylist = (playlistId) => (dispatch) => {

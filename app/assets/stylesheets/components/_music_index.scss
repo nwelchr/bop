@@ -15,7 +15,7 @@
     width: 225px;
     position: relative;
     margin: 15px;
-    button {
+    .play-pause {
         position: absolute;
         vertical-align: center;
         text-align: center;
@@ -33,7 +33,7 @@
             font-size: 60px;
         }
     }
-    button:active {
+    .play-pause:active {
         transform: scale(.95);
     }
     .music-index-item {

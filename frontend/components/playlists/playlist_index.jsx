@@ -53,7 +53,7 @@ class PlaylistIndex extends React.Component {
                     <main className="music-index">
                         <ul>
                             {this.props.playlists.map(playlist => 
-                                        <PlaylistIndexItem key={playlist.id} playlist={playlist} />
+                                        <PlaylistIndexItem key={playlist.id} playlist={playlist} renderButton={true} />
                             )}
                         </ul>
                     </main>
