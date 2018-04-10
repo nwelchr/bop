@@ -37618,7 +37618,11 @@ var SessionForm = function (_React$Component) {
                 _react2.default.createElement(
                     'nav',
                     { className: 'session-form-nav' },
-                    _react2.default.createElement('img', { src: 'https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-black-text.png' })
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { to: '/' },
+                        _react2.default.createElement('img', { src: 'https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-black-text.png' })
+                    )
                 ),
                 _react2.default.createElement(
                     'main',
@@ -37637,7 +37641,7 @@ var SessionForm = function (_React$Component) {
                         'form',
                         { onSubmit: this.handleSubmit },
                         _react2.default.createElement('input', {
-                            type: 'text',
+                            type: this.props.formType === "email" ? "email" : "text",
                             onChange: this.update('email'),
                             value: this.state.email,
                             placeholder: this.props.emailPlaceholder
