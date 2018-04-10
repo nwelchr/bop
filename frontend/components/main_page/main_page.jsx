@@ -13,10 +13,6 @@ import AddToPlaylistModal from '../modals/add_to_playlist_modal';
 
 class MainPage extends React.Component {
 
-    componentDidMount() {
-        console.log("main page mounted!");
-    }
-
     render() {
         return (
             <div className="app-wrapper">

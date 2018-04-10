@@ -9,7 +9,7 @@ import { RECEIVE_PLAYLISTS,
 
 import { 
     RECEIVE_PLAYLIST_SONG_SAVE,
-    // REMOVE_PLAYLIST_SONG_SAVE
+    REMOVE_PLAYLIST_SONG_SAVE
  } from '../actions/song_actions';
 
 const playlistsReducer = (oldState = [], action) => {
@@ -31,8 +31,8 @@ const playlistsReducer = (oldState = [], action) => {
             return merge({}, oldState, { playlists: action.playlists }, { songId: action.songId });
         case RECEIVE_PLAYLIST_SONG_SAVE:
             return action.data;
-        // case REMOVE_PLAYLIST_SONG_SAVE:
-        //     debugger;
+        case REMOVE_PLAYLIST_SONG_SAVE:
+            return action.data;
         default:
             return oldState;
     }

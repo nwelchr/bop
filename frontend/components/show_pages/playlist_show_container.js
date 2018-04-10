@@ -2,13 +2,12 @@ import PlaylistShow from './playlist_show';
 import { connect } from 'react-redux';
 
 import { fetchPlaylist, deletePlaylist, fetchModalPlaylists } from '../../actions/playlist_actions';
-import { fetchSong } from '../../actions/song_actions';
+import { fetchSong, removeSongFromPlaylist } from '../../actions/song_actions';
 import { play, pause, playSong } from '../../actions/audio_actions';
 
 import { openAddToPlaylistForm } from '../../actions/ui_actions';
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(state);
     return({
         playlist: state.entities.playlists[parseInt(ownProps.match.params.playlistId)],
         loading: state.ui.loading.global,
@@ -27,6 +26,7 @@ const mapDispatchToProps = (dispatch) => {
     play: () => dispatch(play()),
     pause: () => dispatch(pause()),
     playSong: (song) => dispatch(playSong(song)),
+    removeSongFromPlaylist: (songId, playlistId) => dispatch(removeSongFromPlaylist(songId, playlistId)),
     openAddToPlaylistForm: () => dispatch(openAddToPlaylistForm()),
     fetchModalPlaylists: (songId) => dispatch(fetchModalPlaylists(songId))
 });

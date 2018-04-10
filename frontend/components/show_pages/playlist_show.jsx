@@ -65,6 +65,9 @@ class PlaylistShow extends React.Component {
                 pause={this.props.pause}
                 openAddToPlaylistForm={this.props.openAddToPlaylistForm}
                 fetchModalPlaylists={this.props.fetchModalPlaylists}
+                removeSongFromPlaylist={this.props.removeSongFromPlaylist}
+                playlist={this.props.playlist}
+                fetchPlaylist={this.props.fetchPlaylist}
               />
             );
           })}

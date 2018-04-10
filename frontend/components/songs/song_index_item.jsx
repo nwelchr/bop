@@ -11,12 +11,9 @@ class SongIndexItem extends React.Component {
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
     this.handleFetchSong = this.handleFetchSong.bind(this);
-    this.handleDropdownClick = this.handleDropdownClick.bind(this);
+    this.openAddToPlaylistModal = this.openAddToPlaylistModal.bind(this);
+    this.removeFromPlaylist = this.removeFromPlaylist.bind(this);
 }
-
-  componentWillUnmount() {
-    console.log('hi');
-  }
 
   handleClick() {
     // crazy logic: 
@@ -66,16 +63,21 @@ class SongIndexItem extends React.Component {
       e.preventDefault();
   }
 
-  handleDropdownClick(e) {
+  openAddToPlaylistModal(e) {
       e.stopPropagation();
       this.props.fetchModalPlaylists(this.props.song.id).then(response => this.props.openAddToPlaylistForm());
+  }
+
+  removeFromPlaylist(e) {
+    e.stopPropagation();
+    this.props.removeSongFromPlaylist(this.props.song.id, this.props.playlist.id);
   }
 
   render() {
     const songDropdown = (
       <ul class="song-dropdown">
-        <li onClick={(e) => this.handleDropdownClick(e)} class="dropdown-li">Add to Playlist</li>
-        <li class="dropdown-li">Copy Song Link</li>
+        <li onClick={(e) => this.openAddToPlaylistModal(e)} class="dropdown-li">Add to Playlist</li>
+        <li onClick={(e) => this.removeFromPlaylist(e)} class="dropdown-li">Remove from this Playlist</li>
       </ul>
     );
 
