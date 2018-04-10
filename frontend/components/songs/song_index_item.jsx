@@ -10,7 +10,7 @@ class SongIndexItem extends React.Component {
 
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
-    this.handleFetchSong = this.handleFetchSong.bind(this);
+    this.playSong = this.playSong.bind(this);
     this.openAddToPlaylistModal = this.openAddToPlaylistModal.bind(this);
     this.removeFromPlaylist = this.removeFromPlaylist.bind(this);
 }
@@ -31,22 +31,20 @@ class SongIndexItem extends React.Component {
                 this.props.pause();
             } 
             else { 
-                this.handleFetchSong();
+                this.playSong();
             }
         } else if (this.props.currentSong.id === this.props.song.id) {
             this.props.play();
         } else {
-            this.handleFetchSong();
+            this.playSong();
         }
     } else {
-        this.handleFetchSong();
+        this.playSong();
     }
   }
 
-  handleFetchSong() {
-    this.props
-        .fetchSong(this.props.song.id)
-        .then(response => this.props.playSong(response.song));
+  playSong() {
+    this.props.playSong(this.props.song);
   }
 
   showDropdown() {
@@ -75,9 +73,9 @@ class SongIndexItem extends React.Component {
 
   render() {
     const songDropdown = (
-      <ul class="song-dropdown">
-        <li onClick={(e) => this.openAddToPlaylistModal(e)} class="dropdown-li">Add to Playlist</li>
-        {(this.props.currentUser.id === this.props.playlist.creator_id) ? (<li onClick={(e) => this.removeFromPlaylist(e)} class="dropdown-li">Remove from this Playlist</li>) : ""}
+      <ul className="song-dropdown">
+        <li onClick={(e) => this.openAddToPlaylistModal(e)} className="dropdown-li">Add to Playlist</li>
+        {(this.props.currentUser.id === this.props.playlist.creator_id) ? (<li onClick={(e) => this.removeFromPlaylist(e)} className="dropdown-li">Remove from this Playlist</li>) : ""}
       </ul>
     );
 
@@ -101,7 +99,7 @@ class SongIndexItem extends React.Component {
             <span>{title}</span>
           </li>
           <div className="song-dropdown-wrapper">
-            <span class="dropdown-handler" onClick={this.showDropdown}>
+            <span className="dropdown-handler" onClick={this.showDropdown}>
               ···
             </span>
             <div

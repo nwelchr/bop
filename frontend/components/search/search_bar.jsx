@@ -49,7 +49,7 @@ class SearchBar extends React.Component {
   render() {
       console.log(this.props);
     return (
-        <main class="main-search-bar">
+        <main className="main-search-bar">
           <form className="search-form">
             <section className="search-form-input">
           <h1 className="search-heading">Search for an Artist, Song, Album, or Playlist</h1>

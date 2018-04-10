@@ -14,7 +14,8 @@ const mapStateToProps = (state, ownProps) => {
         background: { 'backgroundColor': '#7a1a45' },
         currentUser: state.session.currentUser,
         currentSong: state.ui.playbar.currentSong,
-        playing: state.ui.playbar.playing
+        playing: state.ui.playbar.playing,
+        songs: state.entities.songs
     });
 };
 

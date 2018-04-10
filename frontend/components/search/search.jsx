@@ -11,7 +11,7 @@ class Search extends React.Component {
 
   render() {
     return (
-        <div class="search-container">
+        <div className="search-container">
             <SearchBar />
             <Route path="/search/results/" component={SearchResults} />
         </div>

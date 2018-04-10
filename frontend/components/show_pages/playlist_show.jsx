@@ -49,10 +49,10 @@ class PlaylistShow extends React.Component {
   }
 
   createPlaylistSongs() {
-    if (!(typeof this.props.playlist.songs === "undefined")) {
+    if (!(typeof this.props.songs === "undefined")) {
       this.PlaylistSongs = (
         <ol>
-          {this.props.playlist.songs.map(song => {
+          {this.props.songs.map(song => {
             return (
               <SongIndexItem
                 key={song.id}

@@ -13,9 +13,9 @@ const receivePlaylists = (playlists) => ({
     playlists
 });
 
-export const receivePlaylist = (playlist) => ({
+export const receivePlaylist = (payload) => ({
     type: RECEIVE_PLAYLIST,
-    playlist
+    payload
 });
 
 const removePlaylist = (id) => ({
