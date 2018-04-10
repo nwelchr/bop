@@ -13,9 +13,7 @@ const clearSearchResults = () => ({
 });
 
 export const fetchSearchResults = query => dispatch => {
-  debugger;
   return SearchAPIUtil.fetchSearchResults(query).then(results => {
-    debugger;
     dispatch(receiveSearchResults(results));
   });
 };
