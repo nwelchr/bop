@@ -1264,14 +1264,15 @@ a {
 .playlist-index-wrapper {
   display: flex;
   flex-direction: column;
+  width: 320px;
 }
 
-/* line 180, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 181, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_show_page.scss */
 .delete-button-wrapper {
   align-self: center;
 }
 
-/* line 184, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 185, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_show_page.scss */
 .delete-playlist-button {
   outline: 0;
   padding: 11px 18px;
@@ -1286,7 +1287,7 @@ a {
   border: 2px solid #bbb;
 }
 
-/* line 198, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 199, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_show_page.scss */
 .delete-playlist-button:hover {
   cursor: default;
   transform: scale(1.05);
@@ -2646,14 +2647,15 @@ a {
 .playlist-index-wrapper {
   display: flex;
   flex-direction: column;
+  width: 320px;
 }
 
-/* line 180, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 181, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_show_page.scss */
 .delete-button-wrapper {
   align-self: center;
 }
 
-/* line 184, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 185, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_show_page.scss */
 .delete-playlist-button {
   outline: 0;
   padding: 11px 18px;
@@ -2668,7 +2670,7 @@ a {
   border: 2px solid #bbb;
 }
 
-/* line 198, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 199, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_show_page.scss */
 .delete-playlist-button:hover {
   cursor: default;
   transform: scale(1.05);
