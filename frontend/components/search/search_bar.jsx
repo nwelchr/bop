@@ -43,6 +43,7 @@ class SearchBar extends React.Component {
   }
 
   render() {
+      console.log(this.props);
     return (
       <div className="search-bar-wrapper">
           <h1 className="create-new-playlist-h1">Search for an Artist, Song, Album, or Playlist</h1>

@@ -7,6 +7,8 @@ import { fetchPlaylists } from './actions/playlist_actions';
 
 import { saveSongToPlaylist } from './actions/song_actions';
 
+import { fetchSearchResults } from './actions/search_actions';
+
 document.addEventListener("DOMContentLoaded", () => {
   let store;
   if (window.currentUser) {
@@ -20,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   
   // for testing
+  window.fetchSearchResults = fetchSearchResults;
   window.saveSongToPlaylist = saveSongToPlaylist;
   window.getState = store.getState;
   window.dispatch = store.dispatch;
