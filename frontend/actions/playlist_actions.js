@@ -23,10 +23,10 @@ const removePlaylist = (id) => ({
     id
 });
 
-const receiveModalPlaylists = (playlists, songId) => ({
+const receiveModalPlaylists = (playlists, songToAddId) => ({
     type: RECEIVE_MODAL_PLAYLISTS,
     playlists,
-    songId
+    songToAddId
 });
 
 export const receiveCreatedPlaylist = (payload) => ({
@@ -40,9 +40,9 @@ export const fetchPlaylists = (shouldFetchAll) => (dispatch) => {
         return dispatch(receivePlaylists(playlists));});
     };
     
-export const fetchModalPlaylists = (songId) => (dispatch) => {
+export const fetchModalPlaylists = (songToAddId) => (dispatch) => {
     return APIUtil.fetchPlaylists().then(playlists => {
-        return dispatch(receiveModalPlaylists(playlists, songId));
+        return dispatch(receiveModalPlaylists(playlists, songToAddId));
     });
 };
 

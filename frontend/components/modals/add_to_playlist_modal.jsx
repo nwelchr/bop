@@ -32,6 +32,8 @@ class AddToPlaylistModal extends React.Component {
     if (!this.props.isModalOpen) {
       return null;
     }
+
+    let playlists = this.props.playlists.filter(playlist => !playlist.song_ids.includes(this.props.songToAddId)).filter(playlist => playlist.creator_id === this.props.currentUser.id);
     
     return (
       <div className="add-song-to-playlist-modal">
@@ -45,8 +47,8 @@ class AddToPlaylistModal extends React.Component {
           <h1 className="create-new-playlist-h1">Add To Playlist</h1>
           <main className="modal-index">
             <ul>
-                {this.props.playlists.map(playlist => 
-                    <AddToPlaylistIndexItem key={playlist.id} playlist={playlist} renderButton={false} saveSongToPlaylist={this.props.saveSongToPlaylist} songId={this.props.songId}
+                {playlists.map(playlist => 
+                    <AddToPlaylistIndexItem key={playlist.id} playlist={playlist} renderButton={false} saveSongToPlaylist={this.props.saveSongToPlaylist} songToAddId={this.props.songToAddId}
                     closeAddToPlaylistForm={this.props.closeAddToPlaylistForm}
                      />
                 )}
@@ -63,7 +65,7 @@ const mapStateToProps = (state, ownProps) => {
     playlists: Object.values(state.entities.playlists),
     isModalOpen: state.ui.modals.addToPlaylistModal.isOpen,
     currentUser: state.session.currentUser,
-    songId: state.entities.playlists.songId
+    songToAddId: state.ui.modals.songToAddId
   };
 };
 

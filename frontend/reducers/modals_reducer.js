@@ -5,6 +5,10 @@ import {
     CLOSE_ADD_TO_PLAYLIST_FORM
 } from '../actions/ui_actions';
 
+import {
+    RECEIVE_MODAL_PLAYLISTS
+} from '../actions/playlist_actions';
+
 import merge from 'lodash/merge';
 
 const initialState = {
@@ -32,6 +36,8 @@ const modalsReducer = (oldState = initialState, action) => {
         case CLOSE_ADD_TO_PLAYLIST_FORM:
             newState.addToPlaylistModal.isOpen = false;
             return newState;
+        case RECEIVE_MODAL_PLAYLISTS:
+            return merge({}, oldState, { songToAddId: action.songToAddId });
         default:
             return oldState;
     }

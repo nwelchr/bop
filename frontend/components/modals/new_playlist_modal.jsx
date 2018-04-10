@@ -29,7 +29,7 @@ class NewPlaylistModal extends React.Component {
       .createPlaylist(this.state)
       .then(response => {
         // debugger;
-        this.redirect(response.payload.playlistplaylist.id);
+        this.redirect(response.payload.playlist.id);
       });
   }
 
@@ -98,16 +98,9 @@ class NewPlaylistModal extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let playlistId;
-  if (state.entities.playlists.newId) {
-    playlistId = state.entities.playlists.newId;
-  } else {
-    playlistId = null;
-  }
   return {
     isModalOpen: state.ui.modals.newPlaylistModal.isOpen,
     currentUser: state.session.currentUser,
-    playlistId
   };
 };
 

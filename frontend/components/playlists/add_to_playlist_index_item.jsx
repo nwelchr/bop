@@ -12,7 +12,7 @@ class AddToPlaylistIndexItem extends React.Component {
     handleClick(e) {
         e.preventDefault();
         this.props.closeAddToPlaylistForm();
-        this.props.saveSongToPlaylist(this.props.songId, this.props.playlist.id).then(results => {
+        this.props.saveSongToPlaylist(this.props.songToAddId, this.props.playlist.id).then(results => {
             this.props.history.push(`/collection/playlists/${this.props.playlist.id}`);
         });
     }

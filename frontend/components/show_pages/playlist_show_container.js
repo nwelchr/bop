@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch) => {
     playSong: (song) => dispatch(playSong(song)),
     removeSongFromPlaylist: (songId, playlistId) => dispatch(removeSongFromPlaylist(songId, playlistId)),
     openAddToPlaylistForm: () => dispatch(openAddToPlaylistForm()),
-    fetchModalPlaylists: (songId) => dispatch(fetchModalPlaylists(songId))
+    fetchModalPlaylists: (songToAddId) => dispatch(fetchModalPlaylists(songToAddId))
 });
 };
 
