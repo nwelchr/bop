@@ -56,7 +56,9 @@ class SessionForm extends React.Component {
         return (
             <div>
                 <nav className="session-form-nav">
+                <Link to="/">
                     <img src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-black-text.png" />
+                    </Link>
                 </nav>
                 <main className="session-form-main">
                     {this.renderErrors()}
@@ -65,7 +67,7 @@ class SessionForm extends React.Component {
                     </div>
                     <form onSubmit={this.handleSubmit}>
                         <input 
-                            type="text"
+                            type={this.props.formType === "email"? "email" : "text"}
                             onChange={this.update('email')}  
                             value={this.state.email}
                             placeholder={this.props.emailPlaceholder}
