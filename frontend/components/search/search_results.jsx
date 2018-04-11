@@ -1,6 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
+import SearchNavbar from '../navbar/search_navbar';
+import AlbumIndexItem from '../albums/album_index_item';
+
+// class PlaylistResults extends React.Component {
+//   constructor(props) {
+//     super(props);
+//   }
+
+//   render() {
+//     const { playlists } = this.props;
+//     return (
+//       <ul>
+//           {playlists.map(playlist => 
+//                       <PlaylistIndexItem key={playlist.id} playlist={playlist} renderButton={true} />
+//           )}
+//       </ul>
+//     );
+//   }
+// }
 
 class SearchResults extends React.Component {
   constructor(props) {
@@ -8,40 +27,20 @@ class SearchResults extends React.Component {
   }
 
   render() {
-    console.log(this.props.searches);
+    const { albums, artists, playlists, songs, users } = this.props.searches;
+
     return (
         <main className="index-page-wrapper">
-          <nav className="top-nav-bar">
-            <li className="top-nav-link-wrapper">
-              <NavLink exact to="/browse" activeClassName="nav-link-selected">
-                <span>Featured</span>
-              </NavLink>
-            </li>
-            <li className="top-nav-link-wrapper">
-              <NavLink exact to="#" activeClassName="nav-link-selected">
-                <span>Genres & Moods</span>
-              </NavLink>
-            </li>
-            <li className="top-nav-link-wrapper">
-              <NavLink exact to="#" activeClassName="nav-link-selected">
-                <span>New Releases</span>
-              </NavLink>
-            </li>
-            <li className="top-nav-link-wrapper">
-              <NavLink to="#" activeClassName="nav-link-selected">
-                <span>Discover</span>
-              </NavLink>
-            </li>
-          </nav>
-
-          <main className="music-index">
-          <div className="music-index-wrapper">
-            <ul>
-              <li>hey</li>
-              <li>hey</li>
-            </ul>
+          <SearchNavbar searches={this.props.searches} />
+          <div className="music-index">
+            joef
+            <div className="music-index-wrapper">
+              wef
+              <ul>
+                wef
+              </ul>
             </div>
-          </main>
+          </div>
         </main>
     );
   }

@@ -7,6 +7,7 @@ class Api::SearchesController < ApplicationController
     @artists = Artist.where("name ~* ?", params[:query])
     @songs = Song.where("title ~* ?", params[:query])
     @users = User.where("username ~* ?", params[:query])
+
   end
 
   private

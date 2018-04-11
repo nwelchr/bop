@@ -6,11 +6,15 @@ $medium: 'HelveticaNeue-Medium';
 $bold: 'HelveticaNeue-Bold';
 
 
+* {
+    overflow: hidden;
+}
+
 .music-index {
     .music-index-wrapper {
         display: flex;
         justify-content: center;
-        width: auto;
+        width: 100%;
 
     ul {
         display: flex;

@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { fetchSearchResults } from '../../actions/search_actions';
 
 
-const WAIT_INTERVAL = 500;
+const WAIT_INTERVAL = 1500;
 const ENTER_KEY = 13;
 
 class SearchBar extends React.Component {
@@ -29,14 +29,12 @@ class SearchBar extends React.Component {
     clearTimeout(this.timer);
     this.setState({ query: e.target.value });
     this.timer = setTimeout(this.triggerChange, WAIT_INTERVAL);
-    this.triggerChange();
   }
 
   triggerChange() {
+      console.log("I'm triggered!");
       const { query } = this.state;
-      console.warn(this.props.fetchSearchResults(query));
-      // .then(results => query ? this.props.history.push(`/search/results/${query}`) : this.props.history.push(`/search`));
-      // query ? this.props.history.push(`/search/results/${query}`) : this.props.history.push(`/search`);
+      this.props.fetchSearchResults(query).then(results => query ? this.props.history.push(`/search/results/${query}`) : this.props.history.push(`/search`));
   }
 
   handleKeyDown(e) {
