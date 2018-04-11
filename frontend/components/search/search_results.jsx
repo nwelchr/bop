@@ -1,25 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink, Route, withRouter } from 'react-router-dom';
 import SearchNavbar from '../navbar/search_navbar';
 import AlbumIndexItem from '../albums/album_index_item';
-
-// class PlaylistResults extends React.Component {
-//   constructor(props) {
-//     super(props);
-//   }
-
-//   render() {
-//     const { playlists } = this.props;
-//     return (
-//       <ul>
-//           {playlists.map(playlist => 
-//                       <PlaylistIndexItem key={playlist.id} playlist={playlist} renderButton={true} />
-//           )}
-//       </ul>
-//     );
-//   }
-// }
+import PlaylistResults from './playlist_results';
+// import SongResults from './song_results';
+import AlbumResults from './album_results';
+import ArtistResults from './artist_results';
+// import UserResults from './playlist_results';
 
 class SearchResults extends React.Component {
   constructor(props) {
@@ -27,18 +15,18 @@ class SearchResults extends React.Component {
   }
 
   render() {
-    const { albums, artists, playlists, songs, users } = this.props.searches;
+    const { albums, artists, playlists, songs, users, query } = this.props.searches;
 
     return (
         <main className="index-page-wrapper">
           <SearchNavbar searches={this.props.searches} />
           <div className="music-index">
-            joef
             <div className="music-index-wrapper">
-              wef
-              <ul>
-                wef
-              </ul>
+            <Route path={`/search/results/${query}/playlists`} render={() => <PlaylistResults playlists={playlists} />} />
+            {/* <Route path={`/search/results/${query}/songs`} render={() => <SongResults songs={songs} />} /> */}
+            <Route path={`/search/results/${query}/albums`} render={() => <AlbumResults albums={albums} />} />
+            <Route path={`/search/results/${query}/artists`} render={() => <ArtistResults artists={artists} />} />
+            {/* <Route path={`/search/results/${query}/users`} render={() => <UserResults users={users} />} /> */}
             </div>
           </div>
         </main>
@@ -52,4 +40,4 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => {};
 
-export default connect(mapStateToProps, null)(SearchResults);
+export default withRouter(connect(mapStateToProps, null)(SearchResults));

@@ -11,10 +11,12 @@ class Search extends React.Component {
 
   render() {
     return (
+      <main className="main" style={{background: 'transparent'}}>
         <div className="search-container">
             <SearchBar />
             <Route path="/search/results/" component={SearchResults} />
         </div>
+      </main>
     );
   }
 }
