@@ -4,6 +4,7 @@ import { AuthRoute } from '../../util/route_util';
 import PlaylistIndexItem from './playlist_index_item';
 
 import NewPlaylistModal from '../modals/new_playlist_modal';
+import YourMusicTopNavBar from '../navbar/top_navbar';
 
 class PlaylistIndex extends React.Component {
     constructor(props) {
@@ -31,25 +32,7 @@ class PlaylistIndex extends React.Component {
             return (
             <main className="main" style={this.props.background}>
                 <main className="index-page-wrapper">
-                <nav className="nav-flex-wrapper">
-                <nav className="nav-empty" />
-                    <nav className="top-nav-bar">
-                        <li className="top-nav-link-wrapper"><NavLink exact to="/collection/playlists" activeClassName="nav-link-selected"><span>Playlists</span></NavLink>
-                        </li>
-                        <li className="top-nav-link-wrapper"><NavLink exact to="#" activeClassName="nav-link-selected"><span>Your Daily Mix</span></NavLink></li>
-                        <li className="top-nav-link-wrapper"><NavLink exact to="#" activeClassName="nav-link-selected"><span>Songs</span></NavLink></li>
-                        <li className="top-nav-link-wrapper"><NavLink to="#" activeClassName="nav-link-selected"><span>Albums</span></NavLink></li>
-                        <li className="top-nav-link-wrapper"><NavLink to="#" activeClassName="nav-link-selected"><span>Artists</span></NavLink></li>
-                    </nav>
-
-                    <nav className="new-playlist">
-                        <button onClick={() => this.props.openPlaylistForm()}className="new-playlist-button">New Playlist</button>
-                        {/* <Modal className="new-playlist-page" isOpen={this.state.isModalOpen} onClose={() => this.closeModal()}/> */}
-                        <NewPlaylistModal />
-                    </nav>
-
-                </nav>
-
+                <YourMusicTopNavBar />
                     <main className="music-index">
                         <ul>
                             {this.props.playlists.map(playlist => 

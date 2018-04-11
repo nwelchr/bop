@@ -9,8 +9,8 @@ import MusicPageContainer from './music_page_container';
 import BrowseIndexContainer from '../browse/browse_index_container';
 import SearchContainer from '../search/search';
 import SongCollectionIndexContainer from '../songs/song_collection_index_container';
-
 import AddToPlaylistModal from '../modals/add_to_playlist_modal';
+import NewPlaylistModal from '../modals/new_playlist_modal';
 
 class MainPage extends React.Component {
 
@@ -27,6 +27,7 @@ class MainPage extends React.Component {
                 <FooterPlayerBar playing={this.props.playing} />
                 </main>
                 <AddToPlaylistModal />
+                <NewPlaylistModal />
             </div>
         );
     }

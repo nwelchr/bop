@@ -13,7 +13,7 @@ class PlaylistIndex extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchPlaylists();
+        this.props.fetchAlbums();
     }
 
     openModal() {
