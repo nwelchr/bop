@@ -103,7 +103,7 @@ input, select {
 }
 /* line 4, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
 .player {
-  z-index: 3;
+  z-index: 9999;
 }
 
 /* line 8, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
@@ -213,75 +213,47 @@ input, select {
   border-bottom-color: #fff;
   color: #fff;
 }
-/* line 124, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play-bar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-/* line 130, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play-bar .play-button {
-  display: flex;
-  align-items: center;
-}
-/* line 135, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play-bar .progress-bar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-}
-/* line 141, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play-bar .progress-bar input {
-  width: 100%;
-  margin: 0px 10px;
-}
-/* line 155, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
+/* line 125, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
 .footer-bar .volume-bar {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
-/* line 166, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
+/* line 136, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
 .footer-bar .volume-bar button {
   text-align: left;
   width: 35px;
-}
-
-/* line 173, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
-input::-webkit-slider-thumb {
-  visibility: hidden;
-}
-
-/* line 177, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
-input:hover::-webkit-slider-thumb {
-  visibility: visible;
 }
 /* line 1, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_index_item.scss */
 .album-cover-image {
   width: 200px;
 }
-/* line 2, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
-.music-index ul {
+/* line 10, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+.music-index .music-index-wrapper {
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+/* line 15, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+.music-index .music-index-wrapper ul {
   display: flex;
   flex-wrap: wrap;
 }
 
-/* line 8, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 22, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .item-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* line 14, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 28, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper {
   width: 225px;
   position: relative;
-  margin: 15px;
+  margin: 8px;
 }
-/* line 18, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 32, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .play-pause {
   position: absolute;
   vertical-align: center;
@@ -296,26 +268,26 @@ input:hover::-webkit-slider-thumb {
   top: calc(50% - 45px);
   left: calc(50% - 30px);
 }
-/* line 31, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 45, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .play-pause .fa-play-circle {
   color: #eee;
   font-size: 60px;
 }
-/* line 36, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 50, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .play-pause:active {
   transform: scale(0.95);
 }
-/* line 39, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 53, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .music-index-item {
   display: block;
 }
-/* line 42, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 56, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .media {
   display: inline-block;
   position: relative;
   vertical-align: top;
 }
-/* line 46, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 60, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .media .media__image {
   max-width: 100%;
   display: block;
@@ -325,12 +297,27 @@ input:hover::-webkit-slider-thumb {
   width: 225px;
   height: 225px;
 }
-/* line 56, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 70, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper p {
   padding: 10px;
+  font-size: 14px;
+  letter-spacing: .6px;
+  text-align: center;
+  font-family: "HelveticaNeue-UltraLight";
 }
 
-/* line 61, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+@media (max-width: 1200px) {
+  /* line 80, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+  .media-wrapper {
+    width: 170px;
+  }
+  /* line 83, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+  .media-wrapper .media .media__image {
+    width: 170px;
+    height: 170px;
+  }
+}
+/* line 91, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media__body {
   background: #000;
   opacity: 0;
@@ -343,25 +330,25 @@ input:hover::-webkit-slider-thumb {
   transition: 0.2s ease;
   margin: 0 auto;
   transform: scale(1);
-  z-index: 2;
+  z-index: 3;
 }
 
-/* line 76, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 106, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:hover .media__body {
   opacity: .7;
 }
 
-/* line 80, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 110, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:active .media__body {
   transform: scale(0.98);
 }
 
-/* line 84, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 114, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:active .media .media__image {
   transform: scale(0.975);
 }
 
-/* line 88, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 118, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-loaded {
   background: #000;
   top: 0;
@@ -372,7 +359,7 @@ input:hover::-webkit-slider-thumb {
   position: absolute;
   animation: disappear .5s linear forwards;
   margin: 0 auto;
-  z-index: 3;
+  z-index: 2;
 }
 @keyframes disappear {
   0% {
@@ -386,7 +373,7 @@ input:hover::-webkit-slider-thumb {
 /* line 3, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 body {
   color: #fff;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Helvetica", sans-serif;
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -414,22 +401,22 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
 }
-/* line 31, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 32, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .logo {
   margin-left: 3px;
   width: 35px;
   margin-bottom: 10px;
 }
-/* line 42, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 44, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main .search a {
   display: flex;
   justify-content: space-between;
 }
-/* line 48, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 50, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main .search:hover {
   cursor: pointer;
 }
-/* line 52, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 54, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main a {
   color: #bbb;
   width: 100%;
@@ -437,32 +424,33 @@ body {
   transition: color 0.3s ease;
   letter-spacing: 0.5px;
 }
-/* line 60, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 62, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main a:hover {
   color: #fff;
 }
 
-/* line 66, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 68, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar li {
-  margin: 15px 10px;
+  padding: 0 10px;
+  margin: 15px 0px;
   font-size: 14px;
 }
 
-/* line 72, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 75, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar-main li {
   font-size: 16px;
   font-weight: bold;
 }
-/* line 76, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 79, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar-main li .selected {
   color: #27bb5a;
 }
-/* line 80, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 83, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar-main li .selected:hover {
   color: #27bb5a;
 }
 
-/* line 88, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 91, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-divider {
   padding: 0;
   height: 1px;
@@ -470,29 +458,29 @@ body {
   width: 100%;
 }
 
-/* line 95, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 98, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .recently-played {
   text-transform: lowercase;
   font-variant: small-caps;
   letter-spacing: 1px;
 }
 
-/* line 101, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 104, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .main {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0), black);
   width: calc(100% - 200px);
   height: calc(100% - 200px);
   background-color: #3c3f5b;
-  padding-left: 200px;
+  padding-left: 220px;
   padding-bottom: 200px;
   overflow: scroll;
 }
-/* line 110, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 113, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .main .index-page-wrapper {
-  padding: 0px 75px;
+  padding: 0px 10px;
 }
 
-/* line 121, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 124, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .player {
   position: fixed;
   bottom: 0;
@@ -975,6 +963,172 @@ a {
 /* line 278, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_new_session.scss */
 .footer-wrapper .footer-content .logo {
   height: 50px;
+}
+/* line 3, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.progress-bar-wrapper {
+  width: 100%;
+  display: flex column;
+  align-items: center;
+}
+
+/* line 9, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.played {
+  height: 4px;
+  background-color: #bbb;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 2;
+  border-radius: 5px;
+  transition: background-color .1s ease;
+}
+
+/* line 20, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.overlay-wrapper:hover .played {
+  background-color: #27bb5a;
+  transition: .1-s ease;
+}
+
+/* line 25, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.player-underlay {
+  height: 4px;
+  background-color: #444;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+/* line 35, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.progress-bar-with-duration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* line 41, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.seek-slider {
+  width: 100%;
+  background: transparent;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative;
+  z-index: 3;
+  -webkit-appearance: none;
+  height: 3px;
+  outline: 0;
+}
+
+/* line 54, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.overlay-wrapper {
+  width: 100%;
+  position: relative;
+  margin: 0px 10px;
+}
+
+/* line 60, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.seek-slider-wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* line 65, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+input[type="range"]::-webkit-slider-thumb {
+  transform: scale(0);
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #eee;
+  margin-top: 1px;
+  cursor: pointer;
+  /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+  box-shadow: 0px 0px 1px #555;
+  transition: .15s ease;
+}
+
+/* line 78, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb {
+  transform: scale(1);
+}
+
+/* line 83, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.play-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+/* line 89, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.play-bar .play-button {
+  display: flex;
+  align-items: center;
+}
+/* line 94, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.play-bar .progress-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+/* line 100, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.play-bar .progress-bar input {
+  width: 100%;
+  margin: 0px 10px;
+}
+/* line 6, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_search.scss */
+.search-container {
+  margin-left: 220px;
+  padding: 0;
+  margin-top: 0 !important;
+}
+
+/* line 12, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_search.scss */
+.main-search-bar {
+  padding: 0;
+  margin: 0 !important;
+}
+
+/* line 17, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_search.scss */
+.search-heading {
+  font-size: 13px;
+  font-weight: normal;
+  color: #fff;
+  letter-spacing: .8px;
+  padding-bottom: 3px;
+}
+
+/* line 25, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_search.scss */
+.search-form-input {
+  padding: 30px;
+  width: 100%;
+  background-color: #282828;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* line 34, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_search.scss */
+.search-input {
+  width: 100%;
+}
+
+/* line 38, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_search.scss */
+.search-input {
+  background-color: transparent;
+  font-size: 50px;
+  font-weight: bold;
+  color: #fff;
+  border: 0;
+  outline: 0;
+  caret-color: #27bb5a;
+}
+
+/* line 48, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_search.scss */
+.search-input::placeholder {
+  color: #535353;
+  font-weight: bold;
 }
 /* line 3, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_session_form.scss */
 .session-form-nav {
@@ -1479,7 +1633,7 @@ input, select {
 
 /* line 4, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
 .player {
-  z-index: 3;
+  z-index: 9999;
 }
 
 /* line 8, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
@@ -1589,50 +1743,16 @@ input, select {
   border-bottom-color: #fff;
   color: #fff;
 }
-/* line 124, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play-bar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-/* line 130, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play-bar .play-button {
-  display: flex;
-  align-items: center;
-}
-/* line 135, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play-bar .progress-bar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-}
-/* line 141, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play-bar .progress-bar input {
-  width: 100%;
-  margin: 0px 10px;
-}
-/* line 155, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
+/* line 125, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
 .footer-bar .volume-bar {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
-/* line 166, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
+/* line 136, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
 .footer-bar .volume-bar button {
   text-align: left;
   width: 35px;
-}
-
-/* line 173, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
-input::-webkit-slider-thumb {
-  visibility: hidden;
-}
-
-/* line 177, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_footer_bar.scss */
-input:hover::-webkit-slider-thumb {
-  visibility: visible;
 }
 
 /* line 1, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_index_item.scss */
@@ -1640,26 +1760,32 @@ input:hover::-webkit-slider-thumb {
   width: 200px;
 }
 
-/* line 2, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
-.music-index ul {
+/* line 10, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+.music-index .music-index-wrapper {
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+/* line 15, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+.music-index .music-index-wrapper ul {
   display: flex;
   flex-wrap: wrap;
 }
 
-/* line 8, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 22, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .item-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* line 14, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 28, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper {
   width: 225px;
   position: relative;
-  margin: 15px;
+  margin: 8px;
 }
-/* line 18, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 32, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .play-pause {
   position: absolute;
   vertical-align: center;
@@ -1674,26 +1800,26 @@ input:hover::-webkit-slider-thumb {
   top: calc(50% - 45px);
   left: calc(50% - 30px);
 }
-/* line 31, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 45, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .play-pause .fa-play-circle {
   color: #eee;
   font-size: 60px;
 }
-/* line 36, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 50, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .play-pause:active {
   transform: scale(0.95);
 }
-/* line 39, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 53, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .music-index-item {
   display: block;
 }
-/* line 42, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 56, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .media {
   display: inline-block;
   position: relative;
   vertical-align: top;
 }
-/* line 46, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 60, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .media .media__image {
   max-width: 100%;
   display: block;
@@ -1703,12 +1829,27 @@ input:hover::-webkit-slider-thumb {
   width: 225px;
   height: 225px;
 }
-/* line 56, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 70, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper p {
   padding: 10px;
+  font-size: 14px;
+  letter-spacing: .6px;
+  text-align: center;
+  font-family: "HelveticaNeue-UltraLight";
 }
 
-/* line 61, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+@media (max-width: 1200px) {
+  /* line 80, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+  .media-wrapper {
+    width: 170px;
+  }
+  /* line 83, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+  .media-wrapper .media .media__image {
+    width: 170px;
+    height: 170px;
+  }
+}
+/* line 91, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media__body {
   background: #000;
   opacity: 0;
@@ -1721,25 +1862,25 @@ input:hover::-webkit-slider-thumb {
   transition: 0.2s ease;
   margin: 0 auto;
   transform: scale(1);
-  z-index: 2;
+  z-index: 3;
 }
 
-/* line 76, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 106, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:hover .media__body {
   opacity: .7;
 }
 
-/* line 80, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 110, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:active .media__body {
   transform: scale(0.98);
 }
 
-/* line 84, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 114, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:active .media .media__image {
   transform: scale(0.975);
 }
 
-/* line 88, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 118, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-loaded {
   background: #000;
   top: 0;
@@ -1750,7 +1891,7 @@ input:hover::-webkit-slider-thumb {
   position: absolute;
   animation: disappear .5s linear forwards;
   margin: 0 auto;
-  z-index: 3;
+  z-index: 2;
 }
 @keyframes disappear {
   0% {
@@ -1764,7 +1905,7 @@ input:hover::-webkit-slider-thumb {
 /* line 3, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 body {
   color: #fff;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Helvetica", sans-serif;
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -1792,22 +1933,22 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
 }
-/* line 31, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 32, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .logo {
   margin-left: 3px;
   width: 35px;
   margin-bottom: 10px;
 }
-/* line 42, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 44, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main .search a {
   display: flex;
   justify-content: space-between;
 }
-/* line 48, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 50, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main .search:hover {
   cursor: pointer;
 }
-/* line 52, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 54, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main a {
   color: #bbb;
   width: 100%;
@@ -1815,32 +1956,33 @@ body {
   transition: color 0.3s ease;
   letter-spacing: 0.5px;
 }
-/* line 60, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 62, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main a:hover {
   color: #fff;
 }
 
-/* line 66, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 68, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar li {
-  margin: 15px 10px;
+  padding: 0 10px;
+  margin: 15px 0px;
   font-size: 14px;
 }
 
-/* line 72, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 75, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar-main li {
   font-size: 16px;
   font-weight: bold;
 }
-/* line 76, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 79, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar-main li .selected {
   color: #27bb5a;
 }
-/* line 80, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 83, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar-main li .selected:hover {
   color: #27bb5a;
 }
 
-/* line 88, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 91, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-divider {
   padding: 0;
   height: 1px;
@@ -1848,29 +1990,29 @@ body {
   width: 100%;
 }
 
-/* line 95, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 98, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .recently-played {
   text-transform: lowercase;
   font-variant: small-caps;
   letter-spacing: 1px;
 }
 
-/* line 101, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 104, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .main {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0), black);
   width: calc(100% - 200px);
   height: calc(100% - 200px);
   background-color: #3c3f5b;
-  padding-left: 200px;
+  padding-left: 220px;
   padding-bottom: 200px;
   overflow: scroll;
 }
-/* line 110, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 113, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .main .index-page-wrapper {
-  padding: 0px 75px;
+  padding: 0px 10px;
 }
 
-/* line 121, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 124, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .player {
   position: fixed;
   bottom: 0;
@@ -2356,6 +2498,174 @@ a {
 /* line 278, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_new_session.scss */
 .footer-wrapper .footer-content .logo {
   height: 50px;
+}
+
+/* line 3, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.progress-bar-wrapper {
+  width: 100%;
+  display: flex column;
+  align-items: center;
+}
+
+/* line 9, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.played {
+  height: 4px;
+  background-color: #bbb;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 2;
+  border-radius: 5px;
+  transition: background-color .1s ease;
+}
+
+/* line 20, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.overlay-wrapper:hover .played {
+  background-color: #27bb5a;
+  transition: .1-s ease;
+}
+
+/* line 25, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.player-underlay {
+  height: 4px;
+  background-color: #444;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+/* line 35, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.progress-bar-with-duration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* line 41, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.seek-slider {
+  width: 100%;
+  background: transparent;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative;
+  z-index: 3;
+  -webkit-appearance: none;
+  height: 3px;
+  outline: 0;
+}
+
+/* line 54, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.overlay-wrapper {
+  width: 100%;
+  position: relative;
+  margin: 0px 10px;
+}
+
+/* line 60, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.seek-slider-wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* line 65, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+input[type="range"]::-webkit-slider-thumb {
+  transform: scale(0);
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #eee;
+  margin-top: 1px;
+  cursor: pointer;
+  /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+  box-shadow: 0px 0px 1px #555;
+  transition: .15s ease;
+}
+
+/* line 78, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb {
+  transform: scale(1);
+}
+
+/* line 83, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.play-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+/* line 89, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.play-bar .play-button {
+  display: flex;
+  align-items: center;
+}
+/* line 94, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.play-bar .progress-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+/* line 100, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_progress_bar.scss */
+.play-bar .progress-bar input {
+  width: 100%;
+  margin: 0px 10px;
+}
+
+/* line 6, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_search.scss */
+.search-container {
+  margin-left: 220px;
+  padding: 0;
+  margin-top: 0 !important;
+}
+
+/* line 12, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_search.scss */
+.main-search-bar {
+  padding: 0;
+  margin: 0 !important;
+}
+
+/* line 17, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_search.scss */
+.search-heading {
+  font-size: 13px;
+  font-weight: normal;
+  color: #fff;
+  letter-spacing: .8px;
+  padding-bottom: 3px;
+}
+
+/* line 25, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_search.scss */
+.search-form-input {
+  padding: 30px;
+  width: 100%;
+  background-color: #282828;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* line 34, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_search.scss */
+.search-input {
+  width: 100%;
+}
+
+/* line 38, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_search.scss */
+.search-input {
+  background-color: transparent;
+  font-size: 50px;
+  font-weight: bold;
+  color: #fff;
+  border: 0;
+  outline: 0;
+  caret-color: #27bb5a;
+}
+
+/* line 48, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_search.scss */
+.search-input::placeholder {
+  color: #535353;
+  font-weight: bold;
 }
 
 /* line 3, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_session_form.scss */
