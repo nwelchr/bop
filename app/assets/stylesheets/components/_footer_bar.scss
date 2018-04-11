@@ -121,36 +121,6 @@
 
     }
 
-    .play-bar {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-
-        .play-button {
-            display: flex;
-            align-items: center;
-        }
-
-        .progress-bar {
-            display: flex;
-            flex-direction: row;  
-            align-items: center;   
-            width: 100%;
-
-            input {
-                width: 100%;
-                margin: 0px 10px;
-            }
-
-            input::-webkit-slider-runnable-track {
-                
-            }
-
-        }
-
-    }
-
 
     .volume-bar {
         display: flex;
@@ -168,12 +138,4 @@
             width: 35px;
         }
     }
-}
-
-input::-webkit-slider-thumb {
-    visibility: hidden;
-}
-
-input:hover::-webkit-slider-thumb {
-    visibility: visible;
 }
