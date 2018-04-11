@@ -1,4 +1,6 @@
 export const fetchAlbums = (shouldFetchAll) => {
+    console.log("about to fetch albums in api util");
+    
     return $.ajax({
         url: 'api/albums',
         method: 'GET',
@@ -8,7 +10,7 @@ export const fetchAlbums = (shouldFetchAll) => {
 
 export const fetchAlbum = (id) => {
     return $.ajax({
-        url: `api/playlists/${id}`,
+        url: `api/albums/${id}`,
         method: 'GET'
     });
 };

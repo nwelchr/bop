@@ -1,4 +1,4 @@
-import * as APIUtil from '../util/playlist_api_util';
+import * as APIUtil from '../util/album_api_util';
 
 import { startLoading } from './loading_actions';
 
@@ -15,9 +15,9 @@ export const receiveAlbum = (payload) => ({
     payload
 });
 
-
 export const fetchAlbums = (shouldFetchAll) => (dispatch) => {
     dispatch(startLoading());
+    console.log("just started loading for albums fetch...")
     return APIUtil.fetchAlbums(shouldFetchAll).then(albums => {
         return dispatch(receiveAlbums(albums));});
     };

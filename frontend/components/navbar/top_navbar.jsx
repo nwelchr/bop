@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { AuthRoute } from '../../util/route_util';
 import { connect } from 'react-redux';
-import { openPlaylistForm } from '../../actions/playlist_actions';
+import { openPlaylistForm } from '../../actions/ui_actions';
 
 class YourMusicTopNavBar extends React.Component {
     constructor(props) {
@@ -20,7 +20,7 @@ class YourMusicTopNavBar extends React.Component {
                         </li>
                         <li className="top-nav-link-wrapper"><NavLink exact to="#" activeClassName="nav-link-selected"><span>Your Daily Mix</span></NavLink></li>
                         <li className="top-nav-link-wrapper"><NavLink exact to="#" activeClassName="nav-link-selected"><span>Songs</span></NavLink></li>
-                        <li className="top-nav-link-wrapper"><NavLink to="#" activeClassName="nav-link-selected"><span>Albums</span></NavLink></li>
+                        <li className="top-nav-link-wrapper"><NavLink exact to="/collection/albums" activeClassName="nav-link-selected"><span>Albums</span></NavLink></li>
                         <li className="top-nav-link-wrapper"><NavLink to="#" activeClassName="nav-link-selected"><span>Artists</span></NavLink></li>
                     </nav>
 

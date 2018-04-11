@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-class PlaylistIndexItem extends React.Component {
+class AlbumIndexItem extends React.Component {
 
     constructor(props) {
         super(props);
@@ -23,14 +23,14 @@ class PlaylistIndexItem extends React.Component {
             <div className="button-wrapper">
                 <button className="play-pause" onClick={this.props.play} style={{ display: 'none' }}>{playIcon}</button>
             </div>
-            <Link className="music-index-item" to={`/collection/playlists/${this.props.playlist.id}`}><li className="item-wrapper">
-                <div className="media"><img alt="" className="media__image" src={this.props.playlist.album_cover_url} />
+            <Link className="music-index-item" to={`/collection/albums/${this.props.album.id}`}><li className="item-wrapper">
+                <div className="media"><img alt="" className="media__image" src={this.props.album.album_cover_url} />
                     <div className="media__body">
                     </div>
                     <div className="media-loaded">
                     </div>
                 </div>
-                <p>{this.props.playlist.name}</p>
+                <p>{this.props.album.title}</p>
             </li>
             </Link>
         </div>
@@ -38,4 +38,4 @@ class PlaylistIndexItem extends React.Component {
     }
 }
 
-export default PlaylistIndexItem;
+export default AlbumIndexItem;

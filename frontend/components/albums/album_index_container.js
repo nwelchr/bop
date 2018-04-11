@@ -1,12 +1,10 @@
-import PlaylistIndex from './playlist_index';
+import AlbumIndex from './album_index';
 import { connect } from 'react-redux';
 
 import { fetchAlbums, fetchAlbum } from '../../actions/album_actions';
 import { play } from '../../actions/audio_actions';
 
 import { openPlaylistForm } from '../../actions/ui_actions';
-
-
 
 const mapStateToProps = (state) => {
     return({

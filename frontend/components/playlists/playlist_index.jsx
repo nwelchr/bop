@@ -48,24 +48,3 @@ class PlaylistIndex extends React.Component {
 }
 
 export default PlaylistIndex;
-
-class Modal extends React.Component {
-    render() {
-      if (this.props.isOpen === false) {return null;}
-        else {
-      return (
-        <div>
-            <button onClick={e => this.close(e)}>close</button>
-        </div>
-      );
-    }
-    }
-
-    close(e) {
-      e.preventDefault();
-
-      if (this.props.onClose) {
-        this.props.onClose();
-      }
-    }
-  }

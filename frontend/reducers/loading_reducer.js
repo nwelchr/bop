@@ -1,5 +1,7 @@
 import merge from 'lodash/merge';
 import { RECEIVE_PLAYLISTS, RECEIVE_PLAYLIST } from '../actions/playlist_actions';
+import { RECEIVE_ALBUMS, RECEIVE_ALBUM } from '../actions/album_actions';
+// import { RECEIVE_ARTISTS, RECEIVE_ARTIST } from '../actions/artist_actions';
 import { START_LOADING } from '../actions/loading_actions';
 
 const initialState = {
@@ -11,6 +13,10 @@ const loadingReducer = (state = initialState, action) => {
     switch (action.type) {
         case RECEIVE_PLAYLISTS:
         case RECEIVE_PLAYLIST:
+        case RECEIVE_ALBUMS:
+        case RECEIVE_ALBUM:
+        // case RECEIVE_ARTISTS:
+        // case RECEIVE_ARTIST:
             return merge({}, state, { global: false });
         case START_LOADING:
             return merge({}, state, { global: true });

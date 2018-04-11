@@ -1,15 +1,12 @@
 json.artists do
     json.array! @artists do |artist|
-        json.extract! artist, :id, :name, :genre_id, :about
-        json.artist_artwork_url asset_path(artist.artist_artwork_url)
-        json.background_artwork_url asset_path(artist.background_artwork_url)
+        json.partial! 'api/artists/artist', artist: @artist
     end
 end
 
 json.albums do
     json.array! @albums do |album|
-        json.extract! album, :id, :title, :year, :artist_id, :album_type
-        json.album_cover_url asset_path(album.album_cover_url)
+        json.partial! 'api/albums/album', album: album
     end
 end
 
