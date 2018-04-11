@@ -32,7 +32,6 @@ class SearchBar extends React.Component {
   }
 
   triggerChange() {
-      console.log("I'm triggered!");
       const { query } = this.state;
       this.props.fetchSearchResults(query).then(results => query ? this.props.history.push(`/search/results/${query}`) : this.props.history.push(`/search`));
   }
@@ -45,7 +44,6 @@ class SearchBar extends React.Component {
   }
 
   render() {
-      console.log(this.props);
     return (
         <main className="main-search-bar">
           <form className="search-form">

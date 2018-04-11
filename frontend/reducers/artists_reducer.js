@@ -9,10 +9,8 @@ const artistsReducer = (oldState = {}, action) => {
     Object.freeze(oldState);
     switch(action.type) {
         case RECEIVE_ARTISTS:
-        // debugger;
             return action.artists;
         case RECEIVE_ARTIST:
-            // debugger;
             return merge({}, oldState, { [action.payload.artist.id]: action.payload.artist} );
         default:
             return oldState;

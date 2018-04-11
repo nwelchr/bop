@@ -28,7 +28,6 @@ class NewPlaylistModal extends React.Component {
     this.props
       .createPlaylist(this.state)
       .then(response => {
-        // debugger;
         this.redirect(response.payload.playlist.id);
       });
   }

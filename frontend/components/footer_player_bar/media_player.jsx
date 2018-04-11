@@ -40,7 +40,6 @@ class MediaPlayer extends React.Component {
   componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.state.played, 'duration');
     this.setState({
       playing: nextProps.playing,
       currentSong: nextProps.currentSong.mp3_url
@@ -68,7 +67,6 @@ class MediaPlayer extends React.Component {
   }
 
   stop() {
-    console.log(this.state.played, 'stop');
     this.setState({ url: null, playing: false, played: 0 });
   }
 
@@ -124,7 +122,6 @@ class MediaPlayer extends React.Component {
 
   // happens as soon as the component renders
   onDuration(duration) {
-    console.log(this.state.played, 'duration');
     this.setState({ duration });
   }
 
@@ -161,7 +158,6 @@ class MediaPlayer extends React.Component {
     const volumeOff = <i className="fa fa-volume-off" />;
 
     // Really fine tuning on the overlay div
-    console.log(this.state.played);
     let style = (this.state.played < 0.001) ? { width: '0' } : {
       width: `${this.state.played * 100 + .5 - this.state.played * .5}%`
     };

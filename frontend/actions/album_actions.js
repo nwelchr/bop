@@ -17,7 +17,6 @@ export const receiveAlbum = (payload) => ({
 
 export const fetchAlbums = (shouldFetchAll) => (dispatch) => {
     dispatch(startLoading());
-    console.log("just started loading for albums fetch...")
     return APIUtil.fetchAlbums(shouldFetchAll).then(albums => {
         return dispatch(receiveAlbums(albums));});
     };

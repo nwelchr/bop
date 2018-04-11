@@ -1,6 +1,4 @@
-export const fetchAlbums = (shouldFetchAll) => {
-    console.log("about to fetch albums in api util");
-    
+export const fetchAlbums = (shouldFetchAll) => { 
     return $.ajax({
         url: 'api/albums',
         method: 'GET',

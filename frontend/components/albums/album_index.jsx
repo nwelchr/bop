@@ -15,7 +15,6 @@ class AlbumIndex extends React.Component {
     }
 
     componentDidMount() {
-        console.log("fetching albums on component did mount");
         this.props.fetchAlbums();
     }
 
