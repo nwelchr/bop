@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
     return({
         albums: Object.values(state.entities.albums),
         loading: state.ui.loading.global,
-        background: { 'backgroundColor': '#2e263b' },
+        background: { 'backgroundColor': '#705a27' },
     });
 };
 
