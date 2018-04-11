@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { AuthRoute } from "../../util/route_util";
-import SongIndexItem from "../songs/song_index_item";
+import SongIndexItemContainer from "../songs/song_index_item_container";
 import PlaylistIndexItem from "../playlists/playlist_index_item";
 
 import AddToPlaylistModal from '../modals/add_to_playlist_modal';
@@ -54,21 +54,10 @@ class PlaylistShow extends React.Component {
         <ol>
           {this.props.songs.map(song => {
             return (
-              <SongIndexItem
+              <SongIndexItemContainer
                 key={song.id}
                 song={song}
-                fetchSong={this.props.fetchSong}
-                play={this.props.play}
-                playSong={this.props.playSong}
-                currentSong={this.props.currentSong}
-                playing={this.props.playing}
-                pause={this.props.pause}
-                openAddToPlaylistForm={this.props.openAddToPlaylistForm}
-                fetchModalPlaylists={this.props.fetchModalPlaylists}
-                removeSongFromPlaylist={this.props.removeSongFromPlaylist}
                 playlist={this.props.playlist}
-                fetchPlaylist={this.props.fetchPlaylist}
-                currentUser={this.props.currentUser}
               />
             );
           })}

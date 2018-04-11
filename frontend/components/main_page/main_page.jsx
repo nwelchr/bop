@@ -7,7 +7,8 @@ import SideNavBar from './side_nav_bar';
 import FooterPlayerBar from '../footer_player_bar/footer_player_bar';
 import MusicPageContainer from './music_page_container';
 import BrowseIndexContainer from '../browse/browse_index_container';
-import SearchContainer from '../search/search.jsx';
+import SearchContainer from '../search/search';
+import SongCollectionIndexContainer from '../songs/song_collection_index_container';
 
 import AddToPlaylistModal from '../modals/add_to_playlist_modal';
 
@@ -20,6 +21,7 @@ class MainPage extends React.Component {
                 <main className="main-wrapper">
                 <Route path="/search" component={SearchContainer} />
                 <Route path="/browse" component={BrowseIndexContainer} />
+                <Route exact path="/collection/songs" component={SongCollectionIndexContainer}/>
                 <Route exact path="/collection/playlists" component={PlaylistIndexContainer} />
                 <Route path="/collection/playlists/:playlistId" component={PlaylistShowContainer} />
                 <FooterPlayerBar playing={this.props.playing} />
