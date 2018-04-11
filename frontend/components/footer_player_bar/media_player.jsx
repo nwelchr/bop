@@ -10,7 +10,7 @@ class MediaPlayer extends React.Component {
     super(props);
 
     this.state = {
-      currentSong: 'https://a.tumblr.com/tumblr_m71074DUbH1qck9hho1.mp3',
+      currentSong: '',
       playing: false,
       volume: 0.8,
       muted: false,
@@ -34,6 +34,7 @@ class MediaPlayer extends React.Component {
       this.onDuration = this.onDuration.bind(this);
       this.ref = this.ref.bind(this);
       this.load = this.load.bind(this);
+      this.onEnded = this.onEnded.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,6 +57,7 @@ class MediaPlayer extends React.Component {
   }
 
   togglePlay() {
+    if (!this.props.currentSong) { return; }
     if (this.state.playing === true) this.props.pause();
     else this.props.play();
   }
@@ -74,6 +76,13 @@ class MediaPlayer extends React.Component {
 
   toggleLoop() {
     this.setState({ loop: !this.state.loop });
+  }
+
+  onEnded() {
+    if (!this.state.loop) {
+      this.props.pause();
+      this.setState({ played: 0 });
+    }
   }
 
   // onPlay() {
