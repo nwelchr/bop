@@ -1,12 +1,13 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { AuthRoute } from '../../util/route_util';
-import PlaylistIndexItem from './playlist_index_item';
+import ArtistIndexItem from './artist_index_item';
 
 import NewPlaylistModal from '../modals/new_playlist_modal';
+
 import YourMusicTopNavBar from '../navbar/top_navbar';
 
-class PlaylistIndex extends React.Component {
+class ArtistIndex extends React.Component {
     constructor(props) {
         super(props);
 
@@ -14,7 +15,7 @@ class PlaylistIndex extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchPlaylists();
+        this.props.fetchArtists();
     }
 
     openModal() {
@@ -30,14 +31,14 @@ class PlaylistIndex extends React.Component {
         if (this.props.loading) { return <div>loading...</div>;}
         else {
             return (
-            <main className="main" style={this.props.background}>
+                <main className="main" style={this.props.background}>
                 <main className="index-page-wrapper">
                 <YourMusicTopNavBar />
                     <main className="music-index">
                     <div className="music-index-wrapper">
                         <ul>
-                            {this.props.playlists.map(playlist => 
-                                        <PlaylistIndexItem key={playlist.id} playlist={playlist} renderButton={true} />
+                            {this.props.artists.map(artist => 
+                                        <ArtistIndexItem key={artist.id} artist={artist} renderButton={true} />
                             )}
                         </ul>
                         </div>
@@ -49,4 +50,4 @@ class PlaylistIndex extends React.Component {
     }
 }
 
-export default PlaylistIndex;
+export default ArtistIndex;

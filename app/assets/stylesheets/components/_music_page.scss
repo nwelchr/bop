@@ -2,7 +2,7 @@
 
 body {
   color: #fff;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Helvetica", sans-serif;
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -27,6 +27,7 @@ body {
   box-sizing: border-box;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
+  
 
   .logo {
     margin-left: 3px;
@@ -35,6 +36,7 @@ body {
   }
 
   .sidebar-main {
+
     // background-color: purple!important;
 
     .search {
@@ -64,7 +66,8 @@ body {
 }
 
 .sidebar li {
-  margin: 15px 10px;
+  padding: 0 10px;
+  margin: 15px 0px;
   // background-color: green!important;
   font-size: 14px;
 }
@@ -103,12 +106,12 @@ body {
   width: calc(100% - 200px);
   height: calc(100% - 200px);
   background-color: #3c3f5b;
-  padding-left: 200px;
+  padding-left: 220px;
   padding-bottom: 200px;
   overflow: scroll;
 
   .index-page-wrapper {
-    padding: 0px 75px;
+    padding: 0px 10px;
   }
 
   // background-color: #705a27;

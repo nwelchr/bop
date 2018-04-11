@@ -21,7 +21,7 @@ class YourMusicTopNavBar extends React.Component {
                         <li className="top-nav-link-wrapper"><NavLink exact to="#" activeClassName="nav-link-selected"><span>Your Daily Mix</span></NavLink></li>
                         <li className="top-nav-link-wrapper"><NavLink exact to="#" activeClassName="nav-link-selected"><span>Songs</span></NavLink></li>
                         <li className="top-nav-link-wrapper"><NavLink exact to="/collection/albums" activeClassName="nav-link-selected"><span>Albums</span></NavLink></li>
-                        <li className="top-nav-link-wrapper"><NavLink to="#" activeClassName="nav-link-selected"><span>Artists</span></NavLink></li>
+                        <li className="top-nav-link-wrapper"><NavLink to="/collection/artists" activeClassName="nav-link-selected"><span>Artists</span></NavLink></li>
                     </nav>
 
                     <nav className="new-playlist">

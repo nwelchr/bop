@@ -35,10 +35,12 @@ class SearchResults extends React.Component {
           </nav>
 
           <main className="music-index">
+          <div className="music-index-wrapper">
             <ul>
               <li>hey</li>
               <li>hey</li>
             </ul>
+            </div>
           </main>
         </main>
     );

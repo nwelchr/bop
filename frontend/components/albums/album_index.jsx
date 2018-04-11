@@ -36,11 +36,13 @@ class AlbumIndex extends React.Component {
                 <main className="index-page-wrapper">
                 <YourMusicTopNavBar />
                     <main className="music-index">
+                    <div className="music-index-wrapper">
                         <ul>
                             {this.props.albums.map(album => 
                                         <AlbumIndexItem key={album.id} album={album} renderButton={true} />
                             )}
                         </ul>
+                        </div>
                     </main>
                 </main>
             </main>

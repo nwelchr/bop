@@ -27,11 +27,13 @@ class BrowseIndex extends React.Component {
                     </nav>
 
                     <main className="music-index">
+                    <div className="music-index-wrapper">
                         <ul>
                             {this.props.playlists.map(playlist => 
                                         <PlaylistIndexItem key={playlist.id} playlist={playlist} renderButton={true} />
                             )}
                         </ul>
+                        </div>
                     </main>
                 </main>
             </main>
