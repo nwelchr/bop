@@ -436,7 +436,7 @@ end
 sophie = Artist.create!(
     name: 'SOPHIE',
     artist_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Artist+Artwork/sophie.jpg',
-    background_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Artist+Artwork/sophie_background.jpeg',
+    background_artwork_url: '',
     genre_id: 4,
     about: 'SOPHIE\'s about'
 )

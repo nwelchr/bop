@@ -14,7 +14,7 @@ class BrowseIndex extends React.Component {
 
   render() {
     if (this.props.loading) {
-      return <div>loading...</div>;
+      return <div />;
     } else {
       return (
         <main className="main" style={this.props.background}>

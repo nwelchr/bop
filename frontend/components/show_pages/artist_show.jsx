@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { AuthRoute } from "../../util/route_util";
 import SongIndexItemContainer from "../songs/song_index_item_container";
 import ArtistIndexItem from "../artists/artist_index_item";
+import AlbumResults from '../search/album_results';
 
 class ArtistShow extends React.Component {
   constructor(props) {
@@ -60,26 +61,40 @@ class ArtistShow extends React.Component {
 
   render() {
     if (this.state.loading || (typeof this.props.artist === "undefined")) {
-      return <div style={{fontSize: '50px', paddingLeft: '225px'}}>loading</div>;
+      return <div />;
     } else {
       const ArtistSongs = this.createArtistSongs();
 
       const { artist } = this.props;
 
-      const Albums = null;
+      const Albums = artist.albums.length > 0 ? (
+        <section class="artist-albums">
+        <h1>Albums</h1>
+      <AlbumResults albums={artist.albums} />
+      </section>
+      ) : null;
 
-      const Singles = null;
-
+      const Singles = artist.singles.length > 0 ? (
+        <section class="artist-singles">
+        <h1>Singles</h1>
+      <AlbumResults albums={artist.singles} />
+      </section>
+       ) : null;
+       
       return (
-        <main className="main" style={this.props.background}>
+        <main className="main artist-show">
+        <div class="content" /><img class="artwork" src={artist.background_artwork_url} />
         <div class="user-artist-show-wrapper">
         <section class="user-artist-intro">
+          <img src={artist.artist_artwork_url} class="artist-artwork"/>
           <h1>{artist.name}</h1>
         </section>
+        <div class="artist-songs-wrapper">
         <section class="artist-random-songs">
         <h1>Get Acquainted</h1>
           {ArtistSongs}
           </section>
+          </div>
         {Albums}
         {Singles}
         </div>
