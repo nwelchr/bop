@@ -14,14 +14,14 @@ class SideNavBar extends React.Component {
                 <li className="your-music"><NavLink exact to="/collection/playlists" activeClassName="selected">Your Music</NavLink></li>
                 <li className="sidebar-divider"></li>
             </ul>
-                <ul className="recently-played-music">
+                {/* <ul className="recently-played-music">
                     <li className="recently-played">Recently Played</li>
                     <li>Azealia</li>
                     <li>Azealia</li>
                     <li>Azealia</li>
                     <li>Azealia</li>
                     <li>Azealia</li>
-                </ul>
+                </ul> */}
         </aside>
         );
     }

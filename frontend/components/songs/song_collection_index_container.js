@@ -10,7 +10,7 @@ import selectors from '../../reducers/selectors';
 const mapStateToProps = (state, ownProps) => {
     return({
         loading: state.ui.loading.global,
-        background: { 'backgroundColor': '#7a1a45' },
+        background: { 'backgroundColor': '#202753' },
         currentUser: state.session.currentUser,
         currentSong: state.ui.playbar.currentSong,
         playing: state.ui.playbar.playing,

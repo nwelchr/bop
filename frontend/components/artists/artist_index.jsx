@@ -15,6 +15,7 @@ class ArtistIndex extends React.Component {
     }
 
     componentDidMount() {
+        // if (this.props.artists.length < 1) this.props.fetchArtists();
         this.props.fetchArtists();
     }
 

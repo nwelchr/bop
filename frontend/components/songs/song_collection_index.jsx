@@ -13,7 +13,9 @@ class SongIndex extends React.Component {
   }
 
   componentDidMount() {
+    // if (this.props.songs.length < 1) this.props.fetchSongs();
     this.props.fetchSongs();
+    
   }
 
   render() {

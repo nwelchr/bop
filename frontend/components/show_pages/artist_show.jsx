@@ -37,7 +37,6 @@ class ArtistShow extends React.Component {
   }
 
   createArtistSongs() {
-    debugger;
     if (!(typeof this.props.artist.songs === "undefined")) {
       this.ArtistSongs = (
         <ol>
@@ -57,7 +56,6 @@ class ArtistShow extends React.Component {
   }
 
   render() {
-    debugger;
     if (this.state.loading || (typeof this.props.artist === "undefined")) {
       return <div style={{fontSize: '50px', paddingLeft: '225px'}}>NOT WORKING YET</div>;
     } else {

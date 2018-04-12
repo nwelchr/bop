@@ -37,7 +37,6 @@ class AlbumShow extends React.Component {
   }
 
   createAlbumSongs() {
-    debugger;
     if (!(typeof this.props.album.songs === "undefined")) {
       this.AlbumSongs = (
         <ol>
@@ -57,7 +56,6 @@ class AlbumShow extends React.Component {
   }
 
   render() {
-    debugger;
     if (this.state.loading || (typeof this.props.album === "undefined")) {
       return <div />;
     } else {

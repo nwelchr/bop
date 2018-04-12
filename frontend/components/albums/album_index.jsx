@@ -15,6 +15,7 @@ class AlbumIndex extends React.Component {
     }
 
     componentDidMount() {
+        // if (this.props.albums.length < 1) this.props.fetchAlbums();
         this.props.fetchAlbums();
     }
 
