@@ -253,7 +253,7 @@ input, select {
   position: relative;
   margin: 8px;
 }
-/* line 31, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 34, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .play-pause {
   position: absolute;
   vertical-align: center;
@@ -267,27 +267,32 @@ input, select {
   transition: .2s ease;
   top: calc(50% - 45px);
   left: calc(50% - 30px);
+  display: none;
 }
-/* line 44, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
-.media-wrapper .play-pause .fa-play-circle {
+/* line 49, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+.media-wrapper .play-pause.playing {
+  display: block !important;
+}
+/* line 53, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+.media-wrapper .play-pause .fa-play-circle, .media-wrapper .play-pause .fa-pause-circle {
   color: #eee;
   font-size: 60px;
 }
-/* line 49, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 58, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .play-pause:active {
   transform: scale(0.95);
 }
-/* line 52, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 61, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .music-index-item {
   display: block;
 }
-/* line 55, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 64, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .media {
   display: inline-block;
   position: relative;
   vertical-align: top;
 }
-/* line 59, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 68, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .media .media__image {
   max-width: 100%;
   display: block;
@@ -297,7 +302,7 @@ input, select {
   width: 225px;
   height: 225px;
 }
-/* line 69, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 78, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper p {
   padding: 10px;
   font-size: 14px;
@@ -307,17 +312,17 @@ input, select {
 }
 
 @media (max-width: 1200px) {
-  /* line 79, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+  /* line 88, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
   .media-wrapper {
     width: 170px;
   }
-  /* line 82, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+  /* line 91, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
   .media-wrapper .media .media__image {
     width: 170px;
     height: 170px;
   }
 }
-/* line 90, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 99, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media__body {
   background: #000;
   opacity: 0;
@@ -332,23 +337,27 @@ input, select {
   transform: scale(1);
   z-index: 3;
 }
+/* line 113, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+.media__body.playing, .media__body.hovering {
+  opacity: 0.7;
+}
 
-/* line 105, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 118, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:hover .media__body {
   opacity: .7;
 }
 
-/* line 109, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 122, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:active .media__body {
   transform: scale(0.98);
 }
 
-/* line 113, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 126, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:active .media .media__image {
   transform: scale(0.975);
 }
 
-/* line 117, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 130, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-loaded {
   background: #000;
   top: 0;
@@ -396,28 +405,32 @@ body {
 /* line 23, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar {
   padding: 20px;
+  padding-bottom: 105px;
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 220px;
   box-sizing: border-box;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
 }
-/* line 33, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 37, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .logo {
   margin-left: 3px;
   width: 35px;
   margin-bottom: 10px;
 }
-/* line 45, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 49, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main .search a {
   display: flex;
   justify-content: space-between;
 }
-/* line 51, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 55, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main .search:hover {
   cursor: pointer;
 }
-/* line 55, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 59, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main a {
   color: #bbb;
   width: 100%;
@@ -425,33 +438,33 @@ body {
   transition: color 0.3s ease;
   letter-spacing: 0.5px;
 }
-/* line 63, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 67, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main a:hover {
   color: #fff;
 }
 
-/* line 69, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 73, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar li {
   padding: 0 10px;
   margin: 15px 0px;
   font-size: 14px;
 }
 
-/* line 76, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 80, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar-main li {
   font-size: 16px;
   font-weight: bold;
 }
-/* line 80, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 84, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar-main li .selected {
   color: #27bb5a;
 }
-/* line 84, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 88, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar-main li .selected:hover {
   color: #27bb5a;
 }
 
-/* line 92, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 97, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-divider {
   padding: 0;
   height: 1px;
@@ -459,14 +472,42 @@ body {
   width: 100%;
 }
 
-/* line 99, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 104, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+.account-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+/* line 110, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+.account-link p {
+  font-size: 14px;
+}
+/* line 114, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+.account-link.selected {
+  color: #27bb5a;
+}
+/* line 118, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+.account-link.selected:hover {
+  color: #27bb5a;
+}
+
+/* line 123, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+.account-link-profile-picture {
+  width: 25px;
+  height: 25px;
+  padding: 0px 10px;
+  border-radius: 50%;
+}
+
+/* line 130, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .recently-played {
   text-transform: lowercase;
   font-variant: small-caps;
   letter-spacing: 1px;
 }
 
-/* line 105, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 136, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .main {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0), black);
   width: calc(100% - 200px);
@@ -476,12 +517,12 @@ body {
   padding-bottom: 220px;
   overflow: scroll;
 }
-/* line 114, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 145, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .main .index-page-wrapper {
   padding: 0px 10px;
 }
 
-/* line 125, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 156, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .player {
   position: fixed;
   bottom: 0;
@@ -493,7 +534,7 @@ body {
 /* line 3, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_new_playlist.scss */
 .new-playlist-page {
   position: absolute;
-  z-index: 4;
+  z-index: 10;
   width: 100%;
   height: 100%;
   top: 0;
@@ -683,7 +724,7 @@ body {
   background: rgba(0, 0, 0, 0.8);
   background-attachment: fixed;
   overflow: scroll;
-  z-index: 5;
+  z-index: 10;
   top: 0;
   left: 0;
 }
@@ -1518,6 +1559,141 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
 /* line 62, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_top_nav_bar.scss */
 .top-nav-link-wrapper span {
   white-space: nowrap;
+}
+/* line 1, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.sidebar {
+  z-index: 5;
+}
+
+/* line 5, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.content {
+  background: linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 40%, black 90%);
+  position: fixed;
+  z-index: -1 !important;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 100vw;
+  height: 600px;
+}
+
+/* line 16, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.artwork {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 600px;
+  width: 100vw;
+  object-fit: cover;
+  object-position: top;
+  z-index: -2 !important;
+}
+
+/* line 29, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.artist-show {
+  background: linear-gradient(rgba(0, 0, 0, 0.3) 0%, black 75%);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  z-index: 2;
+  position: relative;
+}
+
+/* line 39, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper h1 {
+  color: #fff;
+  text-align: center;
+}
+/* line 44, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .user-artist-intro {
+  width: 100%;
+  padding-top: 100px;
+  text-align: center;
+}
+/* line 49, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .user-artist-intro.user-intro {
+  padding-top: 0;
+}
+/* line 54, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .user-artist-intro .artist-artwork {
+  width: 225px;
+  height: 225px;
+  border-radius: 50%;
+  padding: 5px;
+  margin: 5px;
+  opacity: .7;
+  object-fit: cover;
+  border: 2px solid #bbb;
+}
+/* line 65, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .user-artist-intro h1 {
+  font-size: 60px;
+}
+/* line 69, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .user-artist-intro .username {
+  font-size: 40px;
+}
+/* line 74, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .artist-songs-wrapper {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  margin-top: 50px;
+}
+/* line 79, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .artist-songs-wrapper .artist-random-songs {
+  width: 75%;
+  margin: 0 auto;
+}
+/* line 82, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .artist-songs-wrapper .artist-random-songs h1 {
+  font-size: 45px;
+}
+/* line 88, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .artist-albums, .user-artist-show-wrapper .artist-singles {
+  display: flex column;
+  justify-content: center;
+  padding: 30px 0px 30px 0px;
+}
+/* line 93, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .artist-albums h1, .user-artist-show-wrapper .artist-singles h1 {
+  font-size: 35px;
+  padding-bottom: 30px;
+}
+/* line 98, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .artist-albums ul, .user-artist-show-wrapper .artist-singles ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* line 109, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-show-wrapper .music-index-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+}
+/* line 114, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-show-wrapper .music-index-wrapper h1 {
+  font-size: 25px;
+  padding: 15px;
+}
+/* line 119, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-show-wrapper .music-index-wrapper .username {
+  font-size: 30px;
+}
+
+/* line 125, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.profile-picture {
+  width: 225px;
+  height: 225px;
+  border-radius: 50%;
+  padding: 30px;
+}
+
+/* line 132, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-intro button {
+  margin: 30px;
 }
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
@@ -1792,7 +1968,7 @@ input, select {
   position: relative;
   margin: 8px;
 }
-/* line 31, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 34, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .play-pause {
   position: absolute;
   vertical-align: center;
@@ -1806,27 +1982,32 @@ input, select {
   transition: .2s ease;
   top: calc(50% - 45px);
   left: calc(50% - 30px);
+  display: none;
 }
-/* line 44, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
-.media-wrapper .play-pause .fa-play-circle {
+/* line 49, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+.media-wrapper .play-pause.playing {
+  display: block !important;
+}
+/* line 53, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+.media-wrapper .play-pause .fa-play-circle, .media-wrapper .play-pause .fa-pause-circle {
   color: #eee;
   font-size: 60px;
 }
-/* line 49, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 58, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .play-pause:active {
   transform: scale(0.95);
 }
-/* line 52, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 61, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .music-index-item {
   display: block;
 }
-/* line 55, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 64, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .media {
   display: inline-block;
   position: relative;
   vertical-align: top;
 }
-/* line 59, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 68, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .media .media__image {
   max-width: 100%;
   display: block;
@@ -1836,7 +2017,7 @@ input, select {
   width: 225px;
   height: 225px;
 }
-/* line 69, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 78, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper p {
   padding: 10px;
   font-size: 14px;
@@ -1846,17 +2027,17 @@ input, select {
 }
 
 @media (max-width: 1200px) {
-  /* line 79, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+  /* line 88, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
   .media-wrapper {
     width: 170px;
   }
-  /* line 82, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+  /* line 91, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
   .media-wrapper .media .media__image {
     width: 170px;
     height: 170px;
   }
 }
-/* line 90, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 99, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media__body {
   background: #000;
   opacity: 0;
@@ -1871,23 +2052,27 @@ input, select {
   transform: scale(1);
   z-index: 3;
 }
+/* line 113, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+.media__body.playing, .media__body.hovering {
+  opacity: 0.7;
+}
 
-/* line 105, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 118, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:hover .media__body {
   opacity: .7;
 }
 
-/* line 109, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 122, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:active .media__body {
   transform: scale(0.98);
 }
 
-/* line 113, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 126, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:active .media .media__image {
   transform: scale(0.975);
 }
 
-/* line 117, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 130, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-loaded {
   background: #000;
   top: 0;
@@ -1935,28 +2120,32 @@ body {
 /* line 23, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar {
   padding: 20px;
+  padding-bottom: 105px;
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 220px;
   box-sizing: border-box;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
 }
-/* line 33, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 37, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .logo {
   margin-left: 3px;
   width: 35px;
   margin-bottom: 10px;
 }
-/* line 45, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 49, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main .search a {
   display: flex;
   justify-content: space-between;
 }
-/* line 51, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 55, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main .search:hover {
   cursor: pointer;
 }
-/* line 55, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 59, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main a {
   color: #bbb;
   width: 100%;
@@ -1964,33 +2153,33 @@ body {
   transition: color 0.3s ease;
   letter-spacing: 0.5px;
 }
-/* line 63, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 67, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-main a:hover {
   color: #fff;
 }
 
-/* line 69, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 73, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar li {
   padding: 0 10px;
   margin: 15px 0px;
   font-size: 14px;
 }
 
-/* line 76, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 80, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar-main li {
   font-size: 16px;
   font-weight: bold;
 }
-/* line 80, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 84, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar-main li .selected {
   color: #27bb5a;
 }
-/* line 84, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 88, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar-main li .selected:hover {
   color: #27bb5a;
 }
 
-/* line 92, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 97, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .sidebar .sidebar-divider {
   padding: 0;
   height: 1px;
@@ -1998,14 +2187,42 @@ body {
   width: 100%;
 }
 
-/* line 99, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 104, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+.account-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+/* line 110, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+.account-link p {
+  font-size: 14px;
+}
+/* line 114, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+.account-link.selected {
+  color: #27bb5a;
+}
+/* line 118, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+.account-link.selected:hover {
+  color: #27bb5a;
+}
+
+/* line 123, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+.account-link-profile-picture {
+  width: 25px;
+  height: 25px;
+  padding: 0px 10px;
+  border-radius: 50%;
+}
+
+/* line 130, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .recently-played {
   text-transform: lowercase;
   font-variant: small-caps;
   letter-spacing: 1px;
 }
 
-/* line 105, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 136, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .main {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0), black);
   width: calc(100% - 200px);
@@ -2015,12 +2232,12 @@ body {
   padding-bottom: 220px;
   overflow: scroll;
 }
-/* line 114, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 145, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .main .index-page-wrapper {
   padding: 0px 10px;
 }
 
-/* line 125, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
+/* line 156, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_music_page.scss */
 .player {
   position: fixed;
   bottom: 0;
@@ -2033,7 +2250,7 @@ body {
 /* line 3, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_new_playlist.scss */
 .new-playlist-page {
   position: absolute;
-  z-index: 4;
+  z-index: 10;
   width: 100%;
   height: 100%;
   top: 0;
@@ -2224,7 +2441,7 @@ body {
   background: rgba(0, 0, 0, 0.8);
   background-attachment: fixed;
   overflow: scroll;
-  z-index: 5;
+  z-index: 10;
   top: 0;
   left: 0;
 }
@@ -3065,4 +3282,140 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
 /* line 62, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_top_nav_bar.scss */
 .top-nav-link-wrapper span {
   white-space: nowrap;
+}
+
+/* line 1, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.sidebar {
+  z-index: 5;
+}
+
+/* line 5, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.content {
+  background: linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 40%, black 90%);
+  position: fixed;
+  z-index: -1 !important;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 100vw;
+  height: 600px;
+}
+
+/* line 16, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.artwork {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 600px;
+  width: 100vw;
+  object-fit: cover;
+  object-position: top;
+  z-index: -2 !important;
+}
+
+/* line 29, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.artist-show {
+  background: linear-gradient(rgba(0, 0, 0, 0.3) 0%, black 75%);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  z-index: 2;
+  position: relative;
+}
+
+/* line 39, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper h1 {
+  color: #fff;
+  text-align: center;
+}
+/* line 44, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .user-artist-intro {
+  width: 100%;
+  padding-top: 100px;
+  text-align: center;
+}
+/* line 49, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .user-artist-intro.user-intro {
+  padding-top: 0;
+}
+/* line 54, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .user-artist-intro .artist-artwork {
+  width: 225px;
+  height: 225px;
+  border-radius: 50%;
+  padding: 5px;
+  margin: 5px;
+  opacity: .7;
+  object-fit: cover;
+  border: 2px solid #bbb;
+}
+/* line 65, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .user-artist-intro h1 {
+  font-size: 60px;
+}
+/* line 69, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .user-artist-intro .username {
+  font-size: 40px;
+}
+/* line 74, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .artist-songs-wrapper {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  margin-top: 50px;
+}
+/* line 79, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .artist-songs-wrapper .artist-random-songs {
+  width: 75%;
+  margin: 0 auto;
+}
+/* line 82, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .artist-songs-wrapper .artist-random-songs h1 {
+  font-size: 45px;
+}
+/* line 88, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .artist-albums, .user-artist-show-wrapper .artist-singles {
+  display: flex column;
+  justify-content: center;
+  padding: 30px 0px 30px 0px;
+}
+/* line 93, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .artist-albums h1, .user-artist-show-wrapper .artist-singles h1 {
+  font-size: 35px;
+  padding-bottom: 30px;
+}
+/* line 98, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-show-wrapper .artist-albums ul, .user-artist-show-wrapper .artist-singles ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* line 109, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-show-wrapper .music-index-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+}
+/* line 114, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-show-wrapper .music-index-wrapper h1 {
+  font-size: 25px;
+  padding: 15px;
+}
+/* line 119, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-show-wrapper .music-index-wrapper .username {
+  font-size: 30px;
+}
+
+/* line 125, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.profile-picture {
+  width: 225px;
+  height: 225px;
+  border-radius: 50%;
+  padding: 30px;
+}
+
+/* line 132, /Users/welchn/Desktop/bop/app/assets/stylesheets/components/_user_artist_show.scss */
+.user-artist-intro button {
+  margin: 30px;
 }
