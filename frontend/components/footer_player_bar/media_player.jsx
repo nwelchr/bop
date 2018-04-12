@@ -197,14 +197,14 @@ class MediaPlayer extends React.Component {
               onDuration={this.onDuration}
             />
 
-            <section class="progress-bar-wrapper">
-              {/* <progress max={1} value={played} class="played" /> */}
-              <div class="progress-bar-with-duration">
+            <section className="progress-bar-wrapper">
+              {/* <progress max={1} value={played} className="played" /> */}
+              <div className="progress-bar-with-duration">
                 <Duration seconds={duration * played} />
-                <div class="overlay-wrapper">
-                  <div class="played" style={style} />
-                  <div class="player-underlay" />
-                  <div class="seek-slider-wrapper">
+                <div className="overlay-wrapper">
+                  <div className="played" style={style} />
+                  <div className="player-underlay" />
+                  <div className="seek-slider-wrapper">
                     <input
                       className="seek-slider"
                       type="range"

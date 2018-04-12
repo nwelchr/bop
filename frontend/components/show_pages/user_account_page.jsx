@@ -22,11 +22,11 @@ class UserAccountPage extends React.Component {
       const { currentUser, background } = this.props;
       return (
         <main className="main" style={background}>
-        <div class="content" /><img class="artwork" src={currentUser.background_artwork_url} />
-        <div class="user-artist-show-wrapper">
-        <section class="user-artist-intro">
-          <img src={currentUser.profile_picture} class="profile-picture"/>
-          <h1 class="username">{currentUser.username}</h1>
+        <div className="content" /><img className="artwork" src={currentUser.background_artwork_url} />
+        <div className="user-artist-show-wrapper">
+        <section className="user-artist-intro">
+          <img src={currentUser.profile_picture} className="profile-picture"/>
+          <h1 className="username">{currentUser.username}</h1>
           <button onClick={this.handleLogout} className="new-playlist-cancel playlist-modal-button new-playlist-button">Logout</button>
         </section>
         </div>

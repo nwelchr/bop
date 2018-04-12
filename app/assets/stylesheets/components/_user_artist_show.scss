@@ -104,17 +104,29 @@
 
 .user-show-wrapper {
 
+  display: flex;
+  flex-direction: column;
+
+  .user-show-music-index {
+  h1 {
+    font-size: 25px;
+    padding: 15px;
+  }
+}
+
+.user-intro {
+  h1 {
+    padding-bottom: 50px;
+  }
+}
+
+
 
 
   .music-index-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-    padding-top: 30px;
-  h1 {
-    font-size: 25px;
-    padding: 15px;
-  }
 
   .username {
     font-size: 30px;

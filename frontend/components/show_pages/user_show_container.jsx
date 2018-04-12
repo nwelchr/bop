@@ -9,6 +9,7 @@ import { openPlaylistForm } from '../../actions/ui_actions';
 import UserShow from './user_show';
 
 const mapStateToProps = (state, ownProps) => {
+    
     return({
         user: state.entities.users[parseInt(ownProps.match.params.userId)],
         loading: state.ui.loading.global,

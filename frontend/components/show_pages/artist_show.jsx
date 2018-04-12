@@ -68,14 +68,14 @@ class ArtistShow extends React.Component {
       const { artist } = this.props;
 
       const Albums = artist.albums.length > 0 ? (
-        <section class="artist-albums">
+        <section className="artist-albums">
         <h1>Albums</h1>
       <AlbumResults albums={artist.albums} />
       </section>
       ) : null;
 
       const Singles = artist.singles.length > 0 ? (
-        <section class="artist-singles">
+        <section className="artist-singles">
         <h1>Singles</h1>
       <AlbumResults albums={artist.singles} />
       </section>
@@ -83,14 +83,14 @@ class ArtistShow extends React.Component {
        
       return (
         <main className="main artist-show">
-        <div class="content" /><img class="artwork" src={artist.background_artwork_url} />
-        <div class="user-artist-show-wrapper">
-        <section class="user-artist-intro">
-          <img src={artist.artist_artwork_url} class="artist-artwork"/>
+        <div className="content" /><img className="artwork" src={artist.background_artwork_url} />
+        <div className="user-artist-show-wrapper">
+        <section className="user-artist-intro">
+          <img src={artist.artist_artwork_url} className="artist-artwork"/>
           <h1>{artist.name}</h1>
         </section>
-        <div class="artist-songs-wrapper">
-        <section class="artist-random-songs">
+        <div className="artist-songs-wrapper">
+        <section className="artist-random-songs">
         <h1>Get Acquainted</h1>
           {ArtistSongs}
           </section>

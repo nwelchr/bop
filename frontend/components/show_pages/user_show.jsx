@@ -21,7 +21,7 @@ class UserShow extends React.Component {
   }
 
   render() {
-    if (this.props.loading || (typeof this.props.user === "undefined")) {
+    if (this.props.loading || (typeof this.props.user === "undefined") || (typeof this.props.user.playlists === "undefined")) {
       return <div />;
     } else {
 
@@ -29,19 +29,21 @@ class UserShow extends React.Component {
 
       return (
         <main className="main" style={background}>
-        <div class="user-show-wrapper">
-        <div class="user-artist-show-wrapper">
-        <section class="user-artist-intro user-intro">
-          <img src={user.profile_picture} class="profile-picture"/>
-          <h1 class="username">{user.username}</h1>
+        <div className="user-show-wrapper">
+        <div className="user-artist-show-wrapper">
+        <section className="user-artist-intro user-intro">
+          <img src={user.profile_picture} className="profile-picture"/>
+          <h1 className="username">{user.username}</h1>
         </section>
+        <div className="user-show-music-index">
+            <h1 className="">Public Playlists</h1>
         <div className="music-index">
             <div className="music-index-wrapper">
 
-            <h1 class="">Public Playlists</h1>
             <PlaylistResults playlists={user.playlists} />
             </div>
           </div>
+        </div>
         </div>
         </div>
         </main>
