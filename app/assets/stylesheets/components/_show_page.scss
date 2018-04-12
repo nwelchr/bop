@@ -1,3 +1,5 @@
+
+
 .show-page-main {
     padding-top: 15px;
    display: flex;
@@ -137,9 +139,10 @@
     
         .dropdown-menu {
             position: absolute;
+            width: 190px;
             padding: 0;
             top: 20px;
-            left: 60px;
+            right: 50px;
             background: linear-gradient(#181818, #383838);
             z-index: 1;
             
@@ -153,7 +156,8 @@
                 .dropdown-li {
                     color: #bbb;
                     font-size: 14px;
-                    font-weight: 600;
+                    font-weight: 400;
+
                     padding: 15px;
                     box-sizing: border-box;
                     width: 100%;
