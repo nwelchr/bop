@@ -23,6 +23,7 @@ class SearchNavbar extends React.Component {
         const usersLink = (users.length > 0) ? (<li className="top-nav-link-wrapper"><NavLink exact to={`/search/results/${query}/users`} activeClassName="nav-link-selected"><span>Users</span></NavLink></li>) : null;
 
         return(
+            <nav className="search-nav-bar">
             <nav className="nav-flex-wrapper">
                     <nav className="top-nav-bar">
                         {playlistsLink}
@@ -31,6 +32,7 @@ class SearchNavbar extends React.Component {
                         {artistsLink}
                         {usersLink}
                     </nav>
+                </nav>
                 </nav>
         );
     }

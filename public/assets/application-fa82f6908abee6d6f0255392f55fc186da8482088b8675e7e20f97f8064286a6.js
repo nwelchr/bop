@@ -34216,7 +34216,6 @@ var NewPlaylistModal = function (_React$Component) {
 
       e.preventDefault();
       this.props.createPlaylist(this.state).then(function (response) {
-        // debugger;
         _this2.redirect(response.payload.playlist.id);
       });
     }
@@ -35259,7 +35258,6 @@ var MediaPlayer = function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      console.log(this.state.played, 'duration');
       this.setState({
         playing: nextProps.playing,
         currentSong: nextProps.currentSong.mp3_url
@@ -35290,7 +35288,6 @@ var MediaPlayer = function (_React$Component) {
   }, {
     key: "stop",
     value: function stop() {
-      console.log(this.state.played, 'stop');
       this.setState({ url: null, playing: false, played: 0 });
     }
   }, {
@@ -35360,7 +35357,6 @@ var MediaPlayer = function (_React$Component) {
   }, {
     key: "onDuration",
     value: function onDuration(duration) {
-      console.log(this.state.played, 'duration');
       this.setState({ duration: duration });
     }
   }, {
@@ -35398,7 +35394,6 @@ var MediaPlayer = function (_React$Component) {
       var volumeOff = _react2.default.createElement("i", { className: "fa fa-volume-off" });
 
       // Really fine tuning on the overlay div
-      console.log(this.state.played);
       var style = this.state.played < 0.001 ? { width: '0' } : {
         width: this.state.played * 100 + .5 - this.state.played * .5 + "%"
       };
@@ -36456,7 +36451,6 @@ var receiveAlbum = exports.receiveAlbum = function receiveAlbum(payload) {
 var fetchAlbums = exports.fetchAlbums = function fetchAlbums(shouldFetchAll) {
     return function (dispatch) {
         dispatch((0, _loading_actions.startLoading)());
-        console.log("just started loading for albums fetch...");
         return APIUtil.fetchAlbums(shouldFetchAll).then(function (albums) {
             return dispatch(receiveAlbums(albums));
         });
@@ -68929,10 +68923,14 @@ var Search = function (_React$Component) {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
-        "div",
-        { className: "search-container" },
-        _react2.default.createElement(_search_bar2.default, null),
-        _react2.default.createElement(_reactRouterDom.Route, { path: "/search/results/", component: _search_results2.default })
+        "main",
+        { className: "main", style: { background: 'transparent' } },
+        _react2.default.createElement(
+          "div",
+          { className: "search-container" },
+          _react2.default.createElement(_search_bar2.default, null),
+          _react2.default.createElement(_reactRouterDom.Route, { path: "/search/results/", component: _search_results2.default })
+        )
       );
     }
   }]);
@@ -69021,7 +69019,6 @@ var SearchBar = function (_React$Component) {
     value: function triggerChange() {
       var _this2 = this;
 
-      console.log("I'm triggered!");
       var query = this.state.query;
 
       this.props.fetchSearchResults(query).then(function (results) {
@@ -69039,7 +69036,6 @@ var SearchBar = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props);
       return _react2.default.createElement(
         "main",
         { className: "main-search-bar" },
@@ -69129,6 +69125,18 @@ var _album_index_item = __webpack_require__(108);
 
 var _album_index_item2 = _interopRequireDefault(_album_index_item);
 
+var _playlist_results = __webpack_require__(302);
+
+var _playlist_results2 = _interopRequireDefault(_playlist_results);
+
+var _album_results = __webpack_require__(303);
+
+var _album_results2 = _interopRequireDefault(_album_results);
+
+var _artist_results = __webpack_require__(304);
+
+var _artist_results2 = _interopRequireDefault(_artist_results);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -69136,23 +69144,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import SongResults from './song_results';
 
-// class PlaylistResults extends React.Component {
-//   constructor(props) {
-//     super(props);
-//   }
 
-//   render() {
-//     const { playlists } = this.props;
-//     return (
-//       <ul>
-//           {playlists.map(playlist => 
-//                       <PlaylistIndexItem key={playlist.id} playlist={playlist} renderButton={true} />
-//           )}
-//       </ul>
-//     );
-//   }
-// }
+// import UserResults from './playlist_results';
 
 var SearchResults = function (_React$Component) {
   _inherits(SearchResults, _React$Component);
@@ -69171,7 +69166,8 @@ var SearchResults = function (_React$Component) {
           artists = _props$searches.artists,
           playlists = _props$searches.playlists,
           songs = _props$searches.songs,
-          users = _props$searches.users;
+          users = _props$searches.users,
+          query = _props$searches.query;
 
 
       return _react2.default.createElement(
@@ -69181,16 +69177,18 @@ var SearchResults = function (_React$Component) {
         _react2.default.createElement(
           "div",
           { className: "music-index" },
-          "joef",
           _react2.default.createElement(
             "div",
             { className: "music-index-wrapper" },
-            "wef",
-            _react2.default.createElement(
-              "ul",
-              null,
-              "wef"
-            )
+            _react2.default.createElement(_reactRouterDom.Route, { path: "/search/results/" + query + "/playlists", render: function render() {
+                return _react2.default.createElement(_playlist_results2.default, { playlists: playlists });
+              } }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: "/search/results/" + query + "/albums", render: function render() {
+                return _react2.default.createElement(_album_results2.default, { albums: albums });
+              } }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: "/search/results/" + query + "/artists", render: function render() {
+                return _react2.default.createElement(_artist_results2.default, { artists: artists });
+              } })
           )
         )
       );
@@ -69208,7 +69206,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {};
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(SearchResults);
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(SearchResults));
 
 /***/ }),
 /* 275 */
@@ -69258,7 +69256,8 @@ var SearchNavbar = function (_React$Component) {
                 songs = _props$searches.songs,
                 albums = _props$searches.albums,
                 artists = _props$searches.artists,
-                users = _props$searches.users;
+                users = _props$searches.users,
+                query = _props$searches.query;
 
 
             var playlistsLink = playlists.length > 0 ? _react2.default.createElement(
@@ -69266,7 +69265,7 @@ var SearchNavbar = function (_React$Component) {
                 { className: 'top-nav-link-wrapper' },
                 _react2.default.createElement(
                     _reactRouterDom.NavLink,
-                    { exact: true, to: '/search/results/:query/playlists', activeClassName: 'nav-link-selected' },
+                    { exact: true, to: '/search/results/' + query + '/playlists', activeClassName: 'nav-link-selected' },
                     _react2.default.createElement(
                         'span',
                         null,
@@ -69280,7 +69279,7 @@ var SearchNavbar = function (_React$Component) {
                 { className: 'top-nav-link-wrapper' },
                 _react2.default.createElement(
                     _reactRouterDom.NavLink,
-                    { exact: true, to: '/search/results/:query/songs', activeClassName: 'nav-link-selected' },
+                    { exact: true, to: '/search/results/' + query + '/songs', activeClassName: 'nav-link-selected' },
                     _react2.default.createElement(
                         'span',
                         null,
@@ -69294,7 +69293,7 @@ var SearchNavbar = function (_React$Component) {
                 { className: 'top-nav-link-wrapper' },
                 _react2.default.createElement(
                     _reactRouterDom.NavLink,
-                    { exact: true, to: '/search/results/:query/albums', activeClassName: 'nav-link-selected' },
+                    { exact: true, to: '/search/results/' + query + '/albums', activeClassName: 'nav-link-selected' },
                     _react2.default.createElement(
                         'span',
                         null,
@@ -69308,7 +69307,7 @@ var SearchNavbar = function (_React$Component) {
                 { className: 'top-nav-link-wrapper' },
                 _react2.default.createElement(
                     _reactRouterDom.NavLink,
-                    { to: '/search/results/:query/artists', activeClassName: 'nav-link-selected' },
+                    { exact: true, to: '/search/results/' + query + '/artists', activeClassName: 'nav-link-selected' },
                     _react2.default.createElement(
                         'span',
                         null,
@@ -69322,7 +69321,7 @@ var SearchNavbar = function (_React$Component) {
                 { className: 'top-nav-link-wrapper' },
                 _react2.default.createElement(
                     _reactRouterDom.NavLink,
-                    { exact: true, to: '/search/results/:query/users', activeClassName: 'nav-link-selected' },
+                    { exact: true, to: '/search/results/' + query + '/users', activeClassName: 'nav-link-selected' },
                     _react2.default.createElement(
                         'span',
                         null,
@@ -69333,15 +69332,19 @@ var SearchNavbar = function (_React$Component) {
 
             return _react2.default.createElement(
                 'nav',
-                { className: 'nav-flex-wrapper' },
+                { className: 'search-nav-bar' },
                 _react2.default.createElement(
                     'nav',
-                    { className: 'top-nav-bar' },
-                    playlistsLink,
-                    songsLink,
-                    albumsLink,
-                    artistsLink,
-                    usersLink
+                    { className: 'nav-flex-wrapper' },
+                    _react2.default.createElement(
+                        'nav',
+                        { className: 'top-nav-bar' },
+                        playlistsLink,
+                        songsLink,
+                        albumsLink,
+                        artistsLink,
+                        usersLink
+                    )
                 )
             );
         }
@@ -69350,13 +69353,7 @@ var SearchNavbar = function (_React$Component) {
     return SearchNavbar;
 }(_react2.default.Component);
 
-var mapStateToProps = function mapStateToProps(state) {};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {};
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SearchNavbar);
+exports.default = SearchNavbar;
 
 /***/ }),
 /* 276 */
@@ -69505,7 +69502,6 @@ var AlbumIndex = function (_React$Component) {
     _createClass(AlbumIndex, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            console.log("fetching albums on component did mount");
             this.props.fetchAlbums();
         }
     }, {
@@ -69572,8 +69568,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var fetchAlbums = exports.fetchAlbums = function fetchAlbums(shouldFetchAll) {
-    console.log("about to fetch albums in api util");
-
     return $.ajax({
         url: 'api/albums',
         method: 'GET',
@@ -70057,11 +70051,9 @@ var playlistsReducer = function playlistsReducer() {
     Object.freeze(oldState);
     switch (action.type) {
         case _playlist_actions.RECEIVE_PLAYLISTS:
-            // debugger;
             return action.playlists;
         case _playlist_actions.RECEIVE_CREATED_PLAYLIST:
         case _playlist_actions.RECEIVE_PLAYLIST:
-            // debugger;
             return (0, _merge3.default)({}, oldState, _defineProperty({}, action.payload.playlist.id, action.payload.playlist));
         case _playlist_actions.REMOVE_PLAYLIST:
             newState = (0, _merge3.default)({}, oldState);
@@ -70110,10 +70102,8 @@ var albumsReducer = function albumsReducer() {
     Object.freeze(oldState);
     switch (action.type) {
         case _album_actions.RECEIVE_ALBUMS:
-            // debugger;
             return action.albums;
         case _album_actions.RECEIVE_ALBUM:
-            // debugger;
             return (0, _merge3.default)({}, oldState, _defineProperty({}, action.payload.album.id, action.payload.album));
         default:
             return oldState;
@@ -70151,10 +70141,8 @@ var artistsReducer = function artistsReducer() {
     Object.freeze(oldState);
     switch (action.type) {
         case _artist_actions.RECEIVE_ARTISTS:
-            // debugger;
             return action.artists;
         case _artist_actions.RECEIVE_ARTIST:
-            // debugger;
             return (0, _merge3.default)({}, oldState, _defineProperty({}, action.payload.artist.id, action.payload.artist));
         default:
             return oldState;
@@ -70587,6 +70575,180 @@ var sessionReducer = function sessionReducer() {
 };
 
 exports.default = sessionReducer;
+
+/***/ }),
+/* 302 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _playlist_index_item = __webpack_require__(51);
+
+var _playlist_index_item2 = _interopRequireDefault(_playlist_index_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PlaylistResults = function (_React$Component) {
+  _inherits(PlaylistResults, _React$Component);
+
+  function PlaylistResults(props) {
+    _classCallCheck(this, PlaylistResults);
+
+    return _possibleConstructorReturn(this, (PlaylistResults.__proto__ || Object.getPrototypeOf(PlaylistResults)).call(this, props));
+  }
+
+  _createClass(PlaylistResults, [{
+    key: 'render',
+    value: function render() {
+      var playlists = this.props.playlists;
+
+      return _react2.default.createElement(
+        'ul',
+        null,
+        playlists.map(function (playlist) {
+          return _react2.default.createElement(_playlist_index_item2.default, { key: playlist.id, playlist: playlist, renderButton: true });
+        })
+      );
+    }
+  }]);
+
+  return PlaylistResults;
+}(_react2.default.Component);
+
+exports.default = PlaylistResults;
+
+/***/ }),
+/* 303 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _album_index_item = __webpack_require__(108);
+
+var _album_index_item2 = _interopRequireDefault(_album_index_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AlbumResults = function (_React$Component) {
+  _inherits(AlbumResults, _React$Component);
+
+  function AlbumResults(props) {
+    _classCallCheck(this, AlbumResults);
+
+    return _possibleConstructorReturn(this, (AlbumResults.__proto__ || Object.getPrototypeOf(AlbumResults)).call(this, props));
+  }
+
+  _createClass(AlbumResults, [{
+    key: 'render',
+    value: function render() {
+      var albums = this.props.albums;
+
+      return _react2.default.createElement(
+        'ul',
+        null,
+        albums.map(function (album) {
+          return _react2.default.createElement(_album_index_item2.default, { key: album.id, album: album, renderButton: true });
+        })
+      );
+    }
+  }]);
+
+  return AlbumResults;
+}(_react2.default.Component);
+
+exports.default = AlbumResults;
+
+/***/ }),
+/* 304 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _artist_index_item = __webpack_require__(282);
+
+var _artist_index_item2 = _interopRequireDefault(_artist_index_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ArtistResults = function (_React$Component) {
+  _inherits(ArtistResults, _React$Component);
+
+  function ArtistResults(props) {
+    _classCallCheck(this, ArtistResults);
+
+    return _possibleConstructorReturn(this, (ArtistResults.__proto__ || Object.getPrototypeOf(ArtistResults)).call(this, props));
+  }
+
+  _createClass(ArtistResults, [{
+    key: 'render',
+    value: function render() {
+      var artists = this.props.artists;
+
+      return _react2.default.createElement(
+        'ul',
+        null,
+        artists.map(function (artist) {
+          return _react2.default.createElement(_artist_index_item2.default, { key: artist.id, artist: artist, renderButton: true });
+        })
+      );
+    }
+  }]);
+
+  return ArtistResults;
+}(_react2.default.Component);
+
+exports.default = ArtistResults;
 
 /***/ })
 /******/ ]);
