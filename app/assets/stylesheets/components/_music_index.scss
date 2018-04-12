@@ -74,6 +74,7 @@ ul {
         position: relative;
         vertical-align: top;
         .media__image {
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
             max-width: 100%;
             display: block;
             transition: 0.2s ease;
