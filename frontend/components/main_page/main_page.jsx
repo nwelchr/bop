@@ -12,6 +12,7 @@ import SongCollectionIndexContainer from '../songs/song_collection_index_contain
 import AlbumIndexContainer from '../albums/album_index_container';
 import AlbumShowContainer from '../show_pages/album_show_container';
 import ArtistIndexContainer from '../artists/artist_index_container';
+import ArtistShowContainer from '../show_pages/artist_show_container';
 import AddToPlaylistModal from '../modals/add_to_playlist_modal';
 import NewPlaylistModal from '../modals/new_playlist_modal';
 
@@ -28,6 +29,7 @@ class MainPage extends React.Component {
                 <Route exact path="/collection/albums" component={AlbumIndexContainer} />
                 <Route path="/collection/albums/:albumId" component={AlbumShowContainer} />
                 <Route exact path="/collection/artists" component={ArtistIndexContainer} />
+                <Route path="/collection/artists/:artistId" component={ArtistShowContainer} />
                 <Route exact path="/collection/playlists" component={PlaylistIndexContainer} />
                 <Route path="/collection/playlists/:playlistId" component={PlaylistShowContainer} />
                 <FooterPlayerBar playing={this.props.playing} />
