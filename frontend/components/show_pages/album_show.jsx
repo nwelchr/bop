@@ -4,8 +4,6 @@ import { AuthRoute } from "../../util/route_util";
 import SongIndexItemContainer from "../songs/song_index_item_container";
 import AlbumIndexItem from "../albums/album_index_item";
 
-import AddToAlbumModal from '../modals/add_to_album_modal';
-
 class AlbumShow extends React.Component {
   constructor(props) {
     super(props);
@@ -13,12 +11,9 @@ class AlbumShow extends React.Component {
     this.state = {
       loading: true
     };
-
-    this.handleDelete = this.handleDelete.bind(this);
+    
     this.redirect = this.redirect.bind(this);
     this.handleResponse = this.handleResponse.bind(this);
-    // this.createAlbumSongs = this.createAlbumSongs.bind.this();
-    // this.createDeleteAlbumButton = this.createDeleteAlbumButton.bind.this();
   }
 
   componentDidMount() {
@@ -37,27 +32,20 @@ class AlbumShow extends React.Component {
     this.setState({ loading: false });
   }
 
-  handleDelete(e) {
-    e.preventDefault();
-    this.props
-      .deleteAlbum(this.props.album.id)
-      .then(response => this.redirect());
-  }
-
   redirect() {
     this.props.history.push("/collection/albums");
   }
 
   createAlbumSongs() {
-    if (!(typeof this.props.songs === "undefined")) {
+    debugger;
+    if (!(typeof this.props.album.songs === "undefined")) {
       this.AlbumSongs = (
         <ol>
-          {this.props.songs.map(song => {
+          {this.props.album.songs.map(song => {
             return (
               <SongIndexItemContainer
                 key={song.id}
                 song={song}
-                album={this.props.album}
               />
             );
           })}
@@ -68,29 +56,12 @@ class AlbumShow extends React.Component {
     }
   }
 
-  createDeleteAlbumButton() {
-    if (this.props.currentUser.id === this.props.album.creator_id) {
-      this.DeleteAlbumButton = (
-        <section className="delete-button-wrapper">
-          <button
-            className="delete-album-button"
-            onClick={this.handleDelete}
-          >
-            Delete Album
-          </button>
-        </section>
-      );
-    } else {
-      this.DeleteAlbumButton = null;
-    }
-  }
-
   render() {
+    debugger;
     if (this.state.loading || (typeof this.props.album === "undefined")) {
       return <div />;
     } else {
       this.createAlbumSongs();
-      this.createDeleteAlbumButton();
 
       return (
         <main className="main" style={this.props.background}>
@@ -102,12 +73,8 @@ class AlbumShow extends React.Component {
                   album={this.props.album}
                   renderButton={true}
                 />
-                <section className="delete-button-wrapper">
-                  {this.DeleteAlbumButton}
-                </section>
               </section>
             </section>
-            {/* <AddToAlbumModal /> */}
             <section className="show-songs">{this.AlbumSongs}</section>
           </main>
         </main>

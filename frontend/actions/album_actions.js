@@ -10,9 +10,9 @@ const receiveAlbums = (albums) => ({
     albums
 });
 
-export const receiveAlbum = (payload) => ({
+export const receiveAlbum = (album) => ({
     type: RECEIVE_ALBUM,
-    payload
+    album
 });
 
 export const fetchAlbums = (shouldFetchAll) => (dispatch) => {
