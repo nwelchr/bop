@@ -36,7 +36,6 @@ class SongIndex extends React.Component {
                           <SongIndexItemContainer
                             key={song.id}
                             song={song}
-                            playlist={this.props.playlist}
                           />
                         );
                       })}
