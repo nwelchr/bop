@@ -21,4 +21,13 @@ class Artist < ApplicationRecord
 
     has_many :songs,
         through: :albums
+
+
+    def singles
+        self.albums.where(album_type: 'Single')
+    end
+    
+    def only_albums
+        self.albums.where(album_type: 'Album')
+    end
 end

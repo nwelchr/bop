@@ -59,15 +59,16 @@ class ArtistShow extends React.Component {
   }
 
   render() {
-    console.log(this.props, "props");
     if (this.state.loading || (typeof this.props.artist === "undefined")) {
       return <div style={{fontSize: '50px', paddingLeft: '225px'}}>loading</div>;
     } else {
       const ArtistSongs = this.createArtistSongs();
 
-      console.log(ArtistSongs);
-
       const { artist } = this.props;
+
+      const Albums = null;
+
+      const Singles = null;
 
       return (
         <main className="main" style={this.props.background}>
@@ -79,6 +80,8 @@ class ArtistShow extends React.Component {
         <h1>Get Acquainted</h1>
           {ArtistSongs}
           </section>
+        {Albums}
+        {Singles}
         </div>
         </main>
       );
