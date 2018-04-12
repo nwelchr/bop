@@ -26,7 +26,7 @@ class SongIndex extends React.Component {
         <main className="main" style={this.props.background}>
           <main className="index-page-wrapper">
             <YourMusicTopNavBar />
-            <main className="music-index">
+            <main className="music-index song-collection-index">
               <div className="music-index-wrapper">
                 <main className="show-page-main">
                   <section className="show-songs song-container">

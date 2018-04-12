@@ -20,6 +20,19 @@ body {
   overflow: hidden;
 }
 
+.music-index {
+  overflow-x: hidden;
+  margin-left: -37px;
+
+  &.song-collection-index {
+    margin-left: 0;
+  }
+}
+
+.search-container .music-index {
+  margin-left: 0;
+}
+
 .sidebar {
   padding: 20px;
   padding-bottom: 105px;
