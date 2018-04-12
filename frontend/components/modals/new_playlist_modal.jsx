@@ -34,7 +34,7 @@ class NewPlaylistModal extends React.Component {
 
   redirect(id) {
     this.props.closePlaylistForm();
-    this.props.history.push(`/collection/playlists/${id}`);
+    this.props.history.push(`/playlists/${id}`);
   }
 
   handleCancel() {

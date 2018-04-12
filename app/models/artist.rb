@@ -14,6 +14,8 @@
 
 class Artist < ApplicationRecord
 
+    include Followable
+
     validates :name, :artist_artwork_url, :genre_id, presence: true
 
     # belongs_to :genre
@@ -21,7 +23,6 @@ class Artist < ApplicationRecord
 
     has_many :songs,
         through: :albums
-
 
     def singles
         self.albums.where(album_type: 'Single')
