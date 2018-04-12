@@ -25,7 +25,7 @@ class MainPage extends React.Component {
                 <main className="main-wrapper">
                 <Route path="/search" component={SearchContainer} />
                 <Route path="/browse" component={BrowseIndexContainer} />
-                {/* <Route exact path="/collection/songs" component={SongCollectionIndexContainer}/> */}
+                <Route exact path="/collection/songs" component={SongCollectionIndexContainer}/>
                 <Route exact path="/collection/albums" component={AlbumIndexContainer} />
                 <Route path="/collection/albums/:albumId" component={AlbumShowContainer} />
                 <Route exact path="/collection/artists" component={ArtistIndexContainer} />
