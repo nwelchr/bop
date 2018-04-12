@@ -86,7 +86,6 @@ class PlaylistShow extends React.Component {
   }
 
   render() {
-    debugger;
     if (this.state.loading || (typeof this.props.playlist === "undefined")) {
       return <div />;
     } else {

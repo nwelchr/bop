@@ -6,7 +6,8 @@ const mapStateToProps = (state) => {
     return ({
         state: state.entities,
         loading: state.ui.loading.global,
-        playing: state.ui.playbar.playing
+        playing: state.ui.playbar.playing,
+        currentUser: state.session.currentUser
     });
 };
 

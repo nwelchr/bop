@@ -9,6 +9,9 @@ import { saveSongToPlaylist } from './actions/song_actions';
 
 import { fetchSearchResults } from './actions/search_actions';
 
+import { fetchSong } from './actions/song_actions';
+import { playSong } from './actions/audio_actions';
+
 document.addEventListener("DOMContentLoaded", () => {
   let store;
   if (window.currentUser) {
@@ -24,6 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
   window.saveSongToPlaylist = saveSongToPlaylist;
   window.getState = store.getState;
   window.dispatch = store.dispatch;
+  window.fetchSong = fetchSong;
+  window.playSong = playSong;
   //
 
 window.fetchPlaylists = fetchPlaylists;

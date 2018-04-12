@@ -28,6 +28,9 @@ $bold: 'HelveticaNeue-Bold';
     width: 225px;
     position: relative;
     margin: 8px;
+
+
+
     .play-pause {
         position: absolute;
         vertical-align: center;
@@ -41,7 +44,13 @@ $bold: 'HelveticaNeue-Bold';
         transition: .2s ease;
         top: calc(50% - 45px);
         left: calc(50% - 30px);
-        .fa-play-circle {
+        display: none;
+        
+        &.playing {
+            display: block!important;
+        }
+
+        .fa-play-circle, .fa-pause-circle {
             color: #eee;
             font-size: 60px;
         }
@@ -100,6 +109,10 @@ $bold: 'HelveticaNeue-Bold';
     margin: 0 auto;
     transform: scale(1);
     z-index: 3;
+
+    &.playing, &.hovering {
+        opacity: .7
+    }
 }
 
 .music-index-item:hover .media__body {

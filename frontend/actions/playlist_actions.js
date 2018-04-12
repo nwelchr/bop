@@ -1,6 +1,7 @@
 import * as APIUtil from '../util/playlist_api_util';
 
 import { startLoading } from './loading_actions';
+import { playSong } from './audio_actions';
 
 export const RECEIVE_PLAYLISTS = "RECEIVE_PLAYLISTS";
 export const RECEIVE_PLAYLIST = "RECEIVE_PLAYLIST";
@@ -52,6 +53,14 @@ export const fetchPlaylist = (playlistId) => (dispatch) => {
         return dispatch(receivePlaylist(playlist));
     });
 };
+
+export const fetchPlaylistThenPlaySong = (playlistId) => (dispatch) => (
+    APIUtil.fetchPlaylist(playlistId).then(playlist => {
+        // play first song from playlist for now
+        dispatch(playSong(playlist.songs[0]));
+    }
+)
+);
 
 export const createPlaylist = (playlist) => (dispatch) => (
     APIUtil.createPlaylist(playlist).then(receivedPlaylist => dispatch(receiveCreatedPlaylist(receivedPlaylist)))

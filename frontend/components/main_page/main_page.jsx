@@ -15,17 +15,22 @@ import ArtistIndexContainer from '../artists/artist_index_container';
 import ArtistShowContainer from '../show_pages/artist_show_container';
 import AddToPlaylistModal from '../modals/add_to_playlist_modal';
 import NewPlaylistModal from '../modals/new_playlist_modal';
+import UserAccountPage from '../show_pages/user_account_page';
 
 class MainPage extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         return (
             <div className="app-wrapper">
-                <SideNavBar />
+                <SideNavBar currentUser={this.props.currentUser}/>
                 <main className="main-wrapper">
                 <Route path="/search" component={SearchContainer} />
                 <Route path="/browse" component={BrowseIndexContainer} />
                 <Route exact path="/collection/songs" component={SongCollectionIndexContainer}/>
+                <Route exact path="/account" component={UserAccountPage}/>
                 <Route exact path="/collection/albums" component={AlbumIndexContainer} />
                 <Route path="/albums/:albumId" component={AlbumShowContainer} />
                 <Route exact path="/collection/artists" component={ArtistIndexContainer} />

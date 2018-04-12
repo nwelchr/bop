@@ -1,6 +1,7 @@
 import * as APIUtil from '../util/album_api_util';
 
 import { startLoading } from './loading_actions';
+import { playSong } from './audio_actions';
 
 export const RECEIVE_ALBUMS = "RECEIVE_ALBUMS";
 export const RECEIVE_ALBUM = "RECEIVE_ALBUM";
@@ -27,3 +28,11 @@ export const fetchAlbum = (albumId) => (dispatch) => {
         return dispatch(receiveAlbum(playlist));
     });
 };
+
+export const fetchAlbumThenPlaySong = (albumId) => (dispatch) => (
+    APIUtil.fetchAlbum(albumId).then(album => {
+        // play first song from album for now
+        dispatch(playSong(album.songs[0]));
+    }
+)
+);

@@ -2,7 +2,7 @@ import PlaylistIndex from './playlist_index';
 import { connect } from 'react-redux';
 
 import { fetchPlaylists, fetchPlaylist } from '../../actions/playlist_actions';
-import { play } from '../../actions/audio_actions';
+import { play, playSong } from '../../actions/audio_actions';
 
 import { openPlaylistForm } from '../../actions/ui_actions';
 
@@ -17,7 +17,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return ({
         fetchPlaylists: () => dispatch(fetchPlaylists()),
-        play: () => dispatch(play()),
         openPlaylistForm: () => dispatch(openPlaylistForm())
     });};
 

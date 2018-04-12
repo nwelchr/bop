@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { fetchSearchResults } from '../../actions/search_actions';
 
 
-const WAIT_INTERVAL = 1500;
+const WAIT_INTERVAL = 500;
 const ENTER_KEY = 13;
 
 class SearchBar extends React.Component {

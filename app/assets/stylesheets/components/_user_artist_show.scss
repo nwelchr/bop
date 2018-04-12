@@ -60,6 +60,10 @@
     h1 {
       font-size: 60px;
     }
+
+    .username {
+      font-size: 40px;
+    }
   }
 
   .artist-songs-wrapper {
@@ -91,4 +95,15 @@
       flex-wrap: wrap;
     }
   }
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  padding: 15px;
+}
+
+.user-artist-intro button {
+  margin: 30px;
 }

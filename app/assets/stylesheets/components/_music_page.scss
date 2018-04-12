@@ -22,7 +22,11 @@ body {
 
 .sidebar {
   padding: 20px;
+  padding-bottom: 105px;
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   // background-color: blue!important;
   width: 220px;
   box-sizing: border-box;
@@ -80,11 +84,12 @@ body {
   .selected {
     color: $dark-green;
   }
-
+  
   .selected:hover {
     color: $dark-green;
   }
 }
+
 
 .recently-played-music li {
 }
@@ -94,6 +99,32 @@ body {
   height: 1px;
   background-color: rgba(255, 255, 255, 0.25);
   width: 100%;
+}
+
+.account-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  p {
+    font-size: 14px;
+  }
+
+  &.selected {
+    color: $dark-green;
+  }
+
+  &.selected:hover {
+    color: $dark-green;
+  }
+}
+
+.account-link-profile-picture {
+    width: 25px;
+    height: 25px;
+    padding: 0px 10px;
+    border-radius: 50%;
 }
 
 .recently-played {
