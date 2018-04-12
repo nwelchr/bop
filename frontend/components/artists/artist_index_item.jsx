@@ -30,22 +30,22 @@ class ArtistIndexItem extends React.Component {
     }
 
     handlePlay(e) {
-        // e.stopPropagation();
-        // e.preventDefault();
+        e.stopPropagation();
+        e.preventDefault();
 
-        // const songIds = this.props.artist.songs.map(song => song.id);
-        // const { currentSong, playing } = this.props;
+        const songIds = this.props.artist.songIds;
+        const { currentSong, playing } = this.props;
 
-        // // If artist has songs and there's no current song, 
-        // // or if the artist does have that song in it,
-        // // fetch the artist in question and play it
-        // if (songIds.length > 0 && !currentSong || (!songIds.includes(currentSong.id))) {
-        //     this.props.fetchArtistThenPlaySong(this.props.artist.id);
-        // } else if (currentSong && !playing) {
-        //     this.props.play();
-        // } else {
-        //     this.props.pause();
-        // }
+        // If artist has songs and there's no current song, 
+        // or if the artist does have that song in it,
+        // fetch the artist in question and play it
+        if (songIds.length > 0 && !currentSong || (!songIds.includes(currentSong.id))) {
+            this.props.fetchArtistThenPlaySong(this.props.artist.id);
+        } else if (currentSong && !playing) {
+            this.props.play();
+        } else {
+            this.props.pause();
+        }
     }
 
     render() {
@@ -55,7 +55,7 @@ class ArtistIndexItem extends React.Component {
 
         const { currentSong, playing } = this.props;
         let songIds = null;
-        if (this.props.artist.songs) songIds = this.props.artist.songs.map(song => song.id);
+        if (this.props.artist.songIds) songIds = this.props.artist.songIds;
         
         const playIcon = <i className="fa fa-play-circle"></i>;
         const pauseIcon = <i className="fa fa-pause-circle"></i>;

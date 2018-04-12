@@ -12,8 +12,6 @@ json.albums do
     end
 end
 
-json.songs do
-    json.array! @artist.songs.shuffle.take(5) do |song|
-        json.partial! 'api/songs/song', song: song
-    end
+json.songs @artist.songs.sort_by{ |song| song.album.year }.reverse.take(5).each do |song|
+    json.partial! 'api/songs/song', song: song
 end
