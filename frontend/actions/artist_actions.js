@@ -34,7 +34,6 @@ export const fetchArtist = (artistId) => (dispatch) => {
 export const fetchArtistThenPlaySong = (artistId) => (dispatch) => (
     APIUtil.fetchArtist(artistId).then(artist => {
         // play first song from artist for now
-        debugger;
         dispatch(playSong(artist.songs[0]));
     }
 )

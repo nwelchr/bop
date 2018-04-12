@@ -16,6 +16,7 @@ import ArtistShowContainer from '../show_pages/artist_show_container';
 import AddToPlaylistModal from '../modals/add_to_playlist_modal';
 import NewPlaylistModal from '../modals/new_playlist_modal';
 import UserAccountPage from '../show_pages/user_account_page';
+import UserShowPageContainer from '../show_pages/user_show_container';
 
 class MainPage extends React.Component {
     constructor(props) {
@@ -37,6 +38,7 @@ class MainPage extends React.Component {
                 <Route path="/artists/:artistId" component={ArtistShowContainer} />
                 <Route exact path="/collection/playlists" component={PlaylistIndexContainer} />
                 <Route path="/playlists/:playlistId" component={PlaylistShowContainer} />
+                <Route path="/users/:userId" component={UserShowPageContainer} />
                 <FooterPlayerBar playing={this.props.playing} />
                 </main>
                 <AddToPlaylistModal />

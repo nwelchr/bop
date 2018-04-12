@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :playlists
     resources :songs, only: [:index, :show]
     resources :searches, only: [:index]
-    resources :users, only: [:new, :index, :create, :destroy]
+    resources :users, only: [:index, :show, :create, :destroy]
     resource :session, only: [:new, :create, :destroy]
 
     post 'playlists/:id/songs', to: 'playlists#add_song'
