@@ -23,7 +23,7 @@ class PlaylistIndexItem extends React.Component {
             <div className="button-wrapper">
                 <button className="play-pause" onClick={this.props.play} style={{ display: 'none' }}>{playIcon}</button>
             </div>
-            <Link className="music-index-item" to={`/collection/playlists/${this.props.playlist.id}`}><li className="item-wrapper">
+            <Link className="music-index-item" to={`/playlists/${this.props.playlist.id}`}><li className="item-wrapper">
                 <div className="media"><img alt="" className="media__image" src={this.props.playlist.album_cover_url} />
                     <div className="media__body">
                     </div>

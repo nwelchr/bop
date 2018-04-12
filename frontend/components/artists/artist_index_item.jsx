@@ -28,7 +28,7 @@ class ArtistIndexItem extends React.Component {
             <div className="button-wrapper">
                 <button className="play-pause" onClick={this.props.play} style={{ display: 'none' }}>{playIcon}</button>
             </div>
-            <Link className="music-index-item" to={`/collection/artists/${this.props.artist.id}`}><li className="item-wrapper">
+            <Link className="music-index-item" to={`/artists/${this.props.artist.id}`}><li className="item-wrapper">
                 <div className="media"><img alt="" style={artistIndexStyle} className="media__image" src={this.props.artist.artist_artwork_url}/>
                     <div className="media__body" style={artistIndexStyle}>
                     </div>

@@ -7,7 +7,7 @@ import ArtistIndexItem from "../artists/artist_index_item";
 class ArtistShow extends React.Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       loading: true
     };
@@ -18,8 +18,7 @@ class ArtistShow extends React.Component {
 
   componentDidMount() {
     this.props
-      .fetchArtist(this.props.match.params.artistId)
-      .then(response => this.handleResponse());
+      .fetchArtist(this.props.match.params.artistId).then(response => this.handleResponse());
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,7 +37,9 @@ class ArtistShow extends React.Component {
 
   createArtistSongs() {
     if (!(typeof this.props.artist.songs === "undefined")) {
-      this.ArtistSongs = (
+      return (
+        <main className="show-page-main">
+        <section className="show-songs song-container">
         <ol>
           {this.props.artist.songs.map(song => {
             return (
@@ -49,20 +50,37 @@ class ArtistShow extends React.Component {
             );
           })}
         </ol>
+        </section>
+        </main>
       );
     } else {
-      this.ArtistSongs = null;
+      return null;
     }
   }
 
   render() {
+    console.log(this.props, "props");
     if (this.state.loading || (typeof this.props.artist === "undefined")) {
-      return <div style={{fontSize: '50px', paddingLeft: '225px'}}>NOT WORKING YET</div>;
+      return <div style={{fontSize: '50px', paddingLeft: '225px'}}>loading</div>;
     } else {
-      this.createArtistSongs();
+      const ArtistSongs = this.createArtistSongs();
+
+      console.log(ArtistSongs);
+
+      const { artist } = this.props;
 
       return (
-        <div>hi</div>
+        <main className="main" style={this.props.background}>
+        <div class="user-artist-show-wrapper">
+        <section class="user-artist-intro">
+          <h1>{artist.name}</h1>
+        </section>
+        <section class="artist-random-songs">
+        <h1>Get Acquainted</h1>
+          {ArtistSongs}
+          </section>
+        </div>
+        </main>
       );
     }
   }

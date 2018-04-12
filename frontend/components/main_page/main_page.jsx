@@ -27,11 +27,11 @@ class MainPage extends React.Component {
                 <Route path="/browse" component={BrowseIndexContainer} />
                 <Route exact path="/collection/songs" component={SongCollectionIndexContainer}/>
                 <Route exact path="/collection/albums" component={AlbumIndexContainer} />
-                <Route path="/collection/albums/:albumId" component={AlbumShowContainer} />
+                <Route path="/albums/:albumId" component={AlbumShowContainer} />
                 <Route exact path="/collection/artists" component={ArtistIndexContainer} />
-                <Route path="/collection/artists/:artistId" component={ArtistShowContainer} />
+                <Route path="/artists/:artistId" component={ArtistShowContainer} />
                 <Route exact path="/collection/playlists" component={PlaylistIndexContainer} />
-                <Route path="/collection/playlists/:playlistId" component={PlaylistShowContainer} />
+                <Route path="/playlists/:playlistId" component={PlaylistShowContainer} />
                 <FooterPlayerBar playing={this.props.playing} />
                 </main>
                 <AddToPlaylistModal />

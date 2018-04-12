@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => {
     return({
         artist: state.entities.artists[parseInt(ownProps.match.params.artistId)],
         loading: state.ui.loading.global,
-        background: { 'backgroundColor': '#65426f' },
+        background: { 'backgroundColor': '#230b27' },
         currentUser: state.session.currentUser,
         currentSong: state.ui.playbar.currentSong,
         playing: state.ui.playbar.playing,

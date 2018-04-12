@@ -10,9 +10,9 @@ const receiveArtists = (artists) => ({
     artists
 });
 
-export const receiveArtist = (payload) => ({
+export const receiveArtist = (artist) => ({
     type: RECEIVE_ARTIST,
-    payload
+    artist
 });
 
 export const fetchArtists = (shouldFetchAll) => (dispatch) => {
