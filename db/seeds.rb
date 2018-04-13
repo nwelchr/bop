@@ -26,8 +26,44 @@ nick = User.create!(
     profile_picture: 'https://scontent.xx.fbcdn.net/v/t1.0-1/c17.0.64.64/p64x64/21751274_10155715933012733_239784575756338336_n.jpg?oh=2aeb2d164b3bd8ff56afe1331657053f&oe=5B38CB97'
 );
 
+daisy = User.create!(
+    username: 'Daisy',
+    email: 'daisy@daisy.com',
+    password: 'password',
+    profile_picture: 'http://mediad.publicbroadcasting.net/p/wnpr/files/styles/x_large/public/201512/k-neko_tr.jpg'
+);
+
+dan_michaels = User.create!(
+    username: 'Dan Michaels',
+    email: 'danmichaels@a.com',
+    password: 'password',
+    profile_picture: 'https://cdn.pixabay.com/photo/2017/08/30/12/45/girl-2696947_1280.jpg'
+);
+
+michele = User.create!(
+    username: 'can_you_believe?',
+    email: 'wowcanyoubelieve@demo.com',
+    password: 'password',
+    profile_picture: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Rho_Ophiucus_Widefield.jpg/1920px-Rho_Ophiucus_Widefield.jpg'
+);
+
+User.create!(
+    username: 'Juniper',
+    email: 'juniper@daisy.com',
+    password: 'password',
+    profile_picture: 'https://cdn.pixabay.com/photo/2018/03/29/21/33/crocus-3273747_1280.jpg'
+);
+
+User.create!(
+    username: 'falafeless',
+    email: 'falafeless@daisy.com',
+    password: 'password',
+    profile_picture: 'https://cdn.pixabay.com/photo/2018/03/26/20/49/tiger-3264048_1280.jpg'
+);
+
 GENRES = ['pop', 'rock', 'smooth', 'electronic']
 
+2.times do 
 azealia = Artist.create!(
     name: 'Azealia Banks',
     artist_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Artist+Artwork/azealia_banks.jpg',
@@ -850,16 +886,517 @@ tennis_songs.each do |tennis_song|
 end
 
 
-normal_playlist = Playlist.create!(
-    name: 'Demo Playlist',
+
+little_joy = Artist.create!(
+    name: 'Little Joy',
+    artist_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Artist+Artwork/littlejoy.jpg',
+    background_artwork_url: '',
+    genre_id: 2,
+    about: 'Little Joy\'s about'
+)
+
+little_joy_album = Album.create!(
+    title: 'Little Joy',
+    year: 2008,
+    artist_id: little_joy.id,
+    album_type: 'Album',
+    album_cover_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg' 
+)
+
+Song.create!(
+    title: 'The Next Time Around',
+    album_id: little_joy_album.id,
+    ord: 1,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/01+The+Next+Time+Around.mp3'
+)
+
+Song.create!(
+    title: 'Brand New Start',
+    album_id: little_joy_album.id,
+    ord: 2,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/02+Brand+New+Start.mp3'
+)
+
+Song.create!(
+    title: 'Play the Part',
+    album_id: little_joy_album.id,
+    ord: 3,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/03+Play+the+Part.mp3'
+)
+
+Song.create!(
+    title: 'No One\'s Better Sake',
+    album_id: little_joy_album.id,
+    ord: 4,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/04+No+One\'s+Better+Sake.mp3'
+)
+
+Song.create!(
+    title: 'Unattainable',
+    album_id: little_joy_album.id,
+    ord: 5,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/05+Unattainable.mp3'
+)
+
+Song.create!(
+    title: 'Shoulder to Shoulder',
+    album_id: little_joy_album.id,
+    ord: 6,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/06+Shoulder+to+Shoulder.mp3'
+)
+
+Song.create!(
+    title: 'With Strangers',
+    album_id: little_joy_album.id,
+    ord: 7,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/07+With+Strangers.mp3'
+)
+
+Song.create!(
+    title: 'Keep me in Mind',
+    album_id: little_joy_album.id,
+    ord: 8,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/08+Keep+Me+in+Mind.mp3'
+)
+
+Song.create!(
+    title: 'How to Hand a Warhol',
+    album_id: little_joy_album.id,
+    ord: 9,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/09+How+to+Hang+a+Warhol.mp3'
+)
+
+Song.create!(
+    title: 'Don\'t Watch Me Dancing',
+    album_id: little_joy_album.id,
+    ord: 10,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/10+Don\'t+Watch+Me+Dancing.mp3'
+)
+
+Song.create!(
+    title: 'Evaporar',
+    album_id: little_joy_album.id,
+    ord: 11,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/11+Evaporar.mp3'
+)
+
+
+joy_playlist = Playlist.create!(
+    name: 'A bit of joy',
     creator_id: nick.id
 )
 
-normal_playlist_songs = Song.all.shuffle.take(20)
+joy_songs = little_joy_album.songs
 
-normal_playlist_songs.each do |normal_song|
+joy_songs.each do |joy_song|
+    SavedSong.create!(
+        playlist_id: joy_playlist.id,
+        song_id: joy_song.id
+    )
+end
+
+perfume = Artist.create!(
+    name: 'Perfume Genius',
+    artist_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Artist+Artwork/perfume.jpg',
+    background_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Artist+Artwork/perfume_background.jpg',
+    genre_id: 5,
+    about: 'Perfume\'s about'
+)
+
+too_bright = Album.create!(
+    title: 'Too Bright',
+    year: 2014,
+    artist_id: perfume.id,
+    album_type: 'Album',
+    album_cover_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Perfume+Genius+-+Too+Bright+(2014)/album_cover.jpg' 
+)
+
+Song.create!(
+    title: 'I decline',
+    album_id: too_bright.id,
+    ord: 1,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Perfume+Genius+-+Too+Bright+(2014)/01+I+Decline.mp3'
+)
+
+Song.create!(
+    title: 'Queen',
+    album_id: too_bright.id,
+    ord: 2,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Perfume+Genius+-+Too+Bright+(2014)/02+Queen.mp3'
+)
+
+Song.create!(
+    title: 'Fool',
+    album_id: too_bright.id,
+    ord: 3,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Perfume+Genius+-+Too+Bright+(2014)/03+Fool.mp3'
+)
+
+Song.create!(
+    title: 'No Good',
+    album_id: too_bright.id,
+    ord: 4,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Perfume+Genius+-+Too+Bright+(2014)/04+No+Good.mp3'
+)
+
+Song.create!(
+    title: 'My Body',
+    album_id: too_bright.id,
+    ord: 5,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Perfume+Genius+-+Too+Bright+(2014)/05+My+Body.mp3'
+)
+
+Song.create!(
+    title: 'Don\'t Let Them In',
+    album_id: too_bright.id,
+    ord: 6,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Perfume+Genius+-+Too+Bright+(2014)/06+Don\'t+Let+Them+In.mp3'
+)
+
+Song.create!(
+    title: 'Grid',
+    album_id: too_bright.id,
+    ord: 7,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Perfume+Genius+-+Too+Bright+(2014)/07+Grid.mp3'
+)
+
+Song.create!(
+    title: 'Longpig',
+    album_id: too_bright.id,
+    ord: 8,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Perfume+Genius+-+Too+Bright+(2014)/08+Longpig.mp3'
+)
+
+Song.create!(
+    title: 'I\'m A Mother',
+    album_id: too_bright.id,
+    ord: 9,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Perfume+Genius+-+Too+Bright+(2014)/09+I\'m+A+Mother.mp3'
+)
+
+Song.create!(
+    title: 'Too Bright',
+    album_id: too_bright.id,
+    ord: 10,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Perfume+Genius+-+Too+Bright+(2014)/10+Too+Bright.mp3'
+)
+
+Song.create!(
+    title: 'All Along',
+    album_id: too_bright.id,
+    ord: 11,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Perfume+Genius+-+Too+Bright+(2014)/11+All+Along.mp3'
+)
+
+perfume_playlist = Playlist.create!(
+    name: 'Spritz spritz',
+    creator_id: nick.id
+)
+
+perfume_songs = too_bright.songs
+
+perfume_songs.each do |perfume_song|
+    SavedSong.create!(
+        playlist_id: perfume_playlist.id,
+        song_id: perfume_song.id
+    )
+end
+
+beach_house = Artist.create!(
+    name: 'Beach House',
+    artist_artwork_url: 'https://i.pinimg.com/originals/a7/fb/11/a7fb1168681fa9cffd3e2d3665d31f0e.jpg',
+    background_artwork_url: 'https://dancingastronaut.com/wp-content/uploads/2018/02/beach-house.jpg',
+    genre_id: 5,
+    about: 'Artist\' about'
+)
+
+depression_cherry = Album.create!(
+    title: 'Depression Cherry',
+    year: 2015,
+    artist_id: beach_house.id,
+    album_type: 'Album',
+    album_cover_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg' 
+)
+
+
+Song.create!(
+    title: 'Sparks',
+    album_id: depression_cherry.id,
+    ord: 2,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/02++-+Sparks.mp3'
+)
+
+Song.create!(
+    title: 'Space Song',
+    album_id: depression_cherry.id,
+    ord: 3,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/03++-+Space+Song.mp3'
+)
+
+Song.create!(
+    title: 'Beyond Love',
+    album_id: depression_cherry.id,
+    ord: 4,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/04++-+Beyond+Love.mp3'
+)
+
+Song.create!(
+    title: '10-37',
+    album_id: depression_cherry.id,
+    ord: 5,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/05++-+10-37.mp3'
+)
+
+Song.create!(
+    title: 'PPP',
+    album_id: depression_cherry.id,
+    ord: 6,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/06++-+PPP.mp3'
+)
+
+Song.create!(
+    title: 'Wildflower',
+    album_id: depression_cherry.id,
+    ord: 7,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/07++-+Wildflower.mp3'
+)
+
+Song.create!(
+    title: 'Bluebird',
+    album_id: depression_cherry.id,
+    ord: 8,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/08++-+Bluebird.mp3'
+)
+
+Song.create!(
+    title: 'Days of Candy',
+    album_id: depression_cherry.id,
+    ord: 9,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/09++-+Days+of+Candy.mp3'
+)
+
+beach_playlist = Playlist.create!(
+    name: 'A bit of beach',
+    creator_id: nick.id
+)
+
+beach_songs = depression_cherry.songs
+
+beach_songs.each do |beach_song|
+    SavedSong.create!(
+        playlist_id: beach_playlist.id,
+        song_id: beach_song.id
+    )
+end
+
+oizo = Artist.create!(
+    name: 'Mr. Oizo',
+    artist_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/oizo.jpeg',
+    background_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/oizo_background.jpg',
+    genre_id: 5,
+    about: 'Artist\' about'
+)
+
+all_wet = Album.create!(
+    title: 'All Wet',
+    year: 2016,
+    artist_id: oizo.id,
+    album_type: 'Album',
+    album_cover_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg' 
+)
+
+Song.create!(
+    title: 'Ok Then',
+    album_id: all_wet.id,
+    ord: 1,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/01_Mr_Oizo-Ok_Then.mp3'
+)
+
+Song.create!(
+    title: 'Sea Horses',
+    album_id: all_wet.id,
+    ord: 2,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/02_Mr_Oizo-Sea_Horses_(feat_Tetanos).mp3'
+)
+
+Song.create!(
+    title: 'Frezing Out',
+    album_id: all_wet.id,
+    ord: 3,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/03_Mr_Oizo-Freezing_Out_(feat_Peaches).mp3'
+)
+
+Song.create!(
+    title: 'Oiseaux',
+    album_id: all_wet.id,
+    ord: 4,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/04_Mr_Oizo-Oiseaux.mp3'
+)
+
+Song.create!(
+    title: 'Ruhe',
+    album_id: all_wet.id,
+    ord: 5,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/05_Mr_Oizo-Ruhe_(feat_Boys_Noize).mp3'
+)
+
+Song.create!(
+    title: 'No Tony',
+    album_id: all_wet.id,
+    ord: 6,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/06_Mr_Oizo-No_Tony_(feat_Phra).mp3'
+)
+
+Song.create!(
+    title: 'End of the World',
+    album_id: all_wet.id,
+    ord: 7,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/07_Mr_Oizo-End_Of_The_World_(feat_Skrillex).mp3'
+)
+
+Song.create!(
+    title: 'The One You Buy',
+    album_id: all_wet.id,
+    ord: 8,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/08_Mr_Oizo-The_One_You_Buy.mp3'
+)
+
+Song.create!(
+    title: 'All Wet',
+    album_id: all_wet.id,
+    ord: 9,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/09_Mr_Oizo-All_Wet_(feat_Siriusmo).mp3'
+)
+
+Song.create!(
+    title: 'Chairs',
+    album_id: all_wet.id,
+    ord: 10,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/10_Mr_Oizo-Chairs_(feat_Mocky).mp3'
+)
+
+Song.create!(
+    title: 'Your Liver',
+    album_id: all_wet.id,
+    ord: 11,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/11_Mr_Oizo-Your_Liver.mp3'
+)
+
+Song.create!(
+    title: 'Hand in the Fire',
+    album_id: all_wet.id,
+    ord: 12,
+    mp3_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/12_Mr_Oizo-Hand_In_The_Fire_(feat_Charli_XCX).mp3'
+)
+
+oizo_playlist = Playlist.create!(
+    name: 'A bit of oizo',
+    creator_id: daisy.id
+)
+
+oizo_songs = all_wet.songs
+
+oizo_songs.each do |oizo_song|
+    SavedSong.create!(
+        playlist_id: oizo_playlist.id,
+        song_id: oizo_song.id
+    )
+end
+
+all = Song.all.shuffle;
+
+first = all.pop(20);
+second = all.pop(15);
+third = all.pop(12);
+fourth = all.pop(10);
+fifth = all.pop(15);
+sixth = all.pop(13);
+seventh = all.pop(8);
+
+
+normal_playlist = Playlist.create!(
+    name: 'Amazing summer jams',
+    creator_id: nick.id
+)
+
+first.each do |song|
     SavedSong.create!(
         playlist_id: normal_playlist.id,
-        song_id: normal_song.id
+        song_id: song.id
     )
+end
+
+amazing_playlist = Playlist.create!(
+    name: 'Amazing Beats',
+    creator_id: daisy.id
+)
+
+second.each do |song|
+    SavedSong.create!(
+        playlist_id: amazing_playlist.id,
+        song_id: song.id
+    )
+end
+
+scary_playlist = Playlist.create!(
+    name: 'Scary Tunes',
+    creator_id: demo.id
+)
+
+third.each do |song|
+    SavedSong.create!(
+        playlist_id: scary_playlist.id,
+        song_id: song.id
+    )
+end
+
+ahmazhing_playlist = Playlist.create!(
+    name: 'omgsoamazing',
+    creator_id: demo.id
+)
+
+fourth.each do |song|
+    SavedSong.create!(
+        playlist_id: ahmazhing_playlist.id,
+        song_id: song.id
+    )
+end
+
+super_playlist = Playlist.create!(
+    name: 'Superheroes',
+    creator_id: nick.id
+)
+
+fifth.each do |song|
+    SavedSong.create!(
+        playlist_id: super_playlist.id,
+        song_id: song.id
+    )
+end
+
+wow_playlist = Playlist.create!(
+    name: 'For those cold winter nights',
+    creator_id: demo.id
+)
+
+sixth.each do |song|
+    SavedSong.create!(
+        playlist_id: wow_playlist.id,
+        song_id: song.id
+    )
+end
+
+best_playlist = Playlist.create!(
+    name: 'Simply the best',
+    creator_id: nick.id
+)
+
+seventh.each do |song|
+    SavedSong.create!(
+        playlist_id: best_playlist.id,
+        song_id: song.id
+    )
+end
+
+
 end

@@ -16,11 +16,11 @@ const songsReducer = (oldState = [], action) => {
         case RECEIVE_SONGS:
             return action.songs;
         case RECEIVE_SONG:
-            return ({}, oldState, {[action.song.id]: action.song} );
+            return merge({}, oldState, {[action.song.id]: action.song} );
         case RECEIVE_PLAYLIST:
             return ({}, oldState, action.payload.songs || []);
         case RECEIVE_PLAYLIST_SONG_SAVE:
-            return ({}, oldState, action.payload.songs);
+            return merge({}, oldState, action.payload.songs);
         default:
             return oldState;
     }
