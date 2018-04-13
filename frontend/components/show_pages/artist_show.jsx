@@ -15,6 +15,7 @@ class ArtistShow extends React.Component {
     
     this.redirect = this.redirect.bind(this);
     this.handleResponse = this.handleResponse.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -26,6 +27,11 @@ class ArtistShow extends React.Component {
     if (this.props.match.params.artistId != nextProps.match.params.artistId) {
       this.props.fetchArtist(nextProps.match.params.artistId).then(response => this.handleResponse());
     }
+  }
+
+  handleClick(followText) {
+    const { artist, follow, unfollow } = this.props;
+    followText === "Follow" ? follow(artist.id).then(response => console.log(response, "response")) : unfollow(artist.id);
   }
 
   handleResponse() {
@@ -65,7 +71,12 @@ class ArtistShow extends React.Component {
     } else {
       const ArtistSongs = this.createArtistSongs();
 
-      const { artist } = this.props;
+      const { currentUser, artist } = this.props;
+
+      let followText = (currentUser.followed_artists.includes(artist.id)) ? "Unfollow" : "Follow";
+      console.log(followText);
+      let followButton = <button onClick={() => this.handleClick(followText)}
+        className="follow-button">{followText}</button>;
 
       const Albums = artist.albums.length > 0 ? (
         <section className="artist-albums">
@@ -88,6 +99,7 @@ class ArtistShow extends React.Component {
         <section className="user-artist-intro">
           <img src={artist.artist_artwork_url} className="artist-artwork"/>
           <h1>{artist.name}</h1>
+          {followButton}
         </section>
         <div className="artist-songs-wrapper">
         <section className="artist-random-songs">

@@ -18,13 +18,11 @@ module FollowActions
     # end
 
     def follow
-        debugger
         @follow = Follow.new(
             user_id: current_user.id,
             followable_type: params[:followable_type],
             followable_id: params[:followable_id],
         )
-        debugger
 
         if @follow.save
             render json: 'api/follows/follow'

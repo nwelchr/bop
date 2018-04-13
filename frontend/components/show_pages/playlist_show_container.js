@@ -7,6 +7,8 @@ import { play, pause, playSong } from '../../actions/audio_actions';
 
 import { openAddToPlaylistForm } from '../../actions/ui_actions';
 
+import { follow, unfollow } from '../../actions/follow_actions';
+
 const mapStateToProps = (state, ownProps) => {
     return({
         playlist: state.entities.playlists[parseInt(ownProps.match.params.playlistId)],
@@ -29,7 +31,9 @@ const mapDispatchToProps = (dispatch) => {
     playSong: (song) => dispatch(playSong(song)),
     removeSongFromPlaylist: (songId, playlistId) => dispatch(removeSongFromPlaylist(songId, playlistId)),
     openAddToPlaylistForm: () => dispatch(openAddToPlaylistForm()),
-    fetchModalPlaylists: (songToAddId) => dispatch(fetchModalPlaylists(songToAddId))
+    fetchModalPlaylists: (songToAddId) => dispatch(fetchModalPlaylists(songToAddId)),
+    follow: (playlistId) => dispatch(follow('Playlist', playlistId)),
+    unfollow: (playlistId) => dispatch(unfollow('Playlist', playlistId))
 });
 };
 

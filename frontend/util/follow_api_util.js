@@ -11,10 +11,11 @@ export const follow = (followableType, followableId) => {
 };
 
 export const unfollow = (followableType, followableId) => {
+    console.log('fetching...');
     const followableString = `${followableType.toLowerCase()}s`;
 
     return $.ajax({
-        url: `api/${followableString}/${followableId}/follow`,
+        url: `api/${followableString}/${followableId}/unfollow`,
         method: 'DELETE',
         data: {
             followable_type: followableType

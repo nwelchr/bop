@@ -39,9 +39,7 @@ class AlbumIndexItem extends React.Component {
         // or if the album does have that song in it,
         // fetch the album in question and play it
         if (songIds.length > 0 && !currentSong || (!songIds.includes(currentSong.id))) {
-            // debugger;
             // this.props.fetchSongs().then(songs => {
-            //     debugger;
             //     this.props.playSong(songs[1]);
             // }
 

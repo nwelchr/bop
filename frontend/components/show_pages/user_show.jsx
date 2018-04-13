@@ -7,6 +7,8 @@ import PlaylistResults from "../search/playlist_results";
 class UserShow extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -20,12 +22,26 @@ class UserShow extends React.Component {
     }
   }
 
+  handleClick(followText) {
+    const { user, follow, unfollow, fetchUser } = this.props;
+    followText === "Follow" ? follow(user.id) : unfollow(user.id);
+  }
+
   render() {
+    console.log("hi");
     if (this.props.loading || (typeof this.props.user === "undefined") || (typeof this.props.user.playlists === "undefined")) {
       return <div />;
     } else {
+      console.log("success");
+      const { user, background, currentUser } = this.props;
 
-      const { user, background } = this.props;
+      let followButton = null;
+      if (currentUser.id !== user.id) {
+        let followText = (currentUser.followed_users.includes(user.id)) ? "Unfollow" : "Follow";
+        console.log(followText);
+        followButton = <button onClick={() => this.handleClick(followText)}
+         className="follow-button">{followText}</button>;
+      }
 
       return (
         <main className="main" style={background}>
@@ -34,12 +50,12 @@ class UserShow extends React.Component {
         <section className="user-artist-intro user-intro">
           <img src={user.profile_picture} className="profile-picture"/>
           <h1 className="username">{user.username}</h1>
+          {followButton}
         </section>
         <div className="user-show-music-index">
             <h1 className="">Public Playlists</h1>
         <div className="music-index">
             <div className="music-index-wrapper">
-
             <PlaylistResults playlists={user.playlists} />
             </div>
           </div>

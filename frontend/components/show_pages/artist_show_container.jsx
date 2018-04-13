@@ -7,6 +7,9 @@ import { play, pause, playSong } from '../../actions/audio_actions';
 
 import { openAddToArtistForm } from '../../actions/ui_actions';
 
+import { follow, unfollow } from '../../actions/follow_actions';
+
+
 const mapStateToProps = (state, ownProps) => {
     return({
         artist: state.entities.artists[parseInt(ownProps.match.params.artistId)],
@@ -26,6 +29,8 @@ const mapDispatchToProps = (dispatch) => {
     play: () => dispatch(play()),
     pause: () => dispatch(pause()),
     playSong: (song) => dispatch(playSong(song)),
+    follow: (artistId) => dispatch(follow('Artist', artistId)), 
+    unfollow: (artistId) => dispatch(unfollow('Artist', artistId))
 });
 };
 

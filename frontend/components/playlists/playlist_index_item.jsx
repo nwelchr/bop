@@ -59,9 +59,7 @@ class PlaylistIndexItem extends React.Component {
       (songIds.length > 0 && !currentSong) ||
       !songIds.includes(currentSong.id)
     ) {
-      // debugger;
       // this.props.fetchSongs().then(songs => {
-      //     debugger;
       //     this.props.playSong(songs[1]);
       // }
 

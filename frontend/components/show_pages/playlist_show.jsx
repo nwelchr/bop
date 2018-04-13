@@ -17,6 +17,7 @@ class PlaylistShow extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.redirect = this.redirect.bind(this);
     this.handleResponse = this.handleResponse.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     // this.createPlaylistSongs = this.createPlaylistSongs.bind.this();
     // this.createDeletePlaylistButton = this.createDeletePlaylistButton.bind.this();
   }
@@ -42,6 +43,11 @@ class PlaylistShow extends React.Component {
     this.props
       .deletePlaylist(this.props.playlist.id)
       .then(response => this.redirect());
+  }
+
+  handleClick(followText) {
+    const { playlist, follow, unfollow } = this.props;
+    followText === "Follow Playlist" ? follow(playlist.id).then(response => console.log(response, "response")) : unfollow(playlist.id);
   }
 
   redirect() {
@@ -92,6 +98,16 @@ class PlaylistShow extends React.Component {
       this.createPlaylistSongs();
       this.createDeletePlaylistButton();
 
+      const { currentUser, playlist } = this.props;
+
+      let followButton = null;
+      if (!currentUser.playlistIds.includes(playlist.id)) {
+        let followText = (currentUser.followed_playlists.includes(playlist.id)) ? "Unfollow Playlist" : "Follow Playlist";
+        console.log(followText);
+        followButton = <button onClick={() => this.handleClick(followText)}
+         className="follow-button">{followText}</button>;
+      }
+
       return (
         <main className="main" style={this.props.background}>
           <main className="show-page-main">
@@ -104,6 +120,7 @@ class PlaylistShow extends React.Component {
                 />
                 <section className="delete-button-wrapper">
                   {this.DeletePlaylistButton}
+                  {followButton}
                 </section>
               </section>
             </section>
