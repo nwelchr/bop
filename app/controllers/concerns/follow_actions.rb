@@ -1,22 +1,6 @@
 module FollowActions
     extend ActiveSupport::Concern
 
-    def followed_users
-        @follows = User.find(params[:id]).follows.where('followable_type = ?', 'User')
-    end
-
-    def followed_playlists
-        @follows = User.find(params[:id]).follows.where('followable_type = ?', 'Playlist')
-    end
-
-    def followed_artists
-        @follows = User.find(params[:id]).follows.where('followable_type = ?', 'Artist')
-    end
-
-    # def followed_albums
-    #     @follows = User.find(params[:id]).follows.where('followable_type = ?', 'Album')
-    # end
-
     def follow
         @follow = Follow.new(
             user_id: current_user.id,
