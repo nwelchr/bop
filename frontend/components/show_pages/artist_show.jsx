@@ -10,7 +10,8 @@ class ArtistShow extends React.Component {
     super(props);
     
     this.state = {
-      loading: true
+      loading: true,
+      followText: null
     };
     
     this.redirect = this.redirect.bind(this);
@@ -31,7 +32,7 @@ class ArtistShow extends React.Component {
 
   handleClick(followText) {
     const { artist, follow, unfollow } = this.props;
-    followText === "Follow" ? follow(artist.id).then(response => console.log(response, "response")) : unfollow(artist.id);
+    followText === "Follow" ? follow(artist.id).then(this.setState( {followText: "Unfollow"} )) : unfollow(artist.id).then(this.setState({ followText: "Follow"} ));
   }
 
   handleResponse() {
@@ -73,7 +74,7 @@ class ArtistShow extends React.Component {
 
       const { currentUser, artist } = this.props;
 
-      let followText = (currentUser.followed_artists.includes(artist.id)) ? "Unfollow" : "Follow";
+      let followText = this.state.followText || ((currentUser.followed_artists.includes(artist.id)) ? "Unfollow" : "Follow");
       console.log(followText);
       let followButton = <button onClick={() => this.handleClick(followText)}
         className="follow-button">{followText}</button>;

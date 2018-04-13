@@ -15,6 +15,7 @@ const sessionReducer = (oldState = _nullUser, action) => {
             currentUser = action.currentUser;
             return merge({}, { currentUser });
         case RECEIVE_FOLLOW:
+        debugger;
             return action.currentUser;        
         case REMOVE_FOLLOW:
         default:

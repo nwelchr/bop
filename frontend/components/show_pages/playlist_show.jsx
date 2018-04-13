@@ -11,7 +11,8 @@ class PlaylistShow extends React.Component {
     super(props);
 
     this.state = {
-      loading: true
+      loading: true,
+      followText: null
     };
 
     this.handleDelete = this.handleDelete.bind(this);
@@ -47,7 +48,7 @@ class PlaylistShow extends React.Component {
 
   handleClick(followText) {
     const { playlist, follow, unfollow } = this.props;
-    followText === "Follow Playlist" ? follow(playlist.id).then(response => console.log(response, "response")) : unfollow(playlist.id);
+    followText === "Follow Playlist" ? follow(playlist.id).then(this.setState( {followText: "Unfollow Playlist"} )) : unfollow(playlist.id).then(this.setState({ followText: "Follow Playlist"} ));
   }
 
   redirect() {
@@ -102,7 +103,7 @@ class PlaylistShow extends React.Component {
 
       let followButton = null;
       if (!currentUser.playlistIds.includes(playlist.id)) {
-        let followText = (currentUser.followed_playlists.includes(playlist.id)) ? "Unfollow Playlist" : "Follow Playlist";
+        let followText = this.state.followText || ((currentUser.followed_playlists.includes(playlist.id)) ? "Unfollow Playlist" : "Follow Playlist");
         console.log(followText);
         followButton = <button onClick={() => this.handleClick(followText)}
          className="follow-button">{followText}</button>;

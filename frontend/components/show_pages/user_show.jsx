@@ -8,6 +8,10 @@ class UserShow extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      followText: null
+    };
+
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -24,11 +28,11 @@ class UserShow extends React.Component {
 
   handleClick(followText) {
     const { user, follow, unfollow, fetchUser } = this.props;
-    followText === "Follow" ? follow(user.id) : unfollow(user.id);
+    followText === "Follow" ? follow(user.id).then(this.setState( {followText: "Unfollow"} )) : unfollow(user.id).then(this.setState({ followText: "Follow"} ));
   }
 
   render() {
-    console.log("hi");
+    console.log(this.state.followText);
     if (this.props.loading || (typeof this.props.user === "undefined") || (typeof this.props.user.playlists === "undefined")) {
       return <div />;
     } else {
@@ -37,11 +41,14 @@ class UserShow extends React.Component {
 
       let followButton = null;
       if (currentUser.id !== user.id) {
-        let followText = (currentUser.followed_users.includes(user.id)) ? "Unfollow" : "Follow";
+        let followText = this.state.followText || ((currentUser.followed_users.includes(user.id)) ? "Unfollow" : "Follow");
         console.log(followText);
         followButton = <button onClick={() => this.handleClick(followText)}
          className="follow-button">{followText}</button>;
       }
+
+      let playlistHeading = null;
+      if (user.playlists && user.playlists.length > 0) playlistHeading = (<h1 className="">Public Playlists</h1>);
 
       return (
         <main className="main" style={background}>
@@ -53,7 +60,7 @@ class UserShow extends React.Component {
           {followButton}
         </section>
         <div className="user-show-music-index">
-            <h1 className="">Public Playlists</h1>
+            {playlistHeading}
         <div className="music-index">
             <div className="music-index-wrapper">
             <PlaylistResults playlists={user.playlists} />
