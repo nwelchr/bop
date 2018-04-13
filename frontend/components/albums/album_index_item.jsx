@@ -52,7 +52,7 @@ class AlbumIndexItem extends React.Component {
     }
 
     render() {
-        const { currentSong, playing } = this.props;
+        const { currentSong, playing, album } = this.props;
         let songIds = null;
         if (this.props.album.song_ids) songIds = this.props.album.song_ids;
         
@@ -69,6 +69,7 @@ class AlbumIndexItem extends React.Component {
         }
 
         return (
+            <div className="index-item-wrapper">
             <div className="media-wrapper">
               <div className="button-wrapper" />
               <Link
@@ -94,6 +95,8 @@ class AlbumIndexItem extends React.Component {
               >
                 {playPauseIcon}
               </button>
+            </div>
+            <Link className="user-link" to={`/artists/${album.artist_id}`}>{album.artistName}</Link>
             </div>
           );
     }

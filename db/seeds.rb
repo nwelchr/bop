@@ -20,10 +20,10 @@ demo = User.create!(
 );
 
 nick = User.create!(
-    username: 'Nick Welch',
+    username: 'Bop',
     email: 'nwelch@gmail.com',
     password: 'password',
-    profile_picture: 'https://scontent.xx.fbcdn.net/v/t1.0-1/c17.0.64.64/p64x64/21751274_10155715933012733_239784575756338336_n.jpg?oh=2aeb2d164b3bd8ff56afe1331657053f&oe=5B38CB97'
+    profile_picture: 'https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-black.png'
 );
 
 daisy = User.create!(
@@ -37,7 +37,7 @@ dan_michaels = User.create!(
     username: 'Dan Michaels',
     email: 'danmichaels@a.com',
     password: 'password',
-    profile_picture: 'https://cdn.pixabay.com/photo/2017/08/30/12/45/girl-2696947_1280.jpg'
+    profile_picture: 'https://images.pexels.com/photos/34950/pexels-photo.jpg'
 );
 
 michele = User.create!(
@@ -51,14 +51,14 @@ User.create!(
     username: 'Juniper',
     email: 'juniper@daisy.com',
     password: 'password',
-    profile_picture: 'https://cdn.pixabay.com/photo/2018/03/29/21/33/crocus-3273747_1280.jpg'
+    profile_picture: 'https://images.pexels.com/photos/206673/pexels-photo-206673.jpeg'
 );
 
 User.create!(
     username: 'falafeless',
     email: 'falafeless@daisy.com',
     password: 'password',
-    profile_picture: 'https://cdn.pixabay.com/photo/2018/03/26/20/49/tiger-3264048_1280.jpg'
+    profile_picture: 'https://images.pexels.com/photos/158112/duck-drake-water-bird-lake-158112.jpeg'
 );
 
 GENRES = ['pop', 'rock', 'smooth', 'electronic']
@@ -457,7 +457,7 @@ Song.create!(
 
 frank_playlist = Playlist.create!(
     name: 'Frank Ocean Playlist',
-    creator_id: nick.id
+    creator_id: daisy.id
 )
 
 frank_playlist_songs = blonde.songs.shuffle.take(10)
@@ -873,7 +873,7 @@ Song.create!(
 
 tennis_playlist = Playlist.create!(
     name: 'Tennis Playlist',
-    creator_id: nick.id
+    creator_id: demo.id
 )
 
 tennis_songs = tennis.songs
@@ -1090,7 +1090,7 @@ Song.create!(
 
 perfume_playlist = Playlist.create!(
     name: 'Spritz spritz',
-    creator_id: nick.id
+    creator_id: dan_michaels.id
 )
 
 perfume_songs = too_bright.songs
@@ -1316,7 +1316,7 @@ seventh = all.pop(8);
 
 normal_playlist = Playlist.create!(
     name: 'Amazing summer jams',
-    creator_id: nick.id
+    creator_id: dan_michaels.id
 )
 
 first.each do |song|
@@ -1388,7 +1388,7 @@ end
 
 best_playlist = Playlist.create!(
     name: 'Simply the best',
-    creator_id: nick.id
+    creator_id: daisy.id
 )
 
 seventh.each do |song|

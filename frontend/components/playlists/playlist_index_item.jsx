@@ -72,7 +72,9 @@ class PlaylistIndexItem extends React.Component {
   }
 
   render() {
-    const { currentSong, playing } = this.props;
+    const { currentSong, playing, playlist } = this.props;
+    console.log(this.props);
+
     let songIds = null;
     if (this.props.playlist.song_ids) songIds = this.props.playlist.song_ids;
 
@@ -89,6 +91,7 @@ class PlaylistIndexItem extends React.Component {
     }
 
     return (
+      <div className="index-item-wrapper">
       <div className="media-wrapper">
         <div className="button-wrapper" />
         <Link
@@ -114,6 +117,8 @@ class PlaylistIndexItem extends React.Component {
         >
           {playPauseIcon}
         </button>
+      </div>
+        <Link className="user-link" to={`/users/${playlist.creator_id}`}>{playlist.creatorName}</Link>
       </div>
     );
   }

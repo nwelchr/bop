@@ -67,6 +67,8 @@ class BrowseIndex extends React.Component {
         <main className="main" style={this.props.background}>
           <main className="index-page-wrapper">
             <BrowseNavbar />
+                          <div classname="browse-wrapper">
+                          <h1 class="browse-index-h1">Just For You</h1>
             <main className="music-index">
               <div className="music-index-wrapper">
                 <ul>
@@ -76,6 +78,7 @@ class BrowseIndex extends React.Component {
                 </ul>
               </div>
             </main>
+              </div>
           </main>
         </main>
       );

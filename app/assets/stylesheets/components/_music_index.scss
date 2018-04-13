@@ -5,6 +5,20 @@ $normal: 'HelveticaNeue';
 $medium: 'HelveticaNeue-Medium';
 $bold: 'HelveticaNeue-Bold';
 
+
+.browse-wrapper {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.browse-index-h1 {
+    text-align: center;
+    font-size: 45px;
+    color: #eee;
+    padding-top: 30px;
+}
+
 .music-index {
     .music-index-wrapper {
         display: flex;
@@ -90,6 +104,24 @@ ul {
         letter-spacing: .6px;
         text-align: center;
         font-family: $light;
+    }
+}
+
+.index-item-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 5px;
+
+    .user-link {
+        color: #bbb;
+        font-size: 14px;
+        margin-top: -10px;
+        letter-spacing: 1px;
+        &:hover {
+            text-decoration: underline;
+            color: #fff;
+        }
     }
 }
 
