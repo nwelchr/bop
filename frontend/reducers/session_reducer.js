@@ -9,7 +9,7 @@ const _nullUser = Object.freeze({
 });
 
 const sessionReducer = (oldState = _nullUser, action) => {
-    let currentUser;
+    let currentUser, newState, tableized;
     Object.freeze(oldState);
     switch(action.type) {
         case RECEIVE_CURRENT_USER:
@@ -17,17 +17,19 @@ const sessionReducer = (oldState = _nullUser, action) => {
             return merge({}, { currentUser });
         case RECEIVE_CREATED_PLAYLIST:
             const newId = action.payload.playlist.id;
-            const newState = merge({}, oldState);
+            newState = merge({}, oldState);
             newState.currentUser.playlistIds.push(newId);
             return newState;
         case RECEIVE_FOLLOW:
-        debugger;
-            console.log('receiving follow...');
-            return action.currentUser;        
+            newState = merge({}, oldState);
+            tableized = `${action.payload.followable_type.toLowerCase()}s`;
+            newState.currentUser[`followed_${tableized}`].push(action.payload.followable_id);
+            return newState;       
         case REMOVE_FOLLOW:
-        debugger;
-            console.log('removing follow...');
-            return action.currentUser;
+            newState = merge({}, oldState);
+            tableized = `${action.payload.followable_type.toLowerCase()}s`;
+            newState.currentUser[`followed_${tableized}`] = newState.currentUser[`followed_${tableized}`].filter(m => m !== action.payload.followable_id);
+            return newState; 
         default:
             return oldState;
     }

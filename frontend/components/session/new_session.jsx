@@ -1,130 +1,321 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { AuthRoute } from '../../util/route_util';
-
+import React from "react";
+import { Link } from "react-router-dom";
+import { AuthRoute } from "../../util/route_util";
+import PlaylistIndexItem from "../../util/route_util";
 
 class LoggedInComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount() {
-        const dropdown = document.querySelector('.dropdown');
+  componentDidMount() {
+    const dropdown = document.querySelector(".dropdown");
 
-        dropdown.addEventListener('click', e => {
-            e.preventDefault();
+    dropdown.addEventListener("click", e => {
+      e.preventDefault();
 
-            const i = dropdown.querySelector('i');
-            i.classList.toggle('fa-angle-down');
-            i.classList.toggle('fa-angle-up');
+      const i = dropdown.querySelector("i");
+      i.classList.toggle("fa-angle-down");
+      i.classList.toggle("fa-angle-up");
 
-            const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-            const modalScreen = document.querySelector('.modal-screen');
+      const dropdownMenu = dropdown.querySelector(".dropdown-menu");
+      const modalScreen = document.querySelector(".modal-screen");
 
-            dropdownMenu.classList.toggle('clicked');
+      dropdownMenu.classList.toggle("clicked");
 
-            modalScreen.classList.toggle('clicked');
-        });
-    }
-    
-    render () {
-        return (
-            <div id="wrapper">
-                <nav className="navbar navbar-logged-in">
-                    <nav className="navbar-collapse">
-                        <span className="navbar-logo"><Link to="/"><img src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png" className="logo"/></Link></span>
-                        <ul className="navbar-links">
-                            <li><a href="https://github.com/nwelchr/bop">Dev Info</a></li>
-                            <li className="divider"></li>
-                            <li className="dropdown"><a><img id="profile" src={this.props.currentUser.profile_picture} /> <span>Profile</span><i className="fa fa-angle-down"></i></a>
-                                <ul className="dropdown-menu">
-                                <div className="arrow-up"></div>
-                                <li><a className="account" href="">Account</a></li>
-                                <li><button className="log-out" onClick={this.props.logout}>Log Out</button></li>
-                                </ul>
-                                <div className="modal-screen"></div>
-                            </li>
-                        </ul>
-                    </nav>
-                </nav>
-                <main className="main-content-wrapper">
-                    <section className="main-content-intro">
-                        <h1>Jump Back In, {this.props.currentUser.username}!</h1>
-                        <Link to="/browse" className="web-player-link">Open Web Player</Link>
+      modalScreen.classList.toggle("clicked");
+    });
+  }
+
+  render() {
+    return (
+      <div id="wrapper">
+        <nav className="navbar navbar-logged-in">
+          <nav className="navbar-collapse">
+            <span className="navbar-logo">
+              <Link to="/">
+                <img
+                  src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png"
+                  className="logo"
+                />
+              </Link>
+            </span>
+            <ul className="navbar-links">
+              <li>
+                <a href="https://github.com/nwelchr/bop">Dev Info</a>
+              </li>
+              <li className="divider" />
+              <li className="dropdown">
+                <a>
+                  <img
+                    id="profile"
+                    src={this.props.currentUser.profile_picture}
+                  />{" "}
+                  <span>Profile</span>
+                  <i className="fa fa-angle-down" />
+                </a>
+                <ul className="dropdown-menu">
+                  <div className="arrow-up" />
+                  <li>
+                    <a className="account" href="">
+                      Account
+                    </a>
+                  </li>
+                  <li>
+                    <button className="log-out" onClick={this.props.logout}>
+                      Log Out
+                    </button>
+                  </li>
+                </ul>
+                <div className="modal-screen" />
+              </li>
+            </ul>
+          </nav>
+        </nav>
+        <main className="main-content-wrapper">
+          <section className="main-content-intro">
+            <h1>Jump Back In, {this.props.currentUser.username}</h1>
+            <h2>Pick up your music right where you left off.</h2>
+            <Link to="/browse" className="web-player-link">
+              Open Web Player
+            </Link>
+          </section>
+          <section class="image-links">
 
 
-                        <div className="liwrapper">
-                            <li>
-                                <img src="https://www.pets4homes.co.uk/images/articles/771/large/cat-lifespan-the-life-expectancy-of-cats-568e40723c336.jpg" />
-                            </li>
-                        </div>
-
-                    </section>
-                </main>
-                <footer className="footer-wrapper">
-                    <footer className="footer-content">
-                        <span className="navbar-logo"><Link to="/"><img src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png" className="logo"/></Link></span>
-                    </footer>
-                </footer>
+            <div className="index-item-wrapper">
+              <div className="media-wrapper">
+                <div className="button-wrapper" />
+                <Link className="music-index-item" to={`/albums/2`}>
+                  <li className="item-wrapper">
+                    <div className="media">
+                      <img
+                        alt=""
+                        className="media__image"
+                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg"
+                      />
+                      <div className={`media__body index-page`}>
+                      <span class="item-span">Lemonade</span>
+                      <span class="owner-span">Beyonce</span>
+                      </div>
+                      <div className="media-loaded" />
+                    </div>
+                  </li>
+                </Link>
+              </div>
             </div>
-        );
-    }
-}
+            
+            <div className="index-item-wrapper">
+              <div className="media-wrapper">
+                <div className="button-wrapper" />
+                <Link className="music-index-item" to={`/albums/20`}>
+                  <li className="item-wrapper">
+                    <div className="media">
+                      <img
+                        alt=""
+                        className="media__image"
+                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg"
+                      />
+                      <div className={`media__body index-page`}>
+                      <span class="item-span">All Wet</span>
+                      <span class="owner-span">Mr. Oizo</span>
+                      </div>
+                      <div className="media-loaded" />
+                    </div>
+                  </li>
+                </Link>
+              </div>
+            </div>
 
+            <div className="index-item-wrapper">
+              <div className="media-wrapper">
+                <div className="button-wrapper" />
+                <Link className="music-index-item" to={`/albums/13`}>
+                  <li className="item-wrapper">
+                    <div className="media">
+                      <img
+                        alt=""
+                        className="media__image"
+                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg"
+                      />
+                      <div className={`media__body index-page`}>
+                      <span class="item-span">Ponyboy</span>
+                      <span class="owner-span">SOPHIE</span>
+                      </div>
+                      <div className="media-loaded" />
+                    </div>
+                  </li>
+                </Link>
+              </div>
+            </div>
+
+            <div className="index-item-wrapper">
+              <div className="media-wrapper">
+                <div className="button-wrapper" />
+                <Link className="music-index-item" to={`/albums/17`}>
+                  <li className="item-wrapper">
+                    <div className="media">
+                      <img
+                        alt=""
+                        className="media__image"
+                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg"
+                      />
+                      <div className={`media__body index-page`}>
+                      <span class="item-span">Little Joy</span>
+                      <span class="owner-span">Little Joy</span>
+                      </div>
+                      <div className="media-loaded" />
+                    </div>
+                  </li>
+                </Link>
+              </div>
+            </div>
+
+
+            <div className="index-item-wrapper">
+              <div className="media-wrapper">
+                <div className="button-wrapper" />
+                <Link className="music-index-item" to={`/albums/39`}>
+                  <li className="item-wrapper">
+                    <div className="media">
+                      <img
+                        alt=""
+                        className="media__image"
+                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg"
+                      />
+                      <div className={`media__body index-page`}>
+                      <span class="item-span">Depression Cherry</span>
+                      <span class="owner-span">Beach House</span>
+                      </div>
+                      <div className="media-loaded" />
+                    </div>
+                  </li>
+                </Link>
+              </div>
+            </div>
+
+            <div className="index-item-wrapper index">
+              <div className="media-wrapper">
+                <div className="button-wrapper" />
+                <Link className="music-index-item" to={`/albums/23`}>
+                  <li className="item-wrapper">
+                    <div className="media">
+                      <img
+                        alt=""
+                        className="media__image"
+                        src="https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg"
+                      />
+                      <div className={`media__body index-page`}>
+                      <span class="item-span">Blonde</span>
+                      <span class="owner-span">Frank Ocean</span>
+                      </div>
+                      <div className="media-loaded" />
+                    </div>
+                  </li>
+                </Link>
+              </div>
+            </div>
+            
+          </section>
+        </main>
+        <footer className="footer-wrapper">
+          <footer className="footer-content">
+            <span className="navbar-logo">
+              <Link to="/">
+                <img
+                  src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png"
+                  className="logo"
+                />
+              </Link>
+            </span>
+          </footer>
+        </footer>
+      </div>
+    );
+  }
+}
 
 class LoggedOutComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render () {
-        return (
-            <div id="wrapper">
-                <nav className="navbar navbar-logged-out">
-                    <nav className="navbar-collapse">
-                        <span className="navbar-logo"><Link to="/"><img src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png" className="logo"/></Link></span>
-                        <ul className="navbar-links">
-                            <li><a href="https://github.com/nwelchr/bop">Dev Info</a></li>
-                            <li className="divider"></li>
-                            <li><Link to="/signup">Sign Up</Link></li>
-                            <li><Link to="/login">Log In</Link></li>
-                            <li><a onClick={this.props.loginDemoUser}>Demo User</a></li>
-                        </ul>
-                    </nav>
-                </nav>
-                <main className="main-content-wrapper">
-                    <section className="main-content-intro">
-                        <h1>Eyyyy you gotta log in</h1>
+  render() {
+    return (
+      <div id="wrapper">
+        <nav className="navbar navbar-logged-out">
+          <nav className="navbar-collapse">
+            <span className="navbar-logo">
+              <Link to="/">
+                <img
+                  src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png"
+                  className="logo"
+                />
+              </Link>
+            </span>
+            <ul className="navbar-links">
+              <li>
+                <a href="https://github.com/nwelchr/bop">Dev Info</a>
+              </li>
+              <li className="divider" />
+              <li>
+                <Link to="/signup">Sign Up</Link>
+              </li>
+              <li>
+                <Link to="/login">Log In</Link>
+              </li>
+              <li>
+                <a onClick={this.props.loginDemoUser}>Demo User</a>
+              </li>
+            </ul>
+          </nav>
+        </nav>
+        <main className="main-content-wrapper">
+          <section className="main-content-intro">
+            <h1>Eyyyy you gotta log in</h1>
 
-
-                        <div className="liwrapper">
-                            <li>
-                                <img src="https://www.pets4homes.co.uk/images/articles/771/large/cat-lifespan-the-life-expectancy-of-cats-568e40723c336.jpg" />
-                            </li>
-                        </div>
-
-                        
-                    </section>
-                </main>
-                <footer className="footer-wrapper">
-                    <footer className="footer-content">
-                        <span className="navbar-logo"><Link to="/"><img src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png" className="logo"/></Link></span>
-                    </footer>
-                </footer>
+            <div className="liwrapper">
+              <li>
+                <img src="https://www.pets4homes.co.uk/images/articles/771/large/cat-lifespan-the-life-expectancy-of-cats-568e40723c336.jpg" />
+              </li>
             </div>
-        );
-    }
+          </section>
+        </main>
+        <footer className="footer-wrapper">
+          <footer className="footer-content">
+            <span className="navbar-logo">
+              <Link to="/">
+                <img
+                  src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png"
+                  className="logo"
+                />
+              </Link>
+            </span>
+          </footer>
+        </footer>
+      </div>
+    );
+  }
 }
 
-
 class NewSession extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render () {
-        return this.props.currentUser ? <LoggedInComponent currentUser={this.props.currentUser} logout={this.props.logout} /> : <LoggedOutComponent login={this.props.login} loginDemoUser={this.props.loginDemoUser} />;
-    }
+  render() {
+    return this.props.currentUser ? (
+      <LoggedInComponent
+        currentUser={this.props.currentUser}
+        logout={this.props.logout}
+      />
+    ) : (
+      <LoggedOutComponent
+        login={this.props.login}
+        loginDemoUser={this.props.loginDemoUser}
+      />
+    );
+  }
 }
 
 export default NewSession;

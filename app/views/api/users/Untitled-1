@@ -1,0 +1,113 @@
+ = Artist.create!(
+    name: '',
+    artist_artwork_url: '',
+    background_artwork_url: '',
+    genre_id: 5,
+    about: 'Artist\' about'
+)
+
+ = Album.create!(
+    title: '',
+    year: ,
+    artist_id: ,
+    album_type: 'Album',
+    album_cover_url: '' 
+)
+
+Song.create!(
+    title: '',
+    album_id: ,
+    ord: 1,
+    mp3_url: ''
+)
+
+Song.create!(
+    title: '',
+    album_id: ,
+    ord: 2,
+    mp3_url: ''
+)
+
+Song.create!(
+    title: '',
+    album_id: ,
+    ord: 3,
+    mp3_url: ''
+)
+
+Song.create!(
+    title: '',
+    album_id: ,
+    ord: 4,
+    mp3_url: ''
+)
+
+Song.create!(
+    title: '',
+    album_id: ,
+    ord: 5,
+    mp3_url: ''
+)
+
+Song.create!(
+    title: '',
+    album_id: ,
+    ord: 6,
+    mp3_url: ''
+)
+
+Song.create!(
+    title: '',
+    album_id: ,
+    ord: 7,
+    mp3_url: ''
+)
+
+Song.create!(
+    title: '',
+    album_id: ,
+    ord: 8,
+    mp3_url: ''
+)
+
+Song.create!(
+    title: '',
+    album_id: ,
+    ord: 9,
+    mp3_url: ''
+)
+
+Song.create!(
+    title: '',
+    album_id: ,
+    ord: 10,
+    mp3_url: ''
+)
+
+Song.create!(
+    title: '',
+    album_id: ,
+    ord: 11,
+    mp3_url: ''
+)
+
+Song.create!(
+    title: '',
+    album_id: ,
+    ord: 12,
+    mp3_url: ''
+)
+
+joy_playlist = Playlist.create!(
+    name: 'A bit of joy',
+    creator_id: nick.id
+)
+
+joy_songs = joy_playlist.songs
+
+joy_songs.each do |joy_song|
+    SavedSong.create!(
+        playlist_id: joy_playlist.id,
+        song_id: joy_song.id
+    )
+end

@@ -25,9 +25,12 @@ module FollowActions
             followable_id: params[:followable_id],
         )
 
+
         if @follow.save
-            render json: 'api/follows/follow'
+            # debugger
+            render json: @follow
         else
+            # debugger
             render json: @follow.errors.full_messages, status: 422
         end
     end 
@@ -44,7 +47,7 @@ module FollowActions
 
         if @follow
             @follow.destroy
-            render json: 'api/follows/follow'
+            render json: @follow
         end
     end
 

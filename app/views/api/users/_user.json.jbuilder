@@ -3,6 +3,8 @@ json.extract! user, :id, :username, :email, :followed_playlists, :followed_users
 json.followed_playlists user.followed_playlists.pluck(:id)
 json.followed_users user.followed_users.pluck(:id)
 json.followed_artists user.followed_artists.pluck(:id)
+json.followerIds user.follower_ids
+
 json.playlistIds user.playlists.pluck(:id)
 
 albumIds = []

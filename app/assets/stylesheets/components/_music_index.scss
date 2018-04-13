@@ -19,12 +19,14 @@ $bold: 'HelveticaNeue-Bold';
     padding-top: 30px;
 }
 
+
 .music-index {
     .music-index-wrapper {
         display: flex;
         justify-content: center;
         width: 100%;
 
+        
 ul {
     display: grid;
     grid-template-columns: repeat(auto-fill, 170px);
@@ -35,8 +37,21 @@ ul {
     padding: 1rem;
     width: 100%;
     margin: 0 auto;
-
 }
+
+.followed-artists, .followed-users {
+    padding: 30px;
+    h1 {
+        font-size: 30px;
+    }
+    margin-right: -37px;
+}
+.followed-artists ul, .followed-users ul {
+   display: flex;
+   width: 80%;
+   flex-wrap: wrap;
+}
+
 }
 }
 

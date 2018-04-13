@@ -242,6 +242,7 @@ class MediaPlayer extends React.Component {
                 <Duration seconds={duration} />
               </div>
             </section>
+            
           </div>
         </div>
         <div className="volume-bar col-3-11 ">

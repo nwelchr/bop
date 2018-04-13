@@ -11,7 +11,6 @@ class ArtistShow extends React.Component {
     
     this.state = {
       loading: true,
-      followText: null
     };
     
     this.redirect = this.redirect.bind(this);
@@ -32,7 +31,7 @@ class ArtistShow extends React.Component {
 
   handleClick(followText) {
     const { artist, follow, unfollow } = this.props;
-    followText === "Follow" ? follow(artist.id).then(this.setState( {followText: "Unfollow"} )) : unfollow(artist.id).then(this.setState({ followText: "Follow"} ));
+    followText === "Follow" ? follow(artist.id) : unfollow(artist.id);
   }
 
   handleResponse() {
@@ -67,39 +66,45 @@ class ArtistShow extends React.Component {
   }
 
   render() {
-    if (this.state.loading || (typeof this.props.artist === "undefined")) {
+    if (this.props.loading || (typeof this.props.artist === "undefined")) {
       return <div />;
     } else {
       const ArtistSongs = this.createArtistSongs();
 
       const { currentUser, artist } = this.props;
+      
 
-      let followText = this.state.followText || ((currentUser.followed_artists.includes(artist.id)) ? "Unfollow" : "Follow");
-      console.log(followText);
+      let followText = (currentUser.followed_artists && currentUser.followed_artists.includes(artist.id)) ? "Unfollow" : "Follow";
       let followButton = <button onClick={() => this.handleClick(followText)}
         className="follow-button">{followText}</button>;
 
-      const Albums = artist.albums.length > 0 ? (
+      const Albums = (artist.albums && artist.albums.length > 0) ? (
         <section className="artist-albums">
         <h1>Albums</h1>
       <AlbumResults albums={artist.albums} />
       </section>
       ) : null;
 
-      const Singles = artist.singles.length > 0 ? (
+      const Singles = (artist.singles && artist.singles.length > 0) ? (
         <section className="artist-singles">
         <h1>Singles</h1>
       <AlbumResults albums={artist.singles} />
       </section>
        ) : null;
+
+
+      let numFollowers = (artist.followerIds !== null) ? artist.followerIds.length === 1 ? "1 follower" : `${artist.followerIds.length} followers` : "0 followers";
+
        
       return (
         <main className="main artist-show">
-        <div className="content" /><img className="artwork" src={artist.background_artwork_url} />
+        <div className="content" />
+        <img className="artwork" src={artist.background_artwork_url} />
         <div className="user-artist-show-wrapper">
         <section className="user-artist-intro">
           <img src={artist.artist_artwork_url} className="artist-artwork"/>
           <h1>{artist.name}</h1>
+          <h2 className="followers">{numFollowers}</h2>
           {followButton}
         </section>
         <div className="artist-songs-wrapper">

@@ -235,13 +235,14 @@ a {
 		align-items: center;
 
 		h1 {
-			font-size: 25px;
+			font-size: 80px;
 			font-weight: bold;
+			letter-spacing: -5px;
 		}
 
-		img {
-			width: 1000px;
-			margin: 0 auto;
+		h2 {
+			font-size: 25px;
+			padding: 15px;
 		}
 
 	}
@@ -250,14 +251,14 @@ a {
 		margin: 15px;
 		align-self: center;
 		display: inline-block;
-		padding: 15px 40px;
+		padding: 20px 60px;
 		background-color: $dark-green;
-		border-radius: 20px;
+		border-radius: 30px;
 		text-transform: uppercase;
-		font-size: 12px;
+		font-size: 14px;
 		color: #fff;
 		font-weight: bold;
-		letter-spacing: 1.5px;
+		letter-spacing: 1px;
 		transition: background-color .5s ease;
 	}
 
@@ -278,5 +279,77 @@ a {
 		.logo {
 		height: 50px;
 		}
+	}
+}
+
+.main-content-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.image-links {
+	padding: 20px 0px 80px 0px;
+	display: grid;
+	grid-template-columns: 235px 235px 235px;
+	grid-template-rows: 235px 235px;
+	grid-gap: 1rem;
+	
+	div {
+		width: 225px;
+
+		.media__image{
+			width: 225px!important;
+			height: 225px!important;
+		}
+	}
+
+}
+
+
+.music-index-item:hover .media__body.index-page {
+	opacity: .75;
+    transform: scale(1.01);
+}
+
+.music-index-item:active .media__body.index-page {
+    transform: scale(.98);
+}
+
+.music-index-item:active .media .media__image.index-page {
+    transform: scale(.98);
+}
+
+.index-item.index {
+	.media-wrapper, .button-wrapper, .music-index-item, .item-wrapper, .media, .media__image, .media__body
+	{
+	animation: grow 5s linear forwards;
+
+	@keyframes grow {
+		0% {transform: scale(0)}
+		100% {transform: scale(1)}
+	}
+}
+
+	
+}
+
+.index-page {
+	transition: .3s ease;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	font-size: 18px;
+
+	.item-span {
+		padding: 5px;
+		color: #fff;
+	}
+
+	.owner-span {
+		color: #bbb;
+		padding: 5px;
 	}
 }
