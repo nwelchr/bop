@@ -1,4 +1,6 @@
 class Api::UsersController < ApplicationController
+  include FollowActions
+  
   def new
   end
 

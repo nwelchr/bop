@@ -1,4 +1,6 @@
 class Api::PlaylistsController < ApplicationController
+  include FollowActions
+
   def new
   end
 

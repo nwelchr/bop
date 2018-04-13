@@ -3,7 +3,7 @@
 }
 
 .content {
-  background: linear-gradient( rgba(0, 0, 0, .3) 0%, rgba(0, 0, 0, .8) 40%, rgba(0, 0, 0, 1) 90%);
+  background: linear-gradient( rgba(0, 0, 0, .3) 0%, rgba(0, 0, 0, .6) 30%, rgba(0, 0, 0, 1) 90%);
   position: fixed;
   z-index: -1!important;
   left: 0;
@@ -69,6 +69,10 @@
     .username {
       font-size: 40px;
     }
+  }
+
+  .albums-singles-wrapper ul {
+    margin-left: 50px;
   }
 
   .artist-songs-wrapper {

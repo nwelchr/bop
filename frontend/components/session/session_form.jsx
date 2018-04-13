@@ -67,7 +67,8 @@ class SessionForm extends React.Component {
                     </div>
                     <form onSubmit={this.handleSubmit}>
                         <input 
-                            type={this.props.formType === "email"? "email" : "text"}
+                            type={this.props.formType === "Sign Up" ? "email" : "text"}
+                            // type="email"
                             onChange={this.update('email')}  
                             value={this.state.email}
                             placeholder={this.props.emailPlaceholder}

@@ -28,6 +28,20 @@ class User < ApplicationRecord
     class_name: :Playlist,
     foreign_key: :creator_id
 
+  # module Followable
+  #   extend ActiveSupport::Concern
+  
+  #   included do
+  #     has_many :follows, as: :followable, dependent: :destroy
+  #     has_many :followers, through: :follows, source: :user
+  #   end
+  # end
+  
+  has_many :followings, foreign_key: :user_id, class_name: 'Follow'
+  has_many :followed_users, through: :followings, source: :followable, source_type: 'User'
+  has_many :followed_playlists, through: :followings, source: :followable, source_type: 'Playlist'
+  has_many :followed_artists, through: :followings, source: :followable, source_type: 'Artist'
+
   def self.find_by_credentials(login_credential, password, login_type)
     if login_type == "username"
       # user = User.where("lower(login_credential) = ?", username.downcase).first

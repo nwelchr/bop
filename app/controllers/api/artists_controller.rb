@@ -1,4 +1,5 @@
 class Api::ArtistsController < ApplicationController
+    include FollowActions
 
     def index
         @artists = Artist.all
