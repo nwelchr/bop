@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AuthRoute } from "../../util/route_util";
 import PlaylistIndexItem from "../../util/route_util";
+import ReactPlayer from "react-player";
 
 class LoggedInComponent extends React.Component {
   constructor(props) {
@@ -72,6 +73,7 @@ class LoggedInComponent extends React.Component {
             </ul>
           </nav>
         </nav>
+
         <main className="main-content-wrapper">
           <section className="main-content-intro">
             <h1>Jump Back In, {this.props.currentUser.username}</h1>
@@ -238,9 +240,43 @@ class LoggedInComponent extends React.Component {
 class LoggedOutComponent extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      currentSong: "",
+      playing: false,
+      volume: 0.8,
+      muted: false,
+      played: 0,
+      loaded: 0,
+      duration: 0,
+      loop: false
+    };
+
+    // this.onPlay = this.onPlay.bind(this);
+    this.stop = this.stop.bind(this);
+    this.load = this.load.bind(this);
+    // this.onPause = this.onPause.bind(this);
+    // this.onEnded = this.onEnded.bind(this);
+    // this.onDuration = this.onDuration.bind(this);
+  }
+
+  load(url) {
+    debugger;
+    if (this.state.playing === true) this.stop();
+    this.setState({
+      url: url,
+      played: 0,
+      playing: true
+    });
+    debugger;
+  }
+
+  stop() {
+    this.setState({ url: null, playing: false, played: 0 });
   }
 
   render() {
+    const { url, playing, currentSong } = this.state;
     return (
       <div id="wrapper">
         <nav className="navbar navbar-logged-out">
@@ -272,13 +308,161 @@ class LoggedOutComponent extends React.Component {
         </nav>
         <main className="main-content-wrapper">
           <section className="main-content-intro">
-            <h1>Eyyyy you gotta log in</h1>
+            <h1>Music for everyone.</h1>
+            <Link to="/login" className="web-player-link">
+              Log in
+            </Link>
 
-            <div className="liwrapper">
-              <li>
-                <img src="https://www.pets4homes.co.uk/images/articles/771/large/cat-lifespan-the-life-expectancy-of-cats-568e40723c336.jpg" />
-              </li>
+            <h2>Get a taste of what you're missing.</h2>
+          </section>
+          <section class="image-links">
+
+
+            <div className="index-item-wrapper">
+              <div className="media-wrapper">
+                <div className="button-wrapper" />
+                <a className="music-index-item" onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/12-formation.mp3')}>
+                  <li className="item-wrapper">
+                    <div className="media">
+                      <img
+                        alt=""
+                        className="media__image"
+                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg"
+                      />
+                      <div className={`media__body index-page`}>
+                      <span class="item-span">Lemonade</span>
+                      <span class="owner-span">Beyonce</span>
+                      </div>
+                      <div className="media-loaded" />
+                    </div>
+                  </li>
+                </a>
+              </div>
             </div>
+            
+            <div className="index-item-wrapper">
+              <div className="media-wrapper">
+                <div className="button-wrapper" />
+                <Link className="music-index-item" to={`/albums/20`}>
+                  <li className="item-wrapper">
+                    <div className="media">
+                      <img
+                        alt=""
+                        className="media__image"
+                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg"
+                      />
+                      <div className={`media__body index-page`}>
+                      <span class="item-span">All Wet</span>
+                      <span class="owner-span">Mr. Oizo</span>
+                      </div>
+                      <div className="media-loaded" />
+                    </div>
+                  </li>
+                </Link>
+              </div>
+            </div>
+
+            <div className="index-item-wrapper">
+              <div className="media-wrapper">
+                <div className="button-wrapper" />
+                <Link className="music-index-item" to={`/albums/13`}>
+                  <li className="item-wrapper">
+                    <div className="media">
+                      <img
+                        alt=""
+                        className="media__image"
+                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg"
+                      />
+                      <div className={`media__body index-page`}>
+                      <span class="item-span">Ponyboy</span>
+                      <span class="owner-span">SOPHIE</span>
+                      </div>
+                      <div className="media-loaded" />
+                    </div>
+                  </li>
+                </Link>
+              </div>
+            </div>
+
+            <div className="index-item-wrapper">
+              <div className="media-wrapper">
+                <div className="button-wrapper" />
+                <Link className="music-index-item" to={`/albums/17`}>
+                  <li className="item-wrapper">
+                    <div className="media">
+                      <img
+                        alt=""
+                        className="media__image"
+                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg"
+                      />
+                      <div className={`media__body index-page`}>
+                      <span class="item-span">Little Joy</span>
+                      <span class="owner-span">Little Joy</span>
+                      </div>
+                      <div className="media-loaded" />
+                    </div>
+                  </li>
+                </Link>
+              </div>
+            </div>
+
+
+            <div className="index-item-wrapper">
+              <div className="media-wrapper">
+                <div className="button-wrapper" />
+                <Link className="music-index-item" to={`/albums/39`}>
+                  <li className="item-wrapper">
+                    <div className="media">
+                      <img
+                        alt=""
+                        className="media__image"
+                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg"
+                      />
+                      <div className={`media__body index-page`}>
+                      <span class="item-span">Depression Cherry</span>
+                      <span class="owner-span">Beach House</span>
+                      </div>
+                      <div className="media-loaded" />
+                    </div>
+                  </li>
+                </Link>
+              </div>
+            </div>
+
+            <div className="index-item-wrapper index">
+              <div className="media-wrapper">
+                <div className="button-wrapper" />
+                <Link className="music-index-item" to={`/albums/23`}>
+                  <li className="item-wrapper">
+                    <div className="media">
+                      <img
+                        alt=""
+                        className="media__image"
+                        src="https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg"
+                      />
+                      <div className={`media__body index-page`}>
+                      <span class="item-span">Blonde</span>
+                      <span class="owner-span">Frank Ocean</span>
+                      </div>
+                      <div className="media-loaded" />
+                    </div>
+                  </li>
+                </Link>
+              </div>
+            </div>
+
+              <ReactPlayer
+              url={currentSong}
+              width="0px"
+              height="0px"
+              playing={playing}
+              onPlay={this.onPlay}
+              onPause={this.onPause}
+              volume={1}
+              onEnded={this.onEnded}
+              onDuration={this.onDuration}
+            />
+            
           </section>
         </main>
         <footer className="footer-wrapper">
@@ -313,6 +497,7 @@ class NewSession extends React.Component {
       <LoggedOutComponent
         login={this.props.login}
         loginDemoUser={this.props.loginDemoUser}
+        fetchSongThenPlay={this.props.fetchSongThenPlay}
       />
     );
   }

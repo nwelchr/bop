@@ -21,7 +21,8 @@ class SearchResults extends React.Component {
       playlists: playlists.length || null,
       albums: albums.length || null,
       artists: artists.length || null,
-      users: users.length || null
+      users: users.length || null,
+      songs: 0
     };
 
     const maxResult = Object.keys(lengths).reduce((a, b) => lengths[a] > lengths[b] ? a : b);
@@ -40,8 +41,11 @@ class SearchResults extends React.Component {
         case 'users':
           defaultResults = (<Route exact path={`/search/results/${query}`} render={() => <UserResults users={users} />} />);
           break;
+        case 'songs':
+          defaultResults = (<Route exact path={`/search/results/${query}`} render={() => <SongResults songs={songs} />} />);
+          break;
         default:
-          defaultResults = songs !== null ? (<Route exact path={`/search/results/${query}`} render={() => <SongResults songs={songs} />} />) : null;
+          defaultResults = null;
           break;
       }
 
