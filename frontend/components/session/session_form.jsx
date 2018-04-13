@@ -20,6 +20,12 @@ class SessionForm extends React.Component {
         this.props.clearSessionErrors();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.errors === nextProps.errors) {
+            this.props.clearSessionErrors();
+        }
+    }
+
     handleSubmit(e) {
         e.preventDefault();
         if (!this.state.email.includes('@')) {
@@ -62,8 +68,9 @@ class SessionForm extends React.Component {
                 </nav>
                 <main className="session-form-main">
                     {this.renderErrors()}
+                    <button class="demo-user" onClick={this.props.loginDemoUser}>Just browsing? Sign in as a demo user</button>
                     <div className="divider">
-                        <strong>{this.props.formType}</strong>
+                        <strong>or {this.props.formType}</strong>
                     </div>
                     <form onSubmit={this.handleSubmit}>
                         <input 
