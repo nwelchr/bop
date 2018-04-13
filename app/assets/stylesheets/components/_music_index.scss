@@ -120,12 +120,14 @@ ul {
     z-index: 3;
 
     &.playing, &.hovering {
-        opacity: .7
+        opacity: .7;
+        transform: scale(1.01);
     }
 }
 
 .music-index-item:hover .media__body {
     opacity: .7;
+    transform: scale(1.01);
 }
 
 .music-index-item:active .media__body {
@@ -133,7 +135,7 @@ ul {
 }
 
 .music-index-item:active .media .media__image {
-    transform: scale(.975);
+    transform: scale(.97);
 }
 
 .media-loaded {

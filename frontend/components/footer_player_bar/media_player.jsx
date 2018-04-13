@@ -13,6 +13,7 @@ class MediaPlayer extends React.Component {
       currentSong: "",
       playing: false,
       volume: 0.8,
+      savedVolume: 0.8,
       muted: false,
       played: 0,
       loaded: 0,
@@ -71,11 +72,15 @@ class MediaPlayer extends React.Component {
   }
 
   handleVolume(e) {
-    this.setState({ volume: e.target.value });
+    this.setState({ volume: e.target.value, savedVolume: e.target.value });
   }
 
   toggleMuted() {
-    this.setState({ muted: !this.state.muted });
+    if (this.state.volume < 0.001) {
+      this.setState({ volume: this.state.savedVolume });
+    } else {
+      this.setState({ volume: 0 });
+    }
   }
 
   toggleLoop() {
@@ -102,7 +107,9 @@ class MediaPlayer extends React.Component {
   }
 
   onSeekChange(e) {
-    if (!this.state.playing && !this.state.currentSong) { return; }
+    if (!this.state.playing && !this.state.currentSong) {
+      return;
+    }
     this.setState({ played: e.target.value });
   }
 
@@ -116,7 +123,7 @@ class MediaPlayer extends React.Component {
     // If song is finished (played value is 1), set back to the beginning
     // Otherwise, set played
     if (!this.state.seeking) {
-      this.setState({ played: state.played === 1 ? '0' : state.played });
+      this.setState({ played: state.played === 1 ? "0" : state.played });
     }
   }
 
@@ -157,10 +164,23 @@ class MediaPlayer extends React.Component {
     const volumeDown = <i className="fa fa-volume-down" />;
     const volumeOff = <i className="fa fa-volume-off" />;
 
+    const volumeIcon =
+      volume < 0.01 ? volumeOff : volume < 0.6 ? volumeDown : volumeUp;
+
     // Really fine tuning on the overlay div
-    let style = (this.state.played < 0.001) ? { width: '0' } : {
-      width: `${this.state.played * 100 + .5 - this.state.played * .5}%`
-    };
+    let seekStyle =
+      played < 0.001
+        ? { width: "0" }
+        : {
+            width: `${played * 100 + 0.5 - played * 0.5}%`
+          };
+
+    let volumeStyle =
+      volume < 0.001
+        ? { width: "0" }
+        : {
+            width: `${volume * 100 + 0.5 - volume * 0.5}%`
+          };
 
     return (
       <div className="footer-bar">
@@ -188,6 +208,7 @@ class MediaPlayer extends React.Component {
               playing={playing}
               onPlay={this.onPlay}
               onPause={this.onPause}
+              // fixes weird ReactPlayer issue with error throwing
               volume={volume}
               muted={muted}
               loop={loop}
@@ -202,7 +223,7 @@ class MediaPlayer extends React.Component {
               <div className="progress-bar-with-duration">
                 <Duration seconds={duration * played} />
                 <div className="overlay-wrapper">
-                  <div className="played" style={style} />
+                  <div className="played" style={seekStyle} />
                   <div className="player-underlay" />
                   <div className="seek-slider-wrapper">
                     <input
@@ -223,18 +244,27 @@ class MediaPlayer extends React.Component {
             </section>
           </div>
         </div>
-        <div className="volume-bar col-3-11">
+        <div className="volume-bar col-3-11 ">
           <button className="mute" onClick={this.toggleMuted}>
-            {muted ? volumeOff : volumeUp}
+            {volumeIcon}
           </button>
-          <input
-            type="range"
-            step="any"
-            min="0"
-            max="1"
-            value={volume}
-            onChange={this.handleVolume}
-          />
+          <div className="progress-bar-with-duration">
+            <div className="overlay-wrapper">
+              <div className="played" style={volumeStyle} />
+              <div className="player-underlay" />
+              <div className="seek-slider-wrapper">
+                <input
+                  type="range"
+                  className="seek-slider"
+                  step="any"
+                  min="0"
+                  max="1"
+                  value={volume}
+                  onChange={this.handleVolume}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
