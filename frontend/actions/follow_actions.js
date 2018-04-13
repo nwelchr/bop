@@ -13,10 +13,22 @@ export const removeFollow = (payload) => ({
     payload
 });
 
-export const follow = (type, id) => (dispatch) => (
-    APIUtil.follow(type, id).then(response => dispatch(receiveFollow(response)))
+export const follow = (type, id) => (dispatch) => {
+    console.log('following in follow actions');
+    return (
+    APIUtil.follow(type, id).then(response => {
+        debugger;
+        dispatch(receiveFollow(response));
+    })
 );
+};
 
-export const unfollow = (type, id) => (dispatch) => (
-    APIUtil.unfollow(type, id).then(response => dispatch(removeFollow(response)))
+export const unfollow = (type, id) => (dispatch) => {
+    console.log('unfollowing in follow actions');
+    return (APIUtil.unfollow(type, id).then(response => {
+        console.log('never hits promise');
+        dispatch(removeFollow(response));
+    }
+    )
 );
+};

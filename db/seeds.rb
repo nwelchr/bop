@@ -421,7 +421,7 @@ Song.create!(
 
 frank_playlist = Playlist.create!(
     name: 'Frank Ocean Playlist',
-    creator_id: demo.id
+    creator_id: nick.id
 )
 
 frank_playlist_songs = blonde.songs.shuffle.take(10)
@@ -609,7 +609,7 @@ Song.create!(
 
 sophie_playlist = Playlist.create!(
     name: 'SOPHIE - PRODUCT',
-    creator_id: demo.id
+    creator_id: nick.id
 )
 
 sophie_songs = sophie.songs
@@ -837,7 +837,7 @@ Song.create!(
 
 tennis_playlist = Playlist.create!(
     name: 'Tennis Playlist',
-    creator_id: demo.id
+    creator_id: nick.id
 )
 
 tennis_songs = tennis.songs
@@ -852,7 +852,7 @@ end
 
 normal_playlist = Playlist.create!(
     name: 'Demo Playlist',
-    creator_id: demo.id
+    creator_id: nick.id
 )
 
 normal_playlist_songs = Song.all.shuffle.take(20)

@@ -102,7 +102,7 @@ class PlaylistShow extends React.Component {
       const { currentUser, playlist } = this.props;
 
       let followButton = null;
-      if (!currentUser.playlistIds.includes(playlist.id)) {
+      if (!(currentUser.playlistIds.includes(playlist.id))) {
         let followText = this.state.followText || ((currentUser.followed_playlists.includes(playlist.id)) ? "Unfollow Playlist" : "Follow Playlist");
         console.log(followText);
         followButton = <button onClick={() => this.handleClick(followText)}

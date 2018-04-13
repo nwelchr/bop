@@ -1,23 +1,24 @@
 module FollowActions
     extend ActiveSupport::Concern
 
-    # def followed_users
-    #     @follows = User.find(params[:id]).follows.where('followable_type = ?', 'User')
-    # end
+    def followed_users
+        @follows = User.find(params[:id]).follows.where('followable_type = ?', 'User')
+    end
 
-    # def followed_playlists
-    #     @follows = User.find(params[:id]).follows.where('followable_type = ?', 'Playlist')
-    # end
+    def followed_playlists
+        @follows = User.find(params[:id]).follows.where('followable_type = ?', 'Playlist')
+    end
 
-    # def followed_artists
-    #     @follows = User.find(params[:id]).follows.where('followable_type = ?', 'Artist')
-    # end
+    def followed_artists
+        @follows = User.find(params[:id]).follows.where('followable_type = ?', 'Artist')
+    end
 
     # def followed_albums
     #     @follows = User.find(params[:id]).follows.where('followable_type = ?', 'Album')
     # end
 
     def follow
+        # debugger
         @follow = Follow.new(
             user_id: current_user.id,
             followable_type: params[:followable_type],
@@ -32,6 +33,7 @@ module FollowActions
     end 
 
     def unfollow
+        # debugger
         followable_type = params[:followable_type]
 
         @follow = Follow.find_by(
@@ -42,7 +44,7 @@ module FollowActions
 
         if @follow
             @follow.destroy
-            render json: [`Successfully unfollowed #{followable_type}.downcase!`]
+            render json: 'api/follows/follow'
         end
     end
 
