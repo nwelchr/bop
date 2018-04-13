@@ -9,7 +9,7 @@ class SongResults extends React.Component {
   render() {
     const { songs } = this.props;
     return (
-      <main className="show-page-main">
+      <main className="show-page-main search-songs">
                   <section className="show-songs song-container">
                     <ol>
                       {this.props.songs.map(song => {

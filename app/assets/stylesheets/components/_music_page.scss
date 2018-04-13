@@ -23,14 +23,18 @@ body {
 .music-index {
   overflow-x: hidden;
   margin-left: -37px;
+}
 
-  &.song-collection-index {
-    margin-left: 0;
-  }
+.song-collection-index {
+  margin-left: 0;
 }
 
 .search-container .music-index {
-  margin-left: 0;
+  margin-left: -37px;
+}
+
+.search-songs {
+  margin-left: 37px;
 }
 
 .sidebar {
