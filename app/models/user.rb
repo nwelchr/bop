@@ -27,15 +27,6 @@ class User < ApplicationRecord
   has_many :playlists,
     class_name: :Playlist,
     foreign_key: :creator_id
-
-  # module Followable
-  #   extend ActiveSupport::Concern
-  
-  #   included do
-  #     has_many :follows, as: :followable, dependent: :destroy
-  #     has_many :followers, through: :follows, source: :user
-  #   end
-  # end
   
   has_many :followings, foreign_key: :user_id, class_name: 'Follow'
   has_many :followed_users, through: :followings, source: :followable, source_type: 'User'

@@ -34,8 +34,6 @@ class UserShow extends React.Component {
     const followedArtists = this.props.user.followedArtists.length > 0 ? (<section class="followed-artists"><h1>Followed Artists</h1><ArtistResults artists={this.props.user.followedArtists} followButton={true} /></section>) : null;
     const followedUsers = this.props.user.followedUsers.length > 0 ? (<section class="followed-users"><h1>Followed Users</h1><UserResults users={this.props.user.followedUsers} followButton={true} /></section>) : null;
 
-    console.log(followedArtists, "followedArtists");
-    console.log(followedUsers, "followedUsers");
 
     return (<div class="following-wrapper">
       {followedArtists}
@@ -48,13 +46,11 @@ class UserShow extends React.Component {
     if (this.props.loading || (typeof this.props.user === "undefined") || (typeof this.props.user.playlists === "undefined")) {
       return <div />;
     } else {
-      console.log("success");
       const { user, background, currentUser } = this.props;
 
       let followButton = null;
       if (currentUser.id !== user.id) {
         let followText = (currentUser.followed_users && currentUser.followed_users.includes(user.id) ? "Unfollow" : "Follow");
-        console.log(followText);
         followButton = <button onClick={() => this.handleClick(followText)}
          className="follow-button">{followText}</button>;
       }

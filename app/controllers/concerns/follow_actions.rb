@@ -18,7 +18,6 @@ module FollowActions
     # end
 
     def follow
-        # debugger
         @follow = Follow.new(
             user_id: current_user.id,
             followable_type: params[:followable_type],
@@ -27,16 +26,13 @@ module FollowActions
 
 
         if @follow.save
-            # debugger
             render json: @follow
         else
-            # debugger
             render json: @follow.errors.full_messages, status: 422
         end
     end 
 
     def unfollow
-        # debugger
         followable_type = params[:followable_type]
 
         @follow = Follow.find_by(

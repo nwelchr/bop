@@ -61,7 +61,6 @@ class BrowseIndex extends React.Component {
       // ));
       // }
 
-      // console.log(explorePlaylists, exploreAlbums, exploreArtists);
 
       return (
         <main className="main" style={this.props.background}>

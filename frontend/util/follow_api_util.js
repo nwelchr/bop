@@ -11,7 +11,6 @@ export const follow = (followableType, followableId) => {
 };
 
 export const unfollow = (followableType, followableId) => {
-    console.log('unfollowing in API Util...');
     const followableString = `${followableType.toLowerCase()}s`;
 
     return $.ajax({

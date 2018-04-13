@@ -8,7 +8,6 @@ class ArtistResults extends React.Component {
 
   render() {
     const { artists } = this.props;
-    console.log(this.props);
     return (
       <ul>
           {artists.map(artist => 

@@ -5,7 +5,6 @@ class SideNavBar extends React.Component {
     render() {
 
         const { currentUser } = this.props;
-        console.log(this.props);
         
         return (
             <aside className="sidebar">

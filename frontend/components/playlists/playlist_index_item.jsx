@@ -73,7 +73,6 @@ class PlaylistIndexItem extends React.Component {
 
   render() {
     const { currentSong, playing, playlist } = this.props;
-    console.log(this.props);
 
     let songIds = null;
     if (this.props.playlist.song_ids) songIds = this.props.playlist.song_ids;

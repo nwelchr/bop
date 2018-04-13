@@ -261,14 +261,12 @@ class LoggedOutComponent extends React.Component {
   }
 
   load(url) {
-    debugger;
     if (this.state.playing === true) this.stop();
     this.setState({
       url: url,
       played: 0,
       playing: true
     });
-    debugger;
   }
 
   stop() {
