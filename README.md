@@ -11,9 +11,7 @@
 
 <a name="introduction"></a>
 
-[Bop](https://bop-aa.herokuapp.com) is a simple single-page Spotify clone. It allows users to search, discover, stream, and share music.
-
-This application works on mobile and web devices.
+[Bop](https://bop-aa.herokuapp.com) is a simple single-page Spotify clone. It allows users to interact with playlists, stream music, explore new music, and follow other users and artists.
 
 <a name="project-design"></a>
 ## Project Design̨
@@ -21,12 +19,12 @@ This application works on mobile and web devices.
 
 <a name="how-it-works"></a>
 ## How It Works
-**Bop** is built on a `Rails 5` backend, connected to `PostgresSQL` for database management. Communication between frontend and backend was made through Fetch AJAX requests. Responses are manipulated and rendered by `React` and `Redux`. The `howler.js` API was used to have greater control over music. CSS `@media` queries allow for compatibility with all devices and screen sizes.
+**Bop** is built on a `Rails 5` backend, connected to `PostgresSQL` for database management. Communication between frontend and backend was made through Fetch AJAX requests. Responses are served up by `JBuilder` and operated upon and displayed by `React` and `Redux`. The `React Player` API was used to have greater control over music.
 
 <a name="features"></a>
 ## Summary of Features
 - RESTful
-  - Data resources are generally accessed *via* standard `HTTP` requests to an API endpoints. The few nonRESTful routes were done for the sake of grouping certain actions (follows and playlist saves) with their respective controllers.
+  - Data resources are generally accessed *via* standard `HTTP` requests to an API endpoints. The few nonRESTful routes were done for the sake of grouping certain actions (follows and playlist saves) with their respective controllers to better organize routes.
 - Secure
   - User authentication is built from the ground up and maintained by in-app `BCrypt` password hashes as well as `SecureRandom` session key management.
 - Dynamic
@@ -35,7 +33,9 @@ This application works on mobile and web devices.
 ## Specific Features
 
 ### `React Player`
-The meat of my application is in the implementation of `React Player`. Using `refs` to store a reference to the DOM object `<ReactPlayer />`, I was able to 
+The meat of my application is in the implementation of `React Player`. Using `refs` to store a reference to the DOM object `<ReactPlayer />` while managing local media state as well as global state (passing around variables such as `currentSong` and dispatchable actions such as `playSong()`), I was able to create a player that runs smoothly without pauses or unwanted behavior regardless of user interaction.
+
+![alt text](app/assets/images/continuous-play.gif)
 
 ### `Followable`
 - One feature I was excited about implementing was the many-to-many associations between `users` and other `users`, `playlists`, and `artists` through `follows`. I created model and controller `Concerns` that allowed me to apply the same code for all my `follows` features. `Followable` also allowed me to create powerful associations in my database:
@@ -53,16 +53,12 @@ end
 
 class Follow < ApplicationRecord
 
-    validates :followable_id, :followable_type, :user, presence: true
-    validates :user_id, uniqueness: { scope: [:followable_id, :followable_type] }
-
     belongs_to :followable, polymorphic: true 
     belongs_to :user
 
 end
 
 class User < ApplicationRecord
-
   include Followable
   
   has_many :followings, foreign_key: :user_id, class_name: 'Follow'
@@ -105,19 +101,41 @@ class Follow < ApplicationRecord
 end
 ```
 
-- Using `CSS Grid` allowed for dynamic resizing of containers as well as center-justified lines that 
+Doing so allowed me to create a multi-purpose set of front-end actions that handled type parsing for me:
 
-![alt text](/assets/images/css-grid.gif)
+```Javascript
+
+// follow actions
+export const follow = (type, id) => (dispatch) => (
+    APIUtil.follow(type, id).then(response => dispatch(receiveFollow(response))
+)
+
+// session reducers on receive/removal of follow
+case RECEIVE_FOLLOW:
+  newState = merge({}, oldState);
+  tableized = `${action.payload.followable_type.toLowerCase()}s`;
+  newState.currentUser[`followed_${tableized}`].push(action.payload.followable_id);
+  return newState;       
+```
+
+### `Search`
+- Searches are fired automatically through a callback in a timeout function, waiting for users to finish typing to save on unnecessary queries the user doesn't want.
+
+![alt text](app/assets/images/search.gif)
+
+- Using `CSS Grid` granted me complete control over position and sizing of containers and made left-floating of music index items while center-justifying seamless.
+
+![alt text](app/assets/images/css-grid.gif)
 
 
 <a name="additional-features"></a>
 ## Additional Features (to be implemented)
-- Tracklists: Users will be able to skip through songs using media player buttons, shuffle songs, and create lists.
+- Tracklists: Users will be able to skip through songs using media player buttons, shuffle tracks, and create lists.
 - Dynamic Image Creation: playlist covers will be generated in the backend by making a collage of song's album cover photos.
 - Dominant colors from album covers will be extracted to improve user experience.
 - N + 1 Queries and unnecessary fetching will be eliminated.
 - Settings page
-  - Language support (coming soon: French, Spanish)
+  - Language support (French, Spanish, etc.)
   - Color schemes (Dark, Light, and Funky themes)
 - Audio Visualization
   - Play button will optionally pulse to the beat of the song

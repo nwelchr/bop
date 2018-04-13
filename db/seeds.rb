@@ -63,7 +63,6 @@ User.create!(
 
 GENRES = ['pop', 'rock', 'smooth', 'electronic']
 
-2.times do 
 azealia = Artist.create!(
     name: 'Azealia Banks',
     artist_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Artist+Artwork/azealia_banks.jpg',
@@ -1396,7 +1395,4 @@ seventh.each do |song|
         playlist_id: best_playlist.id,
         song_id: song.id
     )
-end
-
-
 end

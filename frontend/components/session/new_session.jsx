@@ -177,7 +177,7 @@ class LoggedInComponent extends React.Component {
             <div className="index-item-wrapper">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
-                <Link className="music-index-item" to={`/albums/39`}>
+                <Link className="music-index-item" to={`/albums/19`}>
                   <li className="item-wrapper">
                     <div className="media">
                       <img
@@ -199,7 +199,7 @@ class LoggedInComponent extends React.Component {
             <div className="index-item-wrapper index">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
-                <Link className="music-index-item" to={`/albums/23`}>
+                <Link className="music-index-item" to={`/albums/3`}>
                   <li className="item-wrapper">
                     <div className="media">
                       <img
@@ -223,12 +223,12 @@ class LoggedInComponent extends React.Component {
         <footer className="footer-wrapper">
           <footer className="footer-content">
             <span className="navbar-logo">
-              <Link to="/">
+              <a to="/">
                 <img
                   src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png"
                   className="logo"
                 />
-              </Link>
+              </a>
             </span>
           </footer>
         </footer>
@@ -321,7 +321,7 @@ class LoggedOutComponent extends React.Component {
             <div className="index-item-wrapper">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
-                <a className="music-index-item" onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/12-formation.mp3')}>
+                <a className="music-index-item">
                   <li className="item-wrapper">
                     <div className="media">
                       <img
@@ -343,7 +343,7 @@ class LoggedOutComponent extends React.Component {
             <div className="index-item-wrapper">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
-                <Link className="music-index-item" to={`/albums/20`}>
+                <a className="music-index-item">
                   <li className="item-wrapper">
                     <div className="media">
                       <img
@@ -358,14 +358,14 @@ class LoggedOutComponent extends React.Component {
                       <div className="media-loaded" />
                     </div>
                   </li>
-                </Link>
+                </a>
               </div>
             </div>
 
             <div className="index-item-wrapper">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
-                <Link className="music-index-item" to={`/albums/13`}>
+                <a className="music-index-item">
                   <li className="item-wrapper">
                     <div className="media">
                       <img
@@ -380,14 +380,14 @@ class LoggedOutComponent extends React.Component {
                       <div className="media-loaded" />
                     </div>
                   </li>
-                </Link>
+                </a>
               </div>
             </div>
 
             <div className="index-item-wrapper">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
-                <Link className="music-index-item" to={`/albums/17`}>
+                <a className="music-index-item">
                   <li className="item-wrapper">
                     <div className="media">
                       <img
@@ -402,7 +402,7 @@ class LoggedOutComponent extends React.Component {
                       <div className="media-loaded" />
                     </div>
                   </li>
-                </Link>
+                </a>
               </div>
             </div>
 
@@ -410,7 +410,7 @@ class LoggedOutComponent extends React.Component {
             <div className="index-item-wrapper">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
-                <Link className="music-index-item" to={`/albums/39`}>
+                <a className="music-index-item">
                   <li className="item-wrapper">
                     <div className="media">
                       <img
@@ -425,14 +425,14 @@ class LoggedOutComponent extends React.Component {
                       <div className="media-loaded" />
                     </div>
                   </li>
-                </Link>
+                </a>
               </div>
             </div>
 
             <div className="index-item-wrapper index">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
-                <Link className="music-index-item" to={`/albums/23`}>
+                <a className="music-index-item">
                   <li className="item-wrapper">
                     <div className="media">
                       <img
@@ -447,21 +447,9 @@ class LoggedOutComponent extends React.Component {
                       <div className="media-loaded" />
                     </div>
                   </li>
-                </Link>
+                </a>
               </div>
             </div>
-
-              <ReactPlayer
-              url={currentSong}
-              width="0px"
-              height="0px"
-              playing={playing}
-              onPlay={this.onPlay}
-              onPause={this.onPause}
-              volume={1}
-              onEnded={this.onEnded}
-              onDuration={this.onDuration}
-            />
             
           </section>
         </main>
