@@ -123,6 +123,7 @@ case RECEIVE_FOLLOW:
 
 ![alt text](app/assets/images/search.gif)
 
+### `CSS Grid`
 - Using `CSS Grid` granted me complete control over position and sizing of containers and made left-floating of music index items while center-justifying seamless.
 
 ![alt text](app/assets/images/css-grid.gif)
