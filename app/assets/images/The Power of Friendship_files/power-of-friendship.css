@@ -1,0 +1,15 @@
+#power-of-friendship {
+    background: #bbb;
+    border: 1px solid black;
+}
+
+body {
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    background-color: #555;
+}

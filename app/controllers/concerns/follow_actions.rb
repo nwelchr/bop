@@ -8,7 +8,6 @@ module FollowActions
             followable_id: params[:followable_id],
         )
 
-
         if @follow.save
             render json: @follow
         else
