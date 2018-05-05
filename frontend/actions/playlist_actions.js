@@ -56,7 +56,6 @@ export const fetchPlaylist = (playlistId) => (dispatch) => {
 
 export const fetchPlaylistThenPlaySong = (playlistId) => (dispatch) => (
     APIUtil.fetchPlaylist(playlistId).then(playlist => {
-        // play first song from playlist for now
         dispatch(receivePlaylist(playlist))
             .then(dispatch(playSong(playlist.songs[0])));
     }
