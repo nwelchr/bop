@@ -1,4 +1,6 @@
-json.partial! 'api/albums/album', album: @album
+json.album do 
+    json.partial! 'api/albums/album', album: @album
+end
 
 if @album.songs.length > 0
     json.songs do

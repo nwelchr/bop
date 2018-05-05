@@ -11,9 +11,9 @@ const receiveAlbums = (albums) => ({
     albums
 });
 
-export const receiveAlbum = (album) => ({
+export const receiveAlbum = (payload) => ({
     type: RECEIVE_ALBUM,
-    album
+    payload
 });
 
 export const fetchAlbums = (shouldFetchAll) => (dispatch) => {
@@ -24,15 +24,23 @@ export const fetchAlbums = (shouldFetchAll) => (dispatch) => {
     
 export const fetchAlbum = (albumId) => (dispatch) => {
     dispatch(startLoading());
-    return APIUtil.fetchAlbum(albumId).then(playlist => {
-        return dispatch(receiveAlbum(playlist));
+    return APIUtil.fetchAlbum(albumId).then(album => {
+        return dispatch(receiveAlbum(album));
     });
 };
 
+// export const fetchAlbumThenPlaySong = (albumId) => (dispatch) => (
+//     APIUtil.fetchAlbum(albumId).then(album => {
+//         // play first song from album for now
+//         dispatch(playSong(album.songs[0]));
+//     }
+// )
+// );
+
 export const fetchAlbumThenPlaySong = (albumId) => (dispatch) => (
     APIUtil.fetchAlbum(albumId).then(album => {
-        // play first song from album for now
-        dispatch(playSong(album.songs[0]));
+        dispatch(receiveAlbum(album))
+            .then(dispatch(playSong(album.songs[0])));
     }
 )
 );
