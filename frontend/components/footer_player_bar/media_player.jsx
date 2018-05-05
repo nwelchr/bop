@@ -23,6 +23,7 @@ class MediaPlayer extends React.Component {
 
     this.togglePlay = this.togglePlay.bind(this);
     this.nextSong = this.nextSong.bind(this);
+    this.prevSong = this.prevSong.bind(this);
     this.stop = this.stop.bind(this);
     this.handleVolume = this.handleVolume.bind(this);
     this.toggleMuted = this.toggleMuted.bind(this);
@@ -71,11 +72,32 @@ class MediaPlayer extends React.Component {
   }
 
   nextSong() {
-    if (!this.props.tracklist) {
+    if (!(this.props.tracklist && this.props.currentSong)) {
       return;
     }
 
-    const nextSong = this.props.tracklist.findIndex(this.props.currentSong.id);
+    const currSongIdx = this.props.tracklist.indexOf(this.props.currentSong.id);
+    if (currSongIdx >= this.props.tracklist.length - 1) {
+      this.stop();
+      return;
+    }
+    const nextSongId = this.props.tracklist[currSongIdx + 1];
+    const nextSong = this.props.songs.filter((song) => song.id === nextSongId)[0];
+    this.props.playSong(nextSong);
+  }
+
+  prevSong() {
+    if (!(this.props.tracklist && this.props.currentSong)) {
+      return;
+    }
+
+    const currSongIdx = this.props.tracklist.indexOf(this.props.currentSong.id);
+    if (currSongIdx === 0) {
+      this.stop();
+      return;
+    }
+    const nextSongId = this.props.tracklist[currSongIdx - 1];
+    const nextSong = this.props.songs.filter((song) => song.id === nextSongId)[0];
     this.props.playSong(nextSong);
   }
 
@@ -203,9 +225,11 @@ class MediaPlayer extends React.Component {
             <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/05.+212+(feat.+Lazy+Jay).mp3')}>212</button> */}
         <div className="play-bar col-5-11">
           <div className="play-button">
+            <button onClick={this.prevSong}>prevSong</button>
             <button className="play-pause" onClick={this.togglePlay}>
               {playing ? pauseIcon : playIcon}
             </button>
+            <button onClick={this.nextSong}>nextSong</button>
             <button className="loop" onClick={this.toggleLoop}>
               {loop ? noloopIcon : loopIcon}
             </button>

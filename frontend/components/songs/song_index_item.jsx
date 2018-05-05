@@ -44,7 +44,6 @@ class SongIndexItem extends React.Component {
   }
 
   playSong() {
-    debugger;
     this.props.playSong(this.props.song);
   }
 

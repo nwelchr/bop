@@ -7,7 +7,8 @@ const mapStateToProps = (state, ownProps) => {
     return ({
         playing: state.ui.playbar.playing,
         currentSong: state.ui.playbar.currentSong,
-        tracklist: state.ui.tracklist
+        tracklist: state.ui.tracklist,
+        songs: state.entities.songs
     });
 };
 
