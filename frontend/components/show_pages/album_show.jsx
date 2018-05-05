@@ -37,10 +37,10 @@ class AlbumShow extends React.Component {
   }
 
   createAlbumSongs() {
-    if (!(typeof this.props.album.songs === "undefined")) {
+    if (!(typeof this.props.songs === "undefined")) {
       this.AlbumSongs = (
         <ol>
-          {this.props.album.songs.map(song => {
+          {this.props.songs.map(song => {
             return (
               <SongIndexItemContainer
                 key={song.id}

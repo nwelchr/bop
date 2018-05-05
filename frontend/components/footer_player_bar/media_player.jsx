@@ -91,6 +91,11 @@ class MediaPlayer extends React.Component {
       return;
     }
 
+    if (this.state.duration * this.state.played >= 3) {
+      this.player.seekTo(0);
+      return;
+    }
+
     const currSongIdx = this.props.tracklist.indexOf(this.props.currentSong.id);
     if (currSongIdx === 0) {
       this.stop();
