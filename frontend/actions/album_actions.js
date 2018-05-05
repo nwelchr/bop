@@ -39,8 +39,8 @@ export const fetchAlbum = (albumId) => (dispatch) => {
 
 export const fetchAlbumThenPlaySong = (albumId) => (dispatch) => (
     APIUtil.fetchAlbum(albumId).then(album => {
-        dispatch(receiveAlbum(album))
-            .then(dispatch(playSong(album.songs[0])));
+        dispatch(receiveAlbum(album));
+        dispatch(playSong(album.songs[0]));
     }
 )
 );

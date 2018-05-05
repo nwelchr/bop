@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
 
@@ -138,4 +138,4 @@ const mapDispatchToProps = dispatch => ({
   fetchSongs: () => dispatch(fetchSongs())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlaylistIndexItem);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PlaylistIndexItem));

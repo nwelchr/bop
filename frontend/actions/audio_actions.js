@@ -6,9 +6,10 @@ export const play = () => ({
     type: PLAY
 });
 
-export const playSong = (song) => ({
+export const playSong = (song, params) => ({
     type: PLAY_SONG,
-    song
+    song,
+    params
 });
 
 export const pause = () => ({

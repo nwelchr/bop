@@ -1,5 +1,6 @@
 import PlaylistShow from '../show_pages/playlist_show';
 import { connect } from 'react-redux';
+import { withRouter } from "react-router-dom";
 import { fetchPlaylist, deletePlaylist, fetchModalPlaylists } from '../../actions/playlist_actions';
 import { fetchSongs, fetchSong, removeSongFromPlaylist } from '../../actions/song_actions';
 import { play, pause, playSong } from '../../actions/audio_actions';
@@ -15,6 +16,7 @@ const mapStateToProps = (state, ownProps) => {
         background: { 'backgroundColor': '#7a1a45' },
         currentUser: state.session.currentUser,
         currentSong: state.ui.playbar.currentSong,
+        currentSongParams: state.ui.playbar.currentSongParams,
         playing: state.ui.playbar.playing,
         songs: state.entities.songs
     });
@@ -27,11 +29,11 @@ const mapDispatchToProps = (dispatch) => {
     fetchPlaylist: (playlistId) => dispatch(fetchPlaylist(playlistId)),
     play: () => dispatch(play()),
     pause: () => dispatch(pause()),
-    playSong: (song) => dispatch(playSong(song)),
+    playSong: (song, params) => dispatch(playSong(song, params)),
     openAddToPlaylistForm: () => dispatch(openAddToPlaylistForm()),
     fetchModalPlaylists: (songToAddId) => dispatch(fetchModalPlaylists(songToAddId)),
     removeSongFromPlaylist: (songId, playlistId) => dispatch(removeSongFromPlaylist(songId, playlistId))
 });
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SongIndexItem);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SongIndexItem));

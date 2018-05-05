@@ -13,7 +13,7 @@ const playbarReducer = (oldState = initialState, action) => {
         case PLAY:
             return merge({}, oldState, { playing: true });
         case PLAY_SONG:
-            return merge({}, oldState, { playing: true, currentSong: action.song });
+            return merge({}, oldState, { playing: true, currentSong: action.song, currentSongParams: action.params });
         case PAUSE:
             return merge({}, oldState, { playing: false });
         default:

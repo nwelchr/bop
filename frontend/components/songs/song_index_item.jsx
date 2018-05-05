@@ -24,16 +24,16 @@ class SongIndexItem extends React.Component {
     // - If the song that was just paused is what you click on, play (without fetching)
     // - Otherwise, fetch the new song and play that
     // If currentSong doesn't exist (i.e. you just opened the app), fetch the song
-
+    
     if (this.props.currentSong) {
         if (this.props.playing) {
-            if (this.props.currentSong.id === this.props.song.id) {
+            if (this.props.currentSong.id === this.props.song.id && this.props.match.params === this.props.currentSongParams) {
                 this.props.pause();
             } 
             else { 
                 this.playSong();
             }
-        } else if (this.props.currentSong.id === this.props.song.id) {
+        } else if (this.props.currentSong.id === this.props.song.id && this.props.match.params === this.props.currentSongParams) {
             this.props.play();
         } else {
             this.playSong();
@@ -44,7 +44,7 @@ class SongIndexItem extends React.Component {
   }
 
   playSong() {
-    this.props.playSong(this.props.song);
+    this.props.playSong(this.props.song, this.props.match.params);
   }
 
   showDropdown() {
@@ -83,8 +83,12 @@ class SongIndexItem extends React.Component {
 
     let indexItemClass;
     if (this.props.currentSong) {
+      // if the current song is the song && the song comes from the same location && the song is currently playing
       indexItemClass =
-        this.props.currentSong.id === this.props.song.id && this.props.playing
+        this.props.currentSong.id === this.props.song.id 
+          && Object.keys(this.props.match.params)[0] === Object.keys(this.props.currentSongParams)[0]
+          && Object.values(this.props.match.params)[0] === Object.values(this.props.currentSongParams)[0]
+          && this.props.playing
           ? "playing"
           : "";
     }

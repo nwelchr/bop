@@ -44,11 +44,23 @@ class MediaPlayer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentSong) {
-    this.setState({
-      playing: nextProps.playing,
-      currentSong: nextProps.currentSong.mp3_url
-    });
-  }
+      if (this.props.currentSong) {
+        if (
+          !(
+            Object.keys(this.props.currentSongParams)[0] ===
+              Object.keys(nextProps.currentSongParams)[0] &&
+            Object.values(this.props.currentSongParams)[0] ===
+              Object.values(nextProps.currentSongParams)[0]
+          )
+        ) {
+          this.player.seekTo(0);
+        }
+      }
+      this.setState({
+        playing: nextProps.playing,
+        currentSong: nextProps.currentSong.mp3_url
+      });
+    }
   }
 
   load(url) {
@@ -82,8 +94,8 @@ class MediaPlayer extends React.Component {
       return;
     }
     const nextSongId = this.props.tracklist[currSongIdx + 1];
-    const nextSong = this.props.songs.filter((song) => song.id === nextSongId)[0];
-    this.setState({played: 0});
+    const nextSong = this.props.songs.filter(song => song.id === nextSongId)[0];
+    this.setState({ played: 0 });
     this.props.playSong(nextSong);
   }
 
@@ -103,7 +115,7 @@ class MediaPlayer extends React.Component {
       return;
     }
     const nextSongId = this.props.tracklist[currSongIdx - 1];
-    const nextSong = this.props.songs.filter((song) => song.id === nextSongId)[0];
+    const nextSong = this.props.songs.filter(song => song.id === nextSongId)[0];
     this.props.playSong(nextSong);
   }
 
@@ -283,7 +295,6 @@ class MediaPlayer extends React.Component {
                 <Duration seconds={duration} />
               </div>
             </section>
-            
           </div>
         </div>
         <div className="volume-bar col-3-11 ">
