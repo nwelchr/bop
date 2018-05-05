@@ -2,7 +2,7 @@ import merge from 'lodash/merge';
 
 import { RECEIVE_CURRENT_USER } from '../actions/session_actions';
 import { RECEIVE_FOLLOW, REMOVE_FOLLOW } from '../actions/follow_actions';
-import { RECEIVE_CREATED_PLAYLIST, RECEIVE_PLAYLIST } from '../actions/playlist_actions';
+import { RECEIVE_CREATED_PLAYLIST } from '../actions/playlist_actions';
 
 const _nullUser = Object.freeze({
     currentUser: null
@@ -30,11 +30,6 @@ const sessionReducer = (oldState = _nullUser, action) => {
             tableized = `${action.payload.followable_type.toLowerCase()}s`;
             newState.currentUser[`followed_${tableized}`] = newState.currentUser[`followed_${tableized}`].filter(m => m !== action.payload.followable_id);
             return newState; 
-        // when you receive a playlist, populate the tracklist
-        case RECEIVE_PLAYLIST:
-            newState = merge({}, oldState);
-            newState.tracklist = action.payload.playlist.song_ids;
-            return newState;
         default:
             return oldState;
     }

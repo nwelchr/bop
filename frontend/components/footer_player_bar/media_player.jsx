@@ -22,6 +22,7 @@ class MediaPlayer extends React.Component {
     };
 
     this.togglePlay = this.togglePlay.bind(this);
+    this.nextSong = this.nextSong.bind(this);
     this.stop = this.stop.bind(this);
     this.handleVolume = this.handleVolume.bind(this);
     this.toggleMuted = this.toggleMuted.bind(this);
@@ -41,10 +42,12 @@ class MediaPlayer extends React.Component {
   componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.currentSong) {
     this.setState({
       playing: nextProps.playing,
       currentSong: nextProps.currentSong.mp3_url
     });
+  }
   }
 
   load(url) {
@@ -65,6 +68,15 @@ class MediaPlayer extends React.Component {
     }
     if (this.state.playing === true) this.props.pause();
     else this.props.play();
+  }
+
+  nextSong() {
+    if (!this.props.tracklist) {
+      return;
+    }
+
+    const nextSong = this.props.tracklist.findIndex(this.props.currentSong.id);
+    this.props.playSong(nextSong);
   }
 
   stop() {
