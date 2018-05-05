@@ -27,13 +27,19 @@ class SongIndexItem extends React.Component {
     
     if (this.props.currentSong) {
         if (this.props.playing) {
-            if (this.props.currentSong.id === this.props.song.id && this.props.match.params === this.props.currentSongParams) {
+            if (this.props.currentSong.id === this.props.song.id 
+              && Object.keys(this.props.match.params)[0] === Object.keys(this.props.currentSongParams)[0]
+              && Object.values(this.props.match.params)[0] === Object.values(this.props.currentSongParams)[0]
+              ) {
                 this.props.pause();
             } 
             else { 
                 this.playSong();
             }
-        } else if (this.props.currentSong.id === this.props.song.id && this.props.match.params === this.props.currentSongParams) {
+        } else if (this.props.currentSong.id === this.props.song.id 
+          && Object.keys(this.props.match.params)[0] === Object.keys(this.props.currentSongParams)[0]
+          && Object.values(this.props.match.params)[0] === Object.values(this.props.currentSongParams)[0]
+        ) {
             this.props.play();
         } else {
             this.playSong();

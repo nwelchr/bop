@@ -54,10 +54,10 @@ export const fetchPlaylist = (playlistId) => (dispatch) => {
     });
 };
 
-export const fetchPlaylistThenPlaySong = (playlistId) => (dispatch) => (
+export const fetchPlaylistThenPlaySong = (playlistId, params) => (dispatch) => (
     APIUtil.fetchPlaylist(playlistId).then(playlist => {
         dispatch(receivePlaylist(playlist));
-        dispatch(playSong(playlist.songs[0]));
+        dispatch(playSong(playlist.songs[0], params));
     }
 )
 );

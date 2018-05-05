@@ -42,8 +42,8 @@ class PlaylistIndexItem extends React.Component {
       });
   }
 
-  componentWillReceiveProps() {
-      
+  componentWillReceiveProps(nextProps) {
+      // debugger;
   }
 
   handlePlay(e) {
@@ -52,18 +52,25 @@ class PlaylistIndexItem extends React.Component {
     const songIds = this.props.playlist.song_ids;
     const { currentSong, playing } = this.props;
 
+    if (!(songIds && songIds.length > 0)) {
+      return;
+    }
+
     // If playlist has songs and there's no current song,
     // or if the playlist does have that song in it,
     // fetch the playlist in question and play it
     if (
-      (songIds.length > 0 && !currentSong) ||
-      !songIds.includes(currentSong.id)
+      !currentSong 
+      || !songIds.includes(currentSong.id)
+      || Object.keys(this.props.currentSongParams)[0] !== "playlistId"
+      || Object.values(this.props.currentSongParams)[0] !== `${this.props.playlist.id}`
     ) {
       // this.props.fetchSongs().then(songs => {
       //     this.props.playSong(songs[1]);
       // }
 
-      this.props.fetchPlaylistThenPlaySong(this.props.playlist.id);
+      console.log('hi');
+      this.props.fetchPlaylistThenPlaySong(this.props.playlist.id, { playlistId: `${this.props.playlist.id}` });
     } else if (currentSong && !playing) {
       this.props.play();
     } else {
@@ -72,7 +79,7 @@ class PlaylistIndexItem extends React.Component {
   }
 
   render() {
-    const { currentSong, playing, playlist } = this.props;
+    const { currentSong, currentSongParams, playing, playlist } = this.props;
 
     let songIds = null;
     if (this.props.playlist.song_ids) songIds = this.props.playlist.song_ids;
@@ -81,7 +88,14 @@ class PlaylistIndexItem extends React.Component {
     const pauseIcon = <i className="fa fa-pause-circle" />;
 
     let playPauseIcon, playlistIndexClass;
-    if (playing && currentSong && songIds && songIds.includes(currentSong.id)) {
+
+    if (playing 
+        && currentSong 
+        && songIds 
+        && songIds.includes(currentSong.id)
+        && Object.keys(currentSongParams)[0] === "playlistId"
+        && Object.values(currentSongParams)[0] === `${this.props.playlist.id}`
+      ) {
       playPauseIcon = pauseIcon;
       playlistIndexClass = "playing";
     } else {
@@ -125,6 +139,7 @@ class PlaylistIndexItem extends React.Component {
 
 const mapStateToProps = state => ({
   currentSong: state.ui.playbar.currentSong,
+  currentSongParams: state.ui.playbar.currentSongParams,
   playing: state.ui.playbar.playing
 });
 
@@ -132,8 +147,8 @@ const mapDispatchToProps = dispatch => ({
   play: () => dispatch(play()),
   pause: () => dispatch(pause()),
   playSong: () => dispatch(playSong()),
-  fetchPlaylistThenPlaySong: playlistId =>
-    dispatch(fetchPlaylistThenPlaySong(playlistId)),
+  fetchPlaylistThenPlaySong: (playlistId, params) =>
+    dispatch(fetchPlaylistThenPlaySong(playlistId, params)),
   fetchSong: songId => dispatch(fetchSong(songId)),
   fetchSongs: () => dispatch(fetchSongs())
 });
