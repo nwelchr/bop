@@ -67,7 +67,6 @@ class SongIndexItem extends React.Component {
     const tracklistParamKey = Object.keys(this.props.match.params)[0];
     const tracklistParam = tracklistParamKey.slice(0, tracklistParamKey.length - 2);
     const tracklist = this.props[tracklistParam].song_ids;
-    debugger;
     this.props.playSongWithTracklist(this.props.song, this.props.match.params, tracklist);
   }
 
