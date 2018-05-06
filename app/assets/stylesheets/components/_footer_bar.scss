@@ -60,6 +60,64 @@
     .fa-play-circle:hover, .fa-pause-circle:hover {
     }
 
+    .icon {
+        opacity: .5;
+        width: 12px;
+        height: 12px;
+        padding: 10px;
+        background-repeat: no-repeat;
+        margin: 0px -3px;
+    }
+
+    .play, .pause {
+        border-radius: 50%;
+        border: 1px solid white;
+        transition: transform .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+
+    .icon:hover {
+        opacity: 1;
+    }
+
+    .icon:active {
+        opacity: .5;
+    }
+
+    .play:hover, .pause:hover {
+        transform: scale(1.1);
+    }
+
+    .play:active, .pause:active {
+        transform: scale(1);
+    }
+
+    .play {
+        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/play.png');
+        background-size: 11px 13px;
+        background-position: 55% 50%;
+    }
+
+    .pause {
+        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/pause.png');
+        background-size: 10px 12px;
+        background-position: center;
+    }
+
+    .next, .prev {
+        background-size: 11px 11px;
+        background-position: center;
+    }
+
+    .next {
+        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/next.png');
+    }
+    
+    .prev {
+        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/prev.png');
+    }
+
+
+
     .selected {
         // -webkit-text-stroke-width: .3px;
         // -webkit-text-stroke-color: #4bfa75;
