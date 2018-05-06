@@ -99,9 +99,13 @@ ul {
         display: block;
     }
     .media {
-        display: inline-block;
+        display: flex;
+        width: 170px;
+        overflow: none;
+        flex-wrap: wrap;
         position: relative;
         vertical-align: top;
+        transition: 0.2s ease;
         .media__image {
             box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
             max-width: 100%;
@@ -111,7 +115,12 @@ ul {
             object-fit: cover;
             width: 170px;
             height: 170px;
+            &.collage {
+                width: 85px;
+                height: 85px;
+            }
         }
+
     }
     p {
         padding: 12px;
@@ -178,10 +187,10 @@ ul {
 }
 
 .music-index-item:active .media__body {
-    transform: scale(.98);
+    // transform: scale(.98);
 }
 
-.music-index-item:active .media .media__image {
+.music-index-item:active .media {
     transform: scale(.97);
 }
 

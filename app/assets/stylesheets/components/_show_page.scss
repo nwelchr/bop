@@ -18,9 +18,19 @@
             margin-left: auto;
             width: 320px;
 
+            .media {
+                width: 320px;
+                display: flex;
+                flex-wrap: wrap;
+            }
+
             .media__image {
                 width: 320px;
                 height: 320px;
+                &.collage {
+                    width: 160px;
+                    height: 160px;
+                }
             }
 
             .music-index-item:hover {
