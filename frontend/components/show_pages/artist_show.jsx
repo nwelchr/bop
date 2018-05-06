@@ -44,7 +44,8 @@ class ArtistShow extends React.Component {
 
   createArtistSongs() {
     if (!(typeof this.props.artist.songIds === "undefined")) {
-      const songs = this.props.songs.filter((song) => (this.props.artist.songIds).includes(song.id));      
+      const selectedSongs = this.props.songs.filter((song) => (this.props.artist.songIds).includes(song.id));
+      const songs = this.props.artist.songIds.map(songId => selectedSongs.find((song) => song.id === songId));
       return (
         <main className="show-page-main">
         <section className="show-songs song-container">

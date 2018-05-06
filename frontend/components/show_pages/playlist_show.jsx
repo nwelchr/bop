@@ -56,7 +56,8 @@ class PlaylistShow extends React.Component {
 
   createPlaylistSongs() {
     if (!(typeof this.props.playlist.songIds === "undefined")) {
-      const songs = this.props.songs.filter((song) => (this.props.playlist.songIds).includes(song.id));
+      const selectedSongs = this.props.songs.filter((song) => (this.props.playlist.songIds).includes(song.id));
+      const songs = this.props.playlist.songIds.map(songId => selectedSongs.find((song) => song.id === songId));      
       this.PlaylistSongs = (
         <ol>
           {songs.map(song => {

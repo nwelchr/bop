@@ -37,8 +37,10 @@ class AlbumShow extends React.Component {
   }
 
   createAlbumSongs() {
-    if (!(typeof this.props.songs === "undefined")) {
-      const songs = this.props.songs.filter((song) => (this.props.album.songIds).includes(song.id));      
+    if (!(typeof this.props.album.songIds === "undefined")) {
+      const selectedSongs = this.props.songs.filter((song) => (this.props.album.songIds).includes(song.id));
+      debugger
+      const songs = this.props.album.songIds.map(songId => selectedSongs.find((song) => song.id === songId));   
       this.AlbumSongs = (
         <ol>
           {songs.map(song => {
