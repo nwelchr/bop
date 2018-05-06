@@ -1666,7 +1666,7 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
 }
 /* line 106, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .song-index-item-wrapper:hover, .show-page-main .show-songs ol .playing {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* line 113, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
@@ -3735,7 +3735,7 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
 }
 /* line 106, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .song-index-item-wrapper:hover, .show-page-main .show-songs ol .playing {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* line 113, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
