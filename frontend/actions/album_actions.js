@@ -5,6 +5,7 @@ import { playSong } from './audio_actions';
 
 export const RECEIVE_ALBUMS = "RECEIVE_ALBUMS";
 export const RECEIVE_ALBUM = "RECEIVE_ALBUM";
+export const RECEIVE_ALBUM_WITH_TRACKLIST = "RECEIVE_ALBUM_WITH_TRACKLIST";
 
 const receiveAlbums = (albums) => ({
     type: RECEIVE_ALBUMS,
@@ -13,6 +14,11 @@ const receiveAlbums = (albums) => ({
 
 export const receiveAlbum = (payload) => ({
     type: RECEIVE_ALBUM,
+    payload
+});
+
+export const receiveAlbumWithTracklist = (payload) => ({
+    type: RECEIVE_ALBUM_WITH_TRACKLIST,
     payload
 });
 
@@ -29,18 +35,10 @@ export const fetchAlbum = (albumId) => (dispatch) => {
     });
 };
 
-// export const fetchAlbumThenPlaySong = (albumId) => (dispatch) => (
-//     APIUtil.fetchAlbum(albumId).then(album => {
-//         // play first song from album for now
-//         dispatch(playSong(album.songs[0]));
-//     }
-// )
-// );
-
-export const fetchAlbumThenPlaySong = (albumId) => (dispatch) => (
+export const fetchAlbumThenPlaySong = (albumId, params) => (dispatch) => (
     APIUtil.fetchAlbum(albumId).then(album => {
-        dispatch(receiveAlbum(album));
-        dispatch(playSong(album.songs[0]));
+        dispatch(receiveAlbumWithTracklist(album));
+        dispatch(playSong(Object.values(album.songs)[0], params));
     }
 )
-);
+)

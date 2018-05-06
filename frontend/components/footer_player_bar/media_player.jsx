@@ -116,7 +116,7 @@ class MediaPlayer extends React.Component {
     }
     const nextSongId = this.props.tracklist[currSongIdx - 1];
     const nextSong = this.props.songs.filter(song => song.id === nextSongId)[0];
-    this.props.playSong(nextSong);
+    this.props.playSong(nextSong, this.props.currentSongParams);
   }
 
   stop() {

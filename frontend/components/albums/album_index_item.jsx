@@ -35,15 +35,19 @@ class AlbumIndexItem extends React.Component {
         const songIds = this.props.album.song_ids;
         const { currentSong, playing } = this.props;
 
+        if (!(songIds && songIds.length > 0)) {
+            return;
+          }
+
         // If album has songs and there's no current song, 
         // or if the album does have that song in it,
         // fetch the album in question and play it
-        if (songIds.length > 0 && !currentSong || (!songIds.includes(currentSong.id))) {
-            // this.props.fetchSongs().then(songs => {
-            //     this.props.playSong(songs[1]);
-            // }
-
-            this.props.fetchAlbumThenPlaySong(this.props.album.id);
+        if (!currentSong 
+            || !songIds.includes(currentSong.id)
+            || Object.keys(this.props.currentSongParams)[0] !== "albumId"
+            || Object.values(this.props.currentSongParams)[0] !== `${this.props.album.id}`
+        ) {
+            this.props.fetchAlbumThenPlaySong(this.props.album.id, { albumId: `${this.props.album.id}` });
         } else if (currentSong && !playing) {
             this.props.play();
         } else {

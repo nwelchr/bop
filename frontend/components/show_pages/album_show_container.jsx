@@ -15,7 +15,7 @@ const mapStateToProps = (state, ownProps) => {
         currentUser: state.session.currentUser,
         currentSong: state.ui.playbar.currentSong,
         playing: state.ui.playbar.playing,
-        songs: state.entities.songs
+        songs: Object.values(state.entities.songs)
     });
 };
 

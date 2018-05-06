@@ -65,11 +65,6 @@ class PlaylistIndexItem extends React.Component {
       || Object.keys(this.props.currentSongParams)[0] !== "playlistId"
       || Object.values(this.props.currentSongParams)[0] !== `${this.props.playlist.id}`
     ) {
-      // this.props.fetchSongs().then(songs => {
-      //     this.props.playSong(songs[1]);
-      // }
-
-      console.log('hi');
       this.props.fetchPlaylistThenPlaySong(this.props.playlist.id, { playlistId: `${this.props.playlist.id}` });
     } else if (currentSong && !playing) {
       this.props.play();
