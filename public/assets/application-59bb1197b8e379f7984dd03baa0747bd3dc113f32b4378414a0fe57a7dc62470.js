@@ -32166,6 +32166,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var PLAY = exports.PLAY = "PLAY";
 var PLAY_SONG = exports.PLAY_SONG = "PLAY_SONG";
+var RECEIVE_PLAY_SONG_WITH_TRACKLIST = exports.RECEIVE_PLAY_SONG_WITH_TRACKLIST = "RECEIVE_PLAY_SONG_WITH_TRACKLIST";
 var PAUSE = exports.PAUSE = "PAUSE";
 
 var play = exports.play = function play() {
@@ -32174,16 +32175,33 @@ var play = exports.play = function play() {
     };
 };
 
-var playSong = exports.playSong = function playSong(song) {
+var playSong = exports.playSong = function playSong(song, params) {
     return {
         type: PLAY_SONG,
-        song: song
+        song: song,
+        params: params
+    };
+};
+
+var receivePlaySongWithTracklist = exports.receivePlaySongWithTracklist = function receivePlaySongWithTracklist(song, params, tracklist) {
+    return {
+        type: RECEIVE_PLAY_SONG_WITH_TRACKLIST,
+        song: song,
+        params: params,
+        tracklist: tracklist
     };
 };
 
 var pause = exports.pause = function pause() {
     return {
         type: PAUSE
+    };
+};
+
+var playSongWithTracklist = exports.playSongWithTracklist = function playSongWithTracklist(song, params, tracklist) {
+    return function (dispatch) {
+        dispatch(receivePlaySongWithTracklist(song, params, tracklist));
+        dispatch(playSong(song, params));
     };
 };
 
@@ -32455,7 +32473,7 @@ module.exports = warning;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.deletePlaylist = exports.updatePlaylist = exports.createPlaylist = exports.fetchPlaylistThenPlaySong = exports.fetchPlaylist = exports.fetchModalPlaylists = exports.fetchPlaylists = exports.receiveCreatedPlaylist = exports.receivePlaylist = exports.RECEIVE_MODAL_PLAYLISTS = exports.RECEIVE_CREATED_PLAYLIST = exports.REMOVE_PLAYLIST = exports.RECEIVE_PLAYLIST = exports.RECEIVE_PLAYLISTS = undefined;
+exports.deletePlaylist = exports.updatePlaylist = exports.createPlaylist = exports.fetchPlaylistThenPlaySong = exports.fetchPlaylist = exports.fetchModalPlaylists = exports.fetchPlaylists = exports.receiveCreatedPlaylist = exports.receivePlaylistWithTracklist = exports.receivePlaylist = exports.RECEIVE_MODAL_PLAYLISTS = exports.RECEIVE_CREATED_PLAYLIST = exports.REMOVE_PLAYLIST = exports.RECEIVE_PLAYLIST_WITH_TRACKLIST = exports.RECEIVE_PLAYLIST = exports.RECEIVE_PLAYLISTS = undefined;
 
 var _playlist_api_util = __webpack_require__(206);
 
@@ -32469,6 +32487,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var RECEIVE_PLAYLISTS = exports.RECEIVE_PLAYLISTS = "RECEIVE_PLAYLISTS";
 var RECEIVE_PLAYLIST = exports.RECEIVE_PLAYLIST = "RECEIVE_PLAYLIST";
+var RECEIVE_PLAYLIST_WITH_TRACKLIST = exports.RECEIVE_PLAYLIST_WITH_TRACKLIST = "RECEIVE_PLAYLIST_WITH_TRACKLIST";
 var REMOVE_PLAYLIST = exports.REMOVE_PLAYLIST = "REMOVE_PLAYLIST";
 var RECEIVE_CREATED_PLAYLIST = exports.RECEIVE_CREATED_PLAYLIST = "RECEIVE_CREATED_PLAYLIST";
 var RECEIVE_MODAL_PLAYLISTS = exports.RECEIVE_MODAL_PLAYLISTS = "RECEIVE_MODAL_PLAYLISTS";
@@ -32483,6 +32502,13 @@ var receivePlaylists = function receivePlaylists(playlists) {
 var receivePlaylist = exports.receivePlaylist = function receivePlaylist(payload) {
     return {
         type: RECEIVE_PLAYLIST,
+        payload: payload
+    };
+};
+
+var receivePlaylistWithTracklist = exports.receivePlaylistWithTracklist = function receivePlaylistWithTracklist(payload) {
+    return {
+        type: RECEIVE_PLAYLIST_WITH_TRACKLIST,
         payload: payload
     };
 };
@@ -32535,11 +32561,11 @@ var fetchPlaylist = exports.fetchPlaylist = function fetchPlaylist(playlistId) {
     };
 };
 
-var fetchPlaylistThenPlaySong = exports.fetchPlaylistThenPlaySong = function fetchPlaylistThenPlaySong(playlistId) {
+var fetchPlaylistThenPlaySong = exports.fetchPlaylistThenPlaySong = function fetchPlaylistThenPlaySong(playlistId, params) {
     return function (dispatch) {
         return APIUtil.fetchPlaylist(playlistId).then(function (playlist) {
-            // play first song from playlist for now
-            dispatch((0, _audio_actions.playSong)(playlist.songs[0]));
+            dispatch(receivePlaylistWithTracklist(playlist));
+            dispatch((0, _audio_actions.playSong)(Object.values(playlist.songs)[0], params));
         });
     };
 };
@@ -33387,6 +33413,8 @@ var _playlist_show2 = _interopRequireDefault(_playlist_show);
 
 var _reactRedux = __webpack_require__(2);
 
+var _reactRouterDom = __webpack_require__(1);
+
 var _playlist_actions = __webpack_require__(6);
 
 var _song_actions = __webpack_require__(10);
@@ -33411,6 +33439,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
         background: { 'backgroundColor': '#7a1a45' },
         currentUser: state.session.currentUser,
         currentSong: state.ui.playbar.currentSong,
+        currentSongParams: state.ui.playbar.currentSongParams,
         playing: state.ui.playbar.playing,
         songs: state.entities.songs
     };
@@ -33433,8 +33462,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         pause: function pause() {
             return dispatch((0, _audio_actions.pause)());
         },
-        playSong: function playSong(song) {
-            return dispatch((0, _audio_actions.playSong)(song));
+        playSong: function playSong(song, params) {
+            return dispatch((0, _audio_actions.playSong)(song, params));
+        },
+        playSongWithTracklist: function playSongWithTracklist(song, params, tracklist) {
+            return dispatch((0, _audio_actions.playSongWithTracklist)(song, params, tracklist));
         },
         openAddToPlaylistForm: function openAddToPlaylistForm() {
             return dispatch((0, _ui_actions.openAddToPlaylistForm)());
@@ -33448,7 +33480,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_song_index_item2.default);
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_song_index_item2.default));
 
 /***/ }),
 /* 18 */
@@ -33594,7 +33626,6 @@ var removeFollow = exports.removeFollow = function removeFollow(payload) {
 
 var follow = exports.follow = function follow(type, id) {
     return function (dispatch) {
-        console.log('following in follow actions');
         return APIUtil.follow(type, id).then(function (response) {
             dispatch(receiveFollow(response));
         });
@@ -33603,9 +33634,7 @@ var follow = exports.follow = function follow(type, id) {
 
 var unfollow = exports.unfollow = function unfollow(type, id) {
     return function (dispatch) {
-        console.log('unfollowing in follow actions');
         return APIUtil.unfollow(type, id).then(function (response) {
-            console.log('never hits promise');
             dispatch(removeFollow(response));
         });
     };
@@ -33621,7 +33650,7 @@ var unfollow = exports.unfollow = function unfollow(type, id) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.fetchAlbumThenPlaySong = exports.fetchAlbum = exports.fetchAlbums = exports.receiveAlbum = exports.RECEIVE_ALBUM = exports.RECEIVE_ALBUMS = undefined;
+exports.fetchAlbumThenPlaySong = exports.fetchAlbum = exports.fetchAlbums = exports.receiveAlbumWithTracklist = exports.receiveAlbum = exports.RECEIVE_ALBUM_WITH_TRACKLIST = exports.RECEIVE_ALBUM = exports.RECEIVE_ALBUMS = undefined;
 
 var _album_api_util = __webpack_require__(281);
 
@@ -33635,6 +33664,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var RECEIVE_ALBUMS = exports.RECEIVE_ALBUMS = "RECEIVE_ALBUMS";
 var RECEIVE_ALBUM = exports.RECEIVE_ALBUM = "RECEIVE_ALBUM";
+var RECEIVE_ALBUM_WITH_TRACKLIST = exports.RECEIVE_ALBUM_WITH_TRACKLIST = "RECEIVE_ALBUM_WITH_TRACKLIST";
 
 var receiveAlbums = function receiveAlbums(albums) {
     return {
@@ -33643,10 +33673,17 @@ var receiveAlbums = function receiveAlbums(albums) {
     };
 };
 
-var receiveAlbum = exports.receiveAlbum = function receiveAlbum(album) {
+var receiveAlbum = exports.receiveAlbum = function receiveAlbum(payload) {
     return {
         type: RECEIVE_ALBUM,
-        album: album
+        payload: payload
+    };
+};
+
+var receiveAlbumWithTracklist = exports.receiveAlbumWithTracklist = function receiveAlbumWithTracklist(payload) {
+    return {
+        type: RECEIVE_ALBUM_WITH_TRACKLIST,
+        payload: payload
     };
 };
 
@@ -33662,17 +33699,17 @@ var fetchAlbums = exports.fetchAlbums = function fetchAlbums(shouldFetchAll) {
 var fetchAlbum = exports.fetchAlbum = function fetchAlbum(albumId) {
     return function (dispatch) {
         dispatch((0, _loading_actions.startLoading)());
-        return APIUtil.fetchAlbum(albumId).then(function (playlist) {
-            return dispatch(receiveAlbum(playlist));
+        return APIUtil.fetchAlbum(albumId).then(function (album) {
+            return dispatch(receiveAlbum(album));
         });
     };
 };
 
-var fetchAlbumThenPlaySong = exports.fetchAlbumThenPlaySong = function fetchAlbumThenPlaySong(albumId) {
+var fetchAlbumThenPlaySong = exports.fetchAlbumThenPlaySong = function fetchAlbumThenPlaySong(albumId, params) {
     return function (dispatch) {
         return APIUtil.fetchAlbum(albumId).then(function (album) {
-            // play first song from album for now
-            dispatch((0, _audio_actions.playSong)(album.songs[0]));
+            dispatch(receiveAlbumWithTracklist(album));
+            dispatch((0, _audio_actions.playSong)(Object.values(album.songs)[0], params));
         });
     };
 };
@@ -33687,7 +33724,7 @@ var fetchAlbumThenPlaySong = exports.fetchAlbumThenPlaySong = function fetchAlbu
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.fetchArtistThenPlaySong = exports.fetchArtist = exports.fetchArtists = exports.receiveArtist = exports.RECEIVE_ARTIST = exports.RECEIVE_ARTISTS = undefined;
+exports.fetchArtistThenPlaySong = exports.fetchArtist = exports.fetchArtists = exports.receiveArtistWithTracklist = exports.receiveArtist = exports.RECEIVE_ARTIST_WITH_TRACKLIST = exports.RECEIVE_ARTIST = exports.RECEIVE_ARTISTS = undefined;
 
 var _artist_api_util = __webpack_require__(282);
 
@@ -33701,6 +33738,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var RECEIVE_ARTISTS = exports.RECEIVE_ARTISTS = "RECEIVE_ARTISTS";
 var RECEIVE_ARTIST = exports.RECEIVE_ARTIST = "RECEIVE_ARTIST";
+var RECEIVE_ARTIST_WITH_TRACKLIST = exports.RECEIVE_ARTIST_WITH_TRACKLIST = "RECEIVE_ARTIST_WITH_TRACKLIST";
 
 var receiveArtists = function receiveArtists(artists) {
     return {
@@ -33709,10 +33747,17 @@ var receiveArtists = function receiveArtists(artists) {
     };
 };
 
-var receiveArtist = exports.receiveArtist = function receiveArtist(artist) {
+var receiveArtist = exports.receiveArtist = function receiveArtist(payload) {
     return {
         type: RECEIVE_ARTIST,
-        artist: artist
+        payload: payload
+    };
+};
+
+var receiveArtistWithTracklist = exports.receiveArtistWithTracklist = function receiveArtistWithTracklist(payload) {
+    return {
+        type: RECEIVE_ARTIST_WITH_TRACKLIST,
+        payload: payload
     };
 };
 
@@ -33734,11 +33779,11 @@ var fetchArtist = exports.fetchArtist = function fetchArtist(artistId) {
     };
 };
 
-var fetchArtistThenPlaySong = exports.fetchArtistThenPlaySong = function fetchArtistThenPlaySong(artistId) {
+var fetchArtistThenPlaySong = exports.fetchArtistThenPlaySong = function fetchArtistThenPlaySong(artistId, params) {
     return function (dispatch) {
         return APIUtil.fetchArtist(artistId).then(function (artist) {
-            // play first song from artist for now
-            dispatch((0, _audio_actions.playSong)(artist.songs[0]));
+            dispatch(receiveArtistWithTracklist(artist));
+            dispatch((0, _audio_actions.playSong)(Object.values(artist.songs)[0], params));
         });
     };
 };
@@ -34259,7 +34304,7 @@ module.exports = isObjectLike;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -34287,165 +34332,169 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var AlbumIndexItem = function (_React$Component) {
-    _inherits(AlbumIndexItem, _React$Component);
+  _inherits(AlbumIndexItem, _React$Component);
 
-    function AlbumIndexItem(props) {
-        _classCallCheck(this, AlbumIndexItem);
+  function AlbumIndexItem(props) {
+    _classCallCheck(this, AlbumIndexItem);
 
-        var _this = _possibleConstructorReturn(this, (AlbumIndexItem.__proto__ || Object.getPrototypeOf(AlbumIndexItem)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (AlbumIndexItem.__proto__ || Object.getPrototypeOf(AlbumIndexItem)).call(this, props));
 
-        _this.handlePlay = _this.handlePlay.bind(_this);
-        return _this;
+    _this.handlePlay = _this.handlePlay.bind(_this);
+    return _this;
+  }
+
+  _createClass(AlbumIndexItem, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      $(document).on("mouseenter", ".media-wrapper", function () {
+        var that = this;
+        $(this).find(":button").show();
+        $(this).find(".media__body").addClass("hovering");
+        $(this).on("onclick", ":button", function () {
+          $(that).find(".media__body").addClass("hovering");
+        });
+      }).on("mouseleave", ".media-wrapper", function () {
+        $(this).find(":button").hide();
+        $(this).find(".media__body").removeClass("hovering");
+      });
     }
+  }, {
+    key: "handlePlay",
+    value: function handlePlay(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      var songIds = this.props.album.songIds;
+      var _props = this.props,
+          currentSong = _props.currentSong,
+          playing = _props.playing;
 
-    _createClass(AlbumIndexItem, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            $(document).on('mouseenter', '.media-wrapper', function () {
-                var that = this;
-                $(this).find(":button").show();
-                $(this).find(".media__body").addClass("hovering");
-                $(this).on('onclick', ':button', function () {
-                    $(that).find(".media__body").addClass("hovering");
-                });
-            }).on('mouseleave', '.media-wrapper', function () {
-                $(this).find(":button").hide();
-                $(this).find(".media__body").removeClass("hovering");
-            });
-        }
-    }, {
-        key: 'handlePlay',
-        value: function handlePlay(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            var songIds = this.props.album.song_ids;
-            var _props = this.props,
-                currentSong = _props.currentSong,
-                playing = _props.playing;
 
-            // If album has songs and there's no current song, 
-            // or if the album does have that song in it,
-            // fetch the album in question and play it
+      if (!(songIds && songIds.length > 0)) {
+        return;
+      }
 
-            if (songIds.length > 0 && !currentSong || !songIds.includes(currentSong.id)) {
-                // this.props.fetchSongs().then(songs => {
-                //     this.props.playSong(songs[1]);
-                // }
+      // If album has songs and there's no current song,
+      // or if the album does have that song in it,
+      // fetch the album in question and play it
+      if (!currentSong || !songIds.includes(currentSong.id) || Object.keys(this.props.currentSongParams)[0] !== "albumId" || Object.values(this.props.currentSongParams)[0] !== "" + this.props.album.id) {
+        this.props.fetchAlbumThenPlaySong(this.props.album.id, {
+          albumId: "" + this.props.album.id
+        });
+      } else if (currentSong && !playing) {
+        this.props.play();
+      } else {
+        this.props.pause();
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _props2 = this.props,
+          currentSong = _props2.currentSong,
+          currentSongParams = _props2.currentSongParams,
+          playing = _props2.playing,
+          album = _props2.album;
 
-                this.props.fetchAlbumThenPlaySong(this.props.album.id);
-            } else if (currentSong && !playing) {
-                this.props.play();
-            } else {
-                this.props.pause();
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _props2 = this.props,
-                currentSong = _props2.currentSong,
-                playing = _props2.playing,
-                album = _props2.album;
+      var songIds = null;
+      if (this.props.album.songIds) songIds = this.props.album.songIds;
 
-            var songIds = null;
-            if (this.props.album.song_ids) songIds = this.props.album.song_ids;
+      var playIcon = _react2.default.createElement("i", { className: "fa fa-play-circle" });
+      var pauseIcon = _react2.default.createElement("i", { className: "fa fa-pause-circle" });
 
-            var playIcon = _react2.default.createElement('i', { className: 'fa fa-play-circle' });
-            var pauseIcon = _react2.default.createElement('i', { className: 'fa fa-pause-circle' });
+      var playPauseIcon = void 0,
+          albumIndexClass = void 0;
+      if (playing && currentSong && songIds && songIds.includes(currentSong.id) && Object.keys(currentSongParams)[0] === "albumId" && Object.values(currentSongParams)[0] === "" + this.props.album.id) {
+        playPauseIcon = pauseIcon;
+        albumIndexClass = "playing";
+      } else {
+        playPauseIcon = playIcon;
+        albumIndexClass = null;
+      }
 
-            var playPauseIcon = void 0,
-                albumIndexClass = void 0;
-            if (playing && currentSong && songIds && songIds.includes(currentSong.id)) {
-                playPauseIcon = pauseIcon;
-                albumIndexClass = "playing";
-            } else {
-                playPauseIcon = playIcon;
-                albumIndexClass = null;
-            }
+      return _react2.default.createElement(
+        "div",
+        { className: "index-item-wrapper" },
+        _react2.default.createElement(
+          "div",
+          { className: "media-wrapper" },
+          _react2.default.createElement("div", { className: "button-wrapper" }),
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            {
+              className: "music-index-item",
+              to: "/albums/" + this.props.album.id
+            },
+            _react2.default.createElement(
+              "li",
+              { className: "item-wrapper" },
+              _react2.default.createElement(
+                "div",
+                { className: "media" },
+                _react2.default.createElement("img", {
+                  alt: "",
+                  className: "media__image",
+                  src: this.props.album.album_cover_url
+                }),
+                _react2.default.createElement("div", { className: "media__body " + albumIndexClass }),
+                _react2.default.createElement("div", { className: "media-loaded" })
+              ),
+              _react2.default.createElement(
+                "p",
+                null,
+                this.props.album.title
+              )
+            )
+          ),
+          _react2.default.createElement(
+            "button",
+            {
+              className: "play-pause " + albumIndexClass,
+              onClick: this.handlePlay
+            },
+            playPauseIcon
+          )
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { className: "user-link", to: "/artists/" + album.artist_id },
+          album.artistName
+        )
+      );
+    }
+  }]);
 
-            return _react2.default.createElement(
-                'div',
-                { className: 'index-item-wrapper' },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'media-wrapper' },
-                    _react2.default.createElement('div', { className: 'button-wrapper' }),
-                    _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        {
-                            className: 'music-index-item',
-                            to: '/albums/' + this.props.album.id
-                        },
-                        _react2.default.createElement(
-                            'li',
-                            { className: 'item-wrapper' },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'media' },
-                                _react2.default.createElement('img', {
-                                    alt: '',
-                                    className: 'media__image',
-                                    src: this.props.album.album_cover_url
-                                }),
-                                _react2.default.createElement('div', { className: 'media__body ' + albumIndexClass }),
-                                _react2.default.createElement('div', { className: 'media-loaded' })
-                            ),
-                            _react2.default.createElement(
-                                'p',
-                                null,
-                                this.props.album.title
-                            )
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'button',
-                        {
-                            className: 'play-pause ' + albumIndexClass,
-                            onClick: this.handlePlay
-                        },
-                        playPauseIcon
-                    )
-                ),
-                _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { className: 'user-link', to: '/artists/' + album.artist_id },
-                    album.artistName
-                )
-            );
-        }
-    }]);
-
-    return AlbumIndexItem;
+  return AlbumIndexItem;
 }(_react2.default.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
-    return {
-        currentSong: state.ui.playbar.currentSong,
-        playing: state.ui.playbar.playing
-    };
+  return {
+    currentSong: state.ui.playbar.currentSong,
+    currentSongParams: state.ui.playbar.currentSongParams,
+    playing: state.ui.playbar.playing
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {
-        play: function play() {
-            return dispatch((0, _audio_actions.play)());
-        },
-        pause: function pause() {
-            return dispatch((0, _audio_actions.pause)());
-        },
-        playSong: function playSong(song) {
-            return dispatch((0, _audio_actions.playSong)(song));
-        },
-        fetchAlbumThenPlaySong: function fetchAlbumThenPlaySong(albumId) {
-            return dispatch((0, _album_actions.fetchAlbumThenPlaySong)(albumId));
-        },
-        fetchSong: function fetchSong(songId) {
-            return dispatch((0, _song_actions.fetchSong)(songId));
-        },
-        fetchSongs: function fetchSongs() {
-            return dispatch((0, _song_actions.fetchSongs)());
-        }
-    };
+  return {
+    play: function play() {
+      return dispatch((0, _audio_actions.play)());
+    },
+    pause: function pause() {
+      return dispatch((0, _audio_actions.pause)());
+    },
+    playSong: function playSong(song) {
+      return dispatch((0, _audio_actions.playSong)(song));
+    },
+    fetchAlbumThenPlaySong: function fetchAlbumThenPlaySong(albumId, params) {
+      return dispatch((0, _album_actions.fetchAlbumThenPlaySong)(albumId, params));
+    },
+    fetchSong: function fetchSong(songId) {
+      return dispatch((0, _song_actions.fetchSong)(songId));
+    },
+    fetchSongs: function fetchSongs() {
+      return dispatch((0, _song_actions.fetchSongs)());
+    }
+  };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AlbumIndexItem);
@@ -34458,7 +34507,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -34486,160 +34535,172 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ArtistIndexItem = function (_React$Component) {
-    _inherits(ArtistIndexItem, _React$Component);
+  _inherits(ArtistIndexItem, _React$Component);
 
-    function ArtistIndexItem(props) {
-        _classCallCheck(this, ArtistIndexItem);
+  function ArtistIndexItem(props) {
+    _classCallCheck(this, ArtistIndexItem);
 
-        var _this = _possibleConstructorReturn(this, (ArtistIndexItem.__proto__ || Object.getPrototypeOf(ArtistIndexItem)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (ArtistIndexItem.__proto__ || Object.getPrototypeOf(ArtistIndexItem)).call(this, props));
 
-        _this.handlePlay = _this.handlePlay.bind(_this);
-        return _this;
+    _this.handlePlay = _this.handlePlay.bind(_this);
+    return _this;
+  }
+
+  _createClass(ArtistIndexItem, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      $(document).on("mouseenter", ".media-wrapper", function () {
+        var that = this;
+        $(this).find(":button").show();
+        $(this).find(".media__body").addClass("hovering");
+        $(this).on("onclick", ":button", function () {
+          $(that).find(".media__body").addClass("hovering");
+        });
+      }).on("mouseleave", ".media-wrapper", function () {
+        $(this).find(":button").hide();
+        $(this).find(".media__body").removeClass("hovering");
+      });
     }
+  }, {
+    key: "handlePlay",
+    value: function handlePlay(e) {
+      e.stopPropagation();
+      e.preventDefault();
 
-    _createClass(ArtistIndexItem, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            $(document).on('mouseenter', '.media-wrapper', function () {
-                var that = this;
-                $(this).find(":button").show();
-                $(this).find(".media__body").addClass("hovering");
-                $(this).on('onclick', ':button', function () {
-                    $(that).find(".media__body").addClass("hovering");
-                });
-            }).on('mouseleave', '.media-wrapper', function () {
-                $(this).find(":button").hide();
-                $(this).find(".media__body").removeClass("hovering");
-            });
-        }
-    }, {
-        key: 'handlePlay',
-        value: function handlePlay(e) {
-            e.stopPropagation();
-            e.preventDefault();
+      var songIds = this.props.artist.songIds;
+      var _props = this.props,
+          currentSong = _props.currentSong,
+          playing = _props.playing;
 
-            var songIds = this.props.artist.songIds;
-            var _props = this.props,
-                currentSong = _props.currentSong,
-                playing = _props.playing;
 
-            // If artist has songs and there's no current song, 
-            // or if the artist does have that song in it,
-            // fetch the artist in question and play it
+      if (!(songIds && songIds.length > 0)) {
+        return;
+      }
 
-            if (songIds.length > 0 && !currentSong || !songIds.includes(currentSong.id)) {
-                this.props.fetchArtistThenPlaySong(this.props.artist.id);
-            } else if (currentSong && !playing) {
-                this.props.play();
-            } else {
-                this.props.pause();
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var artistIndexStyle = {
-                borderRadius: '50%'
-            };
+      // If artist has songs and there's no current song,
+      // or if the artist does have that song in it,
+      // fetch the artist in question and play it
+      if (!currentSong || !songIds.includes(currentSong.id) || Object.keys(this.props.currentSongParams)[0] !== "artistId" || Object.values(this.props.currentSongParams)[0] !== "" + this.props.artist.id) {
+        this.props.fetchArtistThenPlaySong(this.props.artist.id, {
+          artistId: "" + this.props.artist.id
+        });
+      } else if (currentSong && !playing) {
+        this.props.play();
+      } else {
+        this.props.pause();
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var artistIndexStyle = {
+        borderRadius: "50%"
+      };
 
-            var _props2 = this.props,
-                currentSong = _props2.currentSong,
-                playing = _props2.playing;
+      var _props2 = this.props,
+          currentSong = _props2.currentSong,
+          currentSongParams = _props2.currentSongParams,
+          playing = _props2.playing,
+          artist = _props2.artist;
 
-            var songIds = null;
-            if (this.props.artist.songIds) songIds = this.props.artist.songIds;
+      var songIds = null;
+      if (this.props.artist.songIds) songIds = this.props.artist.songIds;
 
-            var playIcon = _react2.default.createElement('i', { className: 'fa fa-play-circle' });
-            var pauseIcon = _react2.default.createElement('i', { className: 'fa fa-pause-circle' });
+      var playIcon = _react2.default.createElement("i", { className: "fa fa-play-circle" });
+      var pauseIcon = _react2.default.createElement("i", { className: "fa fa-pause-circle" });
 
-            var playPauseIcon = void 0,
-                artistIndexClass = void 0;
-            if (playing && currentSong && songIds && songIds.includes(currentSong.id)) {
-                playPauseIcon = pauseIcon;
-                artistIndexClass = "playing";
-            } else {
-                playPauseIcon = playIcon;
-                artistIndexClass = null;
-            }
+      var playPauseIcon = void 0,
+          artistIndexClass = void 0;
+      if (playing && currentSong && songIds && songIds.includes(currentSong.id) && Object.keys(currentSongParams)[0] === "artistId" && Object.values(currentSongParams)[0] === "" + this.props.artist.id) {
+        playPauseIcon = pauseIcon;
+        artistIndexClass = "playing";
+      } else {
+        playPauseIcon = playIcon;
+        artistIndexClass = null;
+      }
 
-            return _react2.default.createElement(
-                'div',
-                { className: 'media-wrapper' },
-                _react2.default.createElement('div', { className: 'button-wrapper' }),
-                _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    {
-                        className: 'music-index-item',
-                        to: '/artists/' + this.props.artist.id
-                    },
-                    _react2.default.createElement(
-                        'li',
-                        { className: 'item-wrapper' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'media' },
-                            _react2.default.createElement('img', {
-                                alt: '',
-                                style: artistIndexStyle,
-                                className: 'media__image',
-                                src: this.props.artist.artist_artwork_url
-                            }),
-                            _react2.default.createElement('div', { className: 'media__body ' + artistIndexClass, style: artistIndexStyle }),
-                            _react2.default.createElement('div', { className: 'media-loaded', style: artistIndexStyle })
-                        ),
-                        _react2.default.createElement(
-                            'p',
-                            null,
-                            this.props.artist.name
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    'button',
-                    {
-                        className: 'play-pause ' + artistIndexClass,
-                        onClick: this.handlePlay
-                    },
-                    playPauseIcon
-                )
-            );
-        }
-    }]);
+      return _react2.default.createElement(
+        "div",
+        { className: "media-wrapper" },
+        _react2.default.createElement("div", { className: "button-wrapper" }),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          {
+            className: "music-index-item",
+            to: "/artists/" + this.props.artist.id
+          },
+          _react2.default.createElement(
+            "li",
+            { className: "item-wrapper" },
+            _react2.default.createElement(
+              "div",
+              { className: "media" },
+              _react2.default.createElement("img", {
+                alt: "",
+                style: artistIndexStyle,
+                className: "media__image",
+                src: this.props.artist.artist_artwork_url
+              }),
+              _react2.default.createElement("div", {
+                className: "media__body " + artistIndexClass,
+                style: artistIndexStyle
+              }),
+              _react2.default.createElement("div", { className: "media-loaded", style: artistIndexStyle })
+            ),
+            _react2.default.createElement(
+              "p",
+              null,
+              this.props.artist.name
+            )
+          )
+        ),
+        _react2.default.createElement(
+          "button",
+          {
+            className: "play-pause " + artistIndexClass,
+            onClick: this.handlePlay
+          },
+          playPauseIcon
+        )
+      );
+    }
+  }]);
 
-    return ArtistIndexItem;
+  return ArtistIndexItem;
 }(_react2.default.Component);
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-    return {
-        currentSong: state.ui.playbar.currentSong,
-        playing: state.ui.playbar.playing
-    };
+  return {
+    currentSong: state.ui.playbar.currentSong,
+    currentSongParams: state.ui.playbar.currentSongParams,
+    playing: state.ui.playbar.playing
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {
-        play: function play() {
-            return dispatch((0, _audio_actions.play)());
-        },
-        pause: function pause() {
-            return dispatch((0, _audio_actions.pause)());
-        },
-        playSong: function playSong() {
-            return dispatch((0, _audio_actions.playSong)());
-        },
-        fetchArtistThenPlaySong: function fetchArtistThenPlaySong(artistId) {
-            return dispatch((0, _artist_actions.fetchArtistThenPlaySong)(artistId));
-        },
-        fetchArtist: function fetchArtist(artistId) {
-            return dispatch((0, _artist_actions.fetchArtist)(artistId));
-        },
-        fetchSong: function fetchSong(songId) {
-            return dispatch((0, _song_actions.fetchSong)(songId));
-        },
-        fetchSongs: function fetchSongs() {
-            return dispatch((0, _song_actions.fetchSongs)());
-        }
-    };
+  return {
+    play: function play() {
+      return dispatch((0, _audio_actions.play)());
+    },
+    pause: function pause() {
+      return dispatch((0, _audio_actions.pause)());
+    },
+    playSong: function playSong() {
+      return dispatch((0, _audio_actions.playSong)());
+    },
+    fetchArtistThenPlaySong: function fetchArtistThenPlaySong(artistId, params) {
+      return dispatch((0, _artist_actions.fetchArtistThenPlaySong)(artistId, params));
+    },
+    fetchArtist: function fetchArtist(artistId) {
+      return dispatch((0, _artist_actions.fetchArtist)(artistId));
+    },
+    fetchSong: function fetchSong(songId) {
+      return dispatch((0, _song_actions.fetchSong)(songId));
+    },
+    fetchSongs: function fetchSongs() {
+      return dispatch((0, _song_actions.fetchSongs)());
+    }
+  };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ArtistIndexItem);
@@ -35086,27 +35147,27 @@ var PlaylistIndexItem = function (_React$Component) {
     }
   }, {
     key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps() {}
+    value: function componentWillReceiveProps(nextProps) {}
   }, {
     key: "handlePlay",
     value: function handlePlay(e) {
       e.stopPropagation();
       e.preventDefault();
-      var songIds = this.props.playlist.song_ids;
+      var songIds = this.props.playlist.songIds;
       var _props = this.props,
           currentSong = _props.currentSong,
           playing = _props.playing;
 
+
+      if (!(songIds && songIds.length > 0)) {
+        return;
+      }
+
       // If playlist has songs and there's no current song,
       // or if the playlist does have that song in it,
       // fetch the playlist in question and play it
-
-      if (songIds.length > 0 && !currentSong || !songIds.includes(currentSong.id)) {
-        // this.props.fetchSongs().then(songs => {
-        //     this.props.playSong(songs[1]);
-        // }
-
-        this.props.fetchPlaylistThenPlaySong(this.props.playlist.id);
+      if (!currentSong || !songIds.includes(currentSong.id) || Object.keys(this.props.currentSongParams)[0] !== "playlistId" || Object.values(this.props.currentSongParams)[0] !== "" + this.props.playlist.id) {
+        this.props.fetchPlaylistThenPlaySong(this.props.playlist.id, { playlistId: "" + this.props.playlist.id });
       } else if (currentSong && !playing) {
         this.props.play();
       } else {
@@ -35118,20 +35179,21 @@ var PlaylistIndexItem = function (_React$Component) {
     value: function render() {
       var _props2 = this.props,
           currentSong = _props2.currentSong,
+          currentSongParams = _props2.currentSongParams,
           playing = _props2.playing,
           playlist = _props2.playlist;
 
-      console.log(this.props);
 
       var songIds = null;
-      if (this.props.playlist.song_ids) songIds = this.props.playlist.song_ids;
+      if (this.props.playlist.songIds) songIds = this.props.playlist.songIds;
 
       var playIcon = _react2.default.createElement("i", { className: "fa fa-play-circle" });
       var pauseIcon = _react2.default.createElement("i", { className: "fa fa-pause-circle" });
 
       var playPauseIcon = void 0,
           playlistIndexClass = void 0;
-      if (playing && currentSong && songIds && songIds.includes(currentSong.id)) {
+
+      if (playing && currentSong && songIds && songIds.includes(currentSong.id) && Object.keys(currentSongParams)[0] === "playlistId" && Object.values(currentSongParams)[0] === "" + this.props.playlist.id) {
         playPauseIcon = pauseIcon;
         playlistIndexClass = "playing";
       } else {
@@ -35197,6 +35259,7 @@ var PlaylistIndexItem = function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentSong: state.ui.playbar.currentSong,
+    currentSongParams: state.ui.playbar.currentSongParams,
     playing: state.ui.playbar.playing
   };
 };
@@ -35212,8 +35275,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     playSong: function playSong() {
       return dispatch((0, _audio_actions.playSong)());
     },
-    fetchPlaylistThenPlaySong: function fetchPlaylistThenPlaySong(playlistId) {
-      return dispatch((0, _playlist_actions.fetchPlaylistThenPlaySong)(playlistId));
+    fetchPlaylistThenPlaySong: function fetchPlaylistThenPlaySong(playlistId, params) {
+      return dispatch((0, _playlist_actions.fetchPlaylistThenPlaySong)(playlistId, params));
     },
     fetchSong: function fetchSong(songId) {
       return dispatch((0, _song_actions.fetchSong)(songId));
@@ -35224,7 +35287,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PlaylistIndexItem);
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PlaylistIndexItem));
 
 /***/ }),
 /* 39 */
@@ -36572,10 +36635,15 @@ var MediaPlayer = function (_React$Component) {
       played: 0,
       loaded: 0,
       duration: 0,
-      loop: false
+      loop: 'none',
+      shuffle: false,
+      shuffledTracklist: []
     };
 
     _this.togglePlay = _this.togglePlay.bind(_this);
+    _this.toggleShuffle = _this.toggleShuffle.bind(_this);
+    _this.nextSong = _this.nextSong.bind(_this);
+    _this.prevSong = _this.prevSong.bind(_this);
     _this.stop = _this.stop.bind(_this);
     _this.handleVolume = _this.handleVolume.bind(_this);
     _this.toggleMuted = _this.toggleMuted.bind(_this);
@@ -36590,6 +36658,7 @@ var MediaPlayer = function (_React$Component) {
     _this.ref = _this.ref.bind(_this);
     _this.load = _this.load.bind(_this);
     _this.onEnded = _this.onEnded.bind(_this);
+    _this.generateShuffledTracklist = _this.generateShuffledTracklist.bind(_this);
     return _this;
   }
 
@@ -36599,10 +36668,24 @@ var MediaPlayer = function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      this.setState({
-        playing: nextProps.playing,
-        currentSong: nextProps.currentSong.mp3_url
-      });
+      // if tracklist is being generated for the first time or there's a new one
+      if (!this.props.tracklist && nextProps.tracklist || this.props.tracklist && this.props.tracklist !== nextProps.tracklist) {
+        if (this.state.shuffle) {
+          var shuffledTracklist = this.generateShuffledTracklist(nextProps.tracklist);
+          this.setState({ shuffledTracklist: shuffledTracklist });
+        }
+      }
+      if (nextProps.currentSong) {
+        if (this.props.currentSong) {
+          if (!(Object.keys(this.props.currentSongParams)[0] === Object.keys(nextProps.currentSongParams)[0] && Object.values(this.props.currentSongParams)[0] === Object.values(nextProps.currentSongParams)[0])) {
+            this.player.seekTo(0);
+          }
+        }
+        this.setState({
+          playing: nextProps.playing,
+          currentSong: nextProps.currentSong.mp3_url
+        });
+      }
     }
   }, {
     key: "load",
@@ -36627,6 +36710,66 @@ var MediaPlayer = function (_React$Component) {
       if (this.state.playing === true) this.props.pause();else this.props.play();
     }
   }, {
+    key: "nextSong",
+    value: function nextSong() {
+      if (!(this.props.tracklist && this.props.currentSong)) {
+        return;
+      }
+
+      console.log(this.props.tracklist, this.state.shuffledTracklist);
+
+      var tracklist = this.state.shuffle ? this.state.shuffledTracklist : this.props.tracklist;
+
+      var currSongIdx = tracklist.indexOf(this.props.currentSong.id);
+      if (currSongIdx >= tracklist.length - 1) {
+        // loop tracklist around
+        if (this.state.loop === 'loopTracklist') {
+          currSongIdx = -1;
+        } else {
+          this.stop();
+          return;
+        }
+      }
+      var nextSongId = tracklist[currSongIdx + 1];
+      var nextSong = this.props.songs.filter(function (song) {
+        return song.id === nextSongId;
+      })[0];
+      this.setState({ played: 0 });
+      this.props.playSong(nextSong, this.props.currentSongParams);
+    }
+  }, {
+    key: "prevSong",
+    value: function prevSong() {
+      if (!(this.props.tracklist && this.props.currentSong)) {
+        return;
+      }
+
+      if (this.state.duration * this.state.played >= 3) {
+        this.player.seekTo(0);
+        return;
+      }
+
+      var tracklist = this.state.shuffle ? this.state.shuffledTracklist : this.props.tracklist;
+
+      var currSongIdx = tracklist.indexOf(this.props.currentSong.id);
+      if (currSongIdx === 0) {
+        // loop around
+        if (this.state.loop === 'loopTracklist') {
+          currSongIdx = tracklist.length;
+          console.log(tracklist.length);
+        } else {
+          this.stop();
+          return;
+        }
+      }
+
+      var nextSongId = tracklist[currSongIdx - 1];
+      var nextSong = this.props.songs.filter(function (song) {
+        return song.id === nextSongId;
+      })[0];
+      this.props.playSong(nextSong, this.props.currentSongParams);
+    }
+  }, {
     key: "stop",
     value: function stop() {
       this.setState({ url: null, playing: false, played: 0 });
@@ -36646,16 +36789,58 @@ var MediaPlayer = function (_React$Component) {
       }
     }
   }, {
+    key: "toggleShuffle",
+    value: function toggleShuffle() {
+      var shuffle = !this.state.shuffle;
+
+      var shuffledTracklist = void 0;
+      if (this.props.tracklist.length) {
+        if (!shuffle) {
+          shuffledTracklist = [];
+        } else {
+          shuffledTracklist = this.generateShuffledTracklist(this.props.tracklist);
+        }
+      }
+
+      this.setState({ shuffle: shuffle, shuffledTracklist: shuffledTracklist });
+    }
+  }, {
+    key: "generateShuffledTracklist",
+    value: function generateShuffledTracklist(arr) {
+      var shuffledArr = arr.slice(0);
+      var j = void 0,
+          x = void 0,
+          i = void 0;
+      for (i = shuffledArr.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = shuffledArr[i];
+        shuffledArr[i] = shuffledArr[j];
+        shuffledArr[j] = x;
+      }
+      return shuffledArr;
+    }
+  }, {
     key: "toggleLoop",
     value: function toggleLoop() {
-      this.setState({ loop: !this.state.loop });
+      var loop = void 0;
+      switch (this.state.loop) {
+        case 'none':
+          loop = 'loopSong';
+          break;
+        case 'loopSong':
+          loop = 'loopTracklist';
+          break;
+        case 'loopTracklist':
+          loop = 'none';
+          break;
+      }
+      this.setState({ loop: loop });
     }
   }, {
     key: "onEnded",
     value: function onEnded() {
-      if (!this.state.loop) {
-        this.setState({ playing: false, played: 0 });
-        this.props.pause();
+      if (!(this.state.loop === 'loopSong')) {
+        this.nextSong();
       }
     }
 
@@ -36729,11 +36914,20 @@ var MediaPlayer = function (_React$Component) {
           duration = _state.duration,
           loop = _state.loop;
 
+      // const playIcon = <i className="fa fa-play-circle" />;
 
-      var playIcon = _react2.default.createElement("i", { className: "fa fa-play-circle" });
-      var pauseIcon = _react2.default.createElement("i", { className: "fa fa-pause-circle" });
-      var loopIcon = _react2.default.createElement("i", { className: "fa fa-exchange" });
-      var noloopIcon = _react2.default.createElement("i", { className: "fa fa-exchange selected" });
+      var playIcon = _react2.default.createElement("div", { className: "icon play" });
+      var pauseIcon = _react2.default.createElement("div", { className: "icon pause" });
+      // const pauseIcon = <i classNameName="fa fa-pause-circle" />;
+      var prevIcon = _react2.default.createElement("div", { className: "icon prev" });
+      var nextIcon = _react2.default.createElement("div", { className: "icon next" });
+      var shuffleIcon = _react2.default.createElement("div", { className: "icon shuffle" });
+      var shuffleSelectedIcon = _react2.default.createElement("div", { className: "icon shuffle-selected" });
+      // const loopIcon = <i classNameName="fa fa-exchange" />;
+      var loopIcon = _react2.default.createElement("div", { className: "icon loop" });
+      var loopSelectedIcon = _react2.default.createElement("div", { className: "icon loop-selected" });
+      var loopTracklistIcon = _react2.default.createElement("div", { className: "icon loop-tracklist" });
+      // const noloopIcon = <i className="fa fa-exchange selected" />;
       var volumeUp = _react2.default.createElement("i", { className: "fa fa-volume-up" });
       var volumeDown = _react2.default.createElement("i", { className: "fa fa-volume-down" });
       var volumeOff = _react2.default.createElement("i", { className: "fa fa-volume-off" });
@@ -36761,13 +36955,28 @@ var MediaPlayer = function (_React$Component) {
             { className: "play-button" },
             _react2.default.createElement(
               "button",
+              { onClick: this.toggleShuffle },
+              this.state.shuffle ? shuffleSelectedIcon : shuffleIcon
+            ),
+            _react2.default.createElement(
+              "button",
+              { onClick: this.prevSong },
+              prevIcon
+            ),
+            _react2.default.createElement(
+              "button",
               { className: "play-pause", onClick: this.togglePlay },
               playing ? pauseIcon : playIcon
             ),
             _react2.default.createElement(
               "button",
-              { className: "loop", onClick: this.toggleLoop },
-              loop ? noloopIcon : loopIcon
+              { onClick: this.nextSong },
+              nextIcon
+            ),
+            _react2.default.createElement(
+              "button",
+              { className: "loop-button", onClick: this.toggleLoop },
+              loop === 'loopSong' ? loopSelectedIcon : loop === 'loopTracklist' ? loopTracklistIcon : loop === 'none' ? loopIcon : _react2.default.createElement("div", null)
             )
           ),
           _react2.default.createElement(
@@ -36781,11 +36990,10 @@ var MediaPlayer = function (_React$Component) {
               height: "0px",
               playing: playing,
               onPlay: this.onPlay,
-              onPause: this.onPause
-              // fixes weird ReactPlayer issue with error throwing
-              , volume: volume,
+              onPause: this.onPause,
+              loop: loop === 'loopSong',
+              volume: volume,
               muted: muted,
-              loop: loop,
               played: played,
               onEnded: this.onEnded,
               onProgress: this.onProgress,
@@ -37151,7 +37359,7 @@ var AddToPlaylistModal = function (_React$Component) {
       }
 
       var playlists = this.props.playlists.filter(function (playlist) {
-        return !playlist.song_ids.includes(_this2.props.songToAddId);
+        return !playlist.songIds.includes(_this2.props.songToAddId);
       }).filter(function (playlist) {
         return playlist.creator_id === _this2.props.currentUser.id;
       });
@@ -40335,7 +40543,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
         currentUser: state.session.currentUser,
         currentSong: state.ui.playbar.currentSong,
         playing: state.ui.playbar.playing,
-        songs: state.entities.songs
+        songs: Object.values(state.entities.songs)
     };
 };
 
@@ -40496,11 +40704,19 @@ var PlaylistShow = function (_React$Component) {
     value: function createPlaylistSongs() {
       var _this5 = this;
 
-      if (!(typeof this.props.songs === "undefined")) {
+      if (!(typeof this.props.playlist.songIds === "undefined")) {
+        var selectedSongs = this.props.songs.filter(function (song) {
+          return _this5.props.playlist.songIds.includes(song.id);
+        });
+        var songs = this.props.playlist.songIds.map(function (songId) {
+          return selectedSongs.find(function (song) {
+            return song.id === songId;
+          });
+        });
         this.PlaylistSongs = _react2.default.createElement(
           "ol",
           null,
-          this.props.songs.map(function (song) {
+          songs.map(function (song) {
             return _react2.default.createElement(_song_index_item_container2.default, {
               key: song.id,
               song: song,
@@ -41032,6 +41248,11 @@ module.exports = identity;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 // import values from 'lodash.values';
 
 // export const selectAllSongs = state => {
@@ -41041,6 +41262,19 @@ module.exports = identity;
 //     values(state.entities.songs).filter(song => userSongs)
 // };
 
+var songSelector = exports.songSelector = function songSelector(songIds, songs) {
+    var selectedSongs = songs.filter(function (song) {
+        return songIds.includes(song.id);
+    });
+    if (!selectedSongs || selectedSongs.length !== songIds.length) return;
+    var orderedSongs = songIds.map(function (songId) {
+        return selectedSongs.find(function (song) {
+            return song.id === songId;
+        });
+    });
+
+    return orderedSongs;
+};
 
 /***/ }),
 /* 114 */
@@ -41083,7 +41317,6 @@ var SideNavBar = function (_React$Component) {
         value: function render() {
             var currentUser = this.props.currentUser;
 
-            console.log(this.props);
 
             return _react2.default.createElement(
                 'aside',
@@ -41412,7 +41645,6 @@ var ArtistResults = function (_React$Component) {
     value: function render() {
       var artists = this.props.artists;
 
-      console.log(this.props);
       return _react2.default.createElement(
         'ul',
         null,
@@ -65596,14 +65828,12 @@ var LoggedOutComponent = function (_React$Component2) {
   _createClass(LoggedOutComponent, [{
     key: "load",
     value: function load(url) {
-      debugger;
       if (this.state.playing === true) this.stop();
       this.setState({
         url: url,
         played: 0,
         playing: true
       });
-      debugger;
     }
   }, {
     key: "stop",
@@ -67811,6 +68041,7 @@ var SongIndexItem = function (_React$Component) {
     _this.showDropdown = _this.showDropdown.bind(_this);
     _this.hideDropdown = _this.hideDropdown.bind(_this);
     _this.playSong = _this.playSong.bind(_this);
+    _this.playSongWithTracklist = _this.playSongWithTracklist.bind(_this);
     _this.openAddToPlaylistModal = _this.openAddToPlaylistModal.bind(_this);
     _this.removeFromPlaylist = _this.removeFromPlaylist.bind(_this);
     return _this;
@@ -67830,24 +68061,47 @@ var SongIndexItem = function (_React$Component) {
 
       if (this.props.currentSong) {
         if (this.props.playing) {
-          if (this.props.currentSong.id === this.props.song.id) {
+          if (this.props.currentSong.id === this.props.song.id && Object.keys(this.props.match.params)[0] === Object.keys(this.props.currentSongParams)[0] && Object.values(this.props.match.params)[0] === Object.values(this.props.currentSongParams)[0]) {
             this.props.pause();
           } else {
-            this.playSong();
+            if (Object.keys(this.props.match.params)[0] === Object.keys(this.props.currentSongParams)[0] && Object.values(this.props.match.params)[0] === Object.values(this.props.currentSongParams)[0]) {
+              this.playSong();
+            } else {
+              this.playSongWithTracklist();
+            }
           }
-        } else if (this.props.currentSong.id === this.props.song.id) {
+        } else if (this.props.currentSong.id === this.props.song.id && Object.keys(this.props.match.params)[0] === Object.keys(this.props.currentSongParams)[0] && Object.values(this.props.match.params)[0] === Object.values(this.props.currentSongParams)[0]) {
           this.props.play();
         } else {
-          this.playSong();
+          if (Object.keys(this.props.match.params)[0] === Object.keys(this.props.currentSongParams)[0] && Object.values(this.props.match.params)[0] === Object.values(this.props.currentSongParams)[0]) {
+            this.playSong();
+          } else {
+            this.playSongWithTracklist();
+          }
         }
       } else {
-        this.playSong();
+        this.playSongWithTracklist();
       }
+    }
+  }, {
+    key: 'playSongWithTracklist',
+    value: function playSongWithTracklist() {
+      var tracklist = void 0;
+      if (this.props.match.path === "/collection/songs") {
+        tracklist = Object.values(this.props.songs).map(function (song) {
+          return song.id;
+        });
+      } else {
+        var tracklistParamKey = Object.keys(this.props.match.params)[0];
+        var tracklistParam = tracklistParamKey.slice(0, tracklistParamKey.length - 2);
+        tracklist = this.props[tracklistParam].songIds;
+      }
+      this.props.playSongWithTracklist(this.props.song, this.props.match.params || { collection: 'song' }, tracklist);
     }
   }, {
     key: 'playSong',
     value: function playSong() {
-      this.props.playSong(this.props.song);
+      this.props.playSong(this.props.song, this.props.match.params);
     }
   }, {
     key: 'showDropdown',
@@ -67917,7 +68171,8 @@ var SongIndexItem = function (_React$Component) {
 
       var indexItemClass = void 0;
       if (this.props.currentSong) {
-        indexItemClass = this.props.currentSong.id === this.props.song.id && this.props.playing ? "playing" : "";
+        // if the current song is the song && the song comes from the same location && the song is currently playing
+        indexItemClass = this.props.currentSong.id === this.props.song.id && Object.keys(this.props.match.params)[0] === Object.keys(this.props.currentSongParams)[0] && Object.values(this.props.match.params)[0] === Object.values(this.props.currentSongParams)[0] && this.props.playing ? "playing" : "";
       }
 
       return _react2.default.createElement(
@@ -70186,7 +70441,6 @@ var follow = exports.follow = function follow(followableType, followableId) {
 };
 
 var unfollow = exports.unfollow = function unfollow(followableType, followableId) {
-    console.log('unfollowing in API Util...');
     var followableString = followableType.toLowerCase() + 's';
 
     return $.ajax({
@@ -70222,7 +70476,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStateToProps = function mapStateToProps(state, ownProps) {
     return {
         playing: state.ui.playbar.playing,
-        currentSong: state.ui.playbar.currentSong
+        currentSong: state.ui.playbar.currentSong,
+        currentSongParams: state.ui.playbar.currentSongParams,
+        tracklist: state.ui.tracklist,
+        songs: Object.values(state.entities.songs)
     };
 };
 
@@ -70230,6 +70487,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         play: function play() {
             return dispatch((0, _audio_actions.play)());
+        },
+        playSong: function playSong(song, params) {
+            return dispatch((0, _audio_actions.playSong)(song, params));
         },
         pause: function pause() {
             return dispatch((0, _audio_actions.pause)());
@@ -70531,7 +70791,6 @@ var BrowseIndex = function (_React$Component) {
         // ));
         // }
 
-        // console.log(explorePlaylists, exploreAlbums, exploreArtists);
 
         return _react2.default.createElement(
           "main",
@@ -71353,7 +71612,7 @@ var SongIndex = function (_React$Component) {
   _createClass(SongIndex, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      if (this.props.songs.length < 200) this.props.fetchSongs();
+      this.props.fetchSongs();
     }
   }, {
     key: "render",
@@ -71597,7 +71856,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
         currentUser: state.session.currentUser,
         currentSong: state.ui.playbar.currentSong,
         playing: state.ui.playbar.playing,
-        songs: state.entities.songs
+        songs: Object.values(state.entities.songs)
     };
 };
 
@@ -71710,14 +71969,25 @@ var AlbumShow = function (_React$Component) {
   }, {
     key: "createAlbumSongs",
     value: function createAlbumSongs() {
-      if (!(typeof this.props.album.songs === "undefined")) {
+      var _this4 = this;
+
+      if (!(typeof this.props.album.songIds === "undefined" || typeof this.props.songs === "undefined")) {
+        var selectedSongs = this.props.songs.filter(function (song) {
+          return _this4.props.album.songIds.includes(song.id);
+        });
+        var songs = this.props.album.songIds.map(function (songId) {
+          return selectedSongs.find(function (song) {
+            return song.id === songId;
+          });
+        });
         this.AlbumSongs = _react2.default.createElement(
           "ol",
           null,
-          this.props.album.songs.map(function (song) {
+          songs.map(function (song) {
             return _react2.default.createElement(_song_index_item_container2.default, {
               key: song.id,
-              song: song
+              song: song,
+              album: _this4.props.album
             });
           })
         );
@@ -71952,17 +72222,22 @@ var _ui_actions = __webpack_require__(9);
 
 var _follow_actions = __webpack_require__(22);
 
+var _selectors = __webpack_require__(113);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
+    var artist = state.entities.artists[parseInt(ownProps.match.params.artistId)];
+    var songs = void 0;
+    if (artist) songs = (0, _selectors.songSelector)(artist.songIds, Object.values(state.entities.songs));
     return {
-        artist: state.entities.artists[parseInt(ownProps.match.params.artistId)],
+        artist: artist,
         loading: state.ui.loading.global,
         background: { 'backgroundColor': '#230b27' },
         currentUser: state.session.currentUser,
         currentSong: state.ui.playbar.currentSong,
         playing: state.ui.playbar.playing,
-        songs: state.entities.songs
+        songs: songs
     };
 };
 
@@ -72058,6 +72333,7 @@ var ArtistShow = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      console.log('component mounting');
       this.props.fetchArtist(this.props.match.params.artistId).then(function (response) {
         return _this2.handleResponse();
       });
@@ -72067,6 +72343,7 @@ var ArtistShow = function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       var _this3 = this;
 
+      console.log('component receiving props');
       if (this.props.match.params.artistId != nextProps.match.params.artistId) {
         this.props.fetchArtist(nextProps.match.params.artistId).then(function (response) {
           return _this3.handleResponse();
@@ -72096,7 +72373,9 @@ var ArtistShow = function (_React$Component) {
   }, {
     key: "createArtistSongs",
     value: function createArtistSongs() {
-      if (!(typeof this.props.artist.songs === "undefined")) {
+      var _this4 = this;
+
+      if (!(typeof this.props.artist.songIds === "undefined")) {
         return _react2.default.createElement(
           "main",
           { className: "show-page-main" },
@@ -72106,10 +72385,11 @@ var ArtistShow = function (_React$Component) {
             _react2.default.createElement(
               "ol",
               null,
-              this.props.artist.songs.map(function (song) {
+              this.props.songs.map(function (song) {
                 return _react2.default.createElement(_song_index_item_container2.default, {
                   key: song.id,
-                  song: song
+                  song: song,
+                  artist: _this4.props.artist
                 });
               })
             )
@@ -72122,9 +72402,9 @@ var ArtistShow = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
-      if (this.props.loading || typeof this.props.artist === "undefined") {
+      if (this.props.loading || typeof this.props.artist === "undefined" || !this.props.songs) {
         return _react2.default.createElement("div", null);
       } else {
         var ArtistSongs = this.createArtistSongs();
@@ -72138,7 +72418,7 @@ var ArtistShow = function (_React$Component) {
         var followButton = _react2.default.createElement(
           "button",
           { onClick: function onClick() {
-              return _this4.handleClick(followText);
+              return _this5.handleClick(followText);
             },
             className: "follow-button" },
           followText
@@ -72208,7 +72488,7 @@ var ArtistShow = function (_React$Component) {
             ),
             _react2.default.createElement(
               "div",
-              { "class": "albums-singles-wrapper" },
+              { className: "albums-singles-wrapper" },
               Albums,
               Singles
             )
@@ -72525,9 +72805,6 @@ var UserShow = function (_React$Component) {
         _react2.default.createElement(_user_results2.default, { users: this.props.user.followedUsers, followButton: true })
       ) : null;
 
-      console.log(followedArtists, "followedArtists");
-      console.log(followedUsers, "followedUsers");
-
       return _react2.default.createElement(
         "div",
         { "class": "following-wrapper" },
@@ -72543,7 +72820,6 @@ var UserShow = function (_React$Component) {
       if (this.props.loading || typeof this.props.user === "undefined" || typeof this.props.user.playlists === "undefined") {
         return _react2.default.createElement("div", null);
       } else {
-        console.log("success");
         var _props2 = this.props,
             user = _props2.user,
             background = _props2.background,
@@ -72553,7 +72829,6 @@ var UserShow = function (_React$Component) {
         var followButton = null;
         if (currentUser.id !== user.id) {
           var followText = currentUser.followed_users && currentUser.followed_users.includes(user.id) ? "Unfollow" : "Follow";
-          console.log(followText);
           followButton = _react2.default.createElement(
             "button",
             { onClick: function onClick() {
@@ -73002,6 +73277,7 @@ var playlistsReducer = function playlistsReducer() {
         case _playlist_actions.RECEIVE_PLAYLISTS:
             return action.playlists;
         case _playlist_actions.RECEIVE_CREATED_PLAYLIST:
+        case _playlist_actions.RECEIVE_PLAYLIST_WITH_TRACKLIST:
         case _playlist_actions.RECEIVE_PLAYLIST:
             return (0, _merge3.default)({}, oldState, _defineProperty({}, action.payload.playlist.id, action.payload.playlist));
         case _playlist_actions.REMOVE_PLAYLIST:
@@ -73053,7 +73329,7 @@ var albumsReducer = function albumsReducer() {
         case _album_actions.RECEIVE_ALBUMS:
             return action.albums;
         case _album_actions.RECEIVE_ALBUM:
-            return (0, _merge3.default)({}, oldState, _defineProperty({}, action.album.id, action.album));
+            return (0, _merge3.default)({}, oldState, _defineProperty({}, action.payload.album.id, action.payload.album));
         default:
             return oldState;
     }
@@ -73094,7 +73370,7 @@ var artistsReducer = function artistsReducer() {
         case _artist_actions.RECEIVE_ARTISTS:
             return action.artists;
         case _artist_actions.RECEIVE_ARTIST:
-            return (0, _merge3.default)({}, oldState, _defineProperty({}, action.artist.id, action.artist));
+            return (0, _merge3.default)({}, oldState, _defineProperty({}, action.payload.artist.id, action.payload.artist));
         case _follow_actions.RECEIVE_FOLLOW:
             if (action.payload.followable_type !== 'Artist') return oldState;
             newState = (0, _merge3.default)({}, oldState);
@@ -73133,6 +73409,10 @@ var _song_actions = __webpack_require__(10);
 
 var _playlist_actions = __webpack_require__(6);
 
+var _album_actions = __webpack_require__(23);
+
+var _artist_actions = __webpack_require__(24);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -73148,9 +73428,13 @@ var songsReducer = function songsReducer() {
         case _song_actions.RECEIVE_SONG:
             return (0, _merge3.default)({}, oldState, _defineProperty({}, action.song.id, action.song));
         case _playlist_actions.RECEIVE_PLAYLIST:
-            return {}, oldState, action.payload.songs || [];
+        case _playlist_actions.RECEIVE_PLAYLIST_WITH_TRACKLIST:
         case _playlist_actions.RECEIVE_PLAYLIST_SONG_SAVE:
-            return (0, _merge3.default)({}, oldState, action.payload.songs);
+        case _album_actions.RECEIVE_ALBUM:
+        case _album_actions.RECEIVE_ALBUM_WITH_TRACKLIST:
+        case _artist_actions.RECEIVE_ARTIST:
+        case _artist_actions.RECEIVE_ARTIST_WITH_TRACKLIST:
+            return (0, _merge3.default)({}, oldState, action.payload.songs || []);
         default:
             return oldState;
     }
@@ -73285,10 +73569,15 @@ var _dropdowns_reducer = __webpack_require__(320);
 
 var _dropdowns_reducer2 = _interopRequireDefault(_dropdowns_reducer);
 
+var _tracklist_reducer = __webpack_require__(324);
+
+var _tracklist_reducer2 = _interopRequireDefault(_tracklist_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var uiReducer = (0, _redux.combineReducers)({
     playbar: _playbar_reducer2.default,
+    tracklist: _tracklist_reducer2.default,
     loading: _loading_reducer2.default,
     modals: _modals_reducer2.default,
     dropdowns: _dropdowns_reducer2.default
@@ -73386,7 +73675,11 @@ var playbarReducer = function playbarReducer() {
         case _audio_actions.PLAY:
             return (0, _merge2.default)({}, oldState, { playing: true });
         case _audio_actions.PLAY_SONG:
-            return (0, _merge2.default)({}, oldState, { playing: true, currentSong: action.song });
+            var newState = (0, _merge2.default)({}, oldState);
+            newState.playing = true;
+            newState.currentSong = action.song;
+            newState.currentSongParams = action.params;
+            return newState;
         case _audio_actions.PAUSE:
             return (0, _merge2.default)({}, oldState, { playing: false });
         default:
@@ -73623,6 +73916,58 @@ var sessionReducer = function sessionReducer() {
 };
 
 exports.default = sessionReducer;
+
+/***/ }),
+/* 324 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _merge = __webpack_require__(11);
+
+var _merge2 = _interopRequireDefault(_merge);
+
+var _playlist_actions = __webpack_require__(6);
+
+var _album_actions = __webpack_require__(23);
+
+var _artist_actions = __webpack_require__(24);
+
+var _audio_actions = __webpack_require__(3);
+
+var _song_actions = __webpack_require__(10);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var tracklistReducer = function tracklistReducer() {
+    var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var action = arguments[1];
+
+    Object.freeze(oldState);
+    switch (action.type) {
+        case _playlist_actions.RECEIVE_PLAYLIST_WITH_TRACKLIST:
+            return action.payload.playlist.songIds;
+        case _audio_actions.RECEIVE_PLAY_SONG_WITH_TRACKLIST:
+            return action.tracklist;
+        case _song_actions.RECEIVE_SONGS:
+            return Object.keys(action.songs).map(function (songId) {
+                return parseInt(songId);
+            });
+        case _album_actions.RECEIVE_ALBUM_WITH_TRACKLIST:
+            return action.payload.album.songIds;
+        case _artist_actions.RECEIVE_ARTIST_WITH_TRACKLIST:
+            return action.payload.artist.songIds;
+        default:
+            return oldState;
+    }
+};
+
+exports.default = tracklistReducer;
 
 /***/ })
 /******/ ]);
