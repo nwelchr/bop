@@ -71,7 +71,13 @@ class MediaPlayer extends React.Component {
         currentSong: firstShuffledSong.mp3_url
       });
       return;
+    } else if (nextProps.currentSong !== this.props.currentSong) {
+      this.setState({
+        playing: nextProps.playing,
+        currentSong: nextProps.currentSong.mp3_url
+      });
     }
+    // for some reason this wasn't changing if i wasn't shuffling and i was clicking on another indexitem play button
 
 
     if (nextProps.currentSong) {
@@ -86,14 +92,14 @@ class MediaPlayer extends React.Component {
         ) {
           this.player.seekTo(0);
         }
-        else {
+        else if (nextProps.currentSong !== this.props.currentSong) {
           this.setState({
             playing: nextProps.playing,
             currentSong: nextProps.currentSong.mp3_url
           });
         }
       }
-      else {
+      else if (nextProps.currentSong !== this.props.currentSong) {
       this.setState({
         playing: nextProps.playing,
         currentSong: nextProps.currentSong.mp3_url
