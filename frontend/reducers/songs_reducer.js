@@ -16,6 +16,11 @@ import {
     RECEIVE_ALBUM_WITH_TRACKLIST
  } from '../actions/album_actions';
 
+ import { 
+    RECEIVE_ARTIST,
+    RECEIVE_ARTIST_WITH_TRACKLIST
+ } from '../actions/artist_actions';
+
 const songsReducer = (oldState = [], action) => {
     Object.freeze(oldState);
     switch(action.type) {
@@ -25,11 +30,11 @@ const songsReducer = (oldState = [], action) => {
             return merge({}, oldState, {[action.song.id]: action.song} );
         case RECEIVE_PLAYLIST:
         case RECEIVE_PLAYLIST_WITH_TRACKLIST:
-            return merge({}, oldState, action.payload.songs || []);
+        case RECEIVE_PLAYLIST_SONG_SAVE:
         case RECEIVE_ALBUM:
         case RECEIVE_ALBUM_WITH_TRACKLIST:
-            return merge({}, oldState, action.payload.songs || []);
-        case RECEIVE_PLAYLIST_SONG_SAVE:
+        case RECEIVE_ARTIST:
+        case RECEIVE_ARTIST_WITH_TRACKLIST:
             return merge({}, oldState, action.payload.songs || []);
         default:
             return oldState;

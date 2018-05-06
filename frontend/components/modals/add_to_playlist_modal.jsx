@@ -33,7 +33,7 @@ class AddToPlaylistModal extends React.Component {
       return null;
     }
 
-    let playlists = this.props.playlists.filter(playlist => !playlist.song_ids.includes(this.props.songToAddId)).filter(playlist => playlist.creator_id === this.props.currentUser.id);
+    let playlists = this.props.playlists.filter(playlist => !playlist.songIds.includes(this.props.songToAddId)).filter(playlist => playlist.creator_id === this.props.currentUser.id);
     
     return (
       <div className="add-song-to-playlist-modal">

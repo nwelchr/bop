@@ -43,16 +43,18 @@ class ArtistShow extends React.Component {
   }
 
   createArtistSongs() {
-    if (!(typeof this.props.artist.songs === "undefined")) {
+    if (!(typeof this.props.artist.songIds === "undefined")) {
+      const songs = this.props.songs.filter((song) => (this.props.artist.songIds).includes(song.id));      
       return (
         <main className="show-page-main">
         <section className="show-songs song-container">
         <ol>
-          {this.props.artist.songs.map(song => {
+          {songs.map(song => {
             return (
               <SongIndexItemContainer
                 key={song.id}
                 song={song}
+                artist={this.props.artist}
               />
             );
           })}

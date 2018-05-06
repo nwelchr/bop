@@ -4,6 +4,7 @@ import { startLoading } from './loading_actions';
 
 export const RECEIVE_ARTISTS = "RECEIVE_ARTISTS";
 export const RECEIVE_ARTIST = "RECEIVE_ARTIST";
+export const RECEIVE_ARTIST_WITH_TRACKLIST = "RECEIVE_ARTIST_WITH_TRACKLIST";
 
 import { playSong } from './audio_actions';
 
@@ -13,9 +14,14 @@ const receiveArtists = (artists) => ({
     artists
 });
 
-export const receiveArtist = (artist) => ({
+export const receiveArtist = (payload) => ({
     type: RECEIVE_ARTIST,
-    artist
+    payload
+});
+
+export const receiveArtistWithTracklist = (payload) => ({
+    type: RECEIVE_ARTIST_WITH_TRACKLIST,
+    payload
 });
 
 export const fetchArtists = (shouldFetchAll) => (dispatch) => {
@@ -31,10 +37,10 @@ export const fetchArtist = (artistId) => (dispatch) => {
     });
 };
 
-export const fetchArtistThenPlaySong = (artistId) => (dispatch) => (
+export const fetchArtistThenPlaySong = (artistId, params) => (dispatch) => (
     APIUtil.fetchArtist(artistId).then(artist => {
-        // play first song from artist for now
-        dispatch(playSong(artist.songs[0]));
+        dispatch(receiveArtistWithTracklist(artist));
+        dispatch(playSong(Object.values(artist.songs)[0], params));
     }
 )
 );

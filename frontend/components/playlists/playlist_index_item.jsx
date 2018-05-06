@@ -43,13 +43,12 @@ class PlaylistIndexItem extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-      // debugger;
   }
 
   handlePlay(e) {
     e.stopPropagation();
     e.preventDefault();
-    const songIds = this.props.playlist.song_ids;
+    const songIds = this.props.playlist.songIds;
     const { currentSong, playing } = this.props;
 
     if (!(songIds && songIds.length > 0)) {
@@ -77,7 +76,7 @@ class PlaylistIndexItem extends React.Component {
     const { currentSong, currentSongParams, playing, playlist } = this.props;
 
     let songIds = null;
-    if (this.props.playlist.song_ids) songIds = this.props.playlist.song_ids;
+    if (this.props.playlist.songIds) songIds = this.props.playlist.songIds;
 
     const playIcon = <i className="fa fa-play-circle" />;
     const pauseIcon = <i className="fa fa-pause-circle" />;

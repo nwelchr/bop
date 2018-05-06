@@ -43,7 +43,7 @@ class AlbumIndexItem extends React.Component {
   handlePlay(e) {
     e.stopPropagation();
     e.preventDefault();
-    const songIds = this.props.album.song_ids;
+    const songIds = this.props.album.songIds;
     const { currentSong, playing } = this.props;
 
     if (!(songIds && songIds.length > 0)) {
@@ -73,7 +73,7 @@ class AlbumIndexItem extends React.Component {
   render() {
     const { currentSong, currentSongParams, playing, album } = this.props;
     let songIds = null;
-    if (this.props.album.song_ids) songIds = this.props.album.song_ids;
+    if (this.props.album.songIds) songIds = this.props.album.songIds;
 
     const playIcon = <i className="fa fa-play-circle" />;
     const pauseIcon = <i className="fa fa-pause-circle" />;
