@@ -9,7 +9,6 @@
 
 export const songSelector = (songIds, songs) => {
     const selectedSongs = songs.filter((song) => (songIds).includes(song.id));
-    debugger;
     if (!selectedSongs || selectedSongs.length !== songIds.length) return;
     const orderedSongs = songIds.map(songId => selectedSongs.find((song) => song.id === songId)); 
 

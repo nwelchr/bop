@@ -64,10 +64,16 @@ class SongIndexItem extends React.Component {
 
 
   playSongWithTracklist() {
-    const tracklistParamKey = Object.keys(this.props.match.params)[0];
-    const tracklistParam = tracklistParamKey.slice(0, tracklistParamKey.length - 2);
-    const tracklist = this.props[tracklistParam].songIds;
-    this.props.playSongWithTracklist(this.props.song, this.props.match.params, tracklist);
+    let tracklist;
+    if (this.props.match.path === "/collection/songs") {
+      tracklist = Object.values(this.props.songs).map((song) => song.id);
+    }
+    else {
+      const tracklistParamKey = Object.keys(this.props.match.params)[0];
+      const tracklistParam = tracklistParamKey.slice(0, tracklistParamKey.length - 2);
+      tracklist = this.props[tracklistParam].songIds;
+    }
+    this.props.playSongWithTracklist(this.props.song, this.props.match.params || { collection: 'song' }, tracklist);
   }
 
   playSong() {

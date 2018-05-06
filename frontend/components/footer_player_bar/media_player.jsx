@@ -20,6 +20,7 @@ class MediaPlayer extends React.Component {
       duration: 0,
       loop: 'none',
       shuffle: false,
+      randomTracklist: []
     };
 
     this.togglePlay = this.togglePlay.bind(this);
