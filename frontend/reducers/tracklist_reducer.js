@@ -3,7 +3,7 @@ import merge from 'lodash/merge';
 import { RECEIVE_PLAYLIST_WITH_TRACKLIST } from '../actions/playlist_actions';
 import { RECEIVE_ALBUM_WITH_TRACKLIST } from '../actions/album_actions';
 import { RECEIVE_ARTIST_WITH_TRACKLIST } from '../actions/artist_actions';
-import { RECEIVE_PLAY_SONG_WITH_TRACKLIST } from '../actions/audio_actions';
+import { RECEIVE_PLAY_SONG_WITH_TRACKLIST, PLAY_SONG } from '../actions/audio_actions';
 import { RECEIVE_SONGS } from '../actions/song_actions';
 
 

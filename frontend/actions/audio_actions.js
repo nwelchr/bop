@@ -7,10 +7,11 @@ export const play = () => ({
     type: PLAY
 });
 
-export const playSong = (song, params) => ({
+export const playSong = (song, params, isFirstSong) => ({
     type: PLAY_SONG,
     song,
-    params
+    params,
+    isFirstSong
 });
 
 export const receivePlaySongWithTracklist = (song, params, tracklist) => ({

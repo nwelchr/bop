@@ -9,7 +9,8 @@ const mapStateToProps = (state, ownProps) => {
         currentSong: state.ui.playbar.currentSong,
         currentSongParams: state.ui.playbar.currentSongParams,
         tracklist: state.ui.tracklist,
-        songs: Object.values(state.entities.songs)
+        songs: Object.values(state.entities.songs),
+        isFirstSong: state.ui.playbar.isFirstSong
     });
 };
 

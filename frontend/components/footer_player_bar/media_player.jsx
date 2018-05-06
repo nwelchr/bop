@@ -50,10 +50,30 @@ class MediaPlayer extends React.Component {
     // if tracklist is being generated for the first time or there's a new one
     if ((!this.props.tracklist && nextProps.tracklist) || (this.props.tracklist && this.props.tracklist !== nextProps.tracklist)) {
       if (this.state.shuffle) {
+        // debugger;
+        console.log('change tracklist');
         const shuffledTracklist = this.generateShuffledTracklist(nextProps.tracklist);
         this.setState({shuffledTracklist});
       }
     }
+
+    // to resolve issue with first song being played when on shuffle
+    if (nextProps.isFirstSong && this.state.shuffle) {
+      // debugger;
+      console.log('change tracklist');
+      const shuffledTracklist = this.generateShuffledTracklist(nextProps.tracklist, nextProps.tracklist[Math.floor(Math.random() * nextProps.tracklist.length)]);
+      this.setState({shuffledTracklist});
+      const firstShuffledSong = nextProps.songs.find((song) => song.id === shuffledTracklist[0]);
+      console.log(firstShuffledSong);
+      this.props.playSong(firstShuffledSong, nextProps.currentSongParams);
+      this.setState({
+        playing: nextProps.playing,
+        currentSong: firstShuffledSong.mp3_url
+      });
+      return;
+    }
+
+
     if (nextProps.currentSong) {
       if (this.props.currentSong) {
         if (
@@ -67,10 +87,12 @@ class MediaPlayer extends React.Component {
           this.player.seekTo(0);
         }
       }
+      else {
       this.setState({
         playing: nextProps.playing,
         currentSong: nextProps.currentSong.mp3_url
       });
+    }
     }
   }
 
@@ -174,22 +196,35 @@ class MediaPlayer extends React.Component {
     if (!shuffle) {
       shuffledTracklist = [];
     } else {
-      shuffledTracklist = this.generateShuffledTracklist(this.props.tracklist);
+      // debugger;
+      console.log('new tracklist');
+      shuffledTracklist = this.generateShuffledTracklist(this.props.tracklist, this.props.currentSong.id);
+      this.setState({
+        shuffledTracklist
+      });
     }
   }
 
     this.setState({ shuffle, shuffledTracklist });
   }
 
-  generateShuffledTracklist(arr) {
+  generateShuffledTracklist(arr, nextCurrSong) {
       const shuffledArr = arr.slice(0);
-      let j, x, i;
+      let j, x, i, shuffleIdx;
       for (i = shuffledArr.length - 1; i > 0; i--) {
           j = Math.floor(Math.random() * (i + 1));
           x = shuffledArr[i];
           shuffledArr[i] = shuffledArr[j];
           shuffledArr[j] = x;
       }
+      if (nextCurrSong && shuffledArr[0] !== nextCurrSong) {
+        // debugger;
+        shuffleIdx = shuffledArr.indexOf(nextCurrSong);
+        x = shuffledArr[0];
+        shuffledArr[0] = shuffledArr[shuffleIdx];
+        shuffledArr[shuffleIdx] = x;
+      }
+      // debugger;
       return shuffledArr;
   }
 

@@ -61,9 +61,11 @@ export const fetchPlaylist = (playlistId) => (dispatch) => {
 };
 
 export const fetchPlaylistThenPlaySong = (playlistId, params) => (dispatch) => (
-    APIUtil.fetchPlaylist(playlistId).then(playlist => {
-        dispatch(receivePlaylistWithTracklist(playlist));
-        dispatch(playSong(Object.values(playlist.songs)[0], params));
+    APIUtil.fetchPlaylist(playlistId).then(payload => {
+        dispatch(receivePlaylistWithTracklist(payload));
+        const songToPlay = payload.songs[Object.values(payload.playlist.songIds)[0]];
+        // true is for playing first song in the tracklist/shuffledTracklist
+        dispatch(playSong(songToPlay, params, true));
     }
 )
 );
