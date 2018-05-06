@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import { fetchPlaylist, deletePlaylist, fetchModalPlaylists } from '../../actions/playlist_actions';
 import { fetchSongs, fetchSong, removeSongFromPlaylist } from '../../actions/song_actions';
-import { play, pause, playSong } from '../../actions/audio_actions';
+import { play, pause, playSong, playSongWithTracklist } from '../../actions/audio_actions';
 import { openAddToPlaylistForm } from '../../actions/ui_actions';
 
 import SongIndexItem from './song_index_item';
@@ -30,6 +30,7 @@ const mapDispatchToProps = (dispatch) => {
     play: () => dispatch(play()),
     pause: () => dispatch(pause()),
     playSong: (song, params) => dispatch(playSong(song, params)),
+    playSongWithTracklist: (song, params, tracklist) => dispatch(playSongWithTracklist(song, params, tracklist)),
     openAddToPlaylistForm: () => dispatch(openAddToPlaylistForm()),
     fetchModalPlaylists: (songToAddId) => dispatch(fetchModalPlaylists(songToAddId)),
     removeSongFromPlaylist: (songId, playlistId) => dispatch(removeSongFromPlaylist(songId, playlistId))

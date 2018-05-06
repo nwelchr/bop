@@ -11,6 +11,7 @@ class SongIndexItem extends React.Component {
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
     this.playSong = this.playSong.bind(this);
+    this.playSongWithTracklist = this.playSongWithTracklist.bind(this);
     this.openAddToPlaylistModal = this.openAddToPlaylistModal.bind(this);
     this.removeFromPlaylist = this.removeFromPlaylist.bind(this);
 }
@@ -34,7 +35,13 @@ class SongIndexItem extends React.Component {
                 this.props.pause();
             } 
             else { 
+              if (Object.keys(this.props.match.params)[0] === Object.keys(this.props.currentSongParams)[0]
+              && Object.values(this.props.match.params)[0] === Object.values(this.props.currentSongParams)[0]) {
                 this.playSong();
+              }
+              else {
+                this.playSongWithTracklist();
+              }
             }
         } else if (this.props.currentSong.id === this.props.song.id 
           && Object.keys(this.props.match.params)[0] === Object.keys(this.props.currentSongParams)[0]
@@ -42,11 +49,26 @@ class SongIndexItem extends React.Component {
         ) {
             this.props.play();
         } else {
+          if (Object.keys(this.props.match.params)[0] === Object.keys(this.props.currentSongParams)[0]
+          && Object.values(this.props.match.params)[0] === Object.values(this.props.currentSongParams)[0]) {
             this.playSong();
+          }
+          else {
+            this.playSongWithTracklist();
+          }
         }
     } else {
         this.playSong();
     }
+  }
+
+
+  playSongWithTracklist() {
+    const tracklistParamKey = Object.keys(this.props.match.params)[0];
+    const tracklistParam = tracklistParamKey.slice(0, tracklistParamKey.length - 2);
+    const tracklist = this.props[tracklistParam].song_ids;
+    debugger;
+    this.props.playSongWithTracklist(this.props.song, this.props.match.params, tracklist);
   }
 
   playSong() {

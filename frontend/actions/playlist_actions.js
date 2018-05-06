@@ -5,6 +5,7 @@ import { playSong } from './audio_actions';
 
 export const RECEIVE_PLAYLISTS = "RECEIVE_PLAYLISTS";
 export const RECEIVE_PLAYLIST = "RECEIVE_PLAYLIST";
+export const RECEIVE_PLAYLIST_WITH_TRACKLIST = "RECEIVE_PLAYLIST_WITH_TRACKLIST";
 export const REMOVE_PLAYLIST = "REMOVE_PLAYLIST";
 export const RECEIVE_CREATED_PLAYLIST = "RECEIVE_CREATED_PLAYLIST";
 export const RECEIVE_MODAL_PLAYLISTS = "RECEIVE_MODAL_PLAYLISTS";
@@ -16,6 +17,11 @@ const receivePlaylists = (playlists) => ({
 
 export const receivePlaylist = (payload) => ({
     type: RECEIVE_PLAYLIST,
+    payload
+});
+
+export const receivePlaylistWithTracklist = (payload) => ({
+    type: RECEIVE_PLAYLIST_WITH_TRACKLIST,
     payload
 });
 
@@ -56,8 +62,8 @@ export const fetchPlaylist = (playlistId) => (dispatch) => {
 
 export const fetchPlaylistThenPlaySong = (playlistId, params) => (dispatch) => (
     APIUtil.fetchPlaylist(playlistId).then(playlist => {
-        dispatch(receivePlaylist(playlist));
-        dispatch(playSong(playlist.songs[0], params));
+        dispatch(receivePlaylistWithTracklist(playlist));
+        dispatch(playSong(Object.values(playlist.songs)[0], params));
     }
 )
 );

@@ -9,13 +9,13 @@ const mapStateToProps = (state, ownProps) => {
         currentSong: state.ui.playbar.currentSong,
         currentSongParams: state.ui.playbar.currentSongParams,
         tracklist: state.ui.tracklist,
-        songs: state.entities.songs
+        songs: Object.values(state.entities.songs)
     });
 };
 
 const mapDispatchToProps = (dispatch) => ({
     play: () => dispatch(play()),
-    playSong: (song) => dispatch(playSong(song)),
+    playSong: (song, params) => dispatch(playSong(song, params)),
     pause: () => dispatch(pause())
 });
 
