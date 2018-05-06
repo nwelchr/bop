@@ -19,7 +19,15 @@ class Playlist < ApplicationRecord
 
     has_many :saved_songs
 
-    has_many :songs,
-        through: :saved_songs,
-        source: :song
+    # has_many :songs,
+    #     through: :saved_songs,
+    #     source: :song
+
+    def songs
+        songs = []
+        self.saved_songs.each do |saved_song|
+            songs << Song.find(saved_song.song_id)
+        end
+        return songs
+    end
 end

@@ -1,5 +1,6 @@
 json.extract! playlist, :id, :name, :creator_id
-json.song_ids playlist.song_ids
+# json.song_ids playlist.song_ids
+json.song_ids playlist.songs.pluck(:id)
 json.creatorName playlist.creator.username
 
 # playlist.songs.each do |song|
@@ -11,7 +12,7 @@ json.creatorName playlist.creator.username
 # end
 
 if playlist.songs.length > 0
-    json.extract! playlist.songs.sample.album, :album_cover_url
+    json.extract! playlist.songs.first.album, :album_cover_url
 else
     json.album_cover_url "https://s3.us-east-2.amazonaws.com/bop-images/playlist_pictures/default_playlist_cover"
 end
