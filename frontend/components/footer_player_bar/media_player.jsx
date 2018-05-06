@@ -20,7 +20,7 @@ class MediaPlayer extends React.Component {
       duration: 0,
       loop: 'none',
       shuffle: false,
-      randomTracklist: []
+      shuffledTracklist: []
     };
 
     this.togglePlay = this.togglePlay.bind(this);
@@ -41,11 +41,19 @@ class MediaPlayer extends React.Component {
     this.ref = this.ref.bind(this);
     this.load = this.load.bind(this);
     this.onEnded = this.onEnded.bind(this);
+    this.generateShuffledTracklist = this.generateShuffledTracklist.bind(this);
   }
 
   componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
+    // if tracklist is being generated for the first time or there's a new one
+    if ((!this.props.tracklist && nextProps.tracklist) || (this.props.tracklist && this.props.tracklist !== nextProps.tracklist)) {
+      if (this.state.shuffle) {
+        const shuffledTracklist = this.generateShuffledTracklist(nextProps.tracklist);
+        this.setState({shuffledTracklist});
+      }
+    }
     if (nextProps.currentSong) {
       if (this.props.currentSong) {
         if (
@@ -91,8 +99,12 @@ class MediaPlayer extends React.Component {
       return;
     }
 
-    let currSongIdx = this.props.tracklist.indexOf(this.props.currentSong.id);
-    if (currSongIdx >= this.props.tracklist.length - 1) {
+    console.log(this.props.tracklist, this.state.shuffledTracklist);
+    
+    let tracklist = this.state.shuffle ? this.state.shuffledTracklist : this.props.tracklist;
+
+    let currSongIdx = tracklist.indexOf(this.props.currentSong.id);
+    if (currSongIdx >= tracklist.length - 1) {
       // loop tracklist around
       if (this.state.loop === 'loopTracklist') {
         currSongIdx = -1;
@@ -102,7 +114,7 @@ class MediaPlayer extends React.Component {
         return;
       }
     }
-    const nextSongId = this.props.tracklist[currSongIdx + 1];
+    const nextSongId = tracklist[currSongIdx + 1];
     const nextSong = this.props.songs.filter(song => song.id === nextSongId)[0];
     this.setState({ played: 0 });
     this.props.playSong(nextSong, this.props.currentSongParams);
@@ -118,12 +130,14 @@ class MediaPlayer extends React.Component {
       return;
     }
 
-    let currSongIdx = this.props.tracklist.indexOf(this.props.currentSong.id);
+    let tracklist = this.state.shuffle ? this.state.shuffledTracklist : this.props.tracklist;
+
+    let currSongIdx = tracklist.indexOf(this.props.currentSong.id);
     if (currSongIdx === 0) {
       // loop around
       if (this.state.loop === 'loopTracklist') {
-        currSongIdx = this.props.tracklist.length;
-        console.log(this.props.tracklist.length);
+        currSongIdx = tracklist.length;
+        console.log(tracklist.length);
       }
       else {
         this.stop();
@@ -131,7 +145,7 @@ class MediaPlayer extends React.Component {
       }
     }
 
-    const nextSongId = this.props.tracklist[currSongIdx - 1];
+    const nextSongId = tracklist[currSongIdx - 1];
     const nextSong = this.props.songs.filter(song => song.id === nextSongId)[0];
     this.props.playSong(nextSong, this.props.currentSongParams);
   }
@@ -153,12 +167,33 @@ class MediaPlayer extends React.Component {
   }
 
   toggleShuffle() {
-    // if (!this.props.currentSong) {
-    //   return;
-    // }
+    const shuffle = !this.state.shuffle;
 
-    this.setState({ shuffle: !this.state.shuffle });
+    let shuffledTracklist;
+    if (this.props.tracklist.length) {
+    if (!shuffle) {
+      shuffledTracklist = [];
+    } else {
+      shuffledTracklist = this.generateShuffledTracklist(this.props.tracklist);
+    }
   }
+
+    this.setState({ shuffle, shuffledTracklist });
+  }
+
+  generateShuffledTracklist(arr) {
+      const shuffledArr = arr.slice(0);
+      let j, x, i;
+      for (i = shuffledArr.length - 1; i > 0; i--) {
+          j = Math.floor(Math.random() * (i + 1));
+          x = shuffledArr[i];
+          shuffledArr[i] = shuffledArr[j];
+          shuffledArr[j] = x;
+      }
+      return shuffledArr;
+  }
+
+
 
   toggleLoop() {
     let loop;
