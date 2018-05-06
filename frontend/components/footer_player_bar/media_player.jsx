@@ -179,7 +179,8 @@ class MediaPlayer extends React.Component {
   }
 
   stop() {
-    this.setState({ url: null, playing: false, played: 0 });
+    this.setState({ playing: false, played: 0 });
+    this.player.seekTo(0);
   }
 
   handleVolume(e) {
