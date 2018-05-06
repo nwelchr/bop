@@ -115,7 +115,7 @@ class ArtistShow extends React.Component {
           {ArtistSongs}
           </section>
           </div>
-          <div class="albums-singles-wrapper">
+          <div className="albums-singles-wrapper">
         {Albums}
         {Singles}
         </div>
