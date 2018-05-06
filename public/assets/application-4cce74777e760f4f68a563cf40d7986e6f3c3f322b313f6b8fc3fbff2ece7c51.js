@@ -36701,14 +36701,26 @@ var MediaPlayer = function (_React$Component) {
           currentSong: firstShuffledSong.mp3_url
         });
         return;
+      } else if (nextProps.currentSong !== this.props.currentSong) {
+        this.setState({
+          playing: nextProps.playing,
+          currentSong: nextProps.currentSong.mp3_url
+        });
       }
+      // for some reason this wasn't changing if i wasn't shuffling and i was clicking on another indexitem play button
+
 
       if (nextProps.currentSong) {
         if (this.props.currentSong) {
           if (!(Object.keys(this.props.currentSongParams)[0] === Object.keys(nextProps.currentSongParams)[0] && Object.values(this.props.currentSongParams)[0] === Object.values(nextProps.currentSongParams)[0])) {
             this.player.seekTo(0);
+          } else if (nextProps.currentSong !== this.props.currentSong) {
+            this.setState({
+              playing: nextProps.playing,
+              currentSong: nextProps.currentSong.mp3_url
+            });
           }
-        } else {
+        } else if (nextProps.currentSong !== this.props.currentSong) {
           this.setState({
             playing: nextProps.playing,
             currentSong: nextProps.currentSong.mp3_url
@@ -36801,7 +36813,8 @@ var MediaPlayer = function (_React$Component) {
   }, {
     key: "stop",
     value: function stop() {
-      this.setState({ url: null, playing: false, played: 0 });
+      this.setState({ playing: false, played: 0 });
+      this.player.seekTo(0);
     }
   }, {
     key: "handleVolume",
