@@ -213,8 +213,11 @@ class MediaPlayer extends React.Component {
     // const pauseIcon = <i className="fa fa-pause-circle" />;
     const prevIcon = <div class="icon prev"></div>;
     const nextIcon = <div class="icon next"></div>;
-    const loopIcon = <i className="fa fa-exchange" />;
-    const noloopIcon = <i className="fa fa-exchange selected" />;
+    const shuffleIcon = <div class="icon shuffle"></div>;
+    // const loopIcon = <i className="fa fa-exchange" />;
+    const loopIcon = <div class="icon loop"></div>;
+    const loopSelectedIcon = <div class="icon loop-selected"></div>;
+    // const noloopIcon = <i className="fa fa-exchange selected" />;
     const volumeUp = <i className="fa fa-volume-up" />;
     const volumeDown = <i className="fa fa-volume-down" />;
     const volumeOff = <i className="fa fa-volume-off" />;
@@ -246,13 +249,14 @@ class MediaPlayer extends React.Component {
             <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/05.+212+(feat.+Lazy+Jay).mp3')}>212</button> */}
         <div className="play-bar col-5-11">
           <div className="play-button">
+           <button>{shuffleIcon}</button>
             <button onClick={this.prevSong}>{prevIcon}</button>
             <button className="play-pause" onClick={this.togglePlay}>
               {playing ? pauseIcon : playIcon}
             </button>
             <button onClick={this.nextSong}>{nextIcon}</button>
-            <button className="loop" onClick={this.toggleLoop}>
-              {loop ? noloopIcon : loopIcon}
+            <button className="loop-button" onClick={this.toggleLoop}>
+              {loop ? loopSelectedIcon : loopIcon}
             </button>
           </div>
           <div className="progress-bar">

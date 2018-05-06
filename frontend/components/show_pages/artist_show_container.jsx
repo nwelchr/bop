@@ -9,16 +9,21 @@ import { openAddToArtistForm } from '../../actions/ui_actions';
 
 import { follow, unfollow } from '../../actions/follow_actions';
 
+import { songSelector } from '../../reducers/selectors';
+
 
 const mapStateToProps = (state, ownProps) => {
+    const artist = state.entities.artists[parseInt(ownProps.match.params.artistId)];
+    let songs;
+    if (artist) songs = songSelector(artist.songIds, Object.values(state.entities.songs));
     return({
-        artist: state.entities.artists[parseInt(ownProps.match.params.artistId)],
+        artist,
         loading: state.ui.loading.global,
         background: { 'backgroundColor': '#230b27' },
         currentUser: state.session.currentUser,
         currentSong: state.ui.playbar.currentSong,
         playing: state.ui.playbar.playing,
-        songs: Object.values(state.entities.songs)
+        songs
     });
 };
 

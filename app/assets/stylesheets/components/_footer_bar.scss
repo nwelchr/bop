@@ -66,7 +66,9 @@
         height: 12px;
         padding: 10px;
         background-repeat: no-repeat;
+        background-position: center;
         margin: 0px -3px;
+        position: relative;
     }
 
     .play, .pause {
@@ -100,12 +102,10 @@
     .pause {
         background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/pause.png');
         background-size: 10px 12px;
-        background-position: center;
     }
 
     .next, .prev {
         background-size: 11px 11px;
-        background-position: center;
     }
 
     .next {
@@ -114,6 +114,54 @@
     
     .prev {
         background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/prev.png');
+    }
+
+    .shuffle, .shuffle-selected {
+        background-size: 15px 11px;
+    }
+
+    .shuffle {
+        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/shuffle.png');    
+    }
+
+    .shuffle-selected {
+        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/shuffle-selected.png');
+    }
+
+    .loop, .loop-selected, .loop-playlist {
+        background-size: 14px 14px;
+    }
+
+    .loop-selected, .loop-playlist {
+        opacity: .8;
+        &:active {
+            opacity: .8;
+        }
+    }
+
+    .loop {
+        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop.png');
+    }
+
+    .loop-selected {
+        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop-selected.png');
+    }
+
+    .loop-playlist {
+        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop-playlist.png');
+    }
+
+    .shuffle-selected, .loop-selected, .loop-playlist {
+        &:after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            left: calc(50% - 2px);
+            bottom: 0px;
+            border-radius: 50%;
+            background-color: #2fd565;
+        }
     }
 
 

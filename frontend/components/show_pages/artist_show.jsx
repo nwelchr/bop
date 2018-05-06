@@ -19,11 +19,13 @@ class ArtistShow extends React.Component {
   }
 
   componentDidMount() {
+    console.log('component mounting');
     this.props
       .fetchArtist(this.props.match.params.artistId).then(response => this.handleResponse());
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('component receiving props');
     if (this.props.match.params.artistId != nextProps.match.params.artistId) {
       this.props.fetchArtist(nextProps.match.params.artistId).then(response => this.handleResponse());
     }
@@ -44,13 +46,11 @@ class ArtistShow extends React.Component {
 
   createArtistSongs() {
     if (!(typeof this.props.artist.songIds === "undefined")) {
-      const selectedSongs = this.props.songs.filter((song) => (this.props.artist.songIds).includes(song.id));
-      const songs = this.props.artist.songIds.map(songId => selectedSongs.find((song) => song.id === songId));
       return (
         <main className="show-page-main">
         <section className="show-songs song-container">
         <ol>
-          {songs.map(song => {
+          {this.props.songs.map(song => {
             return (
               <SongIndexItemContainer
                 key={song.id}
@@ -69,7 +69,7 @@ class ArtistShow extends React.Component {
   }
 
   render() {
-    if (this.props.loading || (typeof this.props.artist === "undefined")) {
+    if (this.props.loading || (typeof this.props.artist === "undefined" || !this.props.songs)) {
       return <div />;
     } else {
       const ArtistSongs = this.createArtistSongs();
