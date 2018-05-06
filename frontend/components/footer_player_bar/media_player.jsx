@@ -86,6 +86,12 @@ class MediaPlayer extends React.Component {
         ) {
           this.player.seekTo(0);
         }
+        else {
+          this.setState({
+            playing: nextProps.playing,
+            currentSong: nextProps.currentSong.mp3_url
+          });
+        }
       }
       else {
       this.setState({
