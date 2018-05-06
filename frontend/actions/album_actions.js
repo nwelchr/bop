@@ -41,4 +41,4 @@ export const fetchAlbumThenPlaySong = (albumId, params) => (dispatch) => (
         dispatch(playSong(Object.values(album.songs)[0], params));
     }
 )
-)
+);

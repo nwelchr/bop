@@ -12,6 +12,10 @@ json.albums do
     end
 end
 
-json.songs @artist.songs.sort_by{ |song| song.album.year }.reverse.take(5).each do |song|
-    json.partial! 'api/songs/song', song: song
+if @artist.songs.length > 0
+    json.songs do
+        @artist.songs.sort_by{ |song| song.album.year }.reverse.take(5).each do |song|
+            json.partial! 'api/songs/song', song: song
+        end
+    end
 end
