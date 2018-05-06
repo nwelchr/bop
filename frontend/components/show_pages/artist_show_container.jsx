@@ -16,6 +16,7 @@ const mapStateToProps = (state, ownProps) => {
     const artist = state.entities.artists[parseInt(ownProps.match.params.artistId)];
     let songs;
     if (artist) songs = songSelector(artist.songIds, Object.values(state.entities.songs));
+    debugger;
     return({
         artist,
         loading: state.ui.loading.global,
