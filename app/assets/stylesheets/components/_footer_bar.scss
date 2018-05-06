@@ -125,14 +125,14 @@
     }
 
     .shuffle-selected {
-        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/shuffle-selected.png');
+        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/shuffle-green.png');
     }
 
-    .loop, .loop-selected, .loop-playlist {
+    .loop, .loop-selected, .loop-tracklist {
         background-size: 14px 14px;
     }
 
-    .loop-selected, .loop-playlist {
+    .shuffle-selected, .loop-selected, .loop-tracklist {
         opacity: .8;
         &:active {
             opacity: .8;
@@ -147,11 +147,11 @@
         background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop-selected.png');
     }
 
-    .loop-playlist {
+    .loop-tracklist {
         background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop-playlist.png');
     }
 
-    .shuffle-selected, .loop-selected, .loop-playlist {
+    .shuffle-selected, .loop-selected, .loop-tracklist {
         &:after {
             content: '';
             position: absolute;

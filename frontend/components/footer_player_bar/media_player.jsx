@@ -18,10 +18,12 @@ class MediaPlayer extends React.Component {
       played: 0,
       loaded: 0,
       duration: 0,
-      loop: false
+      loop: 'none',
+      shuffle: false,
     };
 
     this.togglePlay = this.togglePlay.bind(this);
+    this.toggleShuffle = this.toggleShuffle.bind(this);
     this.nextSong = this.nextSong.bind(this);
     this.prevSong = this.prevSong.bind(this);
     this.stop = this.stop.bind(this);
@@ -88,10 +90,16 @@ class MediaPlayer extends React.Component {
       return;
     }
 
-    const currSongIdx = this.props.tracklist.indexOf(this.props.currentSong.id);
+    let currSongIdx = this.props.tracklist.indexOf(this.props.currentSong.id);
     if (currSongIdx >= this.props.tracklist.length - 1) {
-      this.stop();
-      return;
+      // loop tracklist around
+      if (this.state.loop === 'loopTracklist') {
+        currSongIdx = -1;
+      }
+      else {
+        this.stop();
+        return;
+      }
     }
     const nextSongId = this.props.tracklist[currSongIdx + 1];
     const nextSong = this.props.songs.filter(song => song.id === nextSongId)[0];
@@ -109,11 +117,19 @@ class MediaPlayer extends React.Component {
       return;
     }
 
-    const currSongIdx = this.props.tracklist.indexOf(this.props.currentSong.id);
+    let currSongIdx = this.props.tracklist.indexOf(this.props.currentSong.id);
     if (currSongIdx === 0) {
-      this.stop();
-      return;
+      // loop around
+      if (this.state.loop === 'loopTracklist') {
+        currSongIdx = this.props.tracklist.length;
+        console.log(this.props.tracklist.length);
+      }
+      else {
+        this.stop();
+        return;
+      }
     }
+
     const nextSongId = this.props.tracklist[currSongIdx - 1];
     const nextSong = this.props.songs.filter(song => song.id === nextSongId)[0];
     this.props.playSong(nextSong, this.props.currentSongParams);
@@ -135,12 +151,32 @@ class MediaPlayer extends React.Component {
     }
   }
 
+  toggleShuffle() {
+    // if (!this.props.currentSong) {
+    //   return;
+    // }
+
+    this.setState({ shuffle: !this.state.shuffle });
+  }
+
   toggleLoop() {
-    this.setState({ loop: !this.state.loop });
+    let loop;
+    switch(this.state.loop) {
+      case 'none':
+        loop = 'loopSong';
+        break;
+      case 'loopSong':
+        loop = 'loopTracklist';
+        break;
+      case 'loopTracklist':
+        loop = 'none';
+        break;
+    }
+    this.setState({ loop });
   }
 
   onEnded() {
-    if (!this.state.loop) {
+    if (!(this.state.loop === 'loopSong')) {
       this.nextSong();
     }
   }
@@ -208,15 +244,17 @@ class MediaPlayer extends React.Component {
     } = this.state;
 
     // const playIcon = <i className="fa fa-play-circle" />;
-    const playIcon = <div class="icon play"></div>;
-    const pauseIcon = <div class="icon pause"></div>;
-    // const pauseIcon = <i className="fa fa-pause-circle" />;
-    const prevIcon = <div class="icon prev"></div>;
-    const nextIcon = <div class="icon next"></div>;
-    const shuffleIcon = <div class="icon shuffle"></div>;
-    // const loopIcon = <i className="fa fa-exchange" />;
-    const loopIcon = <div class="icon loop"></div>;
-    const loopSelectedIcon = <div class="icon loop-selected"></div>;
+    const playIcon = <div className="icon play"></div>;
+    const pauseIcon = <div className="icon pause"></div>;
+    // const pauseIcon = <i classNameName="fa fa-pause-circle" />;
+    const prevIcon = <div className="icon prev"></div>;
+    const nextIcon = <div className="icon next"></div>;
+    const shuffleIcon = <div className="icon shuffle"></div>;
+    const shuffleSelectedIcon = <div className="icon shuffle-selected"></div>;
+    // const loopIcon = <i classNameName="fa fa-exchange" />;
+    const loopIcon = <div className="icon loop"></div>;
+    const loopSelectedIcon = <div className="icon loop-selected"></div>;
+    const loopTracklistIcon = <div className="icon loop-tracklist"></div>;
     // const noloopIcon = <i className="fa fa-exchange selected" />;
     const volumeUp = <i className="fa fa-volume-up" />;
     const volumeDown = <i className="fa fa-volume-down" />;
@@ -249,14 +287,14 @@ class MediaPlayer extends React.Component {
             <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/05.+212+(feat.+Lazy+Jay).mp3')}>212</button> */}
         <div className="play-bar col-5-11">
           <div className="play-button">
-           <button>{shuffleIcon}</button>
+           <button onClick={this.toggleShuffle}>{this.state.shuffle ? shuffleSelectedIcon : shuffleIcon}</button>
             <button onClick={this.prevSong}>{prevIcon}</button>
             <button className="play-pause" onClick={this.togglePlay}>
               {playing ? pauseIcon : playIcon}
             </button>
             <button onClick={this.nextSong}>{nextIcon}</button>
             <button className="loop-button" onClick={this.toggleLoop}>
-              {loop ? loopSelectedIcon : loopIcon}
+              {loop === 'loopSong' ? loopSelectedIcon : loop === 'loopTracklist' ? loopTracklistIcon : loop === 'none' ? loopIcon : <div/>}
             </button>
           </div>
           <div className="progress-bar">
@@ -269,10 +307,9 @@ class MediaPlayer extends React.Component {
               playing={playing}
               onPlay={this.onPlay}
               onPause={this.onPause}
-              // fixes weird ReactPlayer issue with error throwing
+              loop={loop === 'loopSong'}
               volume={volume}
               muted={muted}
-              loop={loop}
               played={played}
               onEnded={this.onEnded}
               onProgress={this.onProgress}
