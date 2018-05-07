@@ -59,23 +59,6 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    &:hover .play-pause {
-        width: 170px;
-        height: 170px;
-        position: absolute;
-        top: 0;
-        transition: .2s ease;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        background-color: transparent;
-        border: 0;
-        margin: 0;
-        padding: 0;
-        z-index: 10;
-        outline: 0;
-    }
 }
 
 .media-wrapper {
@@ -83,44 +66,30 @@ ul {
     position: relative;
     margin: 8px;
 
+
+
     .play-pause {
-        width: 170px;
-        height: 170px;
         position: absolute;
-        top: 0;
-        transition: .2s ease;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        background-color: transparent;
+        vertical-align: center;
+        text-align: center;
+        background: transparent;
         border: 0;
         margin: 0;
         padding: 0;
-        z-index: 10;
+        z-index: 4;
         outline: 0;
-        // opacity: 0;
-        // position: absolute;
-        // vertical-align: center;
-        // text-align: center;
-        // background-color: orange!important;
-        // background: transparent;
-        // display: flex;
-        // align-items: center;
-        // justify-content: center;
-        // border: 0;
-        // margin: 0;
-        // padding: 0;
-        // z-index: 4;
-        // outline: 0;
-        // transition: .2s ease;
-        // display: none;
+        transition: .2s ease;
+        top: 54px;
+        left: 57px;
+        display: none;
 
-        &:hover {
-            display: flex!important;
+        .show-info & {
+            top: 109px;
+            left: 112px;
         }
         
-        &.playing, &.hovering {
-            display: flex!important;
+        &.playing {
+            display: block!important;
         }
 
         .play, .pause {
@@ -129,6 +98,13 @@ ul {
             background-size: 20px 20px;
             opacity: 1;
             border-color: #aaa;
+
+            .show-info & {
+                width: 80px;
+                height: 80px;
+                background-size: 40px 40px;
+            }
+
             &:hover {
                 transform: scale(1);
                 border-color: #fff;
@@ -139,7 +115,6 @@ ul {
             }
         }
     }
-
     .play-pause:active {
         transform: scale(.95);
     }
