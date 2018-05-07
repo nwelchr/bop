@@ -34357,12 +34357,14 @@ var AlbumIndexItem = function (_React$Component) {
         var that = this;
         $(this).find(":button").show();
         $(this).find(".media__body").addClass("hovering");
+        $(this).find(".play-pause").addClass("hovering");
         $(this).on("onclick", ":button", function () {
           $(that).find(".media__body").addClass("hovering");
         });
       }).on("mouseleave", ".media-wrapper", function () {
         $(this).find(":button").hide();
         $(this).find(".media__body").removeClass("hovering");
+        $(this).find(".play-pause").removeClass("hovering");
       });
     }
   }, {
@@ -34405,8 +34407,8 @@ var AlbumIndexItem = function (_React$Component) {
       var songIds = null;
       if (this.props.album.songIds) songIds = this.props.album.songIds;
 
-      var playIcon = _react2.default.createElement("i", { className: "fa fa-play-circle" });
-      var pauseIcon = _react2.default.createElement("i", { className: "fa fa-pause-circle" });
+      var playIcon = _react2.default.createElement("div", { className: "icon play index-item" });
+      var pauseIcon = _react2.default.createElement("div", { className: "icon pause index-item" });
 
       var playPauseIcon = void 0,
           albumIndexClass = void 0;
@@ -34560,12 +34562,14 @@ var ArtistIndexItem = function (_React$Component) {
         var that = this;
         $(this).find(":button").show();
         $(this).find(".media__body").addClass("hovering");
+        $(this).find(".play-pause").addClass("hovering");
         $(this).on("onclick", ":button", function () {
           $(that).find(".media__body").addClass("hovering");
         });
       }).on("mouseleave", ".media-wrapper", function () {
         $(this).find(":button").hide();
         $(this).find(".media__body").removeClass("hovering");
+        $(this).find(".play-pause").removeClass("hovering");
       });
     }
   }, {
@@ -34613,8 +34617,8 @@ var ArtistIndexItem = function (_React$Component) {
       var songIds = null;
       if (this.props.artist.songIds) songIds = this.props.artist.songIds;
 
-      var playIcon = _react2.default.createElement("i", { className: "fa fa-play-circle" });
-      var pauseIcon = _react2.default.createElement("i", { className: "fa fa-pause-circle" });
+      var playIcon = _react2.default.createElement("div", { className: "icon play index-item" });
+      var pauseIcon = _react2.default.createElement("div", { className: "icon pause index-item" });
 
       var playPauseIcon = void 0,
           artistIndexClass = void 0;
@@ -35143,13 +35147,14 @@ var PlaylistIndexItem = function (_React$Component) {
         var that = this;
         $(this).find(":button").show();
         $(this).find(".media__body").addClass("hovering");
-
+        $(this).find(".play-pause").addClass("hovering");
         $(this).on("onclick", ":button", function () {
           $(that).find(".media__body").addClass("hovering");
         });
       }).on("mouseleave", ".media-wrapper", function () {
         $(this).find(":button").hide();
         $(this).find(".media__body").removeClass("hovering");
+        $(this).find(".play-pause").removeClass("hovering");
       });
     }
   }, {
@@ -35194,8 +35199,8 @@ var PlaylistIndexItem = function (_React$Component) {
       var songIds = null;
       if (this.props.playlist.songIds) songIds = this.props.playlist.songIds;
 
-      var playIcon = _react2.default.createElement("i", { className: "fa fa-play-circle" });
-      var pauseIcon = _react2.default.createElement("i", { className: "fa fa-pause-circle" });
+      var playIcon = _react2.default.createElement("div", { className: "icon play index-item" });
+      var pauseIcon = _react2.default.createElement("div", { className: "icon pause index-item" });
 
       var playPauseIcon = void 0,
           playlistIndexClass = void 0;
@@ -35206,6 +35211,48 @@ var PlaylistIndexItem = function (_React$Component) {
       } else {
         playPauseIcon = playIcon;
         playlistIndexClass = null;
+      }
+
+      var albumCover = void 0;
+      if (typeof this.props.playlist.album_cover_url === "string") {
+        albumCover = _react2.default.createElement(
+          "div",
+          { className: "media" },
+          _react2.default.createElement("img", {
+            alt: "",
+            className: "media__image",
+            src: this.props.playlist.album_cover_url
+          }),
+          _react2.default.createElement("div", { className: "media__body " + playlistIndexClass }),
+          _react2.default.createElement("div", { className: "media-loaded" })
+        );
+      } else if (this.props.playlist.album_cover_url.length === 4) {
+        albumCover = _react2.default.createElement(
+          "div",
+          { className: "media" },
+          _react2.default.createElement("img", {
+            alt: "",
+            className: "media__image collage",
+            src: this.props.playlist.album_cover_url[0]
+          }),
+          _react2.default.createElement("img", {
+            alt: "",
+            className: "media__image collage",
+            src: this.props.playlist.album_cover_url[1]
+          }),
+          _react2.default.createElement("img", {
+            alt: "",
+            className: "media__image collage",
+            src: this.props.playlist.album_cover_url[2]
+          }),
+          _react2.default.createElement("img", {
+            alt: "",
+            className: "media__image collage",
+            src: this.props.playlist.album_cover_url[3]
+          }),
+          _react2.default.createElement("div", { className: "media__body " + playlistIndexClass }),
+          _react2.default.createElement("div", { className: "media-loaded" })
+        );
       }
 
       return _react2.default.createElement(
@@ -35224,17 +35271,7 @@ var PlaylistIndexItem = function (_React$Component) {
             _react2.default.createElement(
               "li",
               { className: "item-wrapper" },
-              _react2.default.createElement(
-                "div",
-                { className: "media" },
-                _react2.default.createElement("img", {
-                  alt: "",
-                  className: "media__image",
-                  src: this.props.playlist.album_cover_url
-                }),
-                _react2.default.createElement("div", { className: "media__body " + playlistIndexClass }),
-                _react2.default.createElement("div", { className: "media-loaded" })
-              ),
+              albumCover,
               _react2.default.createElement(
                 "p",
                 null,
@@ -70442,6 +70479,47 @@ var AddToPlaylistIndexItem = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var albumCover = void 0;
+            if (typeof this.props.playlist.album_cover_url === "string") {
+                albumCover = _react2.default.createElement(
+                    'div',
+                    { className: 'media' },
+                    _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image',
+                        src: this.props.playlist.album_cover_url
+                    }),
+                    _react2.default.createElement('div', { className: 'media__body' }),
+                    _react2.default.createElement('div', { className: 'media-loaded' })
+                );
+            } else if (this.props.playlist.album_cover_url.length === 4) {
+                albumCover = _react2.default.createElement(
+                    'div',
+                    { className: 'media' },
+                    _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image collage',
+                        src: this.props.playlist.album_cover_url[0]
+                    }),
+                    _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image collage',
+                        src: this.props.playlist.album_cover_url[1]
+                    }),
+                    _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image collage',
+                        src: this.props.playlist.album_cover_url[2]
+                    }),
+                    _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image collage',
+                        src: this.props.playlist.album_cover_url[3]
+                    }),
+                    _react2.default.createElement('div', { className: 'media__body' }),
+                    _react2.default.createElement('div', { className: 'media-loaded' })
+                );
+            }
             return _react2.default.createElement(
                 'div',
                 { className: 'media-wrapper' },
@@ -70451,13 +70529,7 @@ var AddToPlaylistIndexItem = function (_React$Component) {
                     _react2.default.createElement(
                         'li',
                         { className: 'item-wrapper' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'media' },
-                            _react2.default.createElement('img', { alt: '', className: 'media__image', src: this.props.playlist.album_cover_url }),
-                            _react2.default.createElement('div', { className: 'media__body' }),
-                            _react2.default.createElement('div', { className: 'media-loaded' })
-                        ),
+                        albumCover,
                         _react2.default.createElement(
                             'p',
                             null,

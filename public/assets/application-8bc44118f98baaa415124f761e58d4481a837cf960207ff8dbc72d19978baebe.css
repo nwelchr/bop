@@ -107,59 +107,7 @@ input, select {
 }
 
 /* line 8, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar {
-  font-size: 10px;
-  display: flex;
-  height: 100%;
-}
-/* line 13, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar div[class*="col"] {
-  box-sizing: border-box;
-  height: 100%;
-}
-/* line 18, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .col-3-11 {
-  flex: 3;
-  padding: 15px;
-}
-/* line 23, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .col-5-11 {
-  flex: 5;
-  padding: 5px;
-}
-/* line 28, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar button {
-  background: transparent;
-  border: 0;
-  margin: 0;
-  padding: 10px;
-}
-/* line 35, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar button:focus {
-  border: 0;
-  outline: 0;
-}
-/* line 40, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar i {
-  color: #aaa;
-  border-radius: 80%;
-  font-size: 18px;
-  transition: all .2s ease;
-  transform: scale(1);
-}
-/* line 49, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar i:hover {
-  color: #ccc;
-  transform: scale(1.05);
-}
-/* line 54, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .fa-play-circle, .footer-bar .fa-pause-circle {
-  font-size: 35px;
-  width: 35px;
-  height: 35px;
-}
-/* line 63, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .icon {
+.icon {
   opacity: .5;
   width: 12px;
   height: 12px;
@@ -169,89 +117,108 @@ input, select {
   margin: 0px -3px;
   position: relative;
 }
-/* line 74, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play, .footer-bar .pause {
+
+/* line 19, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.play, .pause {
   border-radius: 50%;
   border: 1px solid white;
   transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-/* line 80, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .icon:hover {
+
+/* line 25, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.icon:hover {
   opacity: 1;
 }
-/* line 84, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .icon:active {
+
+/* line 29, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.icon:active {
   opacity: .5;
 }
-/* line 88, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play:hover, .footer-bar .pause:hover {
+
+/* line 33, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.play:hover, .pause:hover {
   transform: scale(1.1);
 }
-/* line 92, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play:active, .footer-bar .pause:active {
+
+/* line 37, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.play:active, .pause:active {
   transform: scale(1);
 }
-/* line 96, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play {
+
+/* line 41, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.play {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/play.png");
   background-size: 11px 13px;
   background-position: 55% 50%;
 }
-/* line 102, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .pause {
+
+/* line 47, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.pause {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/pause.png");
   background-size: 10px 12px;
 }
-/* line 107, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .next, .footer-bar .prev {
+
+/* line 52, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.next, .prev {
   background-size: 11px 11px;
 }
-/* line 111, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .next {
+
+/* line 56, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.next {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/next.png");
 }
-/* line 115, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .prev {
+
+/* line 60, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.prev {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/prev.png");
 }
-/* line 119, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .shuffle, .footer-bar .shuffle-selected {
+
+/* line 64, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.shuffle, .shuffle-selected {
   background-size: 15px 11px;
 }
-/* line 123, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .shuffle {
+
+/* line 68, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.shuffle {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/shuffle.png");
 }
-/* line 127, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .shuffle-selected {
+
+/* line 72, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.shuffle-selected {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/shuffle-green.png");
 }
-/* line 131, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .loop, .footer-bar .loop-selected, .footer-bar .loop-tracklist {
+
+/* line 76, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.loop, .loop-selected, .loop-tracklist {
   background-size: 14px 14px;
 }
-/* line 135, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .shuffle-selected, .footer-bar .loop-selected, .footer-bar .loop-tracklist {
+
+/* line 80, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.shuffle-selected, .loop-selected, .loop-tracklist {
   opacity: .8;
 }
-/* line 137, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .shuffle-selected:active, .footer-bar .loop-selected:active, .footer-bar .loop-tracklist:active {
+/* line 82, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.shuffle-selected:active, .loop-selected:active, .loop-tracklist:active {
   opacity: .8;
 }
-/* line 142, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .loop {
+
+/* line 87, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.loop {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop.png");
 }
-/* line 146, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .loop-selected {
+
+/* line 91, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.loop-selected {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop-selected.png");
 }
-/* line 150, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .loop-tracklist {
+
+/* line 95, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.loop-tracklist {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop-playlist.png");
 }
-/* line 155, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .shuffle-selected:after, .footer-bar .loop-selected:after, .footer-bar .loop-tracklist:after {
+
+/* line 100, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.shuffle-selected:after, .loop-selected:after, .loop-tracklist:after {
   content: '';
   position: absolute;
   width: 4px;
@@ -260,6 +227,59 @@ input, select {
   bottom: 0px;
   border-radius: 50%;
   background-color: #2fd565;
+}
+
+/* line 112, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar {
+  font-size: 10px;
+  display: flex;
+  height: 100%;
+}
+/* line 117, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar div[class*="col"] {
+  box-sizing: border-box;
+  height: 100%;
+}
+/* line 122, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar .col-3-11 {
+  flex: 3;
+  padding: 15px;
+}
+/* line 127, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar .col-5-11 {
+  flex: 5;
+  padding: 5px;
+}
+/* line 132, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar button {
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 10px;
+}
+/* line 139, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar button:focus {
+  border: 0;
+  outline: 0;
+}
+/* line 144, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar i {
+  color: #aaa;
+  border-radius: 80%;
+  font-size: 18px;
+  transition: all .2s ease;
+  transform: scale(1);
+}
+/* line 153, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar i:hover {
+  color: #ccc;
+  transform: scale(1.05);
+}
+/* line 158, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar .fa-play-circle, .footer-bar .fa-pause-circle {
+  font-size: 35px;
+  width: 35px;
+  height: 35px;
 }
 /* line 169, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
 .footer-bar .selected {
@@ -404,34 +424,62 @@ input, select {
   z-index: 4;
   outline: 0;
   transition: .2s ease;
-  top: calc(50% - 45px);
-  left: calc(50% - 30px);
+  top: 54px;
+  left: 57px;
   display: none;
 }
 /* line 86, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+.show-info .media-wrapper .play-pause {
+  top: 109px;
+  left: 111px;
+}
+/* line 91, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .play-pause.playing {
   display: block !important;
 }
-/* line 90, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
-.media-wrapper .play-pause .fa-play-circle, .media-wrapper .play-pause .fa-pause-circle {
-  color: #eee;
-  font-size: 60px;
-}
 /* line 95, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+.media-wrapper .play-pause .play, .media-wrapper .play-pause .pause {
+  width: 40px;
+  height: 40px;
+  background-size: 20px 20px;
+  opacity: 1;
+  border-color: #aaa;
+}
+/* line 102, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+.show-info .media-wrapper .play-pause .play, .show-info .media-wrapper .play-pause .pause {
+  width: 80px;
+  height: 80px;
+  background-size: 40px 40px;
+}
+/* line 108, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+.media-wrapper .play-pause .play:hover, .media-wrapper .play-pause .pause:hover {
+  transform: scale(1);
+  border-color: #fff;
+}
+/* line 112, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+.media-wrapper .play-pause .play:active, .media-wrapper .play-pause .pause:active {
+  border-color: #fff;
+  opacity: 1;
+}
+/* line 118, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .play-pause:active {
   transform: scale(0.95);
 }
-/* line 98, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 121, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .music-index-item {
   display: block;
 }
-/* line 101, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 124, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .media {
-  display: inline-block;
+  display: flex;
+  width: 170px;
+  overflow: none;
+  flex-wrap: wrap;
   position: relative;
   vertical-align: top;
+  transition: 0.2s ease;
 }
-/* line 105, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 132, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .media .media__image {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   max-width: 100%;
@@ -442,7 +490,12 @@ input, select {
   width: 170px;
   height: 170px;
 }
-/* line 116, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 141, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+.media-wrapper .media .media__image.collage {
+  width: 85px;
+  height: 85px;
+}
+/* line 148, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper p {
   padding: 12px;
   font-size: 14px;
@@ -451,38 +504,38 @@ input, select {
   font-family: "HelveticaNeue-Light";
 }
 
-/* line 125, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 157, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .index-item-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 5px;
 }
-/* line 131, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 163, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .index-item-wrapper .user-link {
   color: #bbb;
   font-size: 14px;
   margin-top: -10px;
   letter-spacing: 1px;
 }
-/* line 136, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 168, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .index-item-wrapper .user-link:hover {
   text-decoration: underline;
   color: #fff;
 }
 
 @media (max-width: 1200px) {
-  /* line 144, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+  /* line 176, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
   .media-wrapper {
     width: 170px;
   }
-  /* line 147, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+  /* line 179, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
   .media-wrapper .media .media__image {
     width: 170px;
     height: 170px;
   }
 }
-/* line 155, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 187, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media__body {
   background: #000;
   opacity: 0;
@@ -497,29 +550,24 @@ input, select {
   transform: scale(1);
   z-index: 3;
 }
-/* line 169, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 201, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media__body.playing, .media__body.hovering {
   opacity: .7;
   transform: scale(1.01);
 }
 
-/* line 175, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 207, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:hover .media__body {
   opacity: .7;
   transform: scale(1.01);
 }
 
-/* line 180, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
-.music-index-item:active .media__body {
-  transform: scale(0.98);
-}
-
-/* line 184, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
-.music-index-item:active .media .media__image {
+/* line 216, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+.music-index-item:active .media {
   transform: scale(0.97);
 }
 
-/* line 188, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 220, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-loaded {
   background: #000;
   top: 0;
@@ -1589,26 +1637,37 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   width: 320px;
 }
 /* line 21, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+.show-page-main .show-info .media-wrapper .media {
+  width: 320px;
+  display: flex;
+  flex-wrap: wrap;
+}
+/* line 27, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-info .media-wrapper .media__image {
   width: 320px;
   height: 320px;
 }
-/* line 26, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 30, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+.show-page-main .show-info .media-wrapper .media__image.collage {
+  width: 160px;
+  height: 160px;
+}
+/* line 36, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-info .media-wrapper .music-index-item:hover {
   cursor: default;
 }
-/* line 30, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 40, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-info .media-wrapper p {
   font-size: 28px;
   line-height: 36px;
   letter-spacing: -.005em;
   font-weight: 600;
 }
-/* line 39, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 49, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .song-index-item-wrapper {
   position: relative;
 }
-/* line 43, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 53, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .single-click-handler {
   padding: 15px;
   left: 12px;
@@ -1616,40 +1675,40 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   position: absolute;
   z-index: 5;
 }
-/* line 51, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 61, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs {
   flex: 2;
   margin-left: 30px;
   padding-right: 120px;
 }
-/* line 56, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 66, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs.song-container {
   margin-left: 0px;
   margin-right: 20px;
   padding: 20px;
 }
-/* line 64, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 74, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .song-index-item-wrapper {
   padding: 15px 15px 15px 40px;
   transition: .3s ease;
 }
-/* line 73, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 83, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .song-index-item {
   list-style: decimal outside;
   position: relative;
   width: 100%;
   height: 100%;
 }
-/* line 79, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 89, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .song-index-item span {
   color: #fff;
   margin-left: 10px;
 }
-/* line 85, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 95, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .song-index-item-wrapper:hover .song-index-item, .show-page-main .show-songs ol .playing .song-index-item {
   list-style: none;
 }
-/* line 89, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 99, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .song-index-item-wrapper:hover .song-index-item:before, .show-page-main .show-songs ol .playing .song-index-item:before {
   content: '';
   position: absolute;
@@ -1660,24 +1719,24 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   width: 13px;
   height: 15px;
 }
-/* line 100, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 110, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .playing .song-index-item:before, .show-page-main .show-songs ol .playing:hover .song-index-item:before {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/utility/pause_large.png");
 }
-/* line 106, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 116, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .song-index-item-wrapper:hover, .show-page-main .show-songs ol .playing {
   background: rgba(0, 0, 0, 0.3);
 }
 
-/* line 113, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 123, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper {
   display: flex;
 }
-/* line 116, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 126, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-index-item {
   flex: 6;
 }
-/* line 120, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 130, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-dropdown-wrapper {
   flex: 1;
   position: relative;
@@ -1685,7 +1744,7 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   align-items: center;
   justify-content: center;
 }
-/* line 127, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 137, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-dropdown-wrapper .dropdown-handler {
   letter-spacing: 2px;
   font-size: 25px;
@@ -1697,11 +1756,11 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   transition: .05s ease;
   color: #fff;
 }
-/* line 142, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 152, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-dropdown-wrapper .dropdown-handler:active {
   transform: scale(0.92);
 }
-/* line 146, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 156, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-dropdown-wrapper .dropdown-menu {
   position: absolute;
   width: 190px;
@@ -1711,7 +1770,7 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   background: linear-gradient(#181818, #383838);
   z-index: 1;
 }
-/* line 155, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 165, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-dropdown-wrapper .dropdown-menu .song-dropdown {
   padding-top: 3px;
   padding-bottom: 3px;
@@ -1719,7 +1778,7 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   width: 100%;
   height: 100%;
 }
-/* line 162, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 172, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-dropdown-wrapper .dropdown-menu .song-dropdown .dropdown-li {
   color: #bbb;
   font-size: 14px;
@@ -1730,26 +1789,26 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   height: 100%;
   transition: .1s ease;
 }
-/* line 175, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 185, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-dropdown-wrapper .dropdown-menu .song-dropdown .dropdown-li:hover {
   background-color: rgba(50, 50, 50, 0.8);
   color: #fff;
 }
 
-/* line 185, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 195, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .playlist-index-wrapper {
   display: flex;
   flex-direction: column;
   width: 320px;
 }
 
-/* line 191, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 201, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .delete-button-wrapper {
   align-self: center;
   padding: 15px;
 }
 
-/* line 196, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 206, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .delete-playlist-button {
   outline: 0;
   padding: 11px 18px;
@@ -1764,7 +1823,7 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   border: 2px solid #bbb;
 }
 
-/* line 210, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 220, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .delete-playlist-button:hover {
   cursor: default;
   transform: scale(1.05);
@@ -2167,59 +2226,7 @@ input, select {
 }
 
 /* line 8, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar {
-  font-size: 10px;
-  display: flex;
-  height: 100%;
-}
-/* line 13, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar div[class*="col"] {
-  box-sizing: border-box;
-  height: 100%;
-}
-/* line 18, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .col-3-11 {
-  flex: 3;
-  padding: 15px;
-}
-/* line 23, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .col-5-11 {
-  flex: 5;
-  padding: 5px;
-}
-/* line 28, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar button {
-  background: transparent;
-  border: 0;
-  margin: 0;
-  padding: 10px;
-}
-/* line 35, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar button:focus {
-  border: 0;
-  outline: 0;
-}
-/* line 40, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar i {
-  color: #aaa;
-  border-radius: 80%;
-  font-size: 18px;
-  transition: all .2s ease;
-  transform: scale(1);
-}
-/* line 49, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar i:hover {
-  color: #ccc;
-  transform: scale(1.05);
-}
-/* line 54, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .fa-play-circle, .footer-bar .fa-pause-circle {
-  font-size: 35px;
-  width: 35px;
-  height: 35px;
-}
-/* line 63, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .icon {
+.icon {
   opacity: .5;
   width: 12px;
   height: 12px;
@@ -2229,89 +2236,108 @@ input, select {
   margin: 0px -3px;
   position: relative;
 }
-/* line 74, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play, .footer-bar .pause {
+
+/* line 19, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.play, .pause {
   border-radius: 50%;
   border: 1px solid white;
   transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-/* line 80, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .icon:hover {
+
+/* line 25, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.icon:hover {
   opacity: 1;
 }
-/* line 84, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .icon:active {
+
+/* line 29, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.icon:active {
   opacity: .5;
 }
-/* line 88, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play:hover, .footer-bar .pause:hover {
+
+/* line 33, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.play:hover, .pause:hover {
   transform: scale(1.1);
 }
-/* line 92, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play:active, .footer-bar .pause:active {
+
+/* line 37, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.play:active, .pause:active {
   transform: scale(1);
 }
-/* line 96, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .play {
+
+/* line 41, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.play {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/play.png");
   background-size: 11px 13px;
   background-position: 55% 50%;
 }
-/* line 102, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .pause {
+
+/* line 47, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.pause {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/pause.png");
   background-size: 10px 12px;
 }
-/* line 107, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .next, .footer-bar .prev {
+
+/* line 52, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.next, .prev {
   background-size: 11px 11px;
 }
-/* line 111, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .next {
+
+/* line 56, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.next {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/next.png");
 }
-/* line 115, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .prev {
+
+/* line 60, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.prev {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/prev.png");
 }
-/* line 119, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .shuffle, .footer-bar .shuffle-selected {
+
+/* line 64, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.shuffle, .shuffle-selected {
   background-size: 15px 11px;
 }
-/* line 123, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .shuffle {
+
+/* line 68, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.shuffle {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/shuffle.png");
 }
-/* line 127, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .shuffle-selected {
+
+/* line 72, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.shuffle-selected {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/shuffle-green.png");
 }
-/* line 131, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .loop, .footer-bar .loop-selected, .footer-bar .loop-tracklist {
+
+/* line 76, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.loop, .loop-selected, .loop-tracklist {
   background-size: 14px 14px;
 }
-/* line 135, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .shuffle-selected, .footer-bar .loop-selected, .footer-bar .loop-tracklist {
+
+/* line 80, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.shuffle-selected, .loop-selected, .loop-tracklist {
   opacity: .8;
 }
-/* line 137, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .shuffle-selected:active, .footer-bar .loop-selected:active, .footer-bar .loop-tracklist:active {
+/* line 82, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.shuffle-selected:active, .loop-selected:active, .loop-tracklist:active {
   opacity: .8;
 }
-/* line 142, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .loop {
+
+/* line 87, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.loop {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop.png");
 }
-/* line 146, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .loop-selected {
+
+/* line 91, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.loop-selected {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop-selected.png");
 }
-/* line 150, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .loop-tracklist {
+
+/* line 95, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.loop-tracklist {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop-playlist.png");
 }
-/* line 155, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
-.footer-bar .shuffle-selected:after, .footer-bar .loop-selected:after, .footer-bar .loop-tracklist:after {
+
+/* line 100, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.shuffle-selected:after, .loop-selected:after, .loop-tracklist:after {
   content: '';
   position: absolute;
   width: 4px;
@@ -2320,6 +2346,59 @@ input, select {
   bottom: 0px;
   border-radius: 50%;
   background-color: #2fd565;
+}
+
+/* line 112, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar {
+  font-size: 10px;
+  display: flex;
+  height: 100%;
+}
+/* line 117, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar div[class*="col"] {
+  box-sizing: border-box;
+  height: 100%;
+}
+/* line 122, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar .col-3-11 {
+  flex: 3;
+  padding: 15px;
+}
+/* line 127, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar .col-5-11 {
+  flex: 5;
+  padding: 5px;
+}
+/* line 132, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar button {
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 10px;
+}
+/* line 139, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar button:focus {
+  border: 0;
+  outline: 0;
+}
+/* line 144, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar i {
+  color: #aaa;
+  border-radius: 80%;
+  font-size: 18px;
+  transition: all .2s ease;
+  transform: scale(1);
+}
+/* line 153, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar i:hover {
+  color: #ccc;
+  transform: scale(1.05);
+}
+/* line 158, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
+.footer-bar .fa-play-circle, .footer-bar .fa-pause-circle {
+  font-size: 35px;
+  width: 35px;
+  height: 35px;
 }
 /* line 169, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_footer_bar.scss */
 .footer-bar .selected {
@@ -2466,34 +2545,62 @@ input, select {
   z-index: 4;
   outline: 0;
   transition: .2s ease;
-  top: calc(50% - 45px);
-  left: calc(50% - 30px);
+  top: 54px;
+  left: 57px;
   display: none;
 }
 /* line 86, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+.show-info .media-wrapper .play-pause {
+  top: 109px;
+  left: 111px;
+}
+/* line 91, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .play-pause.playing {
   display: block !important;
 }
-/* line 90, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
-.media-wrapper .play-pause .fa-play-circle, .media-wrapper .play-pause .fa-pause-circle {
-  color: #eee;
-  font-size: 60px;
-}
 /* line 95, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+.media-wrapper .play-pause .play, .media-wrapper .play-pause .pause {
+  width: 40px;
+  height: 40px;
+  background-size: 20px 20px;
+  opacity: 1;
+  border-color: #aaa;
+}
+/* line 102, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+.show-info .media-wrapper .play-pause .play, .show-info .media-wrapper .play-pause .pause {
+  width: 80px;
+  height: 80px;
+  background-size: 40px 40px;
+}
+/* line 108, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+.media-wrapper .play-pause .play:hover, .media-wrapper .play-pause .pause:hover {
+  transform: scale(1);
+  border-color: #fff;
+}
+/* line 112, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+.media-wrapper .play-pause .play:active, .media-wrapper .play-pause .pause:active {
+  border-color: #fff;
+  opacity: 1;
+}
+/* line 118, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .play-pause:active {
   transform: scale(0.95);
 }
-/* line 98, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 121, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .music-index-item {
   display: block;
 }
-/* line 101, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 124, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .media {
-  display: inline-block;
+  display: flex;
+  width: 170px;
+  overflow: none;
+  flex-wrap: wrap;
   position: relative;
   vertical-align: top;
+  transition: 0.2s ease;
 }
-/* line 105, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 132, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper .media .media__image {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   max-width: 100%;
@@ -2504,7 +2611,12 @@ input, select {
   width: 170px;
   height: 170px;
 }
-/* line 116, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 141, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+.media-wrapper .media .media__image.collage {
+  width: 85px;
+  height: 85px;
+}
+/* line 148, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-wrapper p {
   padding: 12px;
   font-size: 14px;
@@ -2513,38 +2625,38 @@ input, select {
   font-family: "HelveticaNeue-Light";
 }
 
-/* line 125, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 157, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .index-item-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 5px;
 }
-/* line 131, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 163, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .index-item-wrapper .user-link {
   color: #bbb;
   font-size: 14px;
   margin-top: -10px;
   letter-spacing: 1px;
 }
-/* line 136, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 168, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .index-item-wrapper .user-link:hover {
   text-decoration: underline;
   color: #fff;
 }
 
 @media (max-width: 1200px) {
-  /* line 144, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+  /* line 176, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
   .media-wrapper {
     width: 170px;
   }
-  /* line 147, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+  /* line 179, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
   .media-wrapper .media .media__image {
     width: 170px;
     height: 170px;
   }
 }
-/* line 155, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 187, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media__body {
   background: #000;
   opacity: 0;
@@ -2559,29 +2671,24 @@ input, select {
   transform: scale(1);
   z-index: 3;
 }
-/* line 169, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 201, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media__body.playing, .media__body.hovering {
   opacity: .7;
   transform: scale(1.01);
 }
 
-/* line 175, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 207, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:hover .media__body {
   opacity: .7;
   transform: scale(1.01);
 }
 
-/* line 180, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
-.music-index-item:active .media__body {
-  transform: scale(0.98);
-}
-
-/* line 184, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
-.music-index-item:active .media .media__image {
+/* line 216, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+.music-index-item:active .media {
   transform: scale(0.97);
 }
 
-/* line 188, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 220, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-loaded {
   background: #000;
   top: 0;
@@ -3658,26 +3765,37 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   width: 320px;
 }
 /* line 21, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+.show-page-main .show-info .media-wrapper .media {
+  width: 320px;
+  display: flex;
+  flex-wrap: wrap;
+}
+/* line 27, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-info .media-wrapper .media__image {
   width: 320px;
   height: 320px;
 }
-/* line 26, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 30, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+.show-page-main .show-info .media-wrapper .media__image.collage {
+  width: 160px;
+  height: 160px;
+}
+/* line 36, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-info .media-wrapper .music-index-item:hover {
   cursor: default;
 }
-/* line 30, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 40, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-info .media-wrapper p {
   font-size: 28px;
   line-height: 36px;
   letter-spacing: -.005em;
   font-weight: 600;
 }
-/* line 39, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 49, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .song-index-item-wrapper {
   position: relative;
 }
-/* line 43, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 53, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .single-click-handler {
   padding: 15px;
   left: 12px;
@@ -3685,40 +3803,40 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   position: absolute;
   z-index: 5;
 }
-/* line 51, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 61, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs {
   flex: 2;
   margin-left: 30px;
   padding-right: 120px;
 }
-/* line 56, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 66, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs.song-container {
   margin-left: 0px;
   margin-right: 20px;
   padding: 20px;
 }
-/* line 64, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 74, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .song-index-item-wrapper {
   padding: 15px 15px 15px 40px;
   transition: .3s ease;
 }
-/* line 73, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 83, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .song-index-item {
   list-style: decimal outside;
   position: relative;
   width: 100%;
   height: 100%;
 }
-/* line 79, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 89, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .song-index-item span {
   color: #fff;
   margin-left: 10px;
 }
-/* line 85, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 95, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .song-index-item-wrapper:hover .song-index-item, .show-page-main .show-songs ol .playing .song-index-item {
   list-style: none;
 }
-/* line 89, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 99, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .song-index-item-wrapper:hover .song-index-item:before, .show-page-main .show-songs ol .playing .song-index-item:before {
   content: '';
   position: absolute;
@@ -3729,24 +3847,24 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   width: 13px;
   height: 15px;
 }
-/* line 100, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 110, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .playing .song-index-item:before, .show-page-main .show-songs ol .playing:hover .song-index-item:before {
   background-image: url("https://s3.us-east-2.amazonaws.com/bop-images/utility/pause_large.png");
 }
-/* line 106, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 116, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .show-page-main .show-songs ol .song-index-item-wrapper:hover, .show-page-main .show-songs ol .playing {
   background: rgba(0, 0, 0, 0.3);
 }
 
-/* line 113, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 123, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper {
   display: flex;
 }
-/* line 116, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 126, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-index-item {
   flex: 6;
 }
-/* line 120, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 130, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-dropdown-wrapper {
   flex: 1;
   position: relative;
@@ -3754,7 +3872,7 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   align-items: center;
   justify-content: center;
 }
-/* line 127, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 137, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-dropdown-wrapper .dropdown-handler {
   letter-spacing: 2px;
   font-size: 25px;
@@ -3766,11 +3884,11 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   transition: .05s ease;
   color: #fff;
 }
-/* line 142, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 152, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-dropdown-wrapper .dropdown-handler:active {
   transform: scale(0.92);
 }
-/* line 146, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 156, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-dropdown-wrapper .dropdown-menu {
   position: absolute;
   width: 190px;
@@ -3780,7 +3898,7 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   background: linear-gradient(#181818, #383838);
   z-index: 1;
 }
-/* line 155, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 165, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-dropdown-wrapper .dropdown-menu .song-dropdown {
   padding-top: 3px;
   padding-bottom: 3px;
@@ -3788,7 +3906,7 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   width: 100%;
   height: 100%;
 }
-/* line 162, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 172, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-dropdown-wrapper .dropdown-menu .song-dropdown .dropdown-li {
   color: #bbb;
   font-size: 14px;
@@ -3799,26 +3917,26 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   height: 100%;
   transition: .1s ease;
 }
-/* line 175, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 185, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .song-index-item-wrapper .song-dropdown-wrapper .dropdown-menu .song-dropdown .dropdown-li:hover {
   background-color: rgba(50, 50, 50, 0.8);
   color: #fff;
 }
 
-/* line 185, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 195, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .playlist-index-wrapper {
   display: flex;
   flex-direction: column;
   width: 320px;
 }
 
-/* line 191, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 201, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .delete-button-wrapper {
   align-self: center;
   padding: 15px;
 }
 
-/* line 196, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 206, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .delete-playlist-button {
   outline: 0;
   padding: 11px 18px;
@@ -3833,7 +3951,7 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-we
   border: 2px solid #bbb;
 }
 
-/* line 210, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
+/* line 220, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_show_page.scss */
 .delete-playlist-button:hover {
   cursor: default;
   transform: scale(1.05);
