@@ -15,7 +15,7 @@ class UserAccountPage extends React.Component {
   }
 
   handleLogout() {
-      this.props.logout().then(this.props.history.push('/login'));
+      this.props.logout();
   }
 
   render() {    

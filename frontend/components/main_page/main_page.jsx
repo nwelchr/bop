@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch, Redirect } from 'react-router-dom';
 import MediaPlayer from '../footer_player_bar/media_player';
 import PlaylistIndexContainer from '../playlists/playlist_index_container';
 import PlaylistShowContainer from '../show_pages/playlist_show_container';
@@ -18,6 +18,7 @@ import NewPlaylistModal from '../modals/new_playlist_modal';
 import UserAccountPage from '../show_pages/user_account_page';
 import UserShowPageContainer from '../show_pages/user_show_container';
 import UserIndex from '../users/user_index';
+import { AuthRoute, ProtectedRoute } from '../../util/route_util';
 
 class MainPage extends React.Component {
     constructor(props) {
@@ -25,28 +26,28 @@ class MainPage extends React.Component {
     }
 
     render() {
-        return (
+        return this.props.currentUser ? (
             <div className="app-wrapper">
                 <SideNavBar currentUser={this.props.currentUser}/>
                 <main className="main-wrapper">
-                <Route path="/search" component={SearchContainer} />
-                <Route path="/browse" component={BrowseIndexContainer} />
-                <Route exact path="/collection/songs" component={SongCollectionIndexContainer}/>
-                <Route exact path="/account" component={UserAccountPage}/>
-                <Route exact path="/collection/albums" component={AlbumIndexContainer} />
-                <Route path="/albums/:albumId" component={AlbumShowContainer} />
-                <Route exact path="/collection/artists" component={ArtistIndexContainer} />
-                <Route path="/artists/:artistId" component={ArtistShowContainer} />
-                <Route exact path="/collection/playlists" component={PlaylistIndexContainer} />
-                <Route path="/playlists/:playlistId" component={PlaylistShowContainer} />
-                <Route exact path="/users" component={UserIndex} />
-                <Route path="/users/:userId" component={UserShowPageContainer} />
+                <ProtectedRoute path="/search" component={SearchContainer} />
+                <ProtectedRoute path="/browse" component={BrowseIndexContainer} />
+                <ProtectedRoute exact path="/collection/songs" component={SongCollectionIndexContainer}/>
+                <ProtectedRoute exact path="/account" component={UserAccountPage}/>
+                <ProtectedRoute exact path="/collection/albums" component={AlbumIndexContainer} />
+                <ProtectedRoute path="/albums/:albumId" component={AlbumShowContainer} />
+                <ProtectedRoute exact path="/collection/artists" component={ArtistIndexContainer} />
+                <ProtectedRoute path="/artists/:artistId" component={ArtistShowContainer} />
+                <ProtectedRoute exact path="/collection/playlists" component={PlaylistIndexContainer} />
+                <ProtectedRoute path="/playlists/:playlistId" component={PlaylistShowContainer} />
+                <ProtectedRoute exact path="/users" component={UserIndex} />
+                <ProtectedRoute path="/users/:userId" component={UserShowPageContainer} />
                 <FooterPlayerBar playing={this.props.playing} />
                 </main>
                 <AddToPlaylistModal />
                 <NewPlaylistModal />
             </div>
-        );
+            ) : (<Redirect to="/" />);
     }
 }
 

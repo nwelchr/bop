@@ -82,7 +82,7 @@ class LoggedInComponent extends React.Component {
               Open Web Player
             </Link>
           </section>
-          <section class="image-links">
+          <section className="image-links">
 
 
             <div className="index-item-wrapper">
@@ -97,8 +97,8 @@ class LoggedInComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span class="item-span">Lemonade</span>
-                      <span class="owner-span">Beyonce</span>
+                      <span className="item-span">Lemonade</span>
+                      <span className="owner-span">Beyonce</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -119,8 +119,8 @@ class LoggedInComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span class="item-span">All Wet</span>
-                      <span class="owner-span">Mr. Oizo</span>
+                      <span className="item-span">All Wet</span>
+                      <span className="owner-span">Mr. Oizo</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -141,8 +141,8 @@ class LoggedInComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span class="item-span">Ponyboy</span>
-                      <span class="owner-span">SOPHIE</span>
+                      <span className="item-span">Ponyboy</span>
+                      <span className="owner-span">SOPHIE</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -163,8 +163,8 @@ class LoggedInComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span class="item-span">Little Joy</span>
-                      <span class="owner-span">Little Joy</span>
+                      <span className="item-span">Little Joy</span>
+                      <span className="owner-span">Little Joy</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -186,8 +186,8 @@ class LoggedInComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span class="item-span">Depression Cherry</span>
-                      <span class="owner-span">Beach House</span>
+                      <span className="item-span">Depression Cherry</span>
+                      <span className="owner-span">Beach House</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -208,8 +208,8 @@ class LoggedInComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span class="item-span">Blonde</span>
-                      <span class="owner-span">Frank Ocean</span>
+                      <span className="item-span">Blonde</span>
+                      <span className="owner-span">Frank Ocean</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -313,7 +313,7 @@ class LoggedOutComponent extends React.Component {
 
             <h2>Get a taste of what you're missing.</h2>
           </section>
-          <section class="image-links">
+          <section className="image-links">
 
 
             <div className="index-item-wrapper">
@@ -328,8 +328,8 @@ class LoggedOutComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span class="item-span">Lemonade</span>
-                      <span class="owner-span">Beyonce</span>
+                      <span className="item-span">Lemonade</span>
+                      <span className="owner-span">Beyonce</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -350,8 +350,8 @@ class LoggedOutComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span class="item-span">All Wet</span>
-                      <span class="owner-span">Mr. Oizo</span>
+                      <span className="item-span">All Wet</span>
+                      <span className="owner-span">Mr. Oizo</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -372,8 +372,8 @@ class LoggedOutComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span class="item-span">Ponyboy</span>
-                      <span class="owner-span">SOPHIE</span>
+                      <span className="item-span">Ponyboy</span>
+                      <span className="owner-span">SOPHIE</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -394,8 +394,8 @@ class LoggedOutComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span class="item-span">Little Joy</span>
-                      <span class="owner-span">Little Joy</span>
+                      <span className="item-span">Little Joy</span>
+                      <span className="owner-span">Little Joy</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -417,8 +417,8 @@ class LoggedOutComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span class="item-span">Depression Cherry</span>
-                      <span class="owner-span">Beach House</span>
+                      <span className="item-span">Depression Cherry</span>
+                      <span className="owner-span">Beach House</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -439,8 +439,8 @@ class LoggedOutComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span class="item-span">Blonde</span>
-                      <span class="owner-span">Frank Ocean</span>
+                      <span className="item-span">Blonde</span>
+                      <span className="owner-span">Frank Ocean</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -474,7 +474,7 @@ class NewSession extends React.Component {
   }
 
   render() {
-    return this.props.currentUser ? (
+    return (this.props.currentUser && this.props.currentUser !== null) ? (
       <LoggedInComponent
         currentUser={this.props.currentUser}
         logout={this.props.logout}
