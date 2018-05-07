@@ -74,7 +74,7 @@ class LoggedInComponent extends React.Component {
           </nav>
         </nav>
 
-        <main className="main-content-wrapper">
+        <main className="main-content-wrapper new-session">
           <section className="main-content-intro">
             <h1>Jump Back In, {this.props.currentUser.username}</h1>
             <h2>Pick up your music right where you left off.</h2>
