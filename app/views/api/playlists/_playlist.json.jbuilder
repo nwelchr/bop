@@ -9,9 +9,8 @@ json.creatorName playlist.creator.username
 # json.songs do
 #     json.array! @playlist.songs.collect { |song| song.id }
 # end
-
 album_cover_urls = playlist.songs.map{ |song| song.album.album_cover_url }.uniq
-if album_cover_urls.length > 4
+if album_cover_urls.length >= 4
     json.album_cover_url album_cover_urls.take(4)
 elsif playlist.songs.length > 0
     json.extract! playlist.songs.first.album, :album_cover_url

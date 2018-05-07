@@ -20,14 +20,49 @@ class AddToPlaylistIndexItem extends React.Component {
 
 
     render() {
+        let albumCover;
+    if (typeof this.props.playlist.album_cover_url === "string") {
+      albumCover = (
+        <div className="media">
+              <img
+        alt=""
+        className="media__image"
+        src={this.props.playlist.album_cover_url}
+      />
+              <div className={`media__body`} />
+              <div className="media-loaded" />
+            </div>);
+    } else if (this.props.playlist.album_cover_url.length === 4) {
+      albumCover = (
+        <div className="media">
+              <img 
+              alt=""
+              className="media__image collage"
+              src={this.props.playlist.album_cover_url[0]}
+              />
+              <img
+                alt=""
+                className="media__image collage"
+                src={this.props.playlist.album_cover_url[1]}
+              />
+              <img
+                alt=""
+                className="media__image collage"
+                src={this.props.playlist.album_cover_url[2]}
+              />
+              <img
+                alt=""
+                className="media__image collage"
+                src={this.props.playlist.album_cover_url[3]}
+              />
+              <div className={`media__body`} />
+              <div className="media-loaded" />
+            </div>
+      );
+    }
         return (<div className="media-wrapper">
             <a className="music-index-item" onClick={this.handleClick}><li className="item-wrapper">
-                <div className="media"><img alt="" className="media__image" src={this.props.playlist.album_cover_url} />
-                    <div className="media__body">
-                    </div>
-                    <div className="media-loaded">
-                    </div>
-                </div>
+                {albumCover}
                 <p>{this.props.playlist.name}</p>
             </li>
             </a>

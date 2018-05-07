@@ -24,7 +24,9 @@ class PlaylistIndexItem extends React.Component {
         $(this)
           .find(".media__body")
           .addClass("hovering");
-
+        $(this)
+          .find(".play-pause")
+          .addClass("hovering");
         $(this).on("onclick", ":button", function() {
           $(that)
             .find(".media__body")
@@ -39,6 +41,9 @@ class PlaylistIndexItem extends React.Component {
         $(this)
           .find(".media__body")
           .removeClass("hovering");
+        $(this)
+        .find(".play-pause")
+        .removeClass("hovering");
       });
   }
 
@@ -78,8 +83,8 @@ class PlaylistIndexItem extends React.Component {
     let songIds = null;
     if (this.props.playlist.songIds) songIds = this.props.playlist.songIds;
 
-    const playIcon = <i className="fa fa-play-circle" />;
-    const pauseIcon = <i className="fa fa-pause-circle" />;
+    const playIcon = <div className="icon play index-item"></div>;
+    const pauseIcon = <div className="icon pause index-item"></div>;
 
     let playPauseIcon, playlistIndexClass;
 

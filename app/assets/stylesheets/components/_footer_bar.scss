@@ -5,6 +5,110 @@
     z-index: 9999;
 }
 
+.icon {
+    opacity: .5;
+    width: 12px;
+    height: 12px;
+    padding: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0px -3px;
+    position: relative;
+}
+
+.play, .pause {
+    border-radius: 50%;
+    border: 1px solid white;
+    transition: transform .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.icon:hover {
+    opacity: 1;
+}
+
+.icon:active {
+    opacity: .5;
+}
+
+.play:hover, .pause:hover {
+    transform: scale(1.1);
+}
+
+.play:active, .pause:active {
+    transform: scale(1);
+}
+
+.play {
+    background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/play.png');
+    background-size: 11px 13px;
+    background-position: 55% 50%;
+}
+
+.pause {
+    background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/pause.png');
+    background-size: 10px 12px;
+}
+
+.next, .prev {
+    background-size: 11px 11px;
+}
+
+.next {
+    background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/next.png');
+}
+
+.prev {
+    background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/prev.png');
+}
+
+.shuffle, .shuffle-selected {
+    background-size: 15px 11px;
+}
+
+.shuffle {
+    background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/shuffle.png');    
+}
+
+.shuffle-selected {
+    background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/shuffle-green.png');
+}
+
+.loop, .loop-selected, .loop-tracklist {
+    background-size: 14px 14px;
+}
+
+.shuffle-selected, .loop-selected, .loop-tracklist {
+    opacity: .8;
+    &:active {
+        opacity: .8;
+    }
+}
+
+.loop {
+    background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop.png');
+}
+
+.loop-selected {
+    background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop-selected.png');
+}
+
+.loop-tracklist {
+    background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop-playlist.png');
+}
+
+.shuffle-selected, .loop-selected, .loop-tracklist {
+    &:after {
+        content: '';
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        left: calc(50% - 2px);
+        bottom: 0px;
+        border-radius: 50%;
+        background-color: #2fd565;
+    }
+}
+
 .footer-bar {
     font-size: 10px;
     display: flex;
@@ -58,110 +162,6 @@
     }
 
     .fa-play-circle:hover, .fa-pause-circle:hover {
-    }
-
-    .icon {
-        opacity: .5;
-        width: 12px;
-        height: 12px;
-        padding: 10px;
-        background-repeat: no-repeat;
-        background-position: center;
-        margin: 0px -3px;
-        position: relative;
-    }
-
-    .play, .pause {
-        border-radius: 50%;
-        border: 1px solid white;
-        transition: transform .2s cubic-bezier(0.075, 0.82, 0.165, 1);
-    }
-
-    .icon:hover {
-        opacity: 1;
-    }
-
-    .icon:active {
-        opacity: .5;
-    }
-
-    .play:hover, .pause:hover {
-        transform: scale(1.1);
-    }
-
-    .play:active, .pause:active {
-        transform: scale(1);
-    }
-
-    .play {
-        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/play.png');
-        background-size: 11px 13px;
-        background-position: 55% 50%;
-    }
-
-    .pause {
-        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/pause.png');
-        background-size: 10px 12px;
-    }
-
-    .next, .prev {
-        background-size: 11px 11px;
-    }
-
-    .next {
-        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/next.png');
-    }
-    
-    .prev {
-        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/prev.png');
-    }
-
-    .shuffle, .shuffle-selected {
-        background-size: 15px 11px;
-    }
-
-    .shuffle {
-        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/shuffle.png');    
-    }
-
-    .shuffle-selected {
-        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/shuffle-green.png');
-    }
-
-    .loop, .loop-selected, .loop-tracklist {
-        background-size: 14px 14px;
-    }
-
-    .shuffle-selected, .loop-selected, .loop-tracklist {
-        opacity: .8;
-        &:active {
-            opacity: .8;
-        }
-    }
-
-    .loop {
-        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop.png');
-    }
-
-    .loop-selected {
-        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop-selected.png');
-    }
-
-    .loop-tracklist {
-        background-image: url('https://s3.us-east-2.amazonaws.com/bop-images/buttons/loop-playlist.png');
-    }
-
-    .shuffle-selected, .loop-selected, .loop-tracklist {
-        &:after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            left: calc(50% - 2px);
-            bottom: 0px;
-            border-radius: 50%;
-            background-color: #2fd565;
-        }
     }
 
 
