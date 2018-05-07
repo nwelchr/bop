@@ -65591,7 +65591,7 @@ var LoggedInComponent = function (_React$Component) {
         ),
         _react2.default.createElement(
           "main",
-          { className: "main-content-wrapper" },
+          { className: "main-content-wrapper new-session" },
           _react2.default.createElement(
             "section",
             { className: "main-content-intro" },
