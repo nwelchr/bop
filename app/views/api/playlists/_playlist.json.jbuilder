@@ -1,5 +1,8 @@
 json.extract! playlist, :id, :name, :creator_id
-json.songIds playlist.songs.pluck(:id)
+
+json.songIds do 
+    json.array! playlist.saved_songs.sort_by{|saved_song| saved_song.updated_at}.collect { |saved_song| saved_song.song_id }
+end
 json.creatorName playlist.creator.username
 
 # playlist.songs.each do |song|

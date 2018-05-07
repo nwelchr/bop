@@ -15,7 +15,7 @@ class Api::PlaylistsController < ApplicationController
   end
 
   def index
-    @playlists = params[:shouldFetchAll] ? Playlist.all : current_user.playlists
+    @playlists = params[:shouldFetchAll] ? Playlist.all.includes(:songs, :creator) : current_user.playlists.includes(:songs, :creator)
     render :index
   end
 
