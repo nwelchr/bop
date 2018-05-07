@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
 
@@ -25,8 +25,8 @@ class AlbumIndexItem extends React.Component {
           .find(".media__body")
           .addClass("hovering");
         $(this)
-        .find(".play-pause")
-        .addClass("hovering");
+          .find(".play-pause")
+          .addClass("hovering");
         $(this).on("onclick", ":button", function() {
           $(that)
             .find(".media__body")
@@ -41,8 +41,8 @@ class AlbumIndexItem extends React.Component {
           .find(".media__body")
           .removeClass("hovering");
         $(this)
-        .find(".play-pause")
-        .removeClass("hovering");
+          .find(".play-pause")
+          .removeClass("hovering");
       });
   }
 
@@ -61,9 +61,9 @@ class AlbumIndexItem extends React.Component {
     // fetch the album in question and play it
     if (
       !currentSong ||
-      !songIds.includes(currentSong.id)
-      || Object.keys(this.props.currentSongParams)[0] !== "albumId"
-      || Object.values(this.props.currentSongParams)[0] !==
+      !songIds.includes(currentSong.id) ||
+      Object.keys(this.props.currentSongParams)[0] !== "albumId" ||
+      Object.values(this.props.currentSongParams)[0] !==
         `${this.props.album.id}`
     ) {
       this.props.fetchAlbumThenPlaySong(this.props.album.id, {
@@ -81,8 +81,8 @@ class AlbumIndexItem extends React.Component {
     let songIds = null;
     if (this.props.album.songIds) songIds = this.props.album.songIds;
 
-    const playIcon = <div className="icon play index-item"></div>;
-    const pauseIcon = <div className="icon pause index-item"></div>;
+    const playIcon = <div className="icon play index-item" />;
+    const pauseIcon = <div className="icon pause index-item" />;
 
     let playPauseIcon, albumIndexClass;
     if (
@@ -100,27 +100,47 @@ class AlbumIndexItem extends React.Component {
       albumIndexClass = null;
     }
 
+    const link =
+      this.props.match.url === `/albums/${this.props.album.id}` ? (
+        <a className="music-index-item">
+          <li className="item-wrapper">
+            <div className="media">
+              <img
+                alt=""
+                className="media__image"
+                src={this.props.album.album_cover_url}
+              />
+              <div className={`media__body ${albumIndexClass}`} />
+              <div className="media-loaded" />
+            </div>
+            <p>{this.props.album.title}</p>
+          </li>
+        </a>
+      ) : (
+        <Link
+          className="music-index-item"
+          to={`/albums/${this.props.album.id}`}
+        >
+          <li className="item-wrapper">
+            <div className="media">
+              <img
+                alt=""
+                className="media__image"
+                src={this.props.album.album_cover_url}
+              />
+              <div className={`media__body ${albumIndexClass}`} />
+              <div className="media-loaded" />
+            </div>
+            <p>{this.props.album.title}</p>
+          </li>
+        </Link>
+      );
+
     return (
       <div className="index-item-wrapper">
         <div className="media-wrapper">
           <div className="button-wrapper" />
-          <Link
-            className="music-index-item"
-            to={`/albums/${this.props.album.id}`}
-          >
-            <li className="item-wrapper">
-              <div className="media">
-                <img
-                  alt=""
-                  className="media__image"
-                  src={this.props.album.album_cover_url}
-                />
-                <div className={`media__body ${albumIndexClass}`} />
-                <div className="media-loaded" />
-              </div>
-              <p>{this.props.album.title}</p>
-            </li>
-          </Link>
+          {link}
           <button
             className={`play-pause ${albumIndexClass}`}
             onClick={this.handlePlay}
@@ -152,4 +172,6 @@ const mapDispatchToProps = dispatch => ({
   fetchSongs: () => dispatch(fetchSongs())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AlbumIndexItem);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(AlbumIndexItem)
+);

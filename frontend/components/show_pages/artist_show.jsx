@@ -19,13 +19,11 @@ class ArtistShow extends React.Component {
   }
 
   componentDidMount() {
-    console.log('component mounting');
     this.props
       .fetchArtist(this.props.match.params.artistId).then(response => this.handleResponse());
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('component receiving props');
     if (this.props.match.params.artistId != nextProps.match.params.artistId) {
       this.props.fetchArtist(nextProps.match.params.artistId).then(response => this.handleResponse());
     }

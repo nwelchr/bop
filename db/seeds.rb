@@ -30,35 +30,35 @@ daisy = User.create!(
     username: 'Daisy',
     email: 'daisy@daisy.com',
     password: 'password',
-    profile_picture: 'http://mediad.publicbroadcasting.net/p/wnpr/files/styles/x_large/public/201512/k-neko_tr.jpg'
+    profile_picture: 'https://s3.us-east-2.amazonaws.com/bop-images/profile_pictures/k-neko_tr.jpg'
 );
 
 dan_michaels = User.create!(
     username: 'Dan Michaels',
     email: 'danmichaels@a.com',
     password: 'password',
-    profile_picture: 'https://images.pexels.com/photos/34950/pexels-photo.jpg'
+    profile_picture: 'https://s3.us-east-2.amazonaws.com/bop-images/profile_pictures/pexels-photo.jpg'
 );
 
 michele = User.create!(
     username: 'can_you_believe?',
     email: 'wowcanyoubelieve@demo.com',
     password: 'password',
-    profile_picture: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Rho_Ophiucus_Widefield.jpg/1920px-Rho_Ophiucus_Widefield.jpg'
+    profile_picture: 'https://s3.us-east-2.amazonaws.com/bop-images/profile_pictures/Rho_Ophiucus_Widefield.jpg'
 );
 
 User.create!(
     username: 'Juniper',
     email: 'juniper@daisy.com',
     password: 'password',
-    profile_picture: 'https://images.pexels.com/photos/206673/pexels-photo-206673.jpeg'
+    profile_picture: 'https://s3.us-east-2.amazonaws.com/bop-images/profile_pictures/pexels-photo-206673.jpeg'
 );
 
 User.create!(
     username: 'falafeless',
     email: 'falafeless@daisy.com',
     password: 'password',
-    profile_picture: 'https://images.pexels.com/photos/158112/duck-drake-water-bird-lake-158112.jpeg'
+    profile_picture: 'https://s3.us-east-2.amazonaws.com/bop-images/profile_pictures/duck-drake-water-bird-lake-158112.jpeg'
 );
 
 GENRES = ['pop', 'rock', 'smooth', 'electronic']
@@ -471,7 +471,7 @@ end
 sophie = Artist.create!(
     name: 'SOPHIE',
     artist_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Artist+Artwork/sophie.jpg',
-    background_artwork_url: '',
+    background_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-images/filler_artist_background.png',
     genre_id: 4,
     about: 'SOPHIE\'s about'
 )
@@ -556,7 +556,7 @@ hard = Album.create!(
     year: 2015,
     artist_id: sophie.id,
     album_type: 'Single',
-    album_cover_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/HARD/album_cover.png' 
+    album_cover_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/HARD/album_cover.jpg' 
 )
 
 Song.create!(
@@ -572,7 +572,7 @@ elle = Album.create!(
     year: 2015,
     artist_id: sophie.id,
     album_type: 'Single',
-    album_cover_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/ELLE/album_cover.png' 
+    album_cover_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/ELLE/album_cover.jpg' 
 )
 
 Song.create!(
@@ -787,7 +787,7 @@ end
 tennis = Artist.create!(
     name: 'Tennis',
     artist_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Artist+Artwork/tennis.jpeg',
-    background_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Artist+Artwork/tennis_background.png',
+    background_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Artist+Artwork/tennis_background.jpg',
     genre_id: 4,
     about: 'Tennis\' about'
 )
@@ -889,7 +889,7 @@ end
 little_joy = Artist.create!(
     name: 'Little Joy',
     artist_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-songs/Artist+Artwork/littlejoy.jpg',
-    background_artwork_url: '',
+    background_artwork_url: 'https://s3.us-east-2.amazonaws.com/bop-images/filler_artist_background.png',
     genre_id: 2,
     about: 'Little Joy\'s about'
 )

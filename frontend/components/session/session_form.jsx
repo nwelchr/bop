@@ -68,7 +68,7 @@ class SessionForm extends React.Component {
                 </nav>
                 <main className="session-form-main">
                     {this.renderErrors()}
-                    <button class="demo-user" onClick={this.props.loginDemoUser}>Just browsing? Sign in as a demo user</button>
+                    <button className="demo-user" onClick={this.props.loginDemoUser}>Just browsing? Sign in as a demo user</button>
                     <div className="divider">
                         <strong>or {this.props.formType}</strong>
                     </div>

@@ -31,11 +31,11 @@ class UserShow extends React.Component {
   }
 
   followingResults() {
-    const followedArtists = this.props.user.followedArtists.length > 0 ? (<section class="followed-artists"><h1>Followed Artists</h1><ArtistResults artists={this.props.user.followedArtists} followButton={true} /></section>) : null;
-    const followedUsers = this.props.user.followedUsers.length > 0 ? (<section class="followed-users"><h1>Followed Users</h1><UserResults users={this.props.user.followedUsers} followButton={true} /></section>) : null;
+    const followedArtists = this.props.user.followedArtists.length > 0 ? (<section className="followed-artists"><h1>Followed Artists</h1><ArtistResults artists={this.props.user.followedArtists} followButton={true} /></section>) : null;
+    const followedUsers = this.props.user.followedUsers.length > 0 ? (<section className="followed-users"><h1>Followed Users</h1><UserResults users={this.props.user.followedUsers} followButton={true} /></section>) : null;
 
 
-    return (<div class="following-wrapper">
+    return (<div className="following-wrapper">
       {followedArtists}
       {followedUsers}
       </div>);
@@ -67,7 +67,7 @@ class UserShow extends React.Component {
         <section className="user-artist-intro user-intro">
           <img src={user.profile_picture} className="profile-picture"/>
           <h1 className="username">{user.username}</h1>
-          <h2 class="followers">{numFollowers}</h2>
+          <h2 className="followers">{numFollowers}</h2>
           {followButton}
         </section>
 

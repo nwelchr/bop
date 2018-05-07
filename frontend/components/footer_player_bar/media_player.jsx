@@ -50,8 +50,6 @@ class MediaPlayer extends React.Component {
     // if tracklist is being generated for the first time or there's a new one
     if ((!this.props.tracklist && nextProps.tracklist) || (this.props.tracklist && this.props.tracklist !== nextProps.tracklist)) {
       if (this.state.shuffle) {
-        // debugger;
-        console.log('change tracklist');
         const shuffledTracklist = this.generateShuffledTracklist(nextProps.tracklist);
         this.setState({shuffledTracklist});
       }
@@ -59,12 +57,9 @@ class MediaPlayer extends React.Component {
 
     // to resolve issue with first song being played when on shuffle
     if (nextProps.isFirstSong && this.state.shuffle) {
-      // debugger;
-      console.log('change tracklist');
       const shuffledTracklist = this.generateShuffledTracklist(nextProps.tracklist, nextProps.tracklist[Math.floor(Math.random() * nextProps.tracklist.length)]);
       this.setState({shuffledTracklist});
       const firstShuffledSong = nextProps.songs.find((song) => song.id === shuffledTracklist[0]);
-      console.log(firstShuffledSong);
       this.props.playSong(firstShuffledSong, nextProps.currentSongParams);
       this.setState({
         playing: nextProps.playing,
@@ -133,8 +128,6 @@ class MediaPlayer extends React.Component {
       return;
     }
 
-    console.log(this.props.tracklist, this.state.shuffledTracklist);
-    
     let tracklist = this.state.shuffle ? this.state.shuffledTracklist : this.props.tracklist;
 
     let currSongIdx = tracklist.indexOf(this.props.currentSong.id);
@@ -171,7 +164,6 @@ class MediaPlayer extends React.Component {
       // loop around
       if (this.state.loop === 'loopTracklist') {
         currSongIdx = tracklist.length;
-        console.log(tracklist.length);
       }
       else {
         this.stop();
@@ -209,8 +201,6 @@ class MediaPlayer extends React.Component {
     if (!shuffle) {
       shuffledTracklist = [];
     } else {
-      // debugger;
-      console.log('new tracklist');
       shuffledTracklist = this.generateShuffledTracklist(this.props.tracklist, this.props.currentSong.id);
       this.setState({
         shuffledTracklist
@@ -231,13 +221,11 @@ class MediaPlayer extends React.Component {
           shuffledArr[j] = x;
       }
       if (nextCurrSong && shuffledArr[0] !== nextCurrSong) {
-        // debugger;
         shuffleIdx = shuffledArr.indexOf(nextCurrSong);
         x = shuffledArr[0];
         shuffledArr[0] = shuffledArr[shuffleIdx];
         shuffledArr[shuffleIdx] = x;
       }
-      // debugger;
       return shuffledArr;
   }
 

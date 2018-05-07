@@ -143,10 +143,16 @@ class PlaylistIndexItem extends React.Component {
       );
     }
 
-    return (
-      <div className="index-item-wrapper">
-      <div className="media-wrapper">
-        <div className="button-wrapper" />
+
+    const link =
+      this.props.match.url === `/playlists/${this.props.playlist.id}` ? (
+        <a className="music-index-item">
+          <li className="item-wrapper">
+            {albumCover}
+            <p>{this.props.playlist.name}</p>
+          </li>
+        </a>
+      ) : (
         <Link
           className="music-index-item"
           to={`/playlists/${this.props.playlist.id}`}
@@ -156,6 +162,13 @@ class PlaylistIndexItem extends React.Component {
             <p>{this.props.playlist.name}</p>
           </li>
         </Link>
+      );
+
+    return (
+      <div className="index-item-wrapper">
+      <div className="media-wrapper">
+        <div className="button-wrapper" />
+        {link}
         <button
           className={`play-pause ${playlistIndexClass}`}
           onClick={this.handlePlay}
