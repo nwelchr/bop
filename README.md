@@ -131,15 +131,17 @@ case RECEIVE_FOLLOW:
 
 <a name="additional-features"></a>
 ## Additional Features (to be implemented)
-- Tracklists: Users will be able to skip through songs using media player buttons, shuffle tracks, and create lists.
-- Dynamic Image Creation: playlist covers will be generated in the backend by making a collage of song's album cover photos.
-- Dominant colors from album covers will be extracted to improve user experience.
-- N + 1 Queries and unnecessary fetching will be eliminated.
-- Settings page
+- ~~Tracklists: Users will be able to skip through songs using media player buttons.~~ DONE
+- ~~Shuffle: Users will be able to shuffle the current tracklist (album, playlist, etc.).~~ DONE
+- ~~Dynamic Image Creation: playlist covers will be generated as a collage of album covers.~~ DONE
+- ~~N + 1 Queries and unnecessary fetching will be eliminated.~~ DONE
+- Queue: Users will be able to add songs to a 'next song' queue.
+- Dominant colors from album covers will be extracted to enhance user experience.
+- Users will be able to upload profile photos.
+- Search algorithms will fetch songs by relevance.
+- Settings page:
   - Language support (French, Spanish, etc.)
   - Color schemes (Dark, Light, and Funky themes)
-- Audio Visualization
   - Play button will optionally pulse to the beat of the song
-  - Seek bar will have translucent music visualization pane
 - See friends who are currently online
   - 'Currently listening to' pane
