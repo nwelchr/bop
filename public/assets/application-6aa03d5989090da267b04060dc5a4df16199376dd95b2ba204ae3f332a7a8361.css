@@ -537,6 +537,7 @@ input, select {
 }
 /* line 187, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media__body {
+  backface-visibility: hidden;
   background: #000;
   opacity: 0;
   top: 0;
@@ -550,24 +551,24 @@ input, select {
   transform: scale(1);
   z-index: 3;
 }
-/* line 201, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 202, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media__body.playing, .media__body.hovering {
   opacity: .7;
   transform: scale(1.01);
 }
 
-/* line 207, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 208, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:hover .media__body {
   opacity: .7;
   transform: scale(1.01);
 }
 
-/* line 216, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 217, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:active .media {
   transform: scale(0.97);
 }
 
-/* line 220, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 221, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-loaded {
   background: #000;
   top: 0;
@@ -1273,7 +1274,7 @@ a {
 
 /* line 315, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_new_session.scss */
 .music-index-item:active .media__body.index-page {
-  transform: scale(0.98);
+  transform: scale(1);
 }
 
 /* line 319, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_new_session.scss */
@@ -2658,6 +2659,7 @@ input, select {
 }
 /* line 187, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media__body {
+  backface-visibility: hidden;
   background: #000;
   opacity: 0;
   top: 0;
@@ -2671,24 +2673,24 @@ input, select {
   transform: scale(1);
   z-index: 3;
 }
-/* line 201, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 202, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media__body.playing, .media__body.hovering {
   opacity: .7;
   transform: scale(1.01);
 }
 
-/* line 207, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 208, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:hover .media__body {
   opacity: .7;
   transform: scale(1.01);
 }
 
-/* line 216, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 217, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .music-index-item:active .media {
   transform: scale(0.97);
 }
 
-/* line 220, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
+/* line 221, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_music_index.scss */
 .media-loaded {
   background: #000;
   top: 0;
@@ -3397,7 +3399,7 @@ a {
 
 /* line 315, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_new_session.scss */
 .music-index-item:active .media__body.index-page {
-  transform: scale(0.98);
+  transform: scale(1);
 }
 
 /* line 319, /Users/welchn/Desktop/Projects/bop/app/assets/stylesheets/components/_new_session.scss */
