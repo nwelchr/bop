@@ -185,6 +185,7 @@ ul {
 }
 
 .media__body {
+    backface-visibility: hidden;
     background: #000;
     opacity: 0;
     top: 0;
