@@ -41049,6 +41049,13 @@ var PlaylistShow = function (_React$Component) {
             return song.id === songId;
           });
         });
+
+        // if songs haven't been fetched yet (i.e. after adding song to playlist and waiting for new songs to populate)
+        // return an empty div
+        if (songs.includes(undefined)) {
+          this.playlistSongs = _react2.default.createElement("div", null);
+          return;
+        }
         this.PlaylistSongs = _react2.default.createElement(
           "ol",
           null,
@@ -73578,7 +73585,7 @@ var songsReducer = function songsReducer() {
         case _album_actions.RECEIVE_ALBUM_WITH_TRACKLIST:
         case _artist_actions.RECEIVE_ARTIST:
         case _artist_actions.RECEIVE_ARTIST_WITH_TRACKLIST:
-            return (0, _merge3.default)({}, oldState, action.payload.songs || []);
+            return (0, _merge3.default)({}, oldState, action.payload.songs || {});
         default:
             return oldState;
     }
