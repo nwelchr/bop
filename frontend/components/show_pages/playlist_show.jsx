@@ -57,7 +57,14 @@ class PlaylistShow extends React.Component {
   createPlaylistSongs() {
     if (!(typeof this.props.playlist.songIds === "undefined")) {
       const selectedSongs = this.props.songs.filter((song) => (this.props.playlist.songIds).includes(song.id));
-      const songs = this.props.playlist.songIds.map(songId => selectedSongs.find((song) => song.id === songId));      
+      const songs = this.props.playlist.songIds.map(songId => selectedSongs.find((song) => song.id === songId));  
+      
+      // if songs haven't been fetched yet (i.e. after adding song to playlist and waiting for new songs to populate)
+      // return an empty div
+      if (songs.includes(undefined)) {
+        this.playlistSongs = <div />;
+        return;
+      }
       this.PlaylistSongs = (
         <ol>
           {songs.map(song => {

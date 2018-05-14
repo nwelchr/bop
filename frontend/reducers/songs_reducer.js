@@ -35,7 +35,7 @@ const songsReducer = (oldState = [], action) => {
         case RECEIVE_ALBUM_WITH_TRACKLIST:
         case RECEIVE_ARTIST:
         case RECEIVE_ARTIST_WITH_TRACKLIST:
-            return merge({}, oldState, action.payload.songs || []);
+            return merge({}, oldState, action.payload.songs || {});
         default:
             return oldState;
     }
