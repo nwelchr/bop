@@ -41053,7 +41053,6 @@ var PlaylistShow = function (_React$Component) {
         // if songs haven't been fetched yet (i.e. after adding song to playlist and waiting for new songs to populate)
         // return an empty div
         if (songs.includes(undefined)) {
-          this.playlistSongs = _react2.default.createElement("div", null);
           return;
         }
         this.PlaylistSongs = _react2.default.createElement(
@@ -41100,6 +41099,7 @@ var PlaylistShow = function (_React$Component) {
         return _react2.default.createElement("div", null);
       } else {
         this.createPlaylistSongs();
+        if (this.PlaylistSongs === undefined) return _react2.default.createElement("div", null);
         this.createDeletePlaylistButton();
 
         var _props2 = this.props,

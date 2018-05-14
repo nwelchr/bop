@@ -62,7 +62,6 @@ class PlaylistShow extends React.Component {
       // if songs haven't been fetched yet (i.e. after adding song to playlist and waiting for new songs to populate)
       // return an empty div
       if (songs.includes(undefined)) {
-        this.playlistSongs = <div />;
         return;
       }
       this.PlaylistSongs = (
@@ -105,6 +104,7 @@ class PlaylistShow extends React.Component {
       return <div />;
     } else {
       this.createPlaylistSongs();
+      if (this.PlaylistSongs === undefined) return <div />; 
       this.createDeletePlaylistButton();
 
       const { currentUser, playlist } = this.props;
