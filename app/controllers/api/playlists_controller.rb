@@ -64,14 +64,15 @@ class Api::PlaylistsController < ApplicationController
   end
 
   def remove_song
-    if current_user.playlists.include?(Playlist.find(params[:id]))
-      @playlist_id = params[:id]
-      @song_id = params[:songId]
+    @playlist = Playlist.find(params[:id])
+    if current_user.playlists.include?(@playlist)
+      playlist_id = params[:id]
+      song_id = params[:songId]
 
-      @saved_song = SavedSong.where("playlist_id = :playlist_id AND song_id = :song_id", playlist_id: @playlist_id, song_id: @song_id).first
+      @saved_song = SavedSong.where("playlist_id = :playlist_id AND song_id = :song_id", playlist_id: playlist_id, song_id: song_id).first
 
       if @saved_song.destroy
-        render json: ['Successfully removed song!']
+        render :show
       else
         render json: ['Issue with removing song']
       end
