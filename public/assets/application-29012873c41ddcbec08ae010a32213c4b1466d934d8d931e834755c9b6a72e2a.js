@@ -73438,10 +73438,10 @@ var playlistsReducer = function playlistsReducer() {
         case _playlist_actions.RECEIVE_MODAL_PLAYLISTS:
             return (0, _merge3.default)({}, oldState, action.playlists);
         case _song_actions.RECEIVE_PLAYLIST_SONG_SAVE:
+        case _song_actions.REMOVE_PLAYLIST_SONG_SAVE:
             newState = (0, _merge3.default)({}, oldState);
             newState[action.payload.playlist.id] = action.payload.playlist;
             return newState;
-        case _song_actions.REMOVE_PLAYLIST_SONG_SAVE:
         default:
             return oldState;
     }
