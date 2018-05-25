@@ -25,7 +25,7 @@ const songsReducer = (oldState = [], action) => {
     Object.freeze(oldState);
     switch(action.type) {
         case RECEIVE_SONGS:
-            return merge({}. oldState, action.songs);
+            return merge({}, oldState, action.songs);
         case RECEIVE_SONG:
             return merge({}, oldState, {[action.song.id]: action.song} );
         case RECEIVE_PLAYLIST:
