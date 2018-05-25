@@ -79,8 +79,6 @@ class Api::PlaylistsController < ApplicationController
     else
       render json: ['Cannot remove song from other user\'s playlist']
     end
-
-    
   end
 
   private 

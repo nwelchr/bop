@@ -18,7 +18,7 @@ const playlistsReducer = (oldState = {}, action) => {
     Object.freeze(oldState);
     switch(action.type) {
         case RECEIVE_PLAYLISTS:
-            return action.playlists;
+            return merge({}, oldState, action.playlists);
         case RECEIVE_CREATED_PLAYLIST:
         case RECEIVE_PLAYLIST_WITH_TRACKLIST:
         case RECEIVE_PLAYLIST:

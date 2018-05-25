@@ -30,6 +30,4 @@ module FollowActions
         end
     end
 
-
-
 end
