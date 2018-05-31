@@ -67461,7 +67461,7 @@ function renderPreloadPlayers(url, config) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _reactRedux = __webpack_require__(2);
@@ -67481,40 +67481,40 @@ var _session_actions = __webpack_require__(18);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-    return {
-        errors: Object.values(state.errors),
-        formType: 'Log In',
-        navLink: _react2.default.createElement(
-            'p',
-            null,
-            'Don\'t have an account? ',
-            _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: '/signup' },
-                'Sign Up'
-            )
-        ),
-        usernameInput: null,
-        emailPlaceholder: "Email address or username"
-    };
+  return {
+    errors: Object.values(state.errors),
+    formType: 'Log In',
+    navLink: _react2.default.createElement(
+      'p',
+      null,
+      'Don\'t have an account? ',
+      _react2.default.createElement(
+        _reactRouterDom.Link,
+        { to: '/signup' },
+        'Sign Up'
+      )
+    ),
+    usernameInput: null,
+    emailPlaceholder: 'Email address or username'
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {
-        processForm: function processForm(user) {
-            return dispatch((0, _session_actions.login)(user));
-        },
-        clearSessionErrors: function clearSessionErrors() {
-            return dispatch((0, _session_actions.clearSessionErrors)());
-        },
-        loginDemoUser: function loginDemoUser() {
-            return dispatch((0, _session_actions.login)({
-                username: 'Demo User',
-                email: 'demo@demo.com',
-                password: 'password'
-            }));
-        }
-    };
+  return {
+    processForm: function processForm(user) {
+      return dispatch((0, _session_actions.login)(user));
+    },
+    clearSessionErrors: function clearSessionErrors() {
+      return dispatch((0, _session_actions.clearSessionErrors)());
+    },
+    loginDemoUser: function loginDemoUser() {
+      return dispatch((0, _session_actions.login)({
+        username: 'Demo User',
+        email: 'demo@demo.com',
+        password: 'password'
+      }));
+    }
+  };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_session_form2.default);
@@ -67527,7 +67527,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _reactRedux = __webpack_require__(2);
@@ -67547,40 +67547,40 @@ var _session_actions = __webpack_require__(18);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-    return {
-        errors: Object.values(state.errors.session),
-        formType: 'Sign Up',
-        navLink: _react2.default.createElement(
-            'p',
-            null,
-            'Already have an account? ',
-            _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: '/login' },
-                'Log In'
-            )
-        ),
-        usernameInput: true,
-        emailPlaceholder: "Email address"
-    };
+  return {
+    errors: Object.values(state.errors.session),
+    formType: 'Sign Up',
+    navLink: _react2.default.createElement(
+      'p',
+      null,
+      'Already have an account? ',
+      _react2.default.createElement(
+        _reactRouterDom.Link,
+        { to: '/login' },
+        'Log In'
+      )
+    ),
+    usernameInput: true,
+    emailPlaceholder: 'Email address'
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {
-        processForm: function processForm(user) {
-            return dispatch((0, _session_actions.signup)(user));
-        },
-        clearSessionErrors: function clearSessionErrors() {
-            return dispatch((0, _session_actions.clearSessionErrors)());
-        },
-        loginDemoUser: function loginDemoUser() {
-            return dispatch((0, _session_actions.login)({
-                username: 'Demo User',
-                email: 'demo@demo.com',
-                password: 'password'
-            }));
-        }
-    };
+  return {
+    processForm: function processForm(user) {
+      return dispatch((0, _session_actions.signup)(user));
+    },
+    clearSessionErrors: function clearSessionErrors() {
+      return dispatch((0, _session_actions.clearSessionErrors)());
+    },
+    loginDemoUser: function loginDemoUser() {
+      return dispatch((0, _session_actions.login)({
+        username: 'Demo User',
+        email: 'demo@demo.com',
+        password: 'password'
+      }));
+    }
+  };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_session_form2.default);
@@ -73426,7 +73426,7 @@ var playlistsReducer = function playlistsReducer() {
     Object.freeze(oldState);
     switch (action.type) {
         case _playlist_actions.RECEIVE_PLAYLISTS:
-            return action.playlists;
+            return (0, _merge3.default)({}, oldState, action.playlists);
         case _playlist_actions.RECEIVE_CREATED_PLAYLIST:
         case _playlist_actions.RECEIVE_PLAYLIST_WITH_TRACKLIST:
         case _playlist_actions.RECEIVE_PLAYLIST:
@@ -73575,7 +73575,7 @@ var songsReducer = function songsReducer() {
     Object.freeze(oldState);
     switch (action.type) {
         case _song_actions.RECEIVE_SONGS:
-            return action.songs;
+            return (0, _merge3.default)({}, oldState, action.songs);
         case _song_actions.RECEIVE_SONG:
             return (0, _merge3.default)({}, oldState, _defineProperty({}, action.song.id, action.song));
         case _playlist_actions.RECEIVE_PLAYLIST:
