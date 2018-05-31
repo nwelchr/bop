@@ -2,7 +2,6 @@ class Api::SearchesController < ApplicationController
   def index
     render json: ['Must enter a search query'], status: 422 if params[:query].empty?
 
-    debugger
     @playlists = Playlist.where("lower(name) ~* ?", query_string)
     @albums = Album.where("lower(title) ~* ?", query_string)
     @artists = Artist.where("lower(name) ~* ?", query_string)
