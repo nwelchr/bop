@@ -2,11 +2,11 @@ class Api::SearchesController < ApplicationController
   def index
     render json: ['Must enter a search query'], status: 422 if params[:query].empty?
 
-    @playlists = Playlist.where("name ~* ?", params[:query])
-    @albums = Album.where("title ~* ?", params[:query])
-    @artists = Artist.where("name ~* ?", params[:query])
-    @songs = Song.where("title ~* ?", params[:query])
-    @users = User.where("username ~* ?", params[:query])
+    @playlists = Playlist.where("name ~* ?", query_string)
+    @albums = Album.where("title ~* ?", query_string)
+    @artists = Artist.where("name ~* ?", query_string)
+    @songs = Song.where("title ~* ?", query_string)
+    @users = User.where("username ~* ?", query_string)
 
   end
 
@@ -16,7 +16,7 @@ class Api::SearchesController < ApplicationController
     # Regexp.new(Regexp.escape(params[:query]), Regexp::IGNORECASE)
     # /#{Regexp.escape params[:query]}/i
     # %r(#{Regexp.escape(params[:query])})i
-    /#{params[:query]}/i
+    "^#{params[:query].downcase}|\s#{params[:query].downcase}"
   end
 
   def weight(query)
