@@ -37709,7 +37709,7 @@ exports.default = MediaPlayer;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _playlist_index = __webpack_require__(198);
@@ -37727,22 +37727,24 @@ var _ui_actions = __webpack_require__(10);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
-    return {
-        playlists: Object.values(state.entities.playlists),
-        loading: state.ui.loading.global,
-        background: { 'backgroundColor': '#2e263b' }
-    };
+  return {
+    playlists: Object.values(state.entities.playlists),
+    loading: state.ui.loading.global,
+    background: { backgroundColor: '#2e263b' },
+    currentUser: state.session.currentUser,
+    shouldDisplayUsersPlaylists: true
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {
-        fetchPlaylists: function fetchPlaylists() {
-            return dispatch((0, _playlist_actions.fetchPlaylists)());
-        },
-        openPlaylistForm: function openPlaylistForm() {
-            return dispatch((0, _ui_actions.openPlaylistForm)());
-        }
-    };
+  return {
+    fetchPlaylists: function fetchPlaylists() {
+      return dispatch((0, _playlist_actions.fetchPlaylists)());
+    },
+    openPlaylistForm: function openPlaylistForm() {
+      return dispatch((0, _ui_actions.openPlaylistForm)());
+    }
+  };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_playlist_index2.default);
@@ -67941,7 +67943,7 @@ exports.default = CurrentSongInfo;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -67975,67 +67977,93 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var PlaylistIndex = function (_React$Component) {
-    _inherits(PlaylistIndex, _React$Component);
+  _inherits(PlaylistIndex, _React$Component);
 
-    function PlaylistIndex(props) {
-        _classCallCheck(this, PlaylistIndex);
+  function PlaylistIndex(props) {
+    _classCallCheck(this, PlaylistIndex);
 
-        var _this = _possibleConstructorReturn(this, (PlaylistIndex.__proto__ || Object.getPrototypeOf(PlaylistIndex)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (PlaylistIndex.__proto__ || Object.getPrototypeOf(PlaylistIndex)).call(this, props));
 
-        _this.state = _this.props;
-        return _this;
+    _this.state = _this.props;
+    return _this;
+  }
+
+  _createClass(PlaylistIndex, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchPlaylists();
     }
+  }, {
+    key: 'openModal',
+    value: function openModal() {
+      this.setState({ isModalOpen: true });
+    }
+  }, {
+    key: 'closeModal',
+    value: function closeModal() {
+      this.setState({ isModalOpen: false });
+    }
+  }, {
+    key: 'renderPlaylists',
+    value: function renderPlaylists() {
+      var _this2 = this;
 
-    _createClass(PlaylistIndex, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.props.fetchPlaylists();
-        }
-    }, {
-        key: 'openModal',
-        value: function openModal() {
-            this.setState({ isModalOpen: true });
-        }
-    }, {
-        key: 'closeModal',
-        value: function closeModal() {
-            this.setState({ isModalOpen: false });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            if (this.props.loading) {
-                return _react2.default.createElement('div', null);
-            } else {
-                return _react2.default.createElement(
-                    'main',
-                    { className: 'main', style: this.props.background },
-                    _react2.default.createElement(
-                        'main',
-                        { className: 'index-page-wrapper' },
-                        _react2.default.createElement(_top_navbar2.default, null),
-                        _react2.default.createElement(
-                            'main',
-                            { className: 'music-index' },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'music-index-wrapper' },
-                                _react2.default.createElement(
-                                    'ul',
-                                    null,
-                                    this.props.playlists.map(function (playlist) {
-                                        return _react2.default.createElement(_playlist_index_item2.default, { key: playlist.id, playlist: playlist, renderButton: true });
-                                    })
-                                )
-                            )
-                        )
-                    )
-                );
-            }
-        }
-    }]);
+      var playlistsToRender = void 0;
+      var _props = this.props,
+          playlists = _props.playlists,
+          shouldDisplayUsersPlaylists = _props.shouldDisplayUsersPlaylists,
+          currentUser = _props.currentUser;
 
-    return PlaylistIndex;
+      if (playlists.length > 0) {
+        if (shouldDisplayUsersPlaylists) {
+          playlistsToRender = this.props.playlists.filter(function (playlist) {
+            return playlist.creatorName === _this2.props.currentUser.username;
+          });
+        } else {
+          playlistsToRender = this.props.playlists;
+        }
+        return playlistsToRender.map(function (playlist) {
+          return _react2.default.createElement(_playlist_index_item2.default, {
+            key: playlist.id,
+            playlist: playlist,
+            renderButton: true
+          });
+        });
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      if (this.props.loading) {
+        return _react2.default.createElement('div', null);
+      } else {
+        return _react2.default.createElement(
+          'main',
+          { className: 'main', style: this.props.background },
+          _react2.default.createElement(
+            'main',
+            { className: 'index-page-wrapper' },
+            _react2.default.createElement(_top_navbar2.default, null),
+            _react2.default.createElement(
+              'main',
+              { className: 'music-index' },
+              _react2.default.createElement(
+                'div',
+                { className: 'music-index-wrapper' },
+                _react2.default.createElement(
+                  'ul',
+                  null,
+                  this.renderPlaylists()
+                )
+              )
+            )
+          )
+        );
+      }
+    }
+  }]);
+
+  return PlaylistIndex;
 }(_react2.default.Component);
 
 exports.default = PlaylistIndex;
