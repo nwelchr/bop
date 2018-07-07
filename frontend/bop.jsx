@@ -12,7 +12,7 @@ import { fetchSearchResults } from './actions/search_actions';
 import { fetchSong } from './actions/song_actions';
 import { playSong } from './actions/audio_actions';
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   let store;
   if (window.currentUser) {
     const preloadedState = { session: { currentUser: window.currentUser } };
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     store = configureStore();
   }
-  
+
   // for testing
   window.fetchSearchResults = fetchSearchResults;
   window.saveSongToPlaylist = saveSongToPlaylist;
@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
   window.playSong = playSong;
   //
 
-window.fetchPlaylists = fetchPlaylists;
+  window.fetchPlaylists = fetchPlaylists;
 
   const root = document.getElementById('root');
-  ReactDOM.render(<Root store={store}/>, root);
+  ReactDOM.render(<Root store={store} />, root);
 });

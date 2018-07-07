@@ -42150,7 +42150,7 @@ var _audio_actions = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
   var store = void 0;
   if (window.currentUser) {
     var preloadedState = { session: { currentUser: window.currentUser } };
@@ -65527,375 +65527,375 @@ var LoggedInComponent = function (_React$Component) {
   }
 
   _createClass(LoggedInComponent, [{
-    key: "componentDidMount",
+    key: 'componentDidMount',
     value: function componentDidMount() {
-      var dropdown = document.querySelector(".dropdown");
+      var dropdown = document.querySelector('.dropdown');
 
-      dropdown.addEventListener("click", function (e) {
+      dropdown.addEventListener('click', function (e) {
         e.preventDefault();
 
-        var i = dropdown.querySelector("i");
-        i.classList.toggle("fa-angle-down");
-        i.classList.toggle("fa-angle-up");
+        var i = dropdown.querySelector('i');
+        i.classList.toggle('fa-angle-down');
+        i.classList.toggle('fa-angle-up');
 
-        var dropdownMenu = dropdown.querySelector(".dropdown-menu");
-        var modalScreen = document.querySelector(".modal-screen");
+        var dropdownMenu = dropdown.querySelector('.dropdown-menu');
+        var modalScreen = document.querySelector('.modal-screen');
 
-        dropdownMenu.classList.toggle("clicked");
+        dropdownMenu.classList.toggle('clicked');
 
-        modalScreen.classList.toggle("clicked");
+        modalScreen.classList.toggle('clicked');
       });
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        "div",
-        { id: "wrapper" },
+        'div',
+        { id: 'wrapper' },
         _react2.default.createElement(
-          "nav",
-          { className: "navbar navbar-logged-in" },
+          'nav',
+          { className: 'navbar navbar-logged-in' },
           _react2.default.createElement(
-            "nav",
-            { className: "navbar-collapse" },
+            'nav',
+            { className: 'navbar-collapse' },
             _react2.default.createElement(
-              "span",
-              { className: "navbar-logo" },
+              'span',
+              { className: 'navbar-logo' },
               _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: "/" },
-                _react2.default.createElement("img", {
-                  src: "https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png",
-                  className: "logo"
+                { to: '/' },
+                _react2.default.createElement('img', {
+                  src: 'https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png',
+                  className: 'logo'
                 })
               )
             ),
             _react2.default.createElement(
-              "ul",
-              { className: "navbar-links" },
+              'ul',
+              { className: 'navbar-links' },
               _react2.default.createElement(
-                "li",
+                'li',
                 null,
                 _react2.default.createElement(
-                  "a",
-                  { href: "https://github.com/nwelchr/bop" },
-                  "Dev Info"
+                  'a',
+                  { href: 'https://github.com/nwelchr/bop' },
+                  'Dev Info'
                 )
               ),
-              _react2.default.createElement("li", { className: "divider" }),
+              _react2.default.createElement('li', { className: 'divider' }),
               _react2.default.createElement(
-                "li",
-                { className: "dropdown" },
+                'li',
+                { className: 'dropdown' },
                 _react2.default.createElement(
-                  "a",
+                  'a',
                   null,
-                  _react2.default.createElement("img", {
-                    id: "profile",
+                  _react2.default.createElement('img', {
+                    id: 'profile',
                     src: this.props.currentUser.profile_picture
                   }),
-                  " ",
+                  ' ',
                   _react2.default.createElement(
-                    "span",
+                    'span',
                     null,
-                    "Profile"
+                    'Profile'
                   ),
-                  _react2.default.createElement("i", { className: "fa fa-angle-down" })
+                  _react2.default.createElement('i', { className: 'fa fa-angle-down' })
                 ),
                 _react2.default.createElement(
-                  "ul",
-                  { className: "dropdown-menu" },
-                  _react2.default.createElement("div", { className: "arrow-up" }),
+                  'ul',
+                  { className: 'dropdown-menu' },
+                  _react2.default.createElement('div', { className: 'arrow-up' }),
                   _react2.default.createElement(
-                    "li",
+                    'li',
                     null,
                     _react2.default.createElement(
-                      "a",
-                      { className: "account", href: "" },
-                      "Account"
+                      'a',
+                      { className: 'account', href: '' },
+                      'Account'
                     )
                   ),
                   _react2.default.createElement(
-                    "li",
+                    'li',
                     null,
                     _react2.default.createElement(
-                      "button",
-                      { className: "log-out", onClick: this.props.logout },
-                      "Log Out"
+                      'button',
+                      { className: 'log-out', onClick: this.props.logout },
+                      'Log Out'
                     )
                   )
                 ),
-                _react2.default.createElement("div", { className: "modal-screen" })
+                _react2.default.createElement('div', { className: 'modal-screen' })
               )
             )
           )
         ),
         _react2.default.createElement(
-          "main",
-          { className: "main-content-wrapper new-session" },
+          'main',
+          { className: 'main-content-wrapper new-session' },
           _react2.default.createElement(
-            "section",
-            { className: "main-content-intro" },
+            'section',
+            { className: 'main-content-intro' },
             _react2.default.createElement(
-              "h1",
+              'h1',
               null,
-              "Jump Back In, ",
+              'Jump Back In, ',
               this.props.currentUser.username
             ),
             _react2.default.createElement(
-              "h2",
+              'h2',
               null,
-              "Pick up your music right where you left off."
+              'Pick up your music right where you left off.'
             ),
             _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: "/browse", className: "web-player-link" },
-              "Open Web Player"
+              { to: '/browse', className: 'web-player-link' },
+              'Open Web Player'
             )
           ),
           _react2.default.createElement(
-            "section",
-            { className: "image-links" },
+            'section',
+            { className: 'image-links' },
             _react2.default.createElement(
-              "div",
-              { className: "index-item-wrapper" },
+              'div',
+              { className: 'index-item-wrapper fade-up fu1' },
               _react2.default.createElement(
-                "div",
-                { className: "media-wrapper" },
-                _react2.default.createElement("div", { className: "button-wrapper" }),
+                'div',
+                { className: 'media-wrapper' },
+                _react2.default.createElement('div', { className: 'button-wrapper' }),
                 _react2.default.createElement(
                   _reactRouterDom.Link,
-                  { className: "music-index-item", to: "/albums/2" },
+                  { className: 'music-index-item', to: '/albums/2' },
                   _react2.default.createElement(
-                    "li",
-                    { className: "item-wrapper" },
+                    'li',
+                    { className: 'item-wrapper' },
                     _react2.default.createElement(
-                      "div",
-                      { className: "media" },
-                      _react2.default.createElement("img", {
-                        alt: "",
-                        className: "media__image",
-                        src: "https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg"
+                      'div',
+                      { className: 'media' },
+                      _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image',
+                        src: 'https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg'
                       }),
                       _react2.default.createElement(
-                        "div",
-                        { className: "media__body index-page" },
+                        'div',
+                        { className: 'media__body index-page' },
                         _react2.default.createElement(
-                          "span",
-                          { className: "item-span" },
-                          "Lemonade"
+                          'span',
+                          { className: 'item-span' },
+                          'Lemonade'
                         ),
                         _react2.default.createElement(
-                          "span",
-                          { className: "owner-span" },
-                          "Beyonce"
+                          'span',
+                          { className: 'owner-span' },
+                          'Beyonce'
                         )
                       ),
-                      _react2.default.createElement("div", { className: "media-loaded" })
+                      _react2.default.createElement('div', { className: 'media-loaded' })
                     )
                   )
                 )
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "index-item-wrapper" },
+              'div',
+              { className: 'index-item-wrapper fade-up fu2' },
               _react2.default.createElement(
-                "div",
-                { className: "media-wrapper" },
-                _react2.default.createElement("div", { className: "button-wrapper" }),
+                'div',
+                { className: 'media-wrapper' },
+                _react2.default.createElement('div', { className: 'button-wrapper' }),
                 _react2.default.createElement(
                   _reactRouterDom.Link,
-                  { className: "music-index-item", to: "/albums/20" },
+                  { className: 'music-index-item', to: '/albums/20' },
                   _react2.default.createElement(
-                    "li",
-                    { className: "item-wrapper" },
+                    'li',
+                    { className: 'item-wrapper' },
                     _react2.default.createElement(
-                      "div",
-                      { className: "media" },
-                      _react2.default.createElement("img", {
-                        alt: "",
-                        className: "media__image",
-                        src: "https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg"
+                      'div',
+                      { className: 'media' },
+                      _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image',
+                        src: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg'
                       }),
                       _react2.default.createElement(
-                        "div",
-                        { className: "media__body index-page" },
+                        'div',
+                        { className: 'media__body index-page' },
                         _react2.default.createElement(
-                          "span",
-                          { className: "item-span" },
-                          "All Wet"
+                          'span',
+                          { className: 'item-span' },
+                          'All Wet'
                         ),
                         _react2.default.createElement(
-                          "span",
-                          { className: "owner-span" },
-                          "Mr. Oizo"
+                          'span',
+                          { className: 'owner-span' },
+                          'Mr. Oizo'
                         )
                       ),
-                      _react2.default.createElement("div", { className: "media-loaded" })
+                      _react2.default.createElement('div', { className: 'media-loaded' })
                     )
                   )
                 )
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "index-item-wrapper" },
+              'div',
+              { className: 'index-item-wrapper fade-up fu3' },
               _react2.default.createElement(
-                "div",
-                { className: "media-wrapper" },
-                _react2.default.createElement("div", { className: "button-wrapper" }),
+                'div',
+                { className: 'media-wrapper' },
+                _react2.default.createElement('div', { className: 'button-wrapper' }),
                 _react2.default.createElement(
                   _reactRouterDom.Link,
-                  { className: "music-index-item", to: "/albums/13" },
+                  { className: 'music-index-item', to: '/albums/13' },
                   _react2.default.createElement(
-                    "li",
-                    { className: "item-wrapper" },
+                    'li',
+                    { className: 'item-wrapper' },
                     _react2.default.createElement(
-                      "div",
-                      { className: "media" },
-                      _react2.default.createElement("img", {
-                        alt: "",
-                        className: "media__image",
-                        src: "https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg"
+                      'div',
+                      { className: 'media' },
+                      _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image',
+                        src: 'https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg'
                       }),
                       _react2.default.createElement(
-                        "div",
-                        { className: "media__body index-page" },
+                        'div',
+                        { className: 'media__body index-page' },
                         _react2.default.createElement(
-                          "span",
-                          { className: "item-span" },
-                          "Ponyboy"
+                          'span',
+                          { className: 'item-span' },
+                          'Ponyboy'
                         ),
                         _react2.default.createElement(
-                          "span",
-                          { className: "owner-span" },
-                          "SOPHIE"
+                          'span',
+                          { className: 'owner-span' },
+                          'SOPHIE'
                         )
                       ),
-                      _react2.default.createElement("div", { className: "media-loaded" })
+                      _react2.default.createElement('div', { className: 'media-loaded' })
                     )
                   )
                 )
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "index-item-wrapper" },
+              'div',
+              { className: 'index-item-wrapper fade-up fu4' },
               _react2.default.createElement(
-                "div",
-                { className: "media-wrapper" },
-                _react2.default.createElement("div", { className: "button-wrapper" }),
+                'div',
+                { className: 'media-wrapper' },
+                _react2.default.createElement('div', { className: 'button-wrapper' }),
                 _react2.default.createElement(
                   _reactRouterDom.Link,
-                  { className: "music-index-item", to: "/albums/17" },
+                  { className: 'music-index-item', to: '/albums/17' },
                   _react2.default.createElement(
-                    "li",
-                    { className: "item-wrapper" },
+                    'li',
+                    { className: 'item-wrapper' },
                     _react2.default.createElement(
-                      "div",
-                      { className: "media" },
-                      _react2.default.createElement("img", {
-                        alt: "",
-                        className: "media__image",
-                        src: "https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg"
+                      'div',
+                      { className: 'media' },
+                      _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image',
+                        src: 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg'
                       }),
                       _react2.default.createElement(
-                        "div",
-                        { className: "media__body index-page" },
+                        'div',
+                        { className: 'media__body index-page' },
                         _react2.default.createElement(
-                          "span",
-                          { className: "item-span" },
-                          "Little Joy"
+                          'span',
+                          { className: 'item-span' },
+                          'Little Joy'
                         ),
                         _react2.default.createElement(
-                          "span",
-                          { className: "owner-span" },
-                          "Little Joy"
+                          'span',
+                          { className: 'owner-span' },
+                          'Little Joy'
                         )
                       ),
-                      _react2.default.createElement("div", { className: "media-loaded" })
+                      _react2.default.createElement('div', { className: 'media-loaded' })
                     )
                   )
                 )
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "index-item-wrapper" },
+              'div',
+              { className: 'index-item-wrapper fade-up fu5' },
               _react2.default.createElement(
-                "div",
-                { className: "media-wrapper" },
-                _react2.default.createElement("div", { className: "button-wrapper" }),
+                'div',
+                { className: 'media-wrapper' },
+                _react2.default.createElement('div', { className: 'button-wrapper' }),
                 _react2.default.createElement(
                   _reactRouterDom.Link,
-                  { className: "music-index-item", to: "/albums/19" },
+                  { className: 'music-index-item', to: '/albums/19' },
                   _react2.default.createElement(
-                    "li",
-                    { className: "item-wrapper" },
+                    'li',
+                    { className: 'item-wrapper' },
                     _react2.default.createElement(
-                      "div",
-                      { className: "media" },
-                      _react2.default.createElement("img", {
-                        alt: "",
-                        className: "media__image",
-                        src: "https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg"
+                      'div',
+                      { className: 'media' },
+                      _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image',
+                        src: 'https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg'
                       }),
                       _react2.default.createElement(
-                        "div",
-                        { className: "media__body index-page" },
+                        'div',
+                        { className: 'media__body index-page' },
                         _react2.default.createElement(
-                          "span",
-                          { className: "item-span" },
-                          "Depression Cherry"
+                          'span',
+                          { className: 'item-span' },
+                          'Depression Cherry'
                         ),
                         _react2.default.createElement(
-                          "span",
-                          { className: "owner-span" },
-                          "Beach House"
+                          'span',
+                          { className: 'owner-span' },
+                          'Beach House'
                         )
                       ),
-                      _react2.default.createElement("div", { className: "media-loaded" })
+                      _react2.default.createElement('div', { className: 'media-loaded' })
                     )
                   )
                 )
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "index-item-wrapper index" },
+              'div',
+              { className: 'index-item-wrapper index fade-up fu6' },
               _react2.default.createElement(
-                "div",
-                { className: "media-wrapper" },
-                _react2.default.createElement("div", { className: "button-wrapper" }),
+                'div',
+                { className: 'media-wrapper' },
+                _react2.default.createElement('div', { className: 'button-wrapper' }),
                 _react2.default.createElement(
                   _reactRouterDom.Link,
-                  { className: "music-index-item", to: "/albums/3" },
+                  { className: 'music-index-item', to: '/albums/3' },
                   _react2.default.createElement(
-                    "li",
-                    { className: "item-wrapper" },
+                    'li',
+                    { className: 'item-wrapper' },
                     _react2.default.createElement(
-                      "div",
-                      { className: "media" },
-                      _react2.default.createElement("img", {
-                        alt: "",
-                        className: "media__image",
-                        src: "https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg"
+                      'div',
+                      { className: 'media' },
+                      _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image',
+                        src: 'https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg'
                       }),
                       _react2.default.createElement(
-                        "div",
-                        { className: "media__body index-page" },
+                        'div',
+                        { className: 'media__body index-page' },
                         _react2.default.createElement(
-                          "span",
-                          { className: "item-span" },
-                          "Blonde"
+                          'span',
+                          { className: 'item-span' },
+                          'Blonde'
                         ),
                         _react2.default.createElement(
-                          "span",
-                          { className: "owner-span" },
-                          "Frank Ocean"
+                          'span',
+                          { className: 'owner-span' },
+                          'Frank Ocean'
                         )
                       ),
-                      _react2.default.createElement("div", { className: "media-loaded" })
+                      _react2.default.createElement('div', { className: 'media-loaded' })
                     )
                   )
                 )
@@ -65904,20 +65904,20 @@ var LoggedInComponent = function (_React$Component) {
           )
         ),
         _react2.default.createElement(
-          "footer",
-          { className: "footer-wrapper" },
+          'footer',
+          { className: 'footer-wrapper' },
           _react2.default.createElement(
-            "footer",
-            { className: "footer-content" },
+            'footer',
+            { className: 'footer-content' },
             _react2.default.createElement(
-              "span",
-              { className: "navbar-logo" },
+              'span',
+              { className: 'navbar-logo' },
               _react2.default.createElement(
-                "a",
-                { to: "/" },
-                _react2.default.createElement("img", {
-                  src: "https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png",
-                  className: "logo"
+                'a',
+                { to: '/' },
+                _react2.default.createElement('img', {
+                  src: 'https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png',
+                  className: 'logo'
                 })
               )
             )
@@ -65939,7 +65939,7 @@ var LoggedOutComponent = function (_React$Component2) {
     var _this2 = _possibleConstructorReturn(this, (LoggedOutComponent.__proto__ || Object.getPrototypeOf(LoggedOutComponent)).call(this, props));
 
     _this2.state = {
-      currentSong: "",
+      currentSong: '',
       playing: false,
       volume: 0.8,
       muted: false,
@@ -65959,7 +65959,7 @@ var LoggedOutComponent = function (_React$Component2) {
   }
 
   _createClass(LoggedOutComponent, [{
-    key: "load",
+    key: 'load',
     value: function load(url) {
       if (this.state.playing === true) this.stop();
       this.setState({
@@ -65969,12 +65969,12 @@ var LoggedOutComponent = function (_React$Component2) {
       });
     }
   }, {
-    key: "stop",
+    key: 'stop',
     value: function stop() {
       this.setState({ url: null, playing: false, played: 0 });
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var _state = this.state,
           url = _state.url,
@@ -65982,335 +65982,335 @@ var LoggedOutComponent = function (_React$Component2) {
           currentSong = _state.currentSong;
 
       return _react2.default.createElement(
-        "div",
-        { id: "wrapper" },
+        'div',
+        { id: 'wrapper' },
         _react2.default.createElement(
-          "nav",
-          { className: "navbar navbar-logged-out" },
+          'nav',
+          { className: 'navbar navbar-logged-out' },
           _react2.default.createElement(
-            "nav",
-            { className: "navbar-collapse" },
+            'nav',
+            { className: 'navbar-collapse' },
             _react2.default.createElement(
-              "span",
-              { className: "navbar-logo" },
+              'span',
+              { className: 'navbar-logo' },
               _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: "/" },
-                _react2.default.createElement("img", {
-                  src: "https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png",
-                  className: "logo"
+                { to: '/' },
+                _react2.default.createElement('img', {
+                  src: 'https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png',
+                  className: 'logo'
                 })
               )
             ),
             _react2.default.createElement(
-              "ul",
-              { className: "navbar-links" },
+              'ul',
+              { className: 'navbar-links' },
               _react2.default.createElement(
-                "li",
+                'li',
                 null,
                 _react2.default.createElement(
-                  "a",
-                  { href: "https://github.com/nwelchr/bop" },
-                  "Dev Info"
+                  'a',
+                  { href: 'https://github.com/nwelchr/bop' },
+                  'Dev Info'
                 )
               ),
-              _react2.default.createElement("li", { className: "divider" }),
+              _react2.default.createElement('li', { className: 'divider' }),
               _react2.default.createElement(
-                "li",
+                'li',
                 null,
                 _react2.default.createElement(
                   _reactRouterDom.Link,
-                  { to: "/signup" },
-                  "Sign Up"
+                  { to: '/signup' },
+                  'Sign Up'
                 )
               ),
               _react2.default.createElement(
-                "li",
+                'li',
                 null,
                 _react2.default.createElement(
                   _reactRouterDom.Link,
-                  { to: "/login" },
-                  "Log In"
+                  { to: '/login' },
+                  'Log In'
                 )
               ),
               _react2.default.createElement(
-                "li",
+                'li',
                 null,
                 _react2.default.createElement(
-                  "a",
+                  'a',
                   { onClick: this.props.loginDemoUser },
-                  "Demo User"
+                  'Demo User'
                 )
               )
             )
           )
         ),
         _react2.default.createElement(
-          "main",
-          { className: "main-content-wrapper" },
+          'main',
+          { className: 'main-content-wrapper' },
           _react2.default.createElement(
-            "section",
-            { className: "main-content-intro" },
+            'section',
+            { className: 'main-content-intro' },
             _react2.default.createElement(
-              "h1",
+              'h1',
               null,
-              "Music for everyone."
+              'Music for everyone.'
             ),
             _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: "/login", className: "web-player-link" },
-              "Log in"
+              { to: '/login', className: 'web-player-link' },
+              'Log in'
             ),
             _react2.default.createElement(
-              "h2",
+              'h2',
               null,
-              "Get a taste of what you're missing."
+              'Get a taste of what you\'re missing.'
             )
           ),
           _react2.default.createElement(
-            "section",
-            { className: "image-links" },
+            'section',
+            { className: 'image-links' },
             _react2.default.createElement(
-              "div",
-              { className: "index-item-wrapper" },
+              'div',
+              { className: 'index-item-wrapper fade-up fu1' },
               _react2.default.createElement(
-                "div",
-                { className: "media-wrapper" },
-                _react2.default.createElement("div", { className: "button-wrapper" }),
+                'div',
+                { className: 'media-wrapper' },
+                _react2.default.createElement('div', { className: 'button-wrapper' }),
                 _react2.default.createElement(
-                  "a",
-                  { className: "music-index-item" },
+                  'a',
+                  { className: 'music-index-item' },
                   _react2.default.createElement(
-                    "li",
-                    { className: "item-wrapper" },
+                    'li',
+                    { className: 'item-wrapper' },
                     _react2.default.createElement(
-                      "div",
-                      { className: "media" },
-                      _react2.default.createElement("img", {
-                        alt: "",
-                        className: "media__image",
-                        src: "https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg"
+                      'div',
+                      { className: 'media' },
+                      _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image',
+                        src: 'https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg'
                       }),
                       _react2.default.createElement(
-                        "div",
-                        { className: "media__body index-page" },
+                        'div',
+                        { className: 'media__body index-page' },
                         _react2.default.createElement(
-                          "span",
-                          { className: "item-span" },
-                          "Lemonade"
+                          'span',
+                          { className: 'item-span' },
+                          'Lemonade'
                         ),
                         _react2.default.createElement(
-                          "span",
-                          { className: "owner-span" },
-                          "Beyonce"
+                          'span',
+                          { className: 'owner-span' },
+                          'Beyonce'
                         )
                       ),
-                      _react2.default.createElement("div", { className: "media-loaded" })
+                      _react2.default.createElement('div', { className: 'media-loaded' })
                     )
                   )
                 )
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "index-item-wrapper" },
+              'div',
+              { className: 'index-item-wrapper fade-up fu2' },
               _react2.default.createElement(
-                "div",
-                { className: "media-wrapper" },
-                _react2.default.createElement("div", { className: "button-wrapper" }),
+                'div',
+                { className: 'media-wrapper' },
+                _react2.default.createElement('div', { className: 'button-wrapper' }),
                 _react2.default.createElement(
-                  "a",
-                  { className: "music-index-item" },
+                  'a',
+                  { className: 'music-index-item' },
                   _react2.default.createElement(
-                    "li",
-                    { className: "item-wrapper" },
+                    'li',
+                    { className: 'item-wrapper' },
                     _react2.default.createElement(
-                      "div",
-                      { className: "media" },
-                      _react2.default.createElement("img", {
-                        alt: "",
-                        className: "media__image",
-                        src: "https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg"
+                      'div',
+                      { className: 'media' },
+                      _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image',
+                        src: 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg'
                       }),
                       _react2.default.createElement(
-                        "div",
-                        { className: "media__body index-page" },
+                        'div',
+                        { className: 'media__body index-page' },
                         _react2.default.createElement(
-                          "span",
-                          { className: "item-span" },
-                          "All Wet"
+                          'span',
+                          { className: 'item-span' },
+                          'All Wet'
                         ),
                         _react2.default.createElement(
-                          "span",
-                          { className: "owner-span" },
-                          "Mr. Oizo"
+                          'span',
+                          { className: 'owner-span' },
+                          'Mr. Oizo'
                         )
                       ),
-                      _react2.default.createElement("div", { className: "media-loaded" })
+                      _react2.default.createElement('div', { className: 'media-loaded' })
                     )
                   )
                 )
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "index-item-wrapper" },
+              'div',
+              { className: 'index-item-wrapper fade-up fu3' },
               _react2.default.createElement(
-                "div",
-                { className: "media-wrapper" },
-                _react2.default.createElement("div", { className: "button-wrapper" }),
+                'div',
+                { className: 'media-wrapper' },
+                _react2.default.createElement('div', { className: 'button-wrapper' }),
                 _react2.default.createElement(
-                  "a",
-                  { className: "music-index-item" },
+                  'a',
+                  { className: 'music-index-item' },
                   _react2.default.createElement(
-                    "li",
-                    { className: "item-wrapper" },
+                    'li',
+                    { className: 'item-wrapper' },
                     _react2.default.createElement(
-                      "div",
-                      { className: "media" },
-                      _react2.default.createElement("img", {
-                        alt: "",
-                        className: "media__image",
-                        src: "https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg"
+                      'div',
+                      { className: 'media' },
+                      _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image',
+                        src: 'https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg'
                       }),
                       _react2.default.createElement(
-                        "div",
-                        { className: "media__body index-page" },
+                        'div',
+                        { className: 'media__body index-page' },
                         _react2.default.createElement(
-                          "span",
-                          { className: "item-span" },
-                          "Ponyboy"
+                          'span',
+                          { className: 'item-span' },
+                          'Ponyboy'
                         ),
                         _react2.default.createElement(
-                          "span",
-                          { className: "owner-span" },
-                          "SOPHIE"
+                          'span',
+                          { className: 'owner-span' },
+                          'SOPHIE'
                         )
                       ),
-                      _react2.default.createElement("div", { className: "media-loaded" })
+                      _react2.default.createElement('div', { className: 'media-loaded' })
                     )
                   )
                 )
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "index-item-wrapper" },
+              'div',
+              { className: 'index-item-wrapper fade-up fu4' },
               _react2.default.createElement(
-                "div",
-                { className: "media-wrapper" },
-                _react2.default.createElement("div", { className: "button-wrapper" }),
+                'div',
+                { className: 'media-wrapper' },
+                _react2.default.createElement('div', { className: 'button-wrapper' }),
                 _react2.default.createElement(
-                  "a",
-                  { className: "music-index-item" },
+                  'a',
+                  { className: 'music-index-item' },
                   _react2.default.createElement(
-                    "li",
-                    { className: "item-wrapper" },
+                    'li',
+                    { className: 'item-wrapper' },
                     _react2.default.createElement(
-                      "div",
-                      { className: "media" },
-                      _react2.default.createElement("img", {
-                        alt: "",
-                        className: "media__image",
-                        src: "https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg"
+                      'div',
+                      { className: 'media' },
+                      _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image',
+                        src: 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg'
                       }),
                       _react2.default.createElement(
-                        "div",
-                        { className: "media__body index-page" },
+                        'div',
+                        { className: 'media__body index-page' },
                         _react2.default.createElement(
-                          "span",
-                          { className: "item-span" },
-                          "Little Joy"
+                          'span',
+                          { className: 'item-span' },
+                          'Little Joy'
                         ),
                         _react2.default.createElement(
-                          "span",
-                          { className: "owner-span" },
-                          "Little Joy"
+                          'span',
+                          { className: 'owner-span' },
+                          'Little Joy'
                         )
                       ),
-                      _react2.default.createElement("div", { className: "media-loaded" })
+                      _react2.default.createElement('div', { className: 'media-loaded' })
                     )
                   )
                 )
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "index-item-wrapper" },
+              'div',
+              { className: 'index-item-wrapper fade-up fu5' },
               _react2.default.createElement(
-                "div",
-                { className: "media-wrapper" },
-                _react2.default.createElement("div", { className: "button-wrapper" }),
+                'div',
+                { className: 'media-wrapper' },
+                _react2.default.createElement('div', { className: 'button-wrapper' }),
                 _react2.default.createElement(
-                  "a",
-                  { className: "music-index-item" },
+                  'a',
+                  { className: 'music-index-item' },
                   _react2.default.createElement(
-                    "li",
-                    { className: "item-wrapper" },
+                    'li',
+                    { className: 'item-wrapper' },
                     _react2.default.createElement(
-                      "div",
-                      { className: "media" },
-                      _react2.default.createElement("img", {
-                        alt: "",
-                        className: "media__image",
-                        src: "https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg"
+                      'div',
+                      { className: 'media' },
+                      _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image',
+                        src: 'https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg'
                       }),
                       _react2.default.createElement(
-                        "div",
-                        { className: "media__body index-page" },
+                        'div',
+                        { className: 'media__body index-page' },
                         _react2.default.createElement(
-                          "span",
-                          { className: "item-span" },
-                          "Depression Cherry"
+                          'span',
+                          { className: 'item-span' },
+                          'Depression Cherry'
                         ),
                         _react2.default.createElement(
-                          "span",
-                          { className: "owner-span" },
-                          "Beach House"
+                          'span',
+                          { className: 'owner-span' },
+                          'Beach House'
                         )
                       ),
-                      _react2.default.createElement("div", { className: "media-loaded" })
+                      _react2.default.createElement('div', { className: 'media-loaded' })
                     )
                   )
                 )
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "index-item-wrapper index" },
+              'div',
+              { className: 'index-item-wrapper index fade-up fu6' },
               _react2.default.createElement(
-                "div",
-                { className: "media-wrapper" },
-                _react2.default.createElement("div", { className: "button-wrapper" }),
+                'div',
+                { className: 'media-wrapper' },
+                _react2.default.createElement('div', { className: 'button-wrapper' }),
                 _react2.default.createElement(
-                  "a",
-                  { className: "music-index-item" },
+                  'a',
+                  { className: 'music-index-item' },
                   _react2.default.createElement(
-                    "li",
-                    { className: "item-wrapper" },
+                    'li',
+                    { className: 'item-wrapper' },
                     _react2.default.createElement(
-                      "div",
-                      { className: "media" },
-                      _react2.default.createElement("img", {
-                        alt: "",
-                        className: "media__image",
-                        src: "https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg"
+                      'div',
+                      { className: 'media' },
+                      _react2.default.createElement('img', {
+                        alt: '',
+                        className: 'media__image',
+                        src: 'https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg'
                       }),
                       _react2.default.createElement(
-                        "div",
-                        { className: "media__body index-page" },
+                        'div',
+                        { className: 'media__body index-page' },
                         _react2.default.createElement(
-                          "span",
-                          { className: "item-span" },
-                          "Blonde"
+                          'span',
+                          { className: 'item-span' },
+                          'Blonde'
                         ),
                         _react2.default.createElement(
-                          "span",
-                          { className: "owner-span" },
-                          "Frank Ocean"
+                          'span',
+                          { className: 'owner-span' },
+                          'Frank Ocean'
                         )
                       ),
-                      _react2.default.createElement("div", { className: "media-loaded" })
+                      _react2.default.createElement('div', { className: 'media-loaded' })
                     )
                   )
                 )
@@ -66319,20 +66319,20 @@ var LoggedOutComponent = function (_React$Component2) {
           )
         ),
         _react2.default.createElement(
-          "footer",
-          { className: "footer-wrapper" },
+          'footer',
+          { className: 'footer-wrapper' },
           _react2.default.createElement(
-            "footer",
-            { className: "footer-content" },
+            'footer',
+            { className: 'footer-content' },
             _react2.default.createElement(
-              "span",
-              { className: "navbar-logo" },
+              'span',
+              { className: 'navbar-logo' },
               _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: "/" },
-                _react2.default.createElement("img", {
-                  src: "https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png",
-                  className: "logo"
+                { to: '/' },
+                _react2.default.createElement('img', {
+                  src: 'https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png',
+                  className: 'logo'
                 })
               )
             )
@@ -66355,7 +66355,7 @@ var NewSession = function (_React$Component3) {
   }
 
   _createClass(NewSession, [{
-    key: "render",
+    key: 'render',
     value: function render() {
       return this.props.currentUser && this.props.currentUser !== null ? _react2.default.createElement(LoggedInComponent, {
         currentUser: this.props.currentUser,

@@ -1,7 +1,7 @@
 class Api::AlbumsController < ApplicationController
 
     def index
-        @albums = Album.all.includes(:songs)
+        @albums = Album.all.includes(:songs, :artist)
         render :index
     end
 

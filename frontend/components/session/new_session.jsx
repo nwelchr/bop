@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { AuthRoute } from "../../util/route_util";
-import PlaylistIndexItem from "../../util/route_util";
-import ReactPlayer from "react-player";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { AuthRoute } from '../../util/route_util';
+import PlaylistIndexItem from '../../util/route_util';
+import ReactPlayer from 'react-player';
 
 class LoggedInComponent extends React.Component {
   constructor(props) {
@@ -10,21 +10,21 @@ class LoggedInComponent extends React.Component {
   }
 
   componentDidMount() {
-    const dropdown = document.querySelector(".dropdown");
+    const dropdown = document.querySelector('.dropdown');
 
-    dropdown.addEventListener("click", e => {
+    dropdown.addEventListener('click', e => {
       e.preventDefault();
 
-      const i = dropdown.querySelector("i");
-      i.classList.toggle("fa-angle-down");
-      i.classList.toggle("fa-angle-up");
+      const i = dropdown.querySelector('i');
+      i.classList.toggle('fa-angle-down');
+      i.classList.toggle('fa-angle-up');
 
-      const dropdownMenu = dropdown.querySelector(".dropdown-menu");
-      const modalScreen = document.querySelector(".modal-screen");
+      const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+      const modalScreen = document.querySelector('.modal-screen');
 
-      dropdownMenu.classList.toggle("clicked");
+      dropdownMenu.classList.toggle('clicked');
 
-      modalScreen.classList.toggle("clicked");
+      modalScreen.classList.toggle('clicked');
     });
   }
 
@@ -51,7 +51,7 @@ class LoggedInComponent extends React.Component {
                   <img
                     id="profile"
                     src={this.props.currentUser.profile_picture}
-                  />{" "}
+                  />{' '}
                   <span>Profile</span>
                   <i className="fa fa-angle-down" />
                 </a>
@@ -83,9 +83,7 @@ class LoggedInComponent extends React.Component {
             </Link>
           </section>
           <section className="image-links">
-
-
-            <div className="index-item-wrapper">
+            <div className="index-item-wrapper fade-up fu1">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
                 <Link className="music-index-item" to={`/albums/2`}>
@@ -97,8 +95,8 @@ class LoggedInComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span className="item-span">Lemonade</span>
-                      <span className="owner-span">Beyonce</span>
+                        <span className="item-span">Lemonade</span>
+                        <span className="owner-span">Beyonce</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -106,8 +104,8 @@ class LoggedInComponent extends React.Component {
                 </Link>
               </div>
             </div>
-            
-            <div className="index-item-wrapper">
+
+            <div className="index-item-wrapper fade-up fu2">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
                 <Link className="music-index-item" to={`/albums/20`}>
@@ -119,8 +117,8 @@ class LoggedInComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span className="item-span">All Wet</span>
-                      <span className="owner-span">Mr. Oizo</span>
+                        <span className="item-span">All Wet</span>
+                        <span className="owner-span">Mr. Oizo</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -129,7 +127,7 @@ class LoggedInComponent extends React.Component {
               </div>
             </div>
 
-            <div className="index-item-wrapper">
+            <div className="index-item-wrapper fade-up fu3">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
                 <Link className="music-index-item" to={`/albums/13`}>
@@ -141,8 +139,8 @@ class LoggedInComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span className="item-span">Ponyboy</span>
-                      <span className="owner-span">SOPHIE</span>
+                        <span className="item-span">Ponyboy</span>
+                        <span className="owner-span">SOPHIE</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -151,7 +149,7 @@ class LoggedInComponent extends React.Component {
               </div>
             </div>
 
-            <div className="index-item-wrapper">
+            <div className="index-item-wrapper fade-up fu4">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
                 <Link className="music-index-item" to={`/albums/17`}>
@@ -163,8 +161,8 @@ class LoggedInComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span className="item-span">Little Joy</span>
-                      <span className="owner-span">Little Joy</span>
+                        <span className="item-span">Little Joy</span>
+                        <span className="owner-span">Little Joy</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -173,8 +171,7 @@ class LoggedInComponent extends React.Component {
               </div>
             </div>
 
-
-            <div className="index-item-wrapper">
+            <div className="index-item-wrapper fade-up fu5">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
                 <Link className="music-index-item" to={`/albums/19`}>
@@ -186,8 +183,8 @@ class LoggedInComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span className="item-span">Depression Cherry</span>
-                      <span className="owner-span">Beach House</span>
+                        <span className="item-span">Depression Cherry</span>
+                        <span className="owner-span">Beach House</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -196,7 +193,7 @@ class LoggedInComponent extends React.Component {
               </div>
             </div>
 
-            <div className="index-item-wrapper index">
+            <div className="index-item-wrapper index fade-up fu6">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
                 <Link className="music-index-item" to={`/albums/3`}>
@@ -208,8 +205,8 @@ class LoggedInComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span className="item-span">Blonde</span>
-                      <span className="owner-span">Frank Ocean</span>
+                        <span className="item-span">Blonde</span>
+                        <span className="owner-span">Frank Ocean</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -217,7 +214,6 @@ class LoggedInComponent extends React.Component {
                 </Link>
               </div>
             </div>
-            
           </section>
         </main>
         <footer className="footer-wrapper">
@@ -242,7 +238,7 @@ class LoggedOutComponent extends React.Component {
     super(props);
 
     this.state = {
-      currentSong: "",
+      currentSong: '',
       playing: false,
       volume: 0.8,
       muted: false,
@@ -314,9 +310,7 @@ class LoggedOutComponent extends React.Component {
             <h2>Get a taste of what you're missing.</h2>
           </section>
           <section className="image-links">
-
-
-            <div className="index-item-wrapper">
+            <div className="index-item-wrapper fade-up fu1">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
                 <a className="music-index-item">
@@ -328,8 +322,8 @@ class LoggedOutComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span className="item-span">Lemonade</span>
-                      <span className="owner-span">Beyonce</span>
+                        <span className="item-span">Lemonade</span>
+                        <span className="owner-span">Beyonce</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -337,8 +331,8 @@ class LoggedOutComponent extends React.Component {
                 </a>
               </div>
             </div>
-            
-            <div className="index-item-wrapper">
+
+            <div className="index-item-wrapper fade-up fu2">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
                 <a className="music-index-item">
@@ -350,8 +344,8 @@ class LoggedOutComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span className="item-span">All Wet</span>
-                      <span className="owner-span">Mr. Oizo</span>
+                        <span className="item-span">All Wet</span>
+                        <span className="owner-span">Mr. Oizo</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -360,7 +354,7 @@ class LoggedOutComponent extends React.Component {
               </div>
             </div>
 
-            <div className="index-item-wrapper">
+            <div className="index-item-wrapper fade-up fu3">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
                 <a className="music-index-item">
@@ -372,8 +366,8 @@ class LoggedOutComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span className="item-span">Ponyboy</span>
-                      <span className="owner-span">SOPHIE</span>
+                        <span className="item-span">Ponyboy</span>
+                        <span className="owner-span">SOPHIE</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -382,7 +376,7 @@ class LoggedOutComponent extends React.Component {
               </div>
             </div>
 
-            <div className="index-item-wrapper">
+            <div className="index-item-wrapper fade-up fu4">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
                 <a className="music-index-item">
@@ -394,8 +388,8 @@ class LoggedOutComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span className="item-span">Little Joy</span>
-                      <span className="owner-span">Little Joy</span>
+                        <span className="item-span">Little Joy</span>
+                        <span className="owner-span">Little Joy</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -404,8 +398,7 @@ class LoggedOutComponent extends React.Component {
               </div>
             </div>
 
-
-            <div className="index-item-wrapper">
+            <div className="index-item-wrapper fade-up fu5">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
                 <a className="music-index-item">
@@ -417,8 +410,8 @@ class LoggedOutComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span className="item-span">Depression Cherry</span>
-                      <span className="owner-span">Beach House</span>
+                        <span className="item-span">Depression Cherry</span>
+                        <span className="owner-span">Beach House</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -427,7 +420,7 @@ class LoggedOutComponent extends React.Component {
               </div>
             </div>
 
-            <div className="index-item-wrapper index">
+            <div className="index-item-wrapper index fade-up fu6">
               <div className="media-wrapper">
                 <div className="button-wrapper" />
                 <a className="music-index-item">
@@ -439,8 +432,8 @@ class LoggedOutComponent extends React.Component {
                         src="https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg"
                       />
                       <div className={`media__body index-page`}>
-                      <span className="item-span">Blonde</span>
-                      <span className="owner-span">Frank Ocean</span>
+                        <span className="item-span">Blonde</span>
+                        <span className="owner-span">Frank Ocean</span>
                       </div>
                       <div className="media-loaded" />
                     </div>
@@ -448,7 +441,6 @@ class LoggedOutComponent extends React.Component {
                 </a>
               </div>
             </div>
-            
           </section>
         </main>
         <footer className="footer-wrapper">
@@ -474,7 +466,7 @@ class NewSession extends React.Component {
   }
 
   render() {
-    return (this.props.currentUser && this.props.currentUser !== null) ? (
+    return this.props.currentUser && this.props.currentUser !== null ? (
       <LoggedInComponent
         currentUser={this.props.currentUser}
         logout={this.props.logout}
