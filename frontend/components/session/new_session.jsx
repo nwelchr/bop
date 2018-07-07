@@ -1,8 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AuthRoute } from '../../util/route_util';
-import PlaylistIndexItem from '../../util/route_util';
-import ReactPlayer from 'react-player';
+
+const albumCovers = [
+  'https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg',
+  'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg',
+  'https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg',
+  'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg',
+  'https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg',
+  'https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg'
+];
+const albumNames = [
+  'Lemonade',
+  'All Wet',
+  'Ponyboy',
+  'Little Joy',
+  'Depression Cherry',
+  'Blonde'
+];
+const artistNames = [
+  'Beyonce',
+  'Mr. Oizo',
+  'SOPHIE',
+  'Little Joy',
+  'Beach House',
+  'Frank Ocean'
+];
 
 class LoggedInComponent extends React.Component {
   constructor(props) {
@@ -26,6 +48,30 @@ class LoggedInComponent extends React.Component {
 
       modalScreen.classList.toggle('clicked');
     });
+  }
+
+  renderIndexItems() {
+    return [...Array(6)].map((_, i) => (
+      <section className="image-links">
+        <div className={`index-item-wrapper fade-up fu${i + 1}`}>
+          <div className="media-wrapper">
+            <div className="button-wrapper" />
+            <Link className="music-index-item" to={`/albums/2`}>
+              <li className="item-wrapper">
+                <div className="media">
+                  <img alt="" className="media__image" src={albumCovers[i]} />
+                  <div className={`media__body index-page`}>
+                    <span className="item-span">{albumNames[i]}</span>
+                    <span className="owner-span">{artistNames[i]}</span>
+                  </div>
+                  <div className="media-loaded" />
+                </div>
+              </li>
+            </Link>
+          </div>
+        </div>
+      </section>
+    ));
   }
 
   render() {
@@ -82,139 +128,8 @@ class LoggedInComponent extends React.Component {
               Open Web Player
             </Link>
           </section>
-          <section className="image-links">
-            <div className="index-item-wrapper fade-up fu1">
-              <div className="media-wrapper">
-                <div className="button-wrapper" />
-                <Link className="music-index-item" to={`/albums/2`}>
-                  <li className="item-wrapper">
-                    <div className="media">
-                      <img
-                        alt=""
-                        className="media__image"
-                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg"
-                      />
-                      <div className={`media__body index-page`}>
-                        <span className="item-span">Lemonade</span>
-                        <span className="owner-span">Beyonce</span>
-                      </div>
-                      <div className="media-loaded" />
-                    </div>
-                  </li>
-                </Link>
-              </div>
-            </div>
 
-            <div className="index-item-wrapper fade-up fu2">
-              <div className="media-wrapper">
-                <div className="button-wrapper" />
-                <Link className="music-index-item" to={`/albums/20`}>
-                  <li className="item-wrapper">
-                    <div className="media">
-                      <img
-                        alt=""
-                        className="media__image"
-                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg"
-                      />
-                      <div className={`media__body index-page`}>
-                        <span className="item-span">All Wet</span>
-                        <span className="owner-span">Mr. Oizo</span>
-                      </div>
-                      <div className="media-loaded" />
-                    </div>
-                  </li>
-                </Link>
-              </div>
-            </div>
-
-            <div className="index-item-wrapper fade-up fu3">
-              <div className="media-wrapper">
-                <div className="button-wrapper" />
-                <Link className="music-index-item" to={`/albums/13`}>
-                  <li className="item-wrapper">
-                    <div className="media">
-                      <img
-                        alt=""
-                        className="media__image"
-                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg"
-                      />
-                      <div className={`media__body index-page`}>
-                        <span className="item-span">Ponyboy</span>
-                        <span className="owner-span">SOPHIE</span>
-                      </div>
-                      <div className="media-loaded" />
-                    </div>
-                  </li>
-                </Link>
-              </div>
-            </div>
-
-            <div className="index-item-wrapper fade-up fu4">
-              <div className="media-wrapper">
-                <div className="button-wrapper" />
-                <Link className="music-index-item" to={`/albums/17`}>
-                  <li className="item-wrapper">
-                    <div className="media">
-                      <img
-                        alt=""
-                        className="media__image"
-                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg"
-                      />
-                      <div className={`media__body index-page`}>
-                        <span className="item-span">Little Joy</span>
-                        <span className="owner-span">Little Joy</span>
-                      </div>
-                      <div className="media-loaded" />
-                    </div>
-                  </li>
-                </Link>
-              </div>
-            </div>
-
-            <div className="index-item-wrapper fade-up fu5">
-              <div className="media-wrapper">
-                <div className="button-wrapper" />
-                <Link className="music-index-item" to={`/albums/19`}>
-                  <li className="item-wrapper">
-                    <div className="media">
-                      <img
-                        alt=""
-                        className="media__image"
-                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg"
-                      />
-                      <div className={`media__body index-page`}>
-                        <span className="item-span">Depression Cherry</span>
-                        <span className="owner-span">Beach House</span>
-                      </div>
-                      <div className="media-loaded" />
-                    </div>
-                  </li>
-                </Link>
-              </div>
-            </div>
-
-            <div className="index-item-wrapper index fade-up fu6">
-              <div className="media-wrapper">
-                <div className="button-wrapper" />
-                <Link className="music-index-item" to={`/albums/3`}>
-                  <li className="item-wrapper">
-                    <div className="media">
-                      <img
-                        alt=""
-                        className="media__image"
-                        src="https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg"
-                      />
-                      <div className={`media__body index-page`}>
-                        <span className="item-span">Blonde</span>
-                        <span className="owner-span">Frank Ocean</span>
-                      </div>
-                      <div className="media-loaded" />
-                    </div>
-                  </li>
-                </Link>
-              </div>
-            </div>
-          </section>
+          <section className="image-links">{this.renderIndexItems()}</section>
         </main>
         <footer className="footer-wrapper">
           <footer className="footer-content">
@@ -269,6 +184,28 @@ class LoggedOutComponent extends React.Component {
     this.setState({ url: null, playing: false, played: 0 });
   }
 
+  renderIndexItems() {
+    return [...Array(6)].map((_, i) => (
+      <div className={`index-item-wrapper fade-up fu${i + 1}`}>
+        <div className="media-wrapper">
+          <div className="button-wrapper" />
+          <a className="music-index-item">
+            <li className="item-wrapper">
+              <div className="media">
+                <img alt="" className="media__image" src={albumCovers[i]} />
+                <div className={`media__body index-page`}>
+                  <span className="item-span">{albumNames[i]}</span>
+                  <span className="owner-span">{artistNames[i]}</span>
+                </div>
+                <div className="media-loaded" />
+              </div>
+            </li>
+          </a>
+        </div>
+      </div>
+    ));
+  }
+
   render() {
     const { url, playing, currentSong } = this.state;
     return (
@@ -309,139 +246,7 @@ class LoggedOutComponent extends React.Component {
 
             <h2>Get a taste of what you're missing.</h2>
           </section>
-          <section className="image-links">
-            <div className="index-item-wrapper fade-up fu1">
-              <div className="media-wrapper">
-                <div className="button-wrapper" />
-                <a className="music-index-item">
-                  <li className="item-wrapper">
-                    <div className="media">
-                      <img
-                        alt=""
-                        className="media__image"
-                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg"
-                      />
-                      <div className={`media__body index-page`}>
-                        <span className="item-span">Lemonade</span>
-                        <span className="owner-span">Beyonce</span>
-                      </div>
-                      <div className="media-loaded" />
-                    </div>
-                  </li>
-                </a>
-              </div>
-            </div>
-
-            <div className="index-item-wrapper fade-up fu2">
-              <div className="media-wrapper">
-                <div className="button-wrapper" />
-                <a className="music-index-item">
-                  <li className="item-wrapper">
-                    <div className="media">
-                      <img
-                        alt=""
-                        className="media__image"
-                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg"
-                      />
-                      <div className={`media__body index-page`}>
-                        <span className="item-span">All Wet</span>
-                        <span className="owner-span">Mr. Oizo</span>
-                      </div>
-                      <div className="media-loaded" />
-                    </div>
-                  </li>
-                </a>
-              </div>
-            </div>
-
-            <div className="index-item-wrapper fade-up fu3">
-              <div className="media-wrapper">
-                <div className="button-wrapper" />
-                <a className="music-index-item">
-                  <li className="item-wrapper">
-                    <div className="media">
-                      <img
-                        alt=""
-                        className="media__image"
-                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg"
-                      />
-                      <div className={`media__body index-page`}>
-                        <span className="item-span">Ponyboy</span>
-                        <span className="owner-span">SOPHIE</span>
-                      </div>
-                      <div className="media-loaded" />
-                    </div>
-                  </li>
-                </a>
-              </div>
-            </div>
-
-            <div className="index-item-wrapper fade-up fu4">
-              <div className="media-wrapper">
-                <div className="button-wrapper" />
-                <a className="music-index-item">
-                  <li className="item-wrapper">
-                    <div className="media">
-                      <img
-                        alt=""
-                        className="media__image"
-                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg"
-                      />
-                      <div className={`media__body index-page`}>
-                        <span className="item-span">Little Joy</span>
-                        <span className="owner-span">Little Joy</span>
-                      </div>
-                      <div className="media-loaded" />
-                    </div>
-                  </li>
-                </a>
-              </div>
-            </div>
-
-            <div className="index-item-wrapper fade-up fu5">
-              <div className="media-wrapper">
-                <div className="button-wrapper" />
-                <a className="music-index-item">
-                  <li className="item-wrapper">
-                    <div className="media">
-                      <img
-                        alt=""
-                        className="media__image"
-                        src="https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg"
-                      />
-                      <div className={`media__body index-page`}>
-                        <span className="item-span">Depression Cherry</span>
-                        <span className="owner-span">Beach House</span>
-                      </div>
-                      <div className="media-loaded" />
-                    </div>
-                  </li>
-                </a>
-              </div>
-            </div>
-
-            <div className="index-item-wrapper index fade-up fu6">
-              <div className="media-wrapper">
-                <div className="button-wrapper" />
-                <a className="music-index-item">
-                  <li className="item-wrapper">
-                    <div className="media">
-                      <img
-                        alt=""
-                        className="media__image"
-                        src="https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg"
-                      />
-                      <div className={`media__body index-page`}>
-                        <span className="item-span">Blonde</span>
-                        <span className="owner-span">Frank Ocean</span>
-                      </div>
-                      <div className="media-loaded" />
-                    </div>
-                  </li>
-                </a>
-              </div>
-            </div>
-          </section>
+          <section className="image-links">{this.renderIndexItems()}</section>
         </main>
         <footer className="footer-wrapper">
           <footer className="footer-content">
