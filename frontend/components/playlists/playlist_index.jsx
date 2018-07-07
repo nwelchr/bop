@@ -26,17 +26,8 @@ class PlaylistIndex extends React.Component {
   }
 
   renderPlaylists() {
-    let playlistsToRender;
-    const { playlists, shouldDisplayUsersPlaylists, currentUser } = this.props;
-    if (playlists.length > 0) {
-      if (shouldDisplayUsersPlaylists) {
-        playlistsToRender = this.props.playlists.filter(
-          playlist => playlist.creatorName === this.props.currentUser.username
-        );
-      } else {
-        playlistsToRender = this.props.playlists;
-      }
-      return playlistsToRender.map(playlist => (
+    if (this.props.playlists) {
+      return this.props.playlists.map(playlist => (
         <PlaylistIndexItem
           key={playlist.id}
           playlist={playlist}

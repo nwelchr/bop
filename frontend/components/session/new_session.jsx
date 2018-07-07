@@ -269,18 +269,18 @@ class NewSession extends React.Component {
   }
 
   render() {
-    return this.props.currentUser && this.props.currentUser !== null ? (
-      <LoggedInComponent
-        currentUser={this.props.currentUser}
-        logout={this.props.logout}
-      />
-    ) : (
-      <LoggedOutComponent
-        login={this.props.login}
-        loginDemoUser={this.props.loginDemoUser}
-        fetchSongThenPlay={this.props.fetchSongThenPlay}
-      />
-    );
+    if (!this.props.currentUser)
+      return (
+        <LoggedOutComponent
+          login={this.props.login}
+          loginDemoUser={this.props.loginDemoUser}
+          fetchSongThenPlay={this.props.fetchSongThenPlay}
+        />
+      );
+    // <LoggedInComponent
+    //   currentUser={this.props.currentUser}
+    //   logout={this.props.logout}
+    // />;
   }
 }
 

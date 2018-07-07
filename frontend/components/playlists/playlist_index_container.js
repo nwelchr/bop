@@ -1,19 +1,20 @@
 import PlaylistIndex from './playlist_index';
 import { connect } from 'react-redux';
-
+import { makeGetUserPlaylists } from '../../selectors/playlist_selectors';
 import { fetchPlaylists, fetchPlaylist } from '../../actions/playlist_actions';
-import { play, playSong } from '../../actions/audio_actions';
-
 import { openPlaylistForm } from '../../actions/ui_actions';
 
-const mapStateToProps = state => {
-  return {
-    playlists: Object.values(state.entities.playlists),
-    loading: state.ui.loading.global,
-    background: { backgroundColor: '#2e263b' },
-    currentUser: state.session.currentUser,
-    shouldDisplayUsersPlaylists: true
+const makeMapStateToProps = () => {
+  const getUserPlaylists = makeGetUserPlaylists();
+  const mapStateToProps = state => {
+    return {
+      playlists: getUserPlaylists(state),
+      loading: state.ui.loading.global,
+      background: { backgroundColor: '#2e263b' },
+      currentUser: state.session.currentUser
+    };
   };
+  return mapStateToProps;
 };
 
 const mapDispatchToProps = dispatch => {
@@ -24,6 +25,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,
+  makeMapStateToProps,
   mapDispatchToProps
 )(PlaylistIndex);

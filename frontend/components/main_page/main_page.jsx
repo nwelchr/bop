@@ -38,7 +38,7 @@ class MainPage extends React.Component {
             path="/collection/songs"
             component={SongCollectionIndexContainer}
           />
-          <ProtectedRoute exact path="/account" component={UserAccountPage} />
+          <ProtectedRoute path="/account" component={UserAccountPage} />
           <ProtectedRoute
             exact
             path="/collection/albums"
