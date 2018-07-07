@@ -52,25 +52,23 @@ class LoggedInComponent extends React.Component {
 
   renderIndexItems() {
     return [...Array(6)].map((_, i) => (
-      <section className="image-links">
-        <div className={`index-item-wrapper fade-up fu${i + 1}`}>
-          <div className="media-wrapper">
-            <div className="button-wrapper" />
-            <Link className="music-index-item" to={`/albums/2`}>
-              <li className="item-wrapper">
-                <div className="media">
-                  <img alt="" className="media__image" src={albumCovers[i]} />
-                  <div className={`media__body index-page`}>
-                    <span className="item-span">{albumNames[i]}</span>
-                    <span className="owner-span">{artistNames[i]}</span>
-                  </div>
-                  <div className="media-loaded" />
+      <div key={i} className={`index-item-wrapper fade-up fu${i + 1}`}>
+        <div className="media-wrapper">
+          <div className="button-wrapper" />
+          <Link className="music-index-item" to={`/albums/2`}>
+            <li className="item-wrapper">
+              <div className="media">
+                <img alt="" className="media__image" src={albumCovers[i]} />
+                <div className={`media__body index-page`}>
+                  <span className="item-span">{albumNames[i]}</span>
+                  <span className="owner-span">{artistNames[i]}</span>
                 </div>
-              </li>
-            </Link>
-          </div>
+                <div className="media-loaded" />
+              </div>
+            </li>
+          </Link>
         </div>
-      </section>
+      </div>
     ));
   }
 
@@ -186,7 +184,7 @@ class LoggedOutComponent extends React.Component {
 
   renderIndexItems() {
     return [...Array(6)].map((_, i) => (
-      <div className={`index-item-wrapper fade-up fu${i + 1}`}>
+      <div key={i} className={`index-item-wrapper fade-up fu${i + 1}`}>
         <div className="media-wrapper">
           <div className="button-wrapper" />
           <a className="music-index-item">

@@ -5,12 +5,17 @@ import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
 import MainPageContainer from './main_page/main_page_container';
 import { Route, Switch } from 'react-router-dom';
-import { AuthRoute, ProtectedRoute } from '../util/route_util';
+import {
+  AuthRoute,
+  ProtectedRoute,
+  AutoRedirectRoute
+} from '../util/route_util';
 
 const App = () => (
   <div>
     <Switch>
-      <Route exact path="/" component={NewSessionContainer} />
+      <AutoRedirectRoute exact path="/" component={NewSessionContainer} />
+      <ProtectedRoute path="/browse" component={MainPageContainer} />
       <AuthRoute path="/login" component={LoginFormContainer} />
       <AuthRoute path="/signup" component={SignupFormContainer} />
       <MainPageContainer />

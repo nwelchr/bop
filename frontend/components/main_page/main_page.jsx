@@ -18,37 +18,68 @@ import NewPlaylistModal from '../modals/new_playlist_modal';
 import UserAccountPage from '../show_pages/user_account_page';
 import UserShowPageContainer from '../show_pages/user_show_container';
 import UserIndex from '../users/user_index';
+import NewSessionContainer from '../session/new_session_container';
 import { AuthRoute, ProtectedRoute } from '../../util/route_util';
 
 class MainPage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return this.props.currentUser ? (
-            <div className="app-wrapper">
-                <SideNavBar currentUser={this.props.currentUser}/>
-                <main className="main-wrapper">
-                <ProtectedRoute path="/search" component={SearchContainer} />
-                <ProtectedRoute path="/browse" component={BrowseIndexContainer} />
-                <ProtectedRoute exact path="/collection/songs" component={SongCollectionIndexContainer}/>
-                <ProtectedRoute exact path="/account" component={UserAccountPage}/>
-                <ProtectedRoute exact path="/collection/albums" component={AlbumIndexContainer} />
-                <ProtectedRoute path="/albums/:albumId" component={AlbumShowContainer} />
-                <ProtectedRoute exact path="/collection/artists" component={ArtistIndexContainer} />
-                <ProtectedRoute path="/artists/:artistId" component={ArtistShowContainer} />
-                <ProtectedRoute exact path="/collection/playlists" component={PlaylistIndexContainer} />
-                <ProtectedRoute path="/playlists/:playlistId" component={PlaylistShowContainer} />
-                <ProtectedRoute exact path="/users" component={UserIndex} />
-                <ProtectedRoute path="/users/:userId" component={UserShowPageContainer} />
-                <FooterPlayerBar playing={this.props.playing} />
-                </main>
-                <AddToPlaylistModal />
-                <NewPlaylistModal />
-            </div>
-            ) : (<Redirect to="/" />);
-    }
+  render() {
+    return this.props.currentUser ? (
+      <div className="app-wrapper">
+        <SideNavBar currentUser={this.props.currentUser} />
+        <main className="main-wrapper">
+          <ProtectedRoute path="/search" component={SearchContainer} />
+          <ProtectedRoute path="/browse" component={BrowseIndexContainer} />
+          <ProtectedRoute
+            exact
+            path="/collection/songs"
+            component={SongCollectionIndexContainer}
+          />
+          <ProtectedRoute exact path="/account" component={UserAccountPage} />
+          <ProtectedRoute
+            exact
+            path="/collection/albums"
+            component={AlbumIndexContainer}
+          />
+          <ProtectedRoute
+            path="/albums/:albumId"
+            component={AlbumShowContainer}
+          />
+          <ProtectedRoute
+            exact
+            path="/collection/artists"
+            component={ArtistIndexContainer}
+          />
+          <ProtectedRoute
+            path="/artists/:artistId"
+            component={ArtistShowContainer}
+          />
+          <ProtectedRoute
+            exact
+            path="/collection/playlists"
+            component={PlaylistIndexContainer}
+          />
+          <ProtectedRoute
+            path="/playlists/:playlistId"
+            component={PlaylistShowContainer}
+          />
+          <ProtectedRoute exact path="/users" component={UserIndex} />
+          <ProtectedRoute
+            path="/users/:userId"
+            component={UserShowPageContainer}
+          />
+          <FooterPlayerBar playing={this.props.playing} />
+        </main>
+        <AddToPlaylistModal />
+        <NewPlaylistModal />
+      </div>
+    ) : (
+      <NewSessionContainer />
+    );
+  }
 }
 
 export default MainPage;
