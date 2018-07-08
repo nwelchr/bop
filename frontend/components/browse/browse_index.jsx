@@ -13,8 +13,6 @@ class BrowseIndex extends React.Component {
 
   componentDidMount() {
     this.props.fetchPlaylists(this.props.shouldFetchAll);
-    // .then(this.props.fetchAlbums())
-    // .then(this.props.fetchArtists());
   }
 
   render() {
@@ -32,32 +30,6 @@ class BrowseIndex extends React.Component {
             />
           ))
         : null;
-
-      // let exploreAlbums;
-      // if (albums && currentUser.albumIds) {
-      //   exploreAlbums = albums.filter(album => !currentUser.albumIds.includes(album.id));
-
-      //   if (exploreAlbums) exploreAlbums = exploreAlbums.map(album => (
-      //     <AlbumIndexItem
-      //       key={album.id}
-      //       playlist={album}
-      //       renderButton={true}
-      //     />
-      //   ));
-      // }
-
-      // let exploreArtists;
-      // if (artists && currentUser.artistIds) {
-      // exploreArtists = artists.filter(artist => !currentUser.artistIds.includes(artist.id));
-
-      // if (exploreArtists) exploreArtists = exploreAlbums.map(artist => (
-      //   <ArtistIndexItem
-      //     key={artist.id}
-      //     playlist={artist}
-      //     renderButton={true}
-      //   />
-      // ));
-      // }
 
       return (
         <main className="main" style={this.props.background}>
