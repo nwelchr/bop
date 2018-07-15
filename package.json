@@ -26,7 +26,8 @@
     "npm": "5.6.0"
   },
   "scripts": {
-    "postinstall": "webpack"
+    "postinstall": "webpack --watch",
+    "sass": "guard -P livereload"
   },
   "description": "[Preview](https://htmlpreview.github.io/?https://github.com/nwelchr/its-a-bop/blob/master/index.html)",
   "version": "1.0.0",

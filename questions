@@ -1,9 +1,0 @@
-Questions:
-
-Users migration: 
-```Ruby
-add_index :users, :username
-add_index :users, :email
-add_index :users, :session_token
-```
-Is this ok?
