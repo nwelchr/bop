@@ -48,6 +48,7 @@
   },
   "homepage": "https://github.com/nwelchr/bop#readme",
   "devDependencies": {
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "webpack-cli": "^3.0.8"
   }
 }
