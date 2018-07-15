@@ -46,5 +46,8 @@
   "bugs": {
     "url": "https://github.com/nwelchr/bop/issues"
   },
-  "homepage": "https://github.com/nwelchr/bop#readme"
+  "homepage": "https://github.com/nwelchr/bop#readme",
+  "devDependencies": {
+    "redux-logger": "^3.0.6"
+  }
 }

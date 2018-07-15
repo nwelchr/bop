@@ -1,16 +1,16 @@
-import React from "react";
-import ReactPlayer from "react-player";
+import React from 'react';
+import ReactPlayer from 'react-player';
 
-import Duration from "./Duration";
+import Duration from './Duration';
 
-import CurrentSongInfoContainer from "./current_song_info_container";
+import CurrentSongInfoContainer from './current_song_info_container';
 
 class MediaPlayer extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentSong: "",
+      currentSong: '',
       playing: false,
       volume: 0.8,
       savedVolume: 0.8,
@@ -44,22 +44,36 @@ class MediaPlayer extends React.Component {
     this.generateShuffledTracklist = this.generateShuffledTracklist.bind(this);
   }
 
-  componentDidMount() {}
-
+  // TODO: unexpected behavior: start playlist unshuffled, click shuffle, go into playlist
+  // new song starts for no reason
   componentWillReceiveProps(nextProps) {
     // if tracklist is being generated for the first time or there's a new one
-    if ((!this.props.tracklist && nextProps.tracklist) || (this.props.tracklist && this.props.tracklist !== nextProps.tracklist)) {
-      if (this.state.shuffle) {
-        const shuffledTracklist = this.generateShuffledTracklist(nextProps.tracklist);
-        this.setState({shuffledTracklist});
-      }
+
+    const { tracklist: nextTracklist } = nextProps;
+    const { tracklist } = this.props;
+    const { shuffle } = this.state;
+
+    const needToShuffleTracklist =
+      ((!tracklist && nextTracklist) ||
+        (tracklist && tracklist !== nextTracklist)) &&
+      shuffle;
+    if (needToShuffleTracklist) {
+      console.log('NEED TO SHUFFLE TRACKLIST');
+      const shuffledTracklist = this.generateShuffledTracklist(nextTracklist);
+      this.setState({ shuffledTracklist });
     }
 
     // to resolve issue with first song being played when on shuffle
-    if (nextProps.isFirstSong && this.state.shuffle) {
-      const shuffledTracklist = this.generateShuffledTracklist(nextProps.tracklist, nextProps.tracklist[Math.floor(Math.random() * nextProps.tracklist.length)]);
-      this.setState({shuffledTracklist});
-      const firstShuffledSong = nextProps.songs.find((song) => song.id === shuffledTracklist[0]);
+    if (nextProps.isFirstSong && shuffle) {
+      const shuffledTracklist = this.generateShuffledTracklist(
+        nextTracklist,
+        nextTracklist[Math.floor(Math.random() * nextTracklist.length)]
+      );
+      console.log('SET SHUFFLED TRACKLIST ON FIRST SONG?');
+      this.setState({ shuffledTracklist });
+      const firstShuffledSong = nextProps.songs.find(
+        song => song.id === shuffledTracklist[0]
+      );
       this.props.playSong(firstShuffledSong, nextProps.currentSongParams);
       this.setState({
         playing: nextProps.playing,
@@ -74,7 +88,6 @@ class MediaPlayer extends React.Component {
     }
     // for some reason this wasn't changing if i wasn't shuffling and i was clicking on another indexitem play button
 
-
     if (nextProps.currentSong) {
       if (this.props.currentSong) {
         if (
@@ -86,20 +99,18 @@ class MediaPlayer extends React.Component {
           )
         ) {
           this.player.seekTo(0);
-        }
-        else if (nextProps.currentSong !== this.props.currentSong) {
+        } else if (nextProps.currentSong !== this.props.currentSong) {
           this.setState({
             playing: nextProps.playing,
             currentSong: nextProps.currentSong.mp3_url
           });
         }
+      } else if (nextProps.currentSong !== this.props.currentSong) {
+        this.setState({
+          playing: nextProps.playing,
+          currentSong: nextProps.currentSong.mp3_url
+        });
       }
-      else if (nextProps.currentSong !== this.props.currentSong) {
-      this.setState({
-        playing: nextProps.playing,
-        currentSong: nextProps.currentSong.mp3_url
-      });
-    }
     }
   }
 
@@ -128,15 +139,16 @@ class MediaPlayer extends React.Component {
       return;
     }
 
-    let tracklist = this.state.shuffle ? this.state.shuffledTracklist : this.props.tracklist;
+    let tracklist = this.state.shuffle
+      ? this.state.shuffledTracklist
+      : this.props.tracklist;
 
     let currSongIdx = tracklist.indexOf(this.props.currentSong.id);
     if (currSongIdx >= tracklist.length - 1) {
       // loop tracklist around
       if (this.state.loop === 'loopTracklist') {
         currSongIdx = -1;
-      }
-      else {
+      } else {
         this.stop();
         return;
       }
@@ -157,15 +169,16 @@ class MediaPlayer extends React.Component {
       return;
     }
 
-    let tracklist = this.state.shuffle ? this.state.shuffledTracklist : this.props.tracklist;
+    let tracklist = this.state.shuffle
+      ? this.state.shuffledTracklist
+      : this.props.tracklist;
 
     let currSongIdx = tracklist.indexOf(this.props.currentSong.id);
     if (currSongIdx === 0) {
       // loop around
       if (this.state.loop === 'loopTracklist') {
         currSongIdx = tracklist.length;
-      }
-      else {
+      } else {
         this.stop();
         return;
       }
@@ -198,42 +211,42 @@ class MediaPlayer extends React.Component {
 
     let shuffledTracklist;
     if (this.props.tracklist.length) {
-    if (!shuffle) {
-      shuffledTracklist = [];
-    } else {
-      shuffledTracklist = this.generateShuffledTracklist(this.props.tracklist, this.props.currentSong.id);
-      this.setState({
-        shuffledTracklist
-      });
+      if (!shuffle) {
+        shuffledTracklist = [];
+      } else {
+        shuffledTracklist = this.generateShuffledTracklist(
+          this.props.tracklist,
+          this.props.currentSong.id
+        );
+        this.setState({
+          shuffledTracklist
+        });
+      }
     }
-  }
 
     this.setState({ shuffle, shuffledTracklist });
   }
 
   generateShuffledTracklist(arr, nextCurrSong) {
-      const shuffledArr = arr.slice(0);
-      let j, x, i, shuffleIdx;
-      for (i = shuffledArr.length - 1; i > 0; i--) {
-          j = Math.floor(Math.random() * (i + 1));
-          x = shuffledArr[i];
-          shuffledArr[i] = shuffledArr[j];
-          shuffledArr[j] = x;
-      }
-      if (nextCurrSong && shuffledArr[0] !== nextCurrSong) {
-        shuffleIdx = shuffledArr.indexOf(nextCurrSong);
-        x = shuffledArr[0];
-        shuffledArr[0] = shuffledArr[shuffleIdx];
-        shuffledArr[shuffleIdx] = x;
-      }
-      return shuffledArr;
+    const shuffledArr = arr.slice(0);
+    let j, x, i, shuffleIdx;
+    for (i = shuffledArr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArr[i], shuffledArr[j]] = [shuffledArr[j], shuffledArr[i]];
+    }
+    if (nextCurrSong && shuffledArr[0] !== nextCurrSong) {
+      shuffleIdx = shuffledArr.indexOf(nextCurrSong);
+      [shuffledArr[0], shuffledArr[shuffleIdx]] = [
+        shuffledArr[shuffleIdx],
+        shuffledArr[0]
+      ];
+    }
+    return shuffledArr;
   }
-
-
 
   toggleLoop() {
     let loop;
-    switch(this.state.loop) {
+    switch (this.state.loop) {
       case 'none':
         loop = 'loopSong';
         break;
@@ -282,7 +295,7 @@ class MediaPlayer extends React.Component {
     // If song is finished (played value is 1), set back to the beginning
     // Otherwise, set played
     if (!this.state.seeking) {
-      this.setState({ played: state.played === 1 ? "0" : state.played });
+      this.setState({ played: state.played === 1 ? '0' : state.played });
     }
   }
 
@@ -316,17 +329,17 @@ class MediaPlayer extends React.Component {
     } = this.state;
 
     // const playIcon = <i className="fa fa-play-circle" />;
-    const playIcon = <div className="icon play"></div>;
-    const pauseIcon = <div className="icon pause"></div>;
+    const playIcon = <div className="icon play" />;
+    const pauseIcon = <div className="icon pause" />;
     // const pauseIcon = <i classNameName="fa fa-pause-circle" />;
-    const prevIcon = <div className="icon prev"></div>;
-    const nextIcon = <div className="icon next"></div>;
-    const shuffleIcon = <div className="icon shuffle"></div>;
-    const shuffleSelectedIcon = <div className="icon shuffle-selected"></div>;
+    const prevIcon = <div className="icon prev" />;
+    const nextIcon = <div className="icon next" />;
+    const shuffleIcon = <div className="icon shuffle" />;
+    const shuffleSelectedIcon = <div className="icon shuffle-selected" />;
     // const loopIcon = <i classNameName="fa fa-exchange" />;
-    const loopIcon = <div className="icon loop"></div>;
-    const loopSelectedIcon = <div className="icon loop-selected"></div>;
-    const loopTracklistIcon = <div className="icon loop-tracklist"></div>;
+    const loopIcon = <div className="icon loop" />;
+    const loopSelectedIcon = <div className="icon loop-selected" />;
+    const loopTracklistIcon = <div className="icon loop-tracklist" />;
     // const noloopIcon = <i className="fa fa-exchange selected" />;
     const volumeUp = <i className="fa fa-volume-up" />;
     const volumeDown = <i className="fa fa-volume-down" />;
@@ -338,14 +351,14 @@ class MediaPlayer extends React.Component {
     // Really fine tuning on the overlay div
     let seekStyle =
       played < 0.001
-        ? { width: "0" }
+        ? { width: '0' }
         : {
             width: `${played * 100 + 0.5 - played * 0.5}%`
           };
 
     let volumeStyle =
       volume < 0.001
-        ? { width: "0" }
+        ? { width: '0' }
         : {
             width: `${volume * 100 + 0.5 - volume * 0.5}%`
           };
@@ -359,14 +372,24 @@ class MediaPlayer extends React.Component {
             <button onClick={() => this.load('https://s3.us-east-2.amazonaws.com/bop-songs/Azealia+Banks+-+Broke+With+Expensive+Taste+(2014)/05.+212+(feat.+Lazy+Jay).mp3')}>212</button> */}
         <div className="play-bar col-5-11">
           <div className="play-button">
-           <button onClick={this.toggleShuffle}>{this.state.shuffle ? shuffleSelectedIcon : shuffleIcon}</button>
+            <button onClick={this.toggleShuffle}>
+              {this.state.shuffle ? shuffleSelectedIcon : shuffleIcon}
+            </button>
             <button onClick={this.prevSong}>{prevIcon}</button>
             <button className="play-pause" onClick={this.togglePlay}>
               {playing ? pauseIcon : playIcon}
             </button>
             <button onClick={this.nextSong}>{nextIcon}</button>
             <button className="loop-button" onClick={this.toggleLoop}>
-              {loop === 'loopSong' ? loopSelectedIcon : loop === 'loopTracklist' ? loopTracklistIcon : loop === 'none' ? loopIcon : <div/>}
+              {loop === 'loopSong' ? (
+                loopSelectedIcon
+              ) : loop === 'loopTracklist' ? (
+                loopTracklistIcon
+              ) : loop === 'none' ? (
+                loopIcon
+              ) : (
+                <div />
+              )}
             </button>
           </div>
           <div className="progress-bar">
