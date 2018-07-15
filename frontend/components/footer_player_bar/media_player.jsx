@@ -75,12 +75,14 @@ class MediaPlayer extends React.Component {
         song => song.id === shuffledTracklist[0]
       );
       this.props.playSong(firstShuffledSong, nextProps.currentSongParams);
+      console.log('WHAT IS GOING ON HERE', nextProps.playing);
       this.setState({
         playing: nextProps.playing,
         currentSong: firstShuffledSong.mp3_url
       });
       return;
     } else if (nextProps.currentSong !== this.props.currentSong) {
+      console.log('WHAT THE HELL IS GOING ON HERE', nextProps.playing);
       this.setState({
         playing: nextProps.playing,
         currentSong: nextProps.currentSong.mp3_url
@@ -100,12 +102,22 @@ class MediaPlayer extends React.Component {
         ) {
           this.player.seekTo(0);
         } else if (nextProps.currentSong !== this.props.currentSong) {
+          console.log(
+            'WHAT THE EVEN HELL IT IS GOING ON HERE',
+            nextProps.playing
+          );
+
           this.setState({
             playing: nextProps.playing,
             currentSong: nextProps.currentSong.mp3_url
           });
         }
       } else if (nextProps.currentSong !== this.props.currentSong) {
+        console.log(
+          'WHAT EVEN WHAT???? IS IT THE HELL EVEN A... GOING ON HERE',
+          nextProps.playing
+        );
+
         this.setState({
           playing: nextProps.playing,
           currentSong: nextProps.currentSong.mp3_url
@@ -190,6 +202,7 @@ class MediaPlayer extends React.Component {
   }
 
   stop() {
+    console.log('STOP');
     this.setState({ playing: false, played: 0 });
     this.player.seekTo(0);
   }
@@ -227,20 +240,22 @@ class MediaPlayer extends React.Component {
     this.setState({ shuffle, shuffledTracklist });
   }
 
-  generateShuffledTracklist(arr, nextCurrSong) {
+  generateShuffledTracklist(arr, nextSong) {
     const shuffledArr = arr.slice(0);
     let j, x, i, shuffleIdx;
     for (i = shuffledArr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffledArr[i], shuffledArr[j]] = [shuffledArr[j], shuffledArr[i]];
     }
-    if (nextCurrSong && shuffledArr[0] !== nextCurrSong) {
-      shuffleIdx = shuffledArr.indexOf(nextCurrSong);
+
+    if (nextSong) {
+      shuffleIdx = shuffledArr.indexOf(nextSong);
       [shuffledArr[0], shuffledArr[shuffleIdx]] = [
         shuffledArr[shuffleIdx],
         shuffledArr[0]
       ];
     }
+
     return shuffledArr;
   }
 
@@ -265,14 +280,6 @@ class MediaPlayer extends React.Component {
       this.nextSong();
     }
   }
-
-  // onPlay() {
-  //   this.setState({ playing: true });
-  // }
-
-  // onPause() {
-  //   this.setState({ playing: false });
-  // }
 
   onSeekMouseDown() {
     this.setState({ seeking: true });
@@ -305,17 +312,7 @@ class MediaPlayer extends React.Component {
   }
 
   render() {
-    //   const v = this.state.value;
-
-    //   const styling =
-    //   {
-    //   background:  `-moz-linear-gradient(left,  #ed1e24 0%, #ed1e24 "+ ${v} +"%, #191919 "+ v +"%, #191919 100%)`,
-    //   background:  `-webkit-gradient(linear, left top, right top, color-stop(0%,#ed1e24), color-stop("+ ${v} +"%,#ed1e24), color-stop("+ ${v} +"%,#191919), color-stop(100%,#191919))`,
-    //   background: "-webkit-linear-gradient(left,  #ed1e24 0%,#ed1e24 "+ v +"%,#191919 "+ v +"%,#191919 100%)",
-    //   background: "-o-linear-gradient(left,  #ed1e24 0%,#ed1e24 "+ v +"%,#191919 "+ v +"%,#191919 100%)",
-    //   background: "-ms-linear-gradient(left,  #ed1e24 0%,#ed1e24 "+ v +"%,#191919 "+ v +"%,#191919 100%)",
-    //   background: "linear-gradient(to right,  #ed1e24 0%,#ed1e24 "+ v +"%,#191919 "+ v +"%,#191919 100%)"
-    // };
+    console.log(this.state.playing === true);
 
     const {
       currentSong,
