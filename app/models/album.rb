@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: albums
@@ -13,10 +15,8 @@
 #
 
 class Album < ApplicationRecord
+  validates :title, :year, :artist_id, :album_type, :album_cover_url, presence: true
 
-    validates :title, :year, :artist_id, :album_type, :album_cover_url, presence: true
-  
-    belongs_to :artist
-    has_many :songs
-  end
-  
+  belongs_to :artist
+  has_many :songs
+end

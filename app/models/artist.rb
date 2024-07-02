@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Informationp
 #
 # Table name: artists
@@ -13,22 +15,21 @@
 #
 
 class Artist < ApplicationRecord
+  include Followable
 
-    include Followable
+  validates :name, :artist_artwork_url, :genre_id, presence: true
 
-    validates :name, :artist_artwork_url, :genre_id, presence: true
+  # belongs_to :genre
+  has_many :albums
 
-    # belongs_to :genre
-    has_many :albums
+  has_many :songs,
+           through: :albums
 
-    has_many :songs,
-        through: :albums
+  def singles
+    albums.where(album_type: 'Single')
+  end
 
-    def singles
-        self.albums.where(album_type: 'Single')
-    end
-    
-    def only_albums
-        self.albums.where(album_type: 'Album')
-    end
+  def only_albums
+    albums.where(album_type: 'Album')
+  end
 end

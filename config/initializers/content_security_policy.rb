@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Be sure to restart your server when you modify this file.
 
 # Define an application-wide content security policy
@@ -9,7 +11,7 @@ Rails.application.config.content_security_policy do |policy|
   policy.connect_src :self, :https, 'ws://localhost:35729' # Add this line
   # If you are using webpack-dev-server then specify webpack-dev-server host
   # policy.connect_src :self, :https, "http://localhost:3035", "ws://localhost:3035" if Rails.env.development?
-  
+
   # policy.font_src    :self, :https, :data
   # policy.img_src     :self, :https, :data
   # policy.object_src  :none

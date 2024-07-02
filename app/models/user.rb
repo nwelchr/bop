@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -13,7 +15,6 @@
 #
 
 class User < ApplicationRecord
-
   include Followable
 
   attr_reader :password
@@ -25,22 +26,22 @@ class User < ApplicationRecord
   after_initialize :ensure_session_token!
 
   has_many :playlists,
-    class_name: :Playlist,
-    foreign_key: :creator_id
-  
-  has_many :followings, foreign_key: :user_id, class_name: 'Follow'
+           class_name: :Playlist,
+           foreign_key: :creator_id
+
+  has_many :followings, class_name: 'Follow'
   has_many :followed_users, through: :followings, source: :followable, source_type: 'User'
   has_many :followed_playlists, through: :followings, source: :followable, source_type: 'Playlist'
   has_many :followed_artists, through: :followings, source: :followable, source_type: 'Artist'
 
   def self.find_by_credentials(login_credential, password, login_type)
-    if login_type == "username"
+    if login_type == 'username'
       # user = User.where("lower(login_credential) = ?", username.downcase).first
-      user = User.find_by_username(login_credential)
-    elsif login_type == "email"
-      user = User.find_by_email(login_credential)
+      user = User.find_by(username: login_credential)
+    elsif login_type == 'email'
+      user = User.find_by(email: login_credential)
     end
-    user && user.valid_password?(password) ? user : nil
+    user&.valid_password?(password) ? user : nil
   end
 
   def password=(password)
@@ -49,7 +50,7 @@ class User < ApplicationRecord
   end
 
   def valid_password?(password)
-    BCrypt::Password.new(self.password_digest).is_password?(password)
+    BCrypt::Password.new(password_digest).is_password?(password)
   end
 
   def ensure_session_token!
@@ -58,7 +59,7 @@ class User < ApplicationRecord
 
   def reset_session_token!
     self.session_token = new_session_token
-    self.save!
+    save!
     self.session_token
   end
 
@@ -67,5 +68,4 @@ class User < ApplicationRecord
   def new_session_token
     SecureRandom.urlsafe_base64
   end
-
 end

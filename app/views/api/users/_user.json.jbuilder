@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.extract! user, :id, :username, :email, :followed_playlists, :followed_users, :followed_artists
 
 json.playlistIds user.playlists.pluck(:id)

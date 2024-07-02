@@ -1,32 +1,35 @@
-class Api::UsersController < ApplicationController
-  include FollowActions
-  
-  def new
-  end
+# frozen_string_literal: true
 
-  def index
-    @users = User.all.includes(:playlists)
-    render :index
-  end
+module Api
+  class UsersController < ApplicationController
+    include FollowActions
 
-  def show
-    @user = User.find(params[:id])
-    render :show
-  end
+    def new; end
 
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      login(@user)
-      render "api/users/show"
-    else
-      render json: @user.errors.full_messages, status: 422
+    def index
+      @users = User.all.includes(:playlists)
+      render :index
     end
-  end
 
-  private
+    def show
+      @user = User.find(params[:id])
+      render :show
+    end
 
-  def user_params
-    params.require(:user).permit(:username, :email, :password, :profile_image)
+    def create
+      @user = User.new(user_params)
+      if @user.save
+        login(@user)
+        render 'api/users/show'
+      else
+        render json: @user.errors.full_messages, status: :unprocessable_entity
+      end
+    end
+
+    private
+
+    def user_params
+      params.require(:user).permit(:username, :email, :password, :profile_image)
+    end
   end
 end

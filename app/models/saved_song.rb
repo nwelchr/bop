@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: saved_songs
@@ -10,8 +12,6 @@
 #
 
 class SavedSong < ApplicationRecord
-
-    belongs_to :playlist
-    belongs_to :song
-    
+  belongs_to :playlist
+  belongs_to :song
 end

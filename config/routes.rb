@@ -1,22 +1,23 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   namespace :api do
     get 'searches/index'
   end
 
-  namespace :api, defaults: {format: :json} do
-    resources :albums, only: [:index, :show]
-    resources :artists, only: [:index, :show]
+  namespace :api, defaults: { format: :json } do
+    resources :albums, only: %i[index show]
+    resources :artists, only: %i[index show]
     resources :playlists
-    resources :songs, only: [:index, :show]
+    resources :songs, only: %i[index show]
     resources :searches, only: [:index]
-    resources :users, only: [:index, :show, :create, :destroy]
-    resource :session, only: [:new, :create, :destroy]
+    resources :users, only: %i[index show create destroy]
+    resource :session, only: %i[new create destroy]
 
-
-    ['users', 'playlists', 'artists'].each do |type|
-    # get "#{type}/:id/follows/#{type}", to: "#{type}#followed_#{type}"
-    post "#{type}/:followable_id/follow", to: "#{type}#follow"
-    delete "#{type}/:followable_id/unfollow", to: "#{type}#unfollow"
+    %w[users playlists artists].each do |type|
+      # get "#{type}/:id/follows/#{type}", to: "#{type}#followed_#{type}"
+      post "#{type}/:followable_id/follow", to: "#{type}#follow"
+      delete "#{type}/:followable_id/unfollow", to: "#{type}#unfollow"
     end
 
     # get "users/:id/follows/users", to: "api/users#followed_users"
@@ -35,9 +36,8 @@ Rails.application.routes.draw do
     delete 'playlists/:id/songs', to: 'playlists#remove_song'
   end
 
-  root "static_pages#root"
+  root 'static_pages#root'
 end
-
 
 # ['users', 'playlists', 'artists'].each do |type|
 #   get "#{type}/:id/follows/#{type}", to: "api/#{type}$followed_#{type}", defaults: { format: :json }

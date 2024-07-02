@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: songs
@@ -12,17 +14,16 @@
 #
 
 class Song < ApplicationRecord
+  validates :title, :album_id, :ord, :mp3_url, presence: true
 
-    validates :title, :album_id, :ord, :mp3_url, presence: true
+  belongs_to :album
 
-    belongs_to :album
+  has_many :saved_songs
 
-    has_many :saved_songs
+  has_many :playlists,
+           through: :saved_songs,
+           source: :playlist
 
-    has_many :playlists,
-        through: :saved_songs,
-        source: :playlist
-    
-    has_one :artist,
-        through: :album
+  has_one :artist,
+          through: :album
 end

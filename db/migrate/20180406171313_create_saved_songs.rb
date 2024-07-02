@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSavedSongs < ActiveRecord::Migration[5.1]
   def change
     create_table :saved_songs do |t|

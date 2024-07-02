@@ -1,6 +1,5 @@
-class StaticPagesController < ApplicationController
+# frozen_string_literal: true
 
-  def root
-  end
-  
+class StaticPagesController < ApplicationController
+  def root; end
 end

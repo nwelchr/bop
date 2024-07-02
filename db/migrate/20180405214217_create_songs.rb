@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSongs < ActiveRecord::Migration[5.1]
   def change
     create_table :songs do |t|
@@ -8,8 +10,7 @@ class CreateSongs < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-    
-    add_index :songs, :album_id
 
+    add_index :songs, :album_id
   end
 end

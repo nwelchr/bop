@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -56,5 +58,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Add the public/assets directory to the assets paths
-  config.assets.paths << Rails.root.join("public", "assets")
+  config.assets.paths << Rails.root.join('public/assets')
 end

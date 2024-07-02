@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
@@ -7,7 +9,8 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return nil unless session[:session_token]
-    @current_user ||= User.find_by_session_token(session[:session_token])
+
+    @current_user ||= User.find_by(session_token: session[:session_token])
   end
 
   def logged_in?
@@ -27,10 +30,10 @@ class ApplicationController < ActionController::Base
   end
 
   def require_logged_in!
-    render json: ['Invalid credentials'], status: 401 unless current_user
+    render json: ['Invalid credentials'], status: :unauthorized unless current_user
   end
 
   def require_logged_out!
-    render json: ['Already logged in.'], status: 401 if current_user
+    render json: ['Already logged in.'], status: :unauthorized if current_user
   end
 end

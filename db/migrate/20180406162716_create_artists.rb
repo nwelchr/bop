@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateArtists < ActiveRecord::Migration[5.1]
   def change
     create_table :artists do |t|
@@ -10,6 +12,6 @@ class CreateArtists < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-      add_index :artists, :genre_id
+    add_index :artists, :genre_id
   end
 end
