@@ -3,10 +3,12 @@ var path = require("path");
 module.exports = {
   mode: "development",
   context: path.resolve(__dirname, "frontend"),
-  entry: "./bop.jsx",
+  entry: {
+    main: "./bop.jsx",
+  },
   output: {
-    path: path.resolve(__dirname, "..", "app", "assets", "javascripts"),
-    filename: "bundle.js",
+    path: path.resolve(__dirname, "public", "assets"),
+    filename: "[name].bundle.js",
     chunkFilename: "[name].[contenthash].bundle.js",
     publicPath: "/assets/",
     sourceMapFilename: "[file].map",
@@ -29,6 +31,13 @@ module.exports = {
   optimization: {
     splitChunks: {
       chunks: "all",
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: "vendors",
+          chunks: "all",
+        },
+      },
     },
   },
   resolve: {

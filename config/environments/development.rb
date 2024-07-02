@@ -54,4 +54,7 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # Add the public/assets directory to the assets paths
+  config.assets.paths << Rails.root.join("public", "assets")
 end
