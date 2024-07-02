@@ -29,7 +29,8 @@
     "postinstall": "webpack",
     "sass": "guard -P livereload",
     "lint": "eslint 'frontend/**/*.{js,jsx}'",
-    "lint:fix": "eslint 'frontend/**/*.{js,jsx}' --fix"
+    "lint:fix": "eslint 'frontend/**/*.{js,jsx}' --fix",
+    "format": "prettier --write \"frontend/**/*.{js,jsx,ts,tsx}\""
   },
   "description": "[Preview](https://htmlpreview.github.io/?https://github.com/nwelchr/its-a-bop/blob/master/index.html)",
   "version": "1.0.0",

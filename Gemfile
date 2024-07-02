@@ -35,13 +35,13 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen', '~> 3.2'
-  gem 'web-console', '>= 4.0.1'
   gem 'guard'
   gem 'guard-livereload', require: false
   gem 'guard-rspec', require: false
+  gem 'listen', '~> 3.2'
   gem 'rack-livereload'
   gem 'rb-fsevent', require: false
+  gem 'web-console', '>= 4.0.1'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

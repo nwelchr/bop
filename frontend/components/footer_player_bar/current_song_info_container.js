@@ -1,12 +1,12 @@
-import CurrentSongInfo from './current_song_info';
-import { connect } from 'react-redux';
+import CurrentSongInfo from "./current_song_info"
+import { connect } from "react-redux"
 
 const mapStateToProps = (state, ownProps) => {
-  return {
-    currentSong: state.ui.playbar.currentSong,
-  };
-};
+    return {
+        currentSong: state.ui.playbar.currentSong,
+    }
+}
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({})
 
-export default connect(mapStateToProps, null)(CurrentSongInfo);
+export default connect(mapStateToProps, null)(CurrentSongInfo)

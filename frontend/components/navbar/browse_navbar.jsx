@@ -1,25 +1,33 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react"
+import { NavLink } from "react-router-dom"
 
 class BrowseNavbar extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+    constructor(props) {
+        super(props)
+    }
 
-  render() {
-    return (
-      <nav className="top-nav-bar">
-        <li className="top-nav-link-wrapper">
-          <NavLink exact to="/browse" activeClassName="nav-link-selected">
-            <span>Featured</span>
-          </NavLink>
-        </li>
-        <li className="top-nav-link-wrapper">
-          <NavLink exact to="/users" activeClassName="nav-link-selected">
-            <span>Users</span>
-          </NavLink>
-        </li>
-        {/* <li className="top-nav-link-wrapper">
+    render() {
+        return (
+            <nav className="top-nav-bar">
+                <li className="top-nav-link-wrapper">
+                    <NavLink
+                        exact
+                        to="/browse"
+                        activeClassName="nav-link-selected"
+                    >
+                        <span>Featured</span>
+                    </NavLink>
+                </li>
+                <li className="top-nav-link-wrapper">
+                    <NavLink
+                        exact
+                        to="/users"
+                        activeClassName="nav-link-selected"
+                    >
+                        <span>Users</span>
+                    </NavLink>
+                </li>
+                {/* <li className="top-nav-link-wrapper">
           <NavLink exact to="#" activeClassName="nav-link-selected">
             <span>Genres & Moods</span>
           </NavLink>
@@ -34,9 +42,9 @@ class BrowseNavbar extends React.Component {
             <span>Discover</span>
           </NavLink>
         </li> */}
-      </nav>
-    );
-  }
+            </nav>
+        )
+    }
 }
 
-export default BrowseNavbar;
+export default BrowseNavbar

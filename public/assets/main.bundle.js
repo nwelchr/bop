@@ -25,9 +25,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const RECEIVE_ALBUMS = 'RECEIVE_ALBUMS';
-const RECEIVE_ALBUM = 'RECEIVE_ALBUM';
-const RECEIVE_ALBUM_WITH_TRACKLIST = 'RECEIVE_ALBUM_WITH_TRACKLIST';
+const RECEIVE_ALBUMS = "RECEIVE_ALBUMS";
+const RECEIVE_ALBUM = "RECEIVE_ALBUM";
+const RECEIVE_ALBUM_WITH_TRACKLIST = "RECEIVE_ALBUM_WITH_TRACKLIST";
 const receiveAlbums = albums => ({
   type: RECEIVE_ALBUMS,
   albums
@@ -83,9 +83,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _audio_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./audio_actions */ "./actions/audio_actions.js");
 
 
-const RECEIVE_ARTISTS = 'RECEIVE_ARTISTS';
-const RECEIVE_ARTIST = 'RECEIVE_ARTIST';
-const RECEIVE_ARTIST_WITH_TRACKLIST = 'RECEIVE_ARTIST_WITH_TRACKLIST';
+const RECEIVE_ARTISTS = "RECEIVE_ARTISTS";
+const RECEIVE_ARTIST = "RECEIVE_ARTIST";
+const RECEIVE_ARTIST_WITH_TRACKLIST = "RECEIVE_ARTIST_WITH_TRACKLIST";
 
 const receiveArtists = artists => ({
   type: RECEIVE_ARTISTS,
@@ -138,10 +138,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   playSongWithTracklist: function() { return /* binding */ playSongWithTracklist; },
 /* harmony export */   receivePlaySongWithTracklist: function() { return /* binding */ receivePlaySongWithTracklist; }
 /* harmony export */ });
-const PLAY = 'PLAY';
-const PLAY_SONG = 'PLAY_SONG';
-const RECEIVE_PLAY_SONG_WITH_TRACKLIST = 'RECEIVE_PLAY_SONG_WITH_TRACKLIST';
-const PAUSE = 'PAUSE';
+const PLAY = "PLAY";
+const PLAY_SONG = "PLAY_SONG";
+const RECEIVE_PLAY_SONG_WITH_TRACKLIST = "RECEIVE_PLAY_SONG_WITH_TRACKLIST";
+const PAUSE = "PAUSE";
 const play = () => ({
   type: PLAY
 });
@@ -184,8 +184,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _util_follow_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/follow_api_util */ "./util/follow_api_util.js");
 
-const RECEIVE_FOLLOW = 'RECEIVE_FOLLOW';
-const REMOVE_FOLLOW = 'REMOVE_FOLLOW';
+const RECEIVE_FOLLOW = "RECEIVE_FOLLOW";
+const REMOVE_FOLLOW = "REMOVE_FOLLOW";
 const receiveFollow = payload => ({
   type: RECEIVE_FOLLOW,
   payload
@@ -218,7 +218,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   START_LOADING: function() { return /* binding */ START_LOADING; },
 /* harmony export */   startLoading: function() { return /* binding */ startLoading; }
 /* harmony export */ });
-const START_LOADING = 'START_LOADING';
+const START_LOADING = "START_LOADING";
 const startLoading = () => ({
   type: START_LOADING
 });
@@ -256,12 +256,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const RECEIVE_PLAYLISTS = 'RECEIVE_PLAYLISTS';
-const RECEIVE_PLAYLIST = 'RECEIVE_PLAYLIST';
-const RECEIVE_PLAYLIST_WITH_TRACKLIST = 'RECEIVE_PLAYLIST_WITH_TRACKLIST';
-const REMOVE_PLAYLIST = 'REMOVE_PLAYLIST';
-const RECEIVE_CREATED_PLAYLIST = 'RECEIVE_CREATED_PLAYLIST';
-const RECEIVE_MODAL_PLAYLISTS = 'RECEIVE_MODAL_PLAYLISTS';
+const RECEIVE_PLAYLISTS = "RECEIVE_PLAYLISTS";
+const RECEIVE_PLAYLIST = "RECEIVE_PLAYLIST";
+const RECEIVE_PLAYLIST_WITH_TRACKLIST = "RECEIVE_PLAYLIST_WITH_TRACKLIST";
+const REMOVE_PLAYLIST = "REMOVE_PLAYLIST";
+const RECEIVE_CREATED_PLAYLIST = "RECEIVE_CREATED_PLAYLIST";
+const RECEIVE_MODAL_PLAYLISTS = "RECEIVE_MODAL_PLAYLISTS";
 const receivePlaylists = playlists => ({
   type: RECEIVE_PLAYLISTS,
   playlists
@@ -330,8 +330,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _util_search_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/search_api_util */ "./util/search_api_util.js");
 
-const RECEIVE_SEARCH_RESULTS = 'RECEIVE_SEARCH_RESULTS';
-const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
+const RECEIVE_SEARCH_RESULTS = "RECEIVE_SEARCH_RESULTS";
+const CLEAR_SEARCH_RESULTS = "CLEAR_SEARCH_RESULTS";
 const receiveSearchResults = results => ({
   type: RECEIVE_SEARCH_RESULTS,
   results
@@ -365,9 +365,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/session_api_util */ "./util/session_api_util.js");
 
-const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
-const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
-const CLEAR_SESSION_ERRORS = 'CLEAR_SESSION_ERRORS';
+const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
+const RECEIVE_ERRORS = "RECEIVE_ERRORS";
+const CLEAR_SESSION_ERRORS = "CLEAR_SESSION_ERRORS";
 const receiveCurrentUser = currentUser => ({
   type: RECEIVE_CURRENT_USER,
   currentUser
@@ -409,10 +409,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _playlist_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./playlist_actions */ "./actions/playlist_actions.js");
 
 
-const RECEIVE_SONGS = 'RECEIVE_SONGS';
-const RECEIVE_SONG = 'RECEIVE_SONG';
-const RECEIVE_PLAYLIST_SONG_SAVE = 'RECEIVE_PLAYLIST_SONG_SAVE';
-const REMOVE_PLAYLIST_SONG_SAVE = 'REMOVE_PLAYLIST_SONG_SAVE';
+const RECEIVE_SONGS = "RECEIVE_SONGS";
+const RECEIVE_SONG = "RECEIVE_SONG";
+const RECEIVE_PLAYLIST_SONG_SAVE = "RECEIVE_PLAYLIST_SONG_SAVE";
+const REMOVE_PLAYLIST_SONG_SAVE = "REMOVE_PLAYLIST_SONG_SAVE";
 
 const receiveSongs = songs => ({
   type: RECEIVE_SONGS,
@@ -468,12 +468,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   openDropdown: function() { return /* binding */ openDropdown; },
 /* harmony export */   openPlaylistForm: function() { return /* binding */ openPlaylistForm; }
 /* harmony export */ });
-const OPEN_PLAYLIST_FORM = 'OPEN_MODAL';
-const CLOSE_PLAYLIST_FORM = 'CLOSE_MODAL';
-const OPEN_DROPDOWN = 'OPEN_DROPDOWN';
-const CLOSE_DROPDOWN = 'CLOSE_DROPDOWN';
-const OPEN_ADD_TO_PLAYLIST_FORM = 'OPEN_ADD_TO_PLAYLIST_FORM';
-const CLOSE_ADD_TO_PLAYLIST_FORM = 'CLOSE_ADD_TO_PLAYLIST_FORM';
+const OPEN_PLAYLIST_FORM = "OPEN_MODAL";
+const CLOSE_PLAYLIST_FORM = "CLOSE_MODAL";
+const OPEN_DROPDOWN = "OPEN_DROPDOWN";
+const CLOSE_DROPDOWN = "CLOSE_DROPDOWN";
+const OPEN_ADD_TO_PLAYLIST_FORM = "OPEN_ADD_TO_PLAYLIST_FORM";
+const CLOSE_ADD_TO_PLAYLIST_FORM = "CLOSE_ADD_TO_PLAYLIST_FORM";
 const openPlaylistForm = () => ({
   type: OPEN_PLAYLIST_FORM
 });
@@ -512,8 +512,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _loading_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./loading_actions */ "./actions/loading_actions.js");
 
 
-const RECEIVE_USERS = 'RECEIVE_USERS';
-const RECEIVE_USER = 'RECEIVE_USER';
+const RECEIVE_USERS = "RECEIVE_USERS";
+const RECEIVE_USER = "RECEIVE_USER";
 const receiveUsers = users => ({
   type: RECEIVE_USERS,
   users
@@ -550,7 +550,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   let store;
   if (window.currentUser) {
     const preloadedState = {
@@ -563,7 +563,7 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     store = (0,_store_store__WEBPACK_IMPORTED_MODULE_3__["default"])();
   }
-  const root = document.getElementById('root');
+  const root = document.getElementById("root");
   react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_root__WEBPACK_IMPORTED_MODULE_2__["default"], {
     store: store
   }), root);
@@ -655,7 +655,7 @@ const mapStateToProps = state => {
     albums: Object.values(state.entities.albums),
     loading: state.ui.loading.global,
     background: {
-      backgroundColor: '#705a27'
+      backgroundColor: "#705a27"
     }
   };
 };
@@ -696,18 +696,18 @@ class AlbumIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     this.handlePlay = this.handlePlay.bind(this);
   }
   componentDidMount() {
-    $(document).on('mouseenter', '.media-wrapper', function () {
+    $(document).on("mouseenter", ".media-wrapper", function () {
       const that = this;
-      $(this).find(':button').show();
-      $(this).find('.media__body').addClass('hovering');
-      $(this).find('.play-pause').addClass('hovering');
-      $(this).on('onclick', ':button', function () {
-        $(that).find('.media__body').addClass('hovering');
+      $(this).find(":button").show();
+      $(this).find(".media__body").addClass("hovering");
+      $(this).find(".play-pause").addClass("hovering");
+      $(this).on("onclick", ":button", function () {
+        $(that).find(".media__body").addClass("hovering");
       });
-    }).on('mouseleave', '.media-wrapper', function () {
-      $(this).find(':button').hide();
-      $(this).find('.media__body').removeClass('hovering');
-      $(this).find('.play-pause').removeClass('hovering');
+    }).on("mouseleave", ".media-wrapper", function () {
+      $(this).find(":button").hide();
+      $(this).find(".media__body").removeClass("hovering");
+      $(this).find(".play-pause").removeClass("hovering");
     });
   }
   handlePlay(e) {
@@ -724,7 +724,7 @@ class AlbumIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     // If album has songs and there's no current song,
     // or if the album does have that song in it,
     // fetch the album in question and play it
-    if (!currentSong || !songIds.includes(currentSong.id) || Object.keys(this.props.currentSongParams)[0] !== 'albumId' || Object.values(this.props.currentSongParams)[0] !== `${this.props.album.id}`) {
+    if (!currentSong || !songIds.includes(currentSong.id) || Object.keys(this.props.currentSongParams)[0] !== "albumId" || Object.values(this.props.currentSongParams)[0] !== `${this.props.album.id}`) {
       this.props.fetchAlbumThenPlaySong(this.props.album.id, {
         albumId: `${this.props.album.id}`
       });
@@ -749,9 +749,9 @@ class AlbumIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       className: "icon pause index-item"
     });
     let playPauseIcon, albumIndexClass;
-    if (playing && currentSong && songIds && songIds.includes(currentSong.id) && Object.keys(currentSongParams)[0] === 'albumId' && Object.values(currentSongParams)[0] === `${this.props.album.id}`) {
+    if (playing && currentSong && songIds && songIds.includes(currentSong.id) && Object.keys(currentSongParams)[0] === "albumId" && Object.values(currentSongParams)[0] === `${this.props.album.id}`) {
       playPauseIcon = pauseIcon;
-      albumIndexClass = 'playing';
+      albumIndexClass = "playing";
     } else {
       playPauseIcon = playIcon;
       albumIndexClass = null;
@@ -943,7 +943,7 @@ const mapStateToProps = state => {
     artists: Object.values(state.entities.artists),
     loading: state.ui.loading.global,
     background: {
-      backgroundColor: '#0c5535'
+      backgroundColor: "#0c5535"
     }
   };
 };
@@ -983,18 +983,18 @@ class ArtistIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     this.handlePlay = this.handlePlay.bind(this);
   }
   componentDidMount() {
-    $(document).on('mouseenter', '.media-wrapper', function () {
+    $(document).on("mouseenter", ".media-wrapper", function () {
       const that = this;
-      $(this).find(':button').show();
-      $(this).find('.media__body').addClass('hovering');
-      $(this).find('.play-pause').addClass('hovering');
-      $(this).on('onclick', ':button', function () {
-        $(that).find('.media__body').addClass('hovering');
+      $(this).find(":button").show();
+      $(this).find(".media__body").addClass("hovering");
+      $(this).find(".play-pause").addClass("hovering");
+      $(this).on("onclick", ":button", function () {
+        $(that).find(".media__body").addClass("hovering");
       });
-    }).on('mouseleave', '.media-wrapper', function () {
-      $(this).find(':button').hide();
-      $(this).find('.media__body').removeClass('hovering');
-      $(this).find('.play-pause').removeClass('hovering');
+    }).on("mouseleave", ".media-wrapper", function () {
+      $(this).find(":button").hide();
+      $(this).find(".media__body").removeClass("hovering");
+      $(this).find(".play-pause").removeClass("hovering");
     });
   }
   handlePlay(e) {
@@ -1011,7 +1011,7 @@ class ArtistIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     // If artist has songs and there's no current song,
     // or if the artist does have that song in it,
     // fetch the artist in question and play it
-    if (!currentSong || !songIds.includes(currentSong.id) || Object.keys(this.props.currentSongParams)[0] !== 'artistId' || Object.values(this.props.currentSongParams)[0] !== `${this.props.artist.id}`) {
+    if (!currentSong || !songIds.includes(currentSong.id) || Object.keys(this.props.currentSongParams)[0] !== "artistId" || Object.values(this.props.currentSongParams)[0] !== `${this.props.artist.id}`) {
       this.props.fetchArtistThenPlaySong(this.props.artist.id, {
         artistId: `${this.props.artist.id}`
       });
@@ -1023,7 +1023,7 @@ class ArtistIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   }
   render() {
     const artistIndexStyle = {
-      borderRadius: '50%'
+      borderRadius: "50%"
     };
     const _this$props2 = this.props,
       currentSong = _this$props2.currentSong,
@@ -1039,9 +1039,9 @@ class ArtistIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       className: "icon pause index-item"
     });
     let playPauseIcon, artistIndexClass;
-    if (playing && currentSong && songIds && songIds.includes(currentSong.id) && Object.keys(currentSongParams)[0] === 'artistId' && Object.values(currentSongParams)[0] === `${this.props.artist.id}`) {
+    if (playing && currentSong && songIds && songIds.includes(currentSong.id) && Object.keys(currentSongParams)[0] === "artistId" && Object.values(currentSongParams)[0] === `${this.props.artist.id}`) {
       playPauseIcon = pauseIcon;
-      artistIndexClass = 'playing';
+      artistIndexClass = "playing";
     } else {
       playPauseIcon = playIcon;
       artistIndexClass = null;
@@ -1179,7 +1179,7 @@ const mapStateToProps = state => {
     playlists: (0,_selectors_playlist_selectors__WEBPACK_IMPORTED_MODULE_2__.getNewPlaylists)(state),
     loading: state.ui.loading.global,
     background: {
-      backgroundColor: '#3c3f5b'
+      backgroundColor: "#3c3f5b"
     },
     shouldFetchAll: true,
     currentUser: state.session.currentUser
@@ -1224,7 +1224,7 @@ const parseDuration = seconds => {
   return `${mm}:${ss}`;
 };
 const pad = string => {
-  return ('0' + string).slice(-2);
+  return ("0" + string).slice(-2);
 };
 /* harmony default export */ __webpack_exports__["default"] = (Duration);
 
@@ -1338,7 +1338,7 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentSong: '',
+      currentSong: "",
       playing: false,
       volume: 0.8,
       savedVolume: 0.8,
@@ -1346,7 +1346,7 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       played: 0,
       loaded: 0,
       duration: 0,
-      loop: 'none',
+      loop: "none",
       shuffle: false,
       shuffledTracklist: []
     };
@@ -1381,7 +1381,7 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     const shuffle = this.state.shuffle;
     const needToShuffleTracklist = (!tracklist && nextTracklist || tracklist && tracklist !== nextTracklist) && shuffle;
     if (needToShuffleTracklist) {
-      console.log('NEED TO SHUFFLE TRACKLIST');
+      console.log("NEED TO SHUFFLE TRACKLIST");
       const shuffledTracklist = this.generateShuffledTracklist(nextTracklist);
       this.setState({
         shuffledTracklist
@@ -1391,20 +1391,20 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     // to resolve issue with first song being played when on shuffle
     if (nextProps.isFirstSong && shuffle) {
       const shuffledTracklist = this.generateShuffledTracklist(nextTracklist, nextTracklist[Math.floor(Math.random() * nextTracklist.length)]);
-      console.log('SET SHUFFLED TRACKLIST ON FIRST SONG?');
+      console.log("SET SHUFFLED TRACKLIST ON FIRST SONG?");
       this.setState({
         shuffledTracklist
       });
       const firstShuffledSong = nextProps.songs.find(song => song.id === shuffledTracklist[0]);
       this.props.playSong(firstShuffledSong, nextProps.currentSongParams);
-      console.log('WHAT IS GOING ON HERE', nextProps.playing);
+      console.log("WHAT IS GOING ON HERE", nextProps.playing);
       this.setState({
         playing: nextProps.playing,
         currentSong: firstShuffledSong.mp3_url
       });
       return;
     } else if (nextProps.currentSong !== this.props.currentSong) {
-      console.log('WHAT THE HELL IS GOING ON HERE', nextProps.playing);
+      console.log("WHAT THE HELL IS GOING ON HERE", nextProps.playing);
       this.setState({
         playing: nextProps.playing,
         currentSong: nextProps.currentSong.mp3_url
@@ -1417,14 +1417,14 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         if (!(Object.keys(this.props.currentSongParams)[0] === Object.keys(nextProps.currentSongParams)[0] && Object.values(this.props.currentSongParams)[0] === Object.values(nextProps.currentSongParams)[0])) {
           this.player.seekTo(0);
         } else if (nextProps.currentSong !== this.props.currentSong) {
-          console.log('WHAT THE EVEN HELL IT IS GOING ON HERE', nextProps.playing);
+          console.log("WHAT THE EVEN HELL IT IS GOING ON HERE", nextProps.playing);
           this.setState({
             playing: nextProps.playing,
             currentSong: nextProps.currentSong.mp3_url
           });
         }
       } else if (nextProps.currentSong !== this.props.currentSong) {
-        console.log('WHAT EVEN WHAT???? IS IT THE HELL EVEN A... GOING ON HERE', nextProps.playing);
+        console.log("WHAT EVEN WHAT???? IS IT THE HELL EVEN A... GOING ON HERE", nextProps.playing);
         this.setState({
           playing: nextProps.playing,
           currentSong: nextProps.currentSong.mp3_url
@@ -1456,7 +1456,7 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     let currSongIdx = tracklist.indexOf(this.props.currentSong.id);
     if (currSongIdx >= tracklist.length - 1) {
       // loop tracklist around
-      if (this.state.loop === 'loopTracklist') {
+      if (this.state.loop === "loopTracklist") {
         currSongIdx = -1;
       } else {
         this.stop();
@@ -1482,7 +1482,7 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     let currSongIdx = tracklist.indexOf(this.props.currentSong.id);
     if (currSongIdx === 0) {
       // loop around
-      if (this.state.loop === 'loopTracklist') {
+      if (this.state.loop === "loopTracklist") {
         currSongIdx = tracklist.length;
       } else {
         this.stop();
@@ -1494,7 +1494,7 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     this.props.playSong(nextSong, this.props.currentSongParams);
   }
   stop() {
-    console.log('STOP');
+    console.log("STOP");
     this.setState({
       playing: false,
       played: 0
@@ -1556,14 +1556,14 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   toggleLoop() {
     let loop;
     switch (this.state.loop) {
-      case 'none':
-        loop = 'loopSong';
+      case "none":
+        loop = "loopSong";
         break;
-      case 'loopSong':
-        loop = 'loopTracklist';
+      case "loopSong":
+        loop = "loopTracklist";
         break;
-      case 'loopTracklist':
-        loop = 'none';
+      case "loopTracklist":
+        loop = "none";
         break;
     }
     this.setState({
@@ -1571,7 +1571,7 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     });
   }
   onEnded() {
-    if (!(this.state.loop === 'loopSong')) {
+    if (!(this.state.loop === "loopSong")) {
       this.nextSong();
     }
   }
@@ -1600,7 +1600,7 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     // Otherwise, set played
     if (!this.state.seeking) {
       this.setState({
-        played: state.played === 1 ? '0' : state.played
+        played: state.played === 1 ? "0" : state.played
       });
     }
   }
@@ -1612,7 +1612,7 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     });
   }
   render() {
-    console.log(this.state.playing === true, 'is playing');
+    console.log(this.state.playing === true, "is playing");
     const _this$state = this.state,
       currentSong = _this$state.currentSong,
       playing = _this$state.playing,
@@ -1667,12 +1667,12 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 
     // Really fine tuning on the overlay div
     let seekStyle = played < 0.001 ? {
-      width: '0'
+      width: "0"
     } : {
       width: `${played * 100 + 0.5 - played * 0.5}%`
     };
     let volumeStyle = volume < 0.001 ? {
-      width: '0'
+      width: "0"
     } : {
       width: `${volume * 100 + 0.5 - volume * 0.5}%`
     };
@@ -1694,7 +1694,7 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     }, nextIcon), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "loop-button",
       onClick: this.toggleLoop
-    }, loop === 'loopSong' ? loopSelectedIcon : loop === 'loopTracklist' ? loopTracklistIcon : loop === 'none' ? loopIcon : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    }, loop === "loopSong" ? loopSelectedIcon : loop === "loopTracklist" ? loopTracklistIcon : loop === "none" ? loopIcon : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "progress-bar"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_player__WEBPACK_IMPORTED_MODULE_3___default()), {
       url: currentSong
@@ -1706,7 +1706,7 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       playing: playing,
       onPlay: this.onPlay,
       onPause: this.onPause,
-      loop: loop === 'loopSong',
+      loop: loop === "loopSong",
       volume: volume,
       muted: muted,
       played: played,
@@ -2068,9 +2068,9 @@ class SideNavBar extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 /* harmony default export */ __webpack_exports__["default"] = (SideNavBar);
 {
   /* <ul className="recently-played-music">
-                    <li className="recently-played">Recently Played</li>
-                    <li>Azealia</li>
-                </ul> */
+                  <li className="recently-played">Recently Played</li>
+                  <li>Azealia</li>
+              </ul> */
 }
 
 /***/ }),
@@ -2185,7 +2185,7 @@ class NewPlaylistModal extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      name: ""
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -2210,12 +2210,12 @@ class NewPlaylistModal extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   }
   handleCancel() {
     this.setState({
-      playlistName: ''
+      playlistName: ""
     });
     this.props.closePlaylistForm();
   }
   handleEnter(e) {
-    if (e.key === 'Enter') this.handleSubmit(e);
+    if (e.key === "Enter") this.handleSubmit(e);
   }
   render() {
     if (!this.props.isModalOpen) {
@@ -2483,7 +2483,7 @@ class AddToPlaylistIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Componen
   }
   render() {
     let albumCover;
-    if (typeof this.props.playlist.album_cover_url === 'string') {
+    if (typeof this.props.playlist.album_cover_url === "string") {
       albumCover = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "media"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
@@ -2624,7 +2624,7 @@ const makeMapStateToProps = () => {
       playlists: getUserPlaylists(state),
       loading: state.ui.loading.global,
       background: {
-        backgroundColor: '#2e263b'
+        backgroundColor: "#2e263b"
       },
       currentUser: state.session.currentUser
     };
@@ -2667,18 +2667,18 @@ class PlaylistIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     this.handlePlay = this.handlePlay.bind(this);
   }
   componentDidMount() {
-    $(document).on('mouseenter', '.media-wrapper', function () {
+    $(document).on("mouseenter", ".media-wrapper", function () {
       const that = this;
-      $(this).find(':button').show();
-      $(this).find('.media__body').addClass('hovering');
-      $(this).find('.play-pause').addClass('hovering');
-      $(this).on('onclick', ':button', function () {
-        $(that).find('.media__body').addClass('hovering');
+      $(this).find(":button").show();
+      $(this).find(".media__body").addClass("hovering");
+      $(this).find(".play-pause").addClass("hovering");
+      $(this).on("onclick", ":button", function () {
+        $(that).find(".media__body").addClass("hovering");
       });
-    }).on('mouseleave', '.media-wrapper', function () {
-      $(this).find(':button').hide();
-      $(this).find('.media__body').removeClass('hovering');
-      $(this).find('.play-pause').removeClass('hovering');
+    }).on("mouseleave", ".media-wrapper", function () {
+      $(this).find(":button").hide();
+      $(this).find(".media__body").removeClass("hovering");
+      $(this).find(".play-pause").removeClass("hovering");
     });
   }
   componentWillReceiveProps(nextProps) {}
@@ -2696,7 +2696,7 @@ class PlaylistIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     // If playlist has songs and there's no current song,
     // or if the playlist does have that song in it,
     // fetch the playlist in question and play it
-    if (!currentSong || !songIds.includes(currentSong.id) || Object.keys(this.props.currentSongParams)[0] !== 'playlistId' || Object.values(this.props.currentSongParams)[0] !== `${this.props.playlist.id}`) {
+    if (!currentSong || !songIds.includes(currentSong.id) || Object.keys(this.props.currentSongParams)[0] !== "playlistId" || Object.values(this.props.currentSongParams)[0] !== `${this.props.playlist.id}`) {
       this.props.fetchPlaylistThenPlaySong(this.props.playlist.id, {
         playlistId: `${this.props.playlist.id}`
       });
@@ -2721,15 +2721,15 @@ class PlaylistIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       className: "icon pause index-item"
     });
     let playPauseIcon, playlistIndexClass;
-    if (playing && currentSong && songIds && songIds.includes(currentSong.id) && Object.keys(currentSongParams)[0] === 'playlistId' && Object.values(currentSongParams)[0] === `${this.props.playlist.id}`) {
+    if (playing && currentSong && songIds && songIds.includes(currentSong.id) && Object.keys(currentSongParams)[0] === "playlistId" && Object.values(currentSongParams)[0] === `${this.props.playlist.id}`) {
       playPauseIcon = pauseIcon;
-      playlistIndexClass = 'playing';
+      playlistIndexClass = "playing";
     } else {
       playPauseIcon = playIcon;
       playlistIndexClass = null;
     }
     let albumCover;
-    if (typeof this.props.playlist.album_cover_url === 'string') {
+    if (typeof this.props.playlist.album_cover_url === "string") {
       albumCover = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "media"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
@@ -2943,7 +2943,7 @@ class Search extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("main", {
       className: "main",
       style: {
-        background: 'transparent'
+        background: "transparent"
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "search-container"
@@ -2981,7 +2981,7 @@ class SearchBar extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: ''
+      query: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.triggerChange = this.triggerChange.bind(this);
@@ -3083,7 +3083,7 @@ class SearchResults extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     const maxResult = Object.keys(lengths).reduce((a, b) => lengths[a] > lengths[b] ? a : b);
     let defaultResults;
     switch (maxResult) {
-      case 'playlists':
+      case "playlists":
         defaultResults = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
           exact: true,
           path: `/search/results/${query}`,
@@ -3092,7 +3092,7 @@ class SearchResults extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
           })
         });
         break;
-      case 'albums':
+      case "albums":
         defaultResults = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
           exact: true,
           path: `/search/results/${query}`,
@@ -3101,7 +3101,7 @@ class SearchResults extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
           })
         });
         break;
-      case 'artists':
+      case "artists":
         defaultResults = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
           exact: true,
           path: `/search/results/${query}`,
@@ -3110,7 +3110,7 @@ class SearchResults extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
           })
         });
         break;
-      case 'users':
+      case "users":
         defaultResults = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
           exact: true,
           path: `/search/results/${query}`,
@@ -3119,7 +3119,7 @@ class SearchResults extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
           })
         });
         break;
-      case 'songs':
+      case "songs":
         defaultResults = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
           exact: true,
           path: `/search/results/${query}`,
@@ -3256,20 +3256,20 @@ __webpack_require__.r(__webpack_exports__);
 
 const mapStateToProps = (state, ownProps) => ({
   errors: Object.values(state.errors),
-  formType: 'Log In',
+  formType: "Log In",
   navLink: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "Don't have an account? ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
     to: "/signup"
   }, "Sign Up")),
   usernameInput: null,
-  emailPlaceholder: 'Email address or username'
+  emailPlaceholder: "Email address or username"
 });
 const mapDispatchToProps = dispatch => ({
   processForm: user => dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__.login)(user)),
   clearSessionErrors: () => dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__.clearSessionErrors)()),
   loginDemoUser: () => dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__.login)({
-    username: 'Demo User',
-    email: 'demo@demo.com',
-    password: 'password'
+    username: "Demo User",
+    email: "demo@demo.com",
+    password: "password"
   }))
 });
 /* harmony default export */ __webpack_exports__["default"] = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_session_form__WEBPACK_IMPORTED_MODULE_2__["default"]));
@@ -3287,24 +3287,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "../node_modules/react-router-dom/esm/react-router-dom.js");
 
 
-const albumCovers = ['https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg', 'https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg', 'https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg', 'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg', 'https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg', 'https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg'];
-const albumNames = ['Lemonade', 'All Wet', 'Ponyboy', 'Little Joy', 'Depression Cherry', 'Blonde'];
-const artistNames = ['Beyonce', 'Mr. Oizo', 'SOPHIE', 'Little Joy', 'Beach House', 'Frank Ocean'];
+const albumCovers = ["https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg", "https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg", "https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg", "https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg", "https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg", "https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg"];
+const albumNames = ["Lemonade", "All Wet", "Ponyboy", "Little Joy", "Depression Cherry", "Blonde"];
+const artistNames = ["Beyonce", "Mr. Oizo", "SOPHIE", "Little Joy", "Beach House", "Frank Ocean"];
 class LoggedInComponent extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   constructor(props) {
     super(props);
   }
   componentDidMount() {
-    const dropdown = document.querySelector('.dropdown');
-    dropdown.addEventListener('click', e => {
+    const dropdown = document.querySelector(".dropdown");
+    dropdown.addEventListener("click", e => {
       e.preventDefault();
-      const i = dropdown.querySelector('i');
-      i.classList.toggle('fa-angle-down');
-      i.classList.toggle('fa-angle-up');
-      const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-      const modalScreen = document.querySelector('.modal-screen');
-      dropdownMenu.classList.toggle('clicked');
-      modalScreen.classList.toggle('clicked');
+      const i = dropdown.querySelector("i");
+      i.classList.toggle("fa-angle-down");
+      i.classList.toggle("fa-angle-up");
+      const dropdownMenu = dropdown.querySelector(".dropdown-menu");
+      const modalScreen = document.querySelector(".modal-screen");
+      dropdownMenu.classList.toggle("clicked");
+      modalScreen.classList.toggle("clicked");
     });
   }
   renderIndexItems() {
@@ -3361,7 +3361,7 @@ class LoggedInComponent extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
       id: "profile",
       src: this.props.currentUser.profile_picture
-    }), ' ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Profile"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+    }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Profile"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
       className: "fa fa-angle-down"
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
       className: "dropdown-menu"
@@ -3402,7 +3402,7 @@ class LoggedOutComponent extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentSong: '',
+      currentSong: "",
       playing: false,
       volume: 0.8,
       muted: false,
@@ -3560,9 +3560,9 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__.logout)()),
   login: user => dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__.login)(user)),
   loginDemoUser: () => dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__.login)({
-    username: 'Demo User',
-    email: 'demo@demo.com',
-    password: 'password'
+    username: "Demo User",
+    email: "demo@demo.com",
+    password: "password"
   }))
   //   fetchSongThenPlay: (songId) => dispatch(fetchSongThenPlay(songId)),
 });
@@ -3586,9 +3586,9 @@ class SessionForm extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      email: '',
-      password: ''
+      username: "",
+      email: "",
+      password: ""
     };
     window.setState = this.setState;
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -3603,10 +3603,10 @@ class SessionForm extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    if (!this.state.email.includes('@')) {
+    if (!this.state.email.includes("@")) {
       this.state = {
         username: this.state.email,
-        email: '',
+        email: "",
         password: this.state.password
       };
     }
@@ -3629,7 +3629,7 @@ class SessionForm extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     if (this.props.usernameInput) {
       this.usernameInput = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
-        onChange: this.update('username'),
+        onChange: this.update("username"),
         value: this.state.username,
         placeholder: "What should we call you?"
       });
@@ -3650,15 +3650,15 @@ class SessionForm extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("strong", null, "or ", this.props.formType)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
       onSubmit: this.handleSubmit
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
-      type: this.props.formType === 'Sign Up' ? 'email' : 'text'
+      type: this.props.formType === "Sign Up" ? "email" : "text"
       // type="email"
       ,
-      onChange: this.update('email'),
+      onChange: this.update("email"),
       value: this.state.email,
       placeholder: this.props.emailPlaceholder
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
       type: "password",
-      onChange: this.update('password'),
+      onChange: this.update("password"),
       value: this.state.password,
       placeholder: "Password"
     }), this.usernameInput, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
@@ -3690,20 +3690,20 @@ __webpack_require__.r(__webpack_exports__);
 
 const mapStateToProps = (state, ownProps) => ({
   errors: Object.values(state.errors.session),
-  formType: 'Sign Up',
+  formType: "Sign Up",
   navLink: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "Already have an account? ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
     to: "/login"
   }, "Log In")),
   usernameInput: true,
-  emailPlaceholder: 'Email address'
+  emailPlaceholder: "Email address"
 });
 const mapDispatchToProps = dispatch => ({
   processForm: user => dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__.signup)(user)),
   clearSessionErrors: () => dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__.clearSessionErrors)()),
   loginDemoUser: () => dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__.login)({
-    username: 'Demo User',
-    email: 'demo@demo.com',
-    password: 'password'
+    username: "Demo User",
+    email: "demo@demo.com",
+    password: "password"
   }))
 });
 /* harmony default export */ __webpack_exports__["default"] = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_session_form__WEBPACK_IMPORTED_MODULE_2__["default"]));
@@ -3749,10 +3749,10 @@ class AlbumShow extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     });
   }
   redirect() {
-    this.props.history.push('/collection/albums');
+    this.props.history.push("/collection/albums");
   }
   createAlbumSongs() {
-    if (!(typeof this.props.album.songIds === 'undefined' || typeof this.props.songs === 'undefined')) {
+    if (!(typeof this.props.album.songIds === "undefined" || typeof this.props.songs === "undefined")) {
       const selectedSongs = this.props.songs.filter(song => this.props.album.songIds.includes(song.id));
       const songs = this.props.album.songIds.map(songId => selectedSongs.find(song => song.id === songId));
       this.AlbumSongs = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ol", null, songs.map(song => {
@@ -3767,7 +3767,7 @@ class AlbumShow extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     }
   }
   render() {
-    if (this.state.loading || typeof this.props.album === 'undefined') {
+    if (this.state.loading || typeof this.props.album === "undefined") {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
     } else {
       this.createAlbumSongs();
@@ -3818,7 +3818,7 @@ const mapStateToProps = (state, ownProps) => {
     album: state.entities.albums[parseInt(ownProps.match.params.albumId)],
     loading: state.ui.loading.global,
     background: {
-      backgroundColor: '#65426f'
+      backgroundColor: "#65426f"
     },
     currentUser: state.session.currentUser,
     currentSong: state.ui.playbar.currentSong,
@@ -3880,7 +3880,7 @@ class ArtistShow extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       artist = _this$props.artist,
       follow = _this$props.follow,
       unfollow = _this$props.unfollow;
-    followText === 'Follow' ? follow(artist.id) : unfollow(artist.id);
+    followText === "Follow" ? follow(artist.id) : unfollow(artist.id);
   }
   handleResponse() {
     this.setState({
@@ -3888,10 +3888,10 @@ class ArtistShow extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     });
   }
   redirect() {
-    this.props.history.push('/collection/artists');
+    this.props.history.push("/collection/artists");
   }
   createArtistSongs() {
-    if (!(typeof this.props.artist.songIds === 'undefined')) {
+    if (!(typeof this.props.artist.songIds === "undefined")) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("main", {
         className: "show-page-main"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
@@ -3908,14 +3908,14 @@ class ArtistShow extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     }
   }
   render() {
-    if (this.props.loading || typeof this.props.artist === 'undefined' || !this.props.songs) {
+    if (this.props.loading || typeof this.props.artist === "undefined" || !this.props.songs) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
     } else {
       const ArtistSongs = this.createArtistSongs();
       const _this$props2 = this.props,
         currentUser = _this$props2.currentUser,
         artist = _this$props2.artist;
-      let followText = currentUser.followed_artists && currentUser.followed_artists.includes(artist.id) ? 'Unfollow' : 'Follow';
+      let followText = currentUser.followed_artists && currentUser.followed_artists.includes(artist.id) ? "Unfollow" : "Follow";
       let followButton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: () => this.handleClick(followText),
         className: "follow-button"
@@ -3930,7 +3930,7 @@ class ArtistShow extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Singles"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_search_album_results__WEBPACK_IMPORTED_MODULE_4__["default"], {
         albums: artist.singles
       })) : null;
-      let numFollowers = artist.followerIds !== null ? artist.followerIds.length === 1 ? '1 follower' : `${artist.followerIds.length} followers` : '0 followers';
+      let numFollowers = artist.followerIds !== null ? artist.followerIds.length === 1 ? "1 follower" : `${artist.followerIds.length} followers` : "0 followers";
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("main", {
         className: "main artist-show"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -3992,7 +3992,7 @@ const mapStateToProps = (state, ownProps) => {
     artist,
     loading: state.ui.loading.global,
     background: {
-      backgroundColor: '#230b27'
+      backgroundColor: "#230b27"
     },
     currentUser: state.session.currentUser,
     currentSong: state.ui.playbar.currentSong,
@@ -4007,8 +4007,8 @@ const mapDispatchToProps = dispatch => {
     play: () => dispatch((0,_actions_audio_actions__WEBPACK_IMPORTED_MODULE_4__.play)()),
     pause: () => dispatch((0,_actions_audio_actions__WEBPACK_IMPORTED_MODULE_4__.pause)()),
     playSong: song => dispatch((0,_actions_audio_actions__WEBPACK_IMPORTED_MODULE_4__.playSong)(song)),
-    follow: artistId => dispatch((0,_actions_follow_actions__WEBPACK_IMPORTED_MODULE_6__.follow)('Artist', artistId)),
-    unfollow: artistId => dispatch((0,_actions_follow_actions__WEBPACK_IMPORTED_MODULE_6__.unfollow)('Artist', artistId))
+    follow: artistId => dispatch((0,_actions_follow_actions__WEBPACK_IMPORTED_MODULE_6__.follow)("Artist", artistId)),
+    unfollow: artistId => dispatch((0,_actions_follow_actions__WEBPACK_IMPORTED_MODULE_6__.unfollow)("Artist", artistId))
   };
 };
 /* harmony default export */ __webpack_exports__["default"] = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(_artist_show__WEBPACK_IMPORTED_MODULE_0__["default"]));
@@ -4068,13 +4068,13 @@ class PlaylistShow extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       playlist = _this$props.playlist,
       follow = _this$props.follow,
       unfollow = _this$props.unfollow;
-    followText === 'Follow Playlist' ? follow(playlist.id) : unfollow(playlist.id);
+    followText === "Follow Playlist" ? follow(playlist.id) : unfollow(playlist.id);
   }
   redirect() {
-    this.props.history.push('/collection/playlists');
+    this.props.history.push("/collection/playlists");
   }
   createPlaylistSongs() {
-    if (!(typeof this.props.playlist.songIds === 'undefined')) {
+    if (!(typeof this.props.playlist.songIds === "undefined")) {
       const selectedSongs = this.props.songs.filter(song => this.props.playlist.songIds.includes(song.id));
       const songs = this.props.playlist.songIds.map(songId => selectedSongs.find(song => song.id === songId));
 
@@ -4107,7 +4107,7 @@ class PlaylistShow extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     }
   }
   render() {
-    if (this.state.loading || typeof this.props.playlist === 'undefined') {
+    if (this.state.loading || typeof this.props.playlist === "undefined") {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
     } else {
       this.createPlaylistSongs();
@@ -4118,7 +4118,7 @@ class PlaylistShow extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         playlist = _this$props2.playlist;
       let followButton = null;
       if (!currentUser.playlistIds.includes(playlist.id)) {
-        let followText = currentUser.followed_playlists && currentUser.followed_playlists.includes(playlist.id) ? 'Unfollow Playlist' : 'Follow Playlist';
+        let followText = currentUser.followed_playlists && currentUser.followed_playlists.includes(playlist.id) ? "Unfollow Playlist" : "Follow Playlist";
         followButton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           onClick: () => this.handleClick(followText),
           className: "follow-button"
@@ -4175,7 +4175,7 @@ const mapStateToProps = (state, ownProps) => {
     playlist: state.entities.playlists[parseInt(ownProps.match.params.playlistId)],
     loading: state.ui.loading.global,
     background: {
-      backgroundColor: '#7a1a45'
+      backgroundColor: "#7a1a45"
     },
     currentUser: state.session.currentUser,
     currentSong: state.ui.playbar.currentSong,
@@ -4194,8 +4194,8 @@ const mapDispatchToProps = dispatch => {
     removeSongFromPlaylist: (songId, playlistId) => dispatch((0,_actions_song_actions__WEBPACK_IMPORTED_MODULE_3__.removeSongFromPlaylist)(songId, playlistId)),
     openAddToPlaylistForm: () => dispatch((0,_actions_ui_actions__WEBPACK_IMPORTED_MODULE_5__.openAddToPlaylistForm)()),
     fetchModalPlaylists: songToAddId => dispatch((0,_actions_playlist_actions__WEBPACK_IMPORTED_MODULE_2__.fetchModalPlaylists)(songToAddId)),
-    follow: playlistId => dispatch((0,_actions_follow_actions__WEBPACK_IMPORTED_MODULE_6__.follow)('Playlist', playlistId)),
-    unfollow: playlistId => dispatch((0,_actions_follow_actions__WEBPACK_IMPORTED_MODULE_6__.unfollow)('Playlist', playlistId))
+    follow: playlistId => dispatch((0,_actions_follow_actions__WEBPACK_IMPORTED_MODULE_6__.follow)("Playlist", playlistId)),
+    unfollow: playlistId => dispatch((0,_actions_follow_actions__WEBPACK_IMPORTED_MODULE_6__.unfollow)("Playlist", playlistId))
   };
 };
 /* harmony default export */ __webpack_exports__["default"] = ((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps, mapDispatchToProps)(_playlist_show__WEBPACK_IMPORTED_MODULE_0__["default"]));
@@ -4231,7 +4231,7 @@ class UserAccountPage extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     this.handleLogout = this.handleLogout.bind(this);
   }
   handleLogout() {
-    this.props.logout().then(() => this.props.history.push('/'));
+    this.props.logout().then(() => this.props.history.push("/"));
   }
   render() {
     const _this$props = this.props,
@@ -4263,7 +4263,7 @@ class UserAccountPage extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
 const mapStateToProps = state => ({
   currentUser: state.session.currentUser,
   background: {
-    backgroundColor: '#814949'
+    backgroundColor: "#814949"
   }
 });
 const mapDispatchToProps = dispatch => ({
@@ -4315,10 +4315,10 @@ class UserShow extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       follow = _this$props.follow,
       unfollow = _this$props.unfollow,
       fetchUser = _this$props.fetchUser;
-    followText === 'Follow' ? follow(user.id).then(this.setState({
-      followText: 'Unfollow'
+    followText === "Follow" ? follow(user.id).then(this.setState({
+      followText: "Unfollow"
     })) : unfollow(user.id).then(this.setState({
-      followText: 'Follow'
+      followText: "Follow"
     }));
   }
   followingResults() {
@@ -4339,7 +4339,7 @@ class UserShow extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     }, followedArtists, followedUsers);
   }
   render() {
-    if (this.props.loading || typeof this.props.user === 'undefined' || typeof this.props.user.playlists === 'undefined') {
+    if (this.props.loading || typeof this.props.user === "undefined" || typeof this.props.user.playlists === "undefined") {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null);
     } else {
       const _this$props2 = this.props,
@@ -4348,7 +4348,7 @@ class UserShow extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
         currentUser = _this$props2.currentUser;
       let followButton = null;
       if (currentUser.id !== user.id) {
-        let followText = currentUser.followed_users && currentUser.followed_users.includes(user.id) ? 'Unfollow' : 'Follow';
+        let followText = currentUser.followed_users && currentUser.followed_users.includes(user.id) ? "Unfollow" : "Follow";
         followButton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           onClick: () => this.handleClick(followText),
           className: "follow-button"
@@ -4358,7 +4358,7 @@ class UserShow extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       if (user.playlists && user.playlists.length > 0) playlistHeading = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", {
         className: ""
       }, "Public Playlists");
-      let numFollowers = user.followerIds !== null ? user.followerIds.length === 1 ? '1 follower' : `${user.followerIds.length} followers` : '0 followers';
+      let numFollowers = user.followerIds !== null ? user.followerIds.length === 1 ? "1 follower" : `${user.followerIds.length} followers` : "0 followers";
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("main", {
         className: "main",
         style: background
@@ -4451,7 +4451,7 @@ const mapStateToProps = (state, ownProps) => {
     user: state.entities.users[parseInt(ownProps.match.params.userId)],
     loading: state.ui.loading.global,
     background: {
-      backgroundColor: '#0e3633'
+      backgroundColor: "#0e3633"
     },
     currentUser: state.session.currentUser
   };
@@ -4459,8 +4459,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchUser: userId => dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_1__.fetchUser)(userId)),
-    follow: userId => dispatch((0,_actions_follow_actions__WEBPACK_IMPORTED_MODULE_4__.follow)('User', userId)),
-    unfollow: userId => dispatch((0,_actions_follow_actions__WEBPACK_IMPORTED_MODULE_4__.unfollow)('User', userId))
+    follow: userId => dispatch((0,_actions_follow_actions__WEBPACK_IMPORTED_MODULE_4__.follow)("User", userId)),
+    unfollow: userId => dispatch((0,_actions_follow_actions__WEBPACK_IMPORTED_MODULE_4__.unfollow)("User", userId))
   };
 };
 /* harmony default export */ __webpack_exports__["default"] = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.withRouter)((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_user_show__WEBPACK_IMPORTED_MODULE_5__["default"])));
@@ -4544,7 +4544,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     loading: state.ui.loading.global,
     background: {
-      backgroundColor: '#202753'
+      backgroundColor: "#202753"
     },
     currentUser: state.session.currentUser,
     currentSong: state.ui.playbar.currentSong,
@@ -4629,7 +4629,7 @@ class SongIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   }
   playSongWithTracklist() {
     let tracklist;
-    if (this.props.match.path === '/collection/songs') {
+    if (this.props.match.path === "/collection/songs") {
       tracklist = Object.values(this.props.songs).map(song => song.id);
     } else {
       const tracklistParamKey = Object.keys(this.props.match.params)[0];
@@ -4637,7 +4637,7 @@ class SongIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       tracklist = this.props[tracklistParam].songIds;
     }
     this.props.playSongWithTracklist(this.props.song, this.props.match.params || {
-      collection: 'song'
+      collection: "song"
     }, tracklist);
   }
   playSong() {
@@ -4647,13 +4647,13 @@ class SongIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     this.setState({
       dropdownIsOpen: true
     });
-    document.addEventListener('click', this.hideDropdown);
+    document.addEventListener("click", this.hideDropdown);
   }
   hideDropdown() {
     this.setState({
       dropdownIsOpen: false
     });
-    document.removeEventListener('click', this.hideDropdown);
+    document.removeEventListener("click", this.hideDropdown);
   }
   handleAddSongClick(e) {
     e.preventDefault();
@@ -4675,14 +4675,14 @@ class SongIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     }, "Add to Playlist"), this.props.playlist && this.props.currentUser.id === this.props.playlist.creator_id ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
       onClick: e => this.removeFromPlaylist(e),
       className: "dropdown-li"
-    }, "Remove from this Playlist") : '');
+    }, "Remove from this Playlist") : "");
     const _this$props$song = this.props.song,
       title = _this$props$song.title,
       mp3_url = _this$props$song.mp3_url;
     let indexItemClass;
     if (this.props.currentSong) {
       // if the current song is the song && the song comes from the same location && the song is currently playing
-      indexItemClass = this.props.currentSong.id === this.props.song.id && Object.keys(this.props.match.params)[0] === Object.keys(this.props.currentSongParams)[0] && Object.values(this.props.match.params)[0] === Object.values(this.props.currentSongParams)[0] && this.props.playing ? 'playing' : '';
+      indexItemClass = this.props.currentSong.id === this.props.song.id && Object.keys(this.props.match.params)[0] === Object.keys(this.props.currentSongParams)[0] && Object.values(this.props.match.params)[0] === Object.values(this.props.currentSongParams)[0] && this.props.playing ? "playing" : "";
     }
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: `song-index-item-wrapper ${indexItemClass}`,
@@ -4698,7 +4698,7 @@ class SongIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       className: "dropdown-handler",
       onClick: this.showDropdown
     }, "\xB7\xB7\xB7"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: 'dropdown-menu ' + (this.state.dropdownIsOpen ? 'clicked' : '')
+      className: "dropdown-menu " + (this.state.dropdownIsOpen ? "clicked" : "")
     }, songDropdown))));
   }
 }
@@ -4735,7 +4735,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     loading: state.ui.loading.global,
     background: {
-      backgroundColor: '#7a1a45'
+      backgroundColor: "#7a1a45"
     },
     currentUser: state.session.currentUser,
     currentSong: state.ui.playbar.currentSong,
@@ -4830,7 +4830,7 @@ const mapStateToProps = state => {
     users: Object.values(state.entities.users),
     loading: state.ui.loading.global,
     background: {
-      backgroundColor: '#2e263b'
+      backgroundColor: "#2e263b"
     }
   };
 };
@@ -4863,7 +4863,7 @@ class UserIndexItem extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   }
   render() {
     const userIndexStyle = {
-      borderRadius: '50%'
+      borderRadius: "50%"
     };
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "media-wrapper"
@@ -4953,12 +4953,12 @@ const artistsReducer = function () {
         [action.payload.artist.id]: action.payload.artist
       });
     case _actions_follow_actions__WEBPACK_IMPORTED_MODULE_2__.RECEIVE_FOLLOW:
-      if (action.payload.followable_type !== 'Artist') return oldState;
+      if (action.payload.followable_type !== "Artist") return oldState;
       newState = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, oldState);
       newState[action.payload.followable_id].followerIds.push(action.payload.user_id);
       return newState;
     case _actions_follow_actions__WEBPACK_IMPORTED_MODULE_2__.REMOVE_FOLLOW:
-      if (action.payload.followable_type !== 'Artist') return oldState;
+      if (action.payload.followable_type !== "Artist") return oldState;
       newState = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, oldState);
       newState[action.payload.followable_id].followerIds = newState[action.payload.followable_id].followerIds.filter(m => m !== action.payload.user_id);
       return newState;
@@ -5575,12 +5575,12 @@ const usersReducer = function () {
         [action.user.id]: action.user
       });
     case _actions_follow_actions__WEBPACK_IMPORTED_MODULE_2__.RECEIVE_FOLLOW:
-      if (action.payload.followable_type !== 'User') return oldState;
+      if (action.payload.followable_type !== "User") return oldState;
       newState = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, oldState);
       newState[action.payload.followable_id].followerIds.push(action.payload.user_id);
       return newState;
     case _actions_follow_actions__WEBPACK_IMPORTED_MODULE_2__.REMOVE_FOLLOW:
-      if (action.payload.followable_type !== 'User') return oldState;
+      if (action.payload.followable_type !== "User") return oldState;
       newState = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, oldState);
       newState[action.payload.followable_id].followerIds = newState[action.payload.followable_id].followerIds.filter(m => m !== action.payload.user_id);
       return newState;
@@ -5658,8 +5658,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const fetchAlbums = shouldFetchAll => {
   return $.ajax({
-    url: 'api/albums',
-    method: 'GET',
+    url: "api/albums",
+    method: "GET",
     data: {
       shouldFetchAll: shouldFetchAll
     }
@@ -5668,7 +5668,7 @@ const fetchAlbums = shouldFetchAll => {
 const fetchAlbum = id => {
   return $.ajax({
     url: `api/albums/${id}`,
-    method: 'GET'
+    method: "GET"
   });
 };
 
@@ -5687,8 +5687,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const fetchArtists = shouldFetchAll => {
   return $.ajax({
-    url: 'api/artists',
-    method: 'GET',
+    url: "api/artists",
+    method: "GET",
     data: {
       shouldFetchAll: shouldFetchAll
     }
@@ -5697,7 +5697,7 @@ const fetchArtists = shouldFetchAll => {
 const fetchArtist = id => {
   return $.ajax({
     url: `api/artists/${id}`,
-    method: 'GET'
+    method: "GET"
   });
 };
 
@@ -5718,7 +5718,7 @@ const follow = (followableType, followableId) => {
   const followableString = `${followableType.toLowerCase()}s`;
   return $.ajax({
     url: `api/${followableString}/${followableId}/follow`,
-    method: 'POST',
+    method: "POST",
     data: {
       followable_type: followableType
     }
@@ -5728,7 +5728,7 @@ const unfollow = (followableType, followableId) => {
   const followableString = `${followableType.toLowerCase()}s`;
   return $.ajax({
     url: `api/${followableString}/${followableId}/unfollow`,
-    method: 'DELETE',
+    method: "DELETE",
     data: {
       followable_type: followableType
     }
@@ -5753,8 +5753,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const fetchPlaylists = shouldFetchAll => {
   return $.ajax({
-    url: 'api/playlists',
-    method: 'GET',
+    url: "api/playlists",
+    method: "GET",
     data: {
       shouldFetchAll: shouldFetchAll
     }
@@ -5763,13 +5763,13 @@ const fetchPlaylists = shouldFetchAll => {
 const fetchPlaylist = id => {
   return $.ajax({
     url: `api/playlists/${id}`,
-    method: 'GET'
+    method: "GET"
   });
 };
 const createPlaylist = playlist => {
   return $.ajax({
     url: `api/playlists`,
-    method: 'POST',
+    method: "POST",
     data: {
       playlist
     }
@@ -5778,7 +5778,7 @@ const createPlaylist = playlist => {
 const updatePlaylist = playlist => {
   return $.ajax({
     url: `api/playlists/${playlist.id}`,
-    method: 'PATCH',
+    method: "PATCH",
     data: {
       playlist
     }
@@ -5787,7 +5787,7 @@ const updatePlaylist = playlist => {
 const deletePlaylist = playlistId => {
   return $.ajax({
     url: `api/playlists/${playlistId}`,
-    method: 'DELETE'
+    method: "DELETE"
   });
 };
 
@@ -5874,7 +5874,7 @@ __webpack_require__.r(__webpack_exports__);
 const fetchSearchResults = query => {
   return $.ajax({
     url: `api/searches?query=${query}`,
-    method: 'GET'
+    method: "GET"
   });
 };
 
@@ -5894,8 +5894,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const signup = user => {
   return $.ajax({
-    url: '/api/users',
-    method: 'POST',
+    url: "/api/users",
+    method: "POST",
     data: {
       user
     }
@@ -5903,8 +5903,8 @@ const signup = user => {
 };
 const login = user => {
   return $.ajax({
-    url: '/api/session',
-    method: 'POST',
+    url: "/api/session",
+    method: "POST",
     data: {
       user
     }
@@ -5912,8 +5912,8 @@ const login = user => {
 };
 const logout = () => {
   return $.ajax({
-    url: '/api/session',
-    method: 'DELETE'
+    url: "/api/session",
+    method: "DELETE"
   });
 };
 
@@ -5934,25 +5934,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const fetchSongs = () => {
   return $.ajax({
-    url: 'api/songs',
-    method: 'GET'
+    url: "api/songs",
+    method: "GET"
   });
 };
 const fetchSong = id => {
   return $.ajax({
     url: `api/songs/${id}`,
-    method: 'GET'
+    method: "GET"
   });
 };
 const saveSongToPlaylist = (songId, playlistId) => $.ajax({
-  method: 'POST',
+  method: "POST",
   url: `api/playlists/${playlistId}/songs`,
   data: {
     songId
   }
 });
 const removeSongFromPlaylist = (songId, playlistId) => $.ajax({
-  method: 'DELETE',
+  method: "DELETE",
   url: `api/playlists/${playlistId}/songs`,
   data: {
     songId
@@ -5974,8 +5974,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const fetchUsers = shouldFetchAll => {
   return $.ajax({
-    url: 'api/users',
-    method: 'GET',
+    url: "api/users",
+    method: "GET",
     data: {
       shouldFetchAll: shouldFetchAll
     }
@@ -5984,7 +5984,7 @@ const fetchUsers = shouldFetchAll => {
 const fetchUser = id => {
   return $.ajax({
     url: `api/users/${id}`,
-    method: 'GET'
+    method: "GET"
   });
 };
 
