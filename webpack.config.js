@@ -45,6 +45,6 @@ export default {
     },
   },
   resolve: {
-    extensions: ['.js', '.jsx', '*'], // Add the "*" extension here
+    extensions: ['.js', '.jsx', '.json'],
   },
 };
