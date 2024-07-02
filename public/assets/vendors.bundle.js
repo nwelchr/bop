@@ -1,5 +1,149 @@
 (self["webpackChunk"] = self["webpackChunk"] || []).push([["vendors"],{
 
+/***/ "../node_modules/deepmerge/dist/cjs.js":
+/*!*********************************************!*\
+  !*** ../node_modules/deepmerge/dist/cjs.js ***!
+  \*********************************************/
+/***/ (function(module) {
+
+"use strict";
+
+
+var isMergeableObject = function isMergeableObject(value) {
+	return isNonNullObject(value)
+		&& !isSpecial(value)
+};
+
+function isNonNullObject(value) {
+	return !!value && typeof value === 'object'
+}
+
+function isSpecial(value) {
+	var stringValue = Object.prototype.toString.call(value);
+
+	return stringValue === '[object RegExp]'
+		|| stringValue === '[object Date]'
+		|| isReactElement(value)
+}
+
+// see https://github.com/facebook/react/blob/b5ac963fb791d1298e7f396236383bc955f916c1/src/isomorphic/classic/element/ReactElement.js#L21-L25
+var canUseSymbol = typeof Symbol === 'function' && Symbol.for;
+var REACT_ELEMENT_TYPE = canUseSymbol ? Symbol.for('react.element') : 0xeac7;
+
+function isReactElement(value) {
+	return value.$$typeof === REACT_ELEMENT_TYPE
+}
+
+function emptyTarget(val) {
+	return Array.isArray(val) ? [] : {}
+}
+
+function cloneUnlessOtherwiseSpecified(value, options) {
+	return (options.clone !== false && options.isMergeableObject(value))
+		? deepmerge(emptyTarget(value), value, options)
+		: value
+}
+
+function defaultArrayMerge(target, source, options) {
+	return target.concat(source).map(function(element) {
+		return cloneUnlessOtherwiseSpecified(element, options)
+	})
+}
+
+function getMergeFunction(key, options) {
+	if (!options.customMerge) {
+		return deepmerge
+	}
+	var customMerge = options.customMerge(key);
+	return typeof customMerge === 'function' ? customMerge : deepmerge
+}
+
+function getEnumerableOwnPropertySymbols(target) {
+	return Object.getOwnPropertySymbols
+		? Object.getOwnPropertySymbols(target).filter(function(symbol) {
+			return Object.propertyIsEnumerable.call(target, symbol)
+		})
+		: []
+}
+
+function getKeys(target) {
+	return Object.keys(target).concat(getEnumerableOwnPropertySymbols(target))
+}
+
+function propertyIsOnObject(object, property) {
+	try {
+		return property in object
+	} catch(_) {
+		return false
+	}
+}
+
+// Protects from prototype poisoning and unexpected merging up the prototype chain.
+function propertyIsUnsafe(target, key) {
+	return propertyIsOnObject(target, key) // Properties are safe to merge if they don't exist in the target yet,
+		&& !(Object.hasOwnProperty.call(target, key) // unsafe if they exist up the prototype chain,
+			&& Object.propertyIsEnumerable.call(target, key)) // and also unsafe if they're nonenumerable.
+}
+
+function mergeObject(target, source, options) {
+	var destination = {};
+	if (options.isMergeableObject(target)) {
+		getKeys(target).forEach(function(key) {
+			destination[key] = cloneUnlessOtherwiseSpecified(target[key], options);
+		});
+	}
+	getKeys(source).forEach(function(key) {
+		if (propertyIsUnsafe(target, key)) {
+			return
+		}
+
+		if (propertyIsOnObject(target, key) && options.isMergeableObject(source[key])) {
+			destination[key] = getMergeFunction(key, options)(target[key], source[key], options);
+		} else {
+			destination[key] = cloneUnlessOtherwiseSpecified(source[key], options);
+		}
+	});
+	return destination
+}
+
+function deepmerge(target, source, options) {
+	options = options || {};
+	options.arrayMerge = options.arrayMerge || defaultArrayMerge;
+	options.isMergeableObject = options.isMergeableObject || isMergeableObject;
+	// cloneUnlessOtherwiseSpecified is added to `options` so that custom arrayMerge()
+	// implementations can use it. The caller may not replace it.
+	options.cloneUnlessOtherwiseSpecified = cloneUnlessOtherwiseSpecified;
+
+	var sourceIsArray = Array.isArray(source);
+	var targetIsArray = Array.isArray(target);
+	var sourceAndTargetTypesMatch = sourceIsArray === targetIsArray;
+
+	if (!sourceAndTargetTypesMatch) {
+		return cloneUnlessOtherwiseSpecified(source, options)
+	} else if (sourceIsArray) {
+		return options.arrayMerge(target, source, options)
+	} else {
+		return mergeObject(target, source, options)
+	}
+}
+
+deepmerge.all = function deepmergeAll(array, options) {
+	if (!Array.isArray(array)) {
+		throw new Error('first argument should be an array')
+	}
+
+	return array.reduce(function(prev, next) {
+		return deepmerge(prev, next, options)
+	}, {})
+};
+
+var deepmerge_1 = deepmerge;
+
+module.exports = deepmerge_1;
+
+
+/***/ }),
+
 /***/ "../node_modules/history/esm/history.js":
 /*!**********************************************!*\
   !*** ../node_modules/history/esm/history.js ***!
@@ -1068,6 +1212,3521 @@ module.exports = hoistNonReactStatics;
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
+
+
+/***/ }),
+
+/***/ "../node_modules/load-script/index.js":
+/*!********************************************!*\
+  !*** ../node_modules/load-script/index.js ***!
+  \********************************************/
+/***/ (function(module) {
+
+
+module.exports = function load (src, opts, cb) {
+  var head = document.head || document.getElementsByTagName('head')[0]
+  var script = document.createElement('script')
+
+  if (typeof opts === 'function') {
+    cb = opts
+    opts = {}
+  }
+
+  opts = opts || {}
+  cb = cb || function() {}
+
+  script.type = opts.type || 'text/javascript'
+  script.charset = opts.charset || 'utf8';
+  script.async = 'async' in opts ? !!opts.async : true
+  script.src = src
+
+  if (opts.attrs) {
+    setAttributes(script, opts.attrs)
+  }
+
+  if (opts.text) {
+    script.text = '' + opts.text
+  }
+
+  var onend = 'onload' in script ? stdOnEnd : ieOnEnd
+  onend(script, cb)
+
+  // some good legacy browsers (firefox) fail the 'in' detection above
+  // so as a fallback we always set onload
+  // old IE will ignore this and new IE will set onload
+  if (!script.onload) {
+    stdOnEnd(script, cb);
+  }
+
+  head.appendChild(script)
+}
+
+function setAttributes(script, attrs) {
+  for (var attr in attrs) {
+    script.setAttribute(attr, attrs[attr]);
+  }
+}
+
+function stdOnEnd (script, cb) {
+  script.onload = function () {
+    this.onerror = this.onload = null
+    cb(null, script)
+  }
+  script.onerror = function () {
+    // this.onload = null here is necessary
+    // because even IE9 works not like others
+    this.onerror = this.onload = null
+    cb(new Error('Failed to load ' + this.src), script)
+  }
+}
+
+function ieOnEnd (script, cb) {
+  script.onreadystatechange = function () {
+    if (this.readyState != 'complete' && this.readyState != 'loaded') return
+    this.onreadystatechange = null
+    cb(null, script) // there is no way to catch loading errors in IE8
+  }
+}
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_Hash.js":
+/*!***************************************!*\
+  !*** ../node_modules/lodash/_Hash.js ***!
+  \***************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var hashClear = __webpack_require__(/*! ./_hashClear */ "../node_modules/lodash/_hashClear.js"),
+    hashDelete = __webpack_require__(/*! ./_hashDelete */ "../node_modules/lodash/_hashDelete.js"),
+    hashGet = __webpack_require__(/*! ./_hashGet */ "../node_modules/lodash/_hashGet.js"),
+    hashHas = __webpack_require__(/*! ./_hashHas */ "../node_modules/lodash/_hashHas.js"),
+    hashSet = __webpack_require__(/*! ./_hashSet */ "../node_modules/lodash/_hashSet.js");
+
+/**
+ * Creates a hash object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Hash(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `Hash`.
+Hash.prototype.clear = hashClear;
+Hash.prototype['delete'] = hashDelete;
+Hash.prototype.get = hashGet;
+Hash.prototype.has = hashHas;
+Hash.prototype.set = hashSet;
+
+module.exports = Hash;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_ListCache.js":
+/*!********************************************!*\
+  !*** ../node_modules/lodash/_ListCache.js ***!
+  \********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var listCacheClear = __webpack_require__(/*! ./_listCacheClear */ "../node_modules/lodash/_listCacheClear.js"),
+    listCacheDelete = __webpack_require__(/*! ./_listCacheDelete */ "../node_modules/lodash/_listCacheDelete.js"),
+    listCacheGet = __webpack_require__(/*! ./_listCacheGet */ "../node_modules/lodash/_listCacheGet.js"),
+    listCacheHas = __webpack_require__(/*! ./_listCacheHas */ "../node_modules/lodash/_listCacheHas.js"),
+    listCacheSet = __webpack_require__(/*! ./_listCacheSet */ "../node_modules/lodash/_listCacheSet.js");
+
+/**
+ * Creates an list cache object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function ListCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `ListCache`.
+ListCache.prototype.clear = listCacheClear;
+ListCache.prototype['delete'] = listCacheDelete;
+ListCache.prototype.get = listCacheGet;
+ListCache.prototype.has = listCacheHas;
+ListCache.prototype.set = listCacheSet;
+
+module.exports = ListCache;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_Map.js":
+/*!**************************************!*\
+  !*** ../node_modules/lodash/_Map.js ***!
+  \**************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "../node_modules/lodash/_getNative.js"),
+    root = __webpack_require__(/*! ./_root */ "../node_modules/lodash/_root.js");
+
+/* Built-in method references that are verified to be native. */
+var Map = getNative(root, 'Map');
+
+module.exports = Map;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_MapCache.js":
+/*!*******************************************!*\
+  !*** ../node_modules/lodash/_MapCache.js ***!
+  \*******************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var mapCacheClear = __webpack_require__(/*! ./_mapCacheClear */ "../node_modules/lodash/_mapCacheClear.js"),
+    mapCacheDelete = __webpack_require__(/*! ./_mapCacheDelete */ "../node_modules/lodash/_mapCacheDelete.js"),
+    mapCacheGet = __webpack_require__(/*! ./_mapCacheGet */ "../node_modules/lodash/_mapCacheGet.js"),
+    mapCacheHas = __webpack_require__(/*! ./_mapCacheHas */ "../node_modules/lodash/_mapCacheHas.js"),
+    mapCacheSet = __webpack_require__(/*! ./_mapCacheSet */ "../node_modules/lodash/_mapCacheSet.js");
+
+/**
+ * Creates a map cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function MapCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `MapCache`.
+MapCache.prototype.clear = mapCacheClear;
+MapCache.prototype['delete'] = mapCacheDelete;
+MapCache.prototype.get = mapCacheGet;
+MapCache.prototype.has = mapCacheHas;
+MapCache.prototype.set = mapCacheSet;
+
+module.exports = MapCache;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_Stack.js":
+/*!****************************************!*\
+  !*** ../node_modules/lodash/_Stack.js ***!
+  \****************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var ListCache = __webpack_require__(/*! ./_ListCache */ "../node_modules/lodash/_ListCache.js"),
+    stackClear = __webpack_require__(/*! ./_stackClear */ "../node_modules/lodash/_stackClear.js"),
+    stackDelete = __webpack_require__(/*! ./_stackDelete */ "../node_modules/lodash/_stackDelete.js"),
+    stackGet = __webpack_require__(/*! ./_stackGet */ "../node_modules/lodash/_stackGet.js"),
+    stackHas = __webpack_require__(/*! ./_stackHas */ "../node_modules/lodash/_stackHas.js"),
+    stackSet = __webpack_require__(/*! ./_stackSet */ "../node_modules/lodash/_stackSet.js");
+
+/**
+ * Creates a stack cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Stack(entries) {
+  var data = this.__data__ = new ListCache(entries);
+  this.size = data.size;
+}
+
+// Add methods to `Stack`.
+Stack.prototype.clear = stackClear;
+Stack.prototype['delete'] = stackDelete;
+Stack.prototype.get = stackGet;
+Stack.prototype.has = stackHas;
+Stack.prototype.set = stackSet;
+
+module.exports = Stack;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_Symbol.js":
+/*!*****************************************!*\
+  !*** ../node_modules/lodash/_Symbol.js ***!
+  \*****************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "../node_modules/lodash/_root.js");
+
+/** Built-in value references. */
+var Symbol = root.Symbol;
+
+module.exports = Symbol;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_Uint8Array.js":
+/*!*********************************************!*\
+  !*** ../node_modules/lodash/_Uint8Array.js ***!
+  \*********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "../node_modules/lodash/_root.js");
+
+/** Built-in value references. */
+var Uint8Array = root.Uint8Array;
+
+module.exports = Uint8Array;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_apply.js":
+/*!****************************************!*\
+  !*** ../node_modules/lodash/_apply.js ***!
+  \****************************************/
+/***/ (function(module) {
+
+/**
+ * A faster alternative to `Function#apply`, this function invokes `func`
+ * with the `this` binding of `thisArg` and the arguments of `args`.
+ *
+ * @private
+ * @param {Function} func The function to invoke.
+ * @param {*} thisArg The `this` binding of `func`.
+ * @param {Array} args The arguments to invoke `func` with.
+ * @returns {*} Returns the result of `func`.
+ */
+function apply(func, thisArg, args) {
+  switch (args.length) {
+    case 0: return func.call(thisArg);
+    case 1: return func.call(thisArg, args[0]);
+    case 2: return func.call(thisArg, args[0], args[1]);
+    case 3: return func.call(thisArg, args[0], args[1], args[2]);
+  }
+  return func.apply(thisArg, args);
+}
+
+module.exports = apply;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_arrayLikeKeys.js":
+/*!************************************************!*\
+  !*** ../node_modules/lodash/_arrayLikeKeys.js ***!
+  \************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseTimes = __webpack_require__(/*! ./_baseTimes */ "../node_modules/lodash/_baseTimes.js"),
+    isArguments = __webpack_require__(/*! ./isArguments */ "../node_modules/lodash/isArguments.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "../node_modules/lodash/isArray.js"),
+    isBuffer = __webpack_require__(/*! ./isBuffer */ "../node_modules/lodash/isBuffer.js"),
+    isIndex = __webpack_require__(/*! ./_isIndex */ "../node_modules/lodash/_isIndex.js"),
+    isTypedArray = __webpack_require__(/*! ./isTypedArray */ "../node_modules/lodash/isTypedArray.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Creates an array of the enumerable property names of the array-like `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @param {boolean} inherited Specify returning inherited property names.
+ * @returns {Array} Returns the array of property names.
+ */
+function arrayLikeKeys(value, inherited) {
+  var isArr = isArray(value),
+      isArg = !isArr && isArguments(value),
+      isBuff = !isArr && !isArg && isBuffer(value),
+      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
+      skipIndexes = isArr || isArg || isBuff || isType,
+      result = skipIndexes ? baseTimes(value.length, String) : [],
+      length = result.length;
+
+  for (var key in value) {
+    if ((inherited || hasOwnProperty.call(value, key)) &&
+        !(skipIndexes && (
+           // Safari 9 has enumerable `arguments.length` in strict mode.
+           key == 'length' ||
+           // Node.js 0.10 has enumerable non-index properties on buffers.
+           (isBuff && (key == 'offset' || key == 'parent')) ||
+           // PhantomJS 2 has enumerable non-index properties on typed arrays.
+           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
+           // Skip index properties.
+           isIndex(key, length)
+        ))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+module.exports = arrayLikeKeys;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_assignMergeValue.js":
+/*!***************************************************!*\
+  !*** ../node_modules/lodash/_assignMergeValue.js ***!
+  \***************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "../node_modules/lodash/_baseAssignValue.js"),
+    eq = __webpack_require__(/*! ./eq */ "../node_modules/lodash/eq.js");
+
+/**
+ * This function is like `assignValue` except that it doesn't assign
+ * `undefined` values.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function assignMergeValue(object, key, value) {
+  if ((value !== undefined && !eq(object[key], value)) ||
+      (value === undefined && !(key in object))) {
+    baseAssignValue(object, key, value);
+  }
+}
+
+module.exports = assignMergeValue;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_assignValue.js":
+/*!**********************************************!*\
+  !*** ../node_modules/lodash/_assignValue.js ***!
+  \**********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "../node_modules/lodash/_baseAssignValue.js"),
+    eq = __webpack_require__(/*! ./eq */ "../node_modules/lodash/eq.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Assigns `value` to `key` of `object` if the existing value is not equivalent
+ * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * for equality comparisons.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function assignValue(object, key, value) {
+  var objValue = object[key];
+  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
+      (value === undefined && !(key in object))) {
+    baseAssignValue(object, key, value);
+  }
+}
+
+module.exports = assignValue;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_assocIndexOf.js":
+/*!***********************************************!*\
+  !*** ../node_modules/lodash/_assocIndexOf.js ***!
+  \***********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var eq = __webpack_require__(/*! ./eq */ "../node_modules/lodash/eq.js");
+
+/**
+ * Gets the index at which the `key` is found in `array` of key-value pairs.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} key The key to search for.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function assocIndexOf(array, key) {
+  var length = array.length;
+  while (length--) {
+    if (eq(array[length][0], key)) {
+      return length;
+    }
+  }
+  return -1;
+}
+
+module.exports = assocIndexOf;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_baseAssignValue.js":
+/*!**************************************************!*\
+  !*** ../node_modules/lodash/_baseAssignValue.js ***!
+  \**************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var defineProperty = __webpack_require__(/*! ./_defineProperty */ "../node_modules/lodash/_defineProperty.js");
+
+/**
+ * The base implementation of `assignValue` and `assignMergeValue` without
+ * value checks.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function baseAssignValue(object, key, value) {
+  if (key == '__proto__' && defineProperty) {
+    defineProperty(object, key, {
+      'configurable': true,
+      'enumerable': true,
+      'value': value,
+      'writable': true
+    });
+  } else {
+    object[key] = value;
+  }
+}
+
+module.exports = baseAssignValue;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_baseCreate.js":
+/*!*********************************************!*\
+  !*** ../node_modules/lodash/_baseCreate.js ***!
+  \*********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./isObject */ "../node_modules/lodash/isObject.js");
+
+/** Built-in value references. */
+var objectCreate = Object.create;
+
+/**
+ * The base implementation of `_.create` without support for assigning
+ * properties to the created object.
+ *
+ * @private
+ * @param {Object} proto The object to inherit from.
+ * @returns {Object} Returns the new object.
+ */
+var baseCreate = (function() {
+  function object() {}
+  return function(proto) {
+    if (!isObject(proto)) {
+      return {};
+    }
+    if (objectCreate) {
+      return objectCreate(proto);
+    }
+    object.prototype = proto;
+    var result = new object;
+    object.prototype = undefined;
+    return result;
+  };
+}());
+
+module.exports = baseCreate;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_baseFor.js":
+/*!******************************************!*\
+  !*** ../node_modules/lodash/_baseFor.js ***!
+  \******************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var createBaseFor = __webpack_require__(/*! ./_createBaseFor */ "../node_modules/lodash/_createBaseFor.js");
+
+/**
+ * The base implementation of `baseForOwn` which iterates over `object`
+ * properties returned by `keysFunc` and invokes `iteratee` for each property.
+ * Iteratee functions may exit iteration early by explicitly returning `false`.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @returns {Object} Returns `object`.
+ */
+var baseFor = createBaseFor();
+
+module.exports = baseFor;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_baseGetTag.js":
+/*!*********************************************!*\
+  !*** ../node_modules/lodash/_baseGetTag.js ***!
+  \*********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "../node_modules/lodash/_Symbol.js"),
+    getRawTag = __webpack_require__(/*! ./_getRawTag */ "../node_modules/lodash/_getRawTag.js"),
+    objectToString = __webpack_require__(/*! ./_objectToString */ "../node_modules/lodash/_objectToString.js");
+
+/** `Object#toString` result references. */
+var nullTag = '[object Null]',
+    undefinedTag = '[object Undefined]';
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+  return (symToStringTag && symToStringTag in Object(value))
+    ? getRawTag(value)
+    : objectToString(value);
+}
+
+module.exports = baseGetTag;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_baseIsArguments.js":
+/*!**************************************************!*\
+  !*** ../node_modules/lodash/_baseIsArguments.js ***!
+  \**************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "../node_modules/lodash/_baseGetTag.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "../node_modules/lodash/isObjectLike.js");
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]';
+
+/**
+ * The base implementation of `_.isArguments`.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ */
+function baseIsArguments(value) {
+  return isObjectLike(value) && baseGetTag(value) == argsTag;
+}
+
+module.exports = baseIsArguments;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_baseIsNative.js":
+/*!***********************************************!*\
+  !*** ../node_modules/lodash/_baseIsNative.js ***!
+  \***********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var isFunction = __webpack_require__(/*! ./isFunction */ "../node_modules/lodash/isFunction.js"),
+    isMasked = __webpack_require__(/*! ./_isMasked */ "../node_modules/lodash/_isMasked.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "../node_modules/lodash/isObject.js"),
+    toSource = __webpack_require__(/*! ./_toSource */ "../node_modules/lodash/_toSource.js");
+
+/**
+ * Used to match `RegExp`
+ * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+ */
+var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+
+/** Used to detect host constructors (Safari). */
+var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to detect if a method is native. */
+var reIsNative = RegExp('^' +
+  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+);
+
+/**
+ * The base implementation of `_.isNative` without bad shim checks.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a native function,
+ *  else `false`.
+ */
+function baseIsNative(value) {
+  if (!isObject(value) || isMasked(value)) {
+    return false;
+  }
+  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource(value));
+}
+
+module.exports = baseIsNative;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_baseIsTypedArray.js":
+/*!***************************************************!*\
+  !*** ../node_modules/lodash/_baseIsTypedArray.js ***!
+  \***************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "../node_modules/lodash/_baseGetTag.js"),
+    isLength = __webpack_require__(/*! ./isLength */ "../node_modules/lodash/isLength.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "../node_modules/lodash/isObjectLike.js");
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]',
+    arrayTag = '[object Array]',
+    boolTag = '[object Boolean]',
+    dateTag = '[object Date]',
+    errorTag = '[object Error]',
+    funcTag = '[object Function]',
+    mapTag = '[object Map]',
+    numberTag = '[object Number]',
+    objectTag = '[object Object]',
+    regexpTag = '[object RegExp]',
+    setTag = '[object Set]',
+    stringTag = '[object String]',
+    weakMapTag = '[object WeakMap]';
+
+var arrayBufferTag = '[object ArrayBuffer]',
+    dataViewTag = '[object DataView]',
+    float32Tag = '[object Float32Array]',
+    float64Tag = '[object Float64Array]',
+    int8Tag = '[object Int8Array]',
+    int16Tag = '[object Int16Array]',
+    int32Tag = '[object Int32Array]',
+    uint8Tag = '[object Uint8Array]',
+    uint8ClampedTag = '[object Uint8ClampedArray]',
+    uint16Tag = '[object Uint16Array]',
+    uint32Tag = '[object Uint32Array]';
+
+/** Used to identify `toStringTag` values of typed arrays. */
+var typedArrayTags = {};
+typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+typedArrayTags[uint32Tag] = true;
+typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
+typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
+typedArrayTags[errorTag] = typedArrayTags[funcTag] =
+typedArrayTags[mapTag] = typedArrayTags[numberTag] =
+typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
+typedArrayTags[setTag] = typedArrayTags[stringTag] =
+typedArrayTags[weakMapTag] = false;
+
+/**
+ * The base implementation of `_.isTypedArray` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ */
+function baseIsTypedArray(value) {
+  return isObjectLike(value) &&
+    isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
+}
+
+module.exports = baseIsTypedArray;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_baseKeysIn.js":
+/*!*********************************************!*\
+  !*** ../node_modules/lodash/_baseKeysIn.js ***!
+  \*********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ./isObject */ "../node_modules/lodash/isObject.js"),
+    isPrototype = __webpack_require__(/*! ./_isPrototype */ "../node_modules/lodash/_isPrototype.js"),
+    nativeKeysIn = __webpack_require__(/*! ./_nativeKeysIn */ "../node_modules/lodash/_nativeKeysIn.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * The base implementation of `_.keysIn` which doesn't treat sparse arrays as dense.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function baseKeysIn(object) {
+  if (!isObject(object)) {
+    return nativeKeysIn(object);
+  }
+  var isProto = isPrototype(object),
+      result = [];
+
+  for (var key in object) {
+    if (!(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+module.exports = baseKeysIn;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_baseMerge.js":
+/*!********************************************!*\
+  !*** ../node_modules/lodash/_baseMerge.js ***!
+  \********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var Stack = __webpack_require__(/*! ./_Stack */ "../node_modules/lodash/_Stack.js"),
+    assignMergeValue = __webpack_require__(/*! ./_assignMergeValue */ "../node_modules/lodash/_assignMergeValue.js"),
+    baseFor = __webpack_require__(/*! ./_baseFor */ "../node_modules/lodash/_baseFor.js"),
+    baseMergeDeep = __webpack_require__(/*! ./_baseMergeDeep */ "../node_modules/lodash/_baseMergeDeep.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "../node_modules/lodash/isObject.js"),
+    keysIn = __webpack_require__(/*! ./keysIn */ "../node_modules/lodash/keysIn.js"),
+    safeGet = __webpack_require__(/*! ./_safeGet */ "../node_modules/lodash/_safeGet.js");
+
+/**
+ * The base implementation of `_.merge` without support for multiple sources.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {number} srcIndex The index of `source`.
+ * @param {Function} [customizer] The function to customize merged values.
+ * @param {Object} [stack] Tracks traversed source values and their merged
+ *  counterparts.
+ */
+function baseMerge(object, source, srcIndex, customizer, stack) {
+  if (object === source) {
+    return;
+  }
+  baseFor(source, function(srcValue, key) {
+    stack || (stack = new Stack);
+    if (isObject(srcValue)) {
+      baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
+    }
+    else {
+      var newValue = customizer
+        ? customizer(safeGet(object, key), srcValue, (key + ''), object, source, stack)
+        : undefined;
+
+      if (newValue === undefined) {
+        newValue = srcValue;
+      }
+      assignMergeValue(object, key, newValue);
+    }
+  }, keysIn);
+}
+
+module.exports = baseMerge;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_baseMergeDeep.js":
+/*!************************************************!*\
+  !*** ../node_modules/lodash/_baseMergeDeep.js ***!
+  \************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var assignMergeValue = __webpack_require__(/*! ./_assignMergeValue */ "../node_modules/lodash/_assignMergeValue.js"),
+    cloneBuffer = __webpack_require__(/*! ./_cloneBuffer */ "../node_modules/lodash/_cloneBuffer.js"),
+    cloneTypedArray = __webpack_require__(/*! ./_cloneTypedArray */ "../node_modules/lodash/_cloneTypedArray.js"),
+    copyArray = __webpack_require__(/*! ./_copyArray */ "../node_modules/lodash/_copyArray.js"),
+    initCloneObject = __webpack_require__(/*! ./_initCloneObject */ "../node_modules/lodash/_initCloneObject.js"),
+    isArguments = __webpack_require__(/*! ./isArguments */ "../node_modules/lodash/isArguments.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "../node_modules/lodash/isArray.js"),
+    isArrayLikeObject = __webpack_require__(/*! ./isArrayLikeObject */ "../node_modules/lodash/isArrayLikeObject.js"),
+    isBuffer = __webpack_require__(/*! ./isBuffer */ "../node_modules/lodash/isBuffer.js"),
+    isFunction = __webpack_require__(/*! ./isFunction */ "../node_modules/lodash/isFunction.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "../node_modules/lodash/isObject.js"),
+    isPlainObject = __webpack_require__(/*! ./isPlainObject */ "../node_modules/lodash/isPlainObject.js"),
+    isTypedArray = __webpack_require__(/*! ./isTypedArray */ "../node_modules/lodash/isTypedArray.js"),
+    safeGet = __webpack_require__(/*! ./_safeGet */ "../node_modules/lodash/_safeGet.js"),
+    toPlainObject = __webpack_require__(/*! ./toPlainObject */ "../node_modules/lodash/toPlainObject.js");
+
+/**
+ * A specialized version of `baseMerge` for arrays and objects which performs
+ * deep merges and tracks traversed objects enabling objects with circular
+ * references to be merged.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {string} key The key of the value to merge.
+ * @param {number} srcIndex The index of `source`.
+ * @param {Function} mergeFunc The function to merge values.
+ * @param {Function} [customizer] The function to customize assigned values.
+ * @param {Object} [stack] Tracks traversed source values and their merged
+ *  counterparts.
+ */
+function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, stack) {
+  var objValue = safeGet(object, key),
+      srcValue = safeGet(source, key),
+      stacked = stack.get(srcValue);
+
+  if (stacked) {
+    assignMergeValue(object, key, stacked);
+    return;
+  }
+  var newValue = customizer
+    ? customizer(objValue, srcValue, (key + ''), object, source, stack)
+    : undefined;
+
+  var isCommon = newValue === undefined;
+
+  if (isCommon) {
+    var isArr = isArray(srcValue),
+        isBuff = !isArr && isBuffer(srcValue),
+        isTyped = !isArr && !isBuff && isTypedArray(srcValue);
+
+    newValue = srcValue;
+    if (isArr || isBuff || isTyped) {
+      if (isArray(objValue)) {
+        newValue = objValue;
+      }
+      else if (isArrayLikeObject(objValue)) {
+        newValue = copyArray(objValue);
+      }
+      else if (isBuff) {
+        isCommon = false;
+        newValue = cloneBuffer(srcValue, true);
+      }
+      else if (isTyped) {
+        isCommon = false;
+        newValue = cloneTypedArray(srcValue, true);
+      }
+      else {
+        newValue = [];
+      }
+    }
+    else if (isPlainObject(srcValue) || isArguments(srcValue)) {
+      newValue = objValue;
+      if (isArguments(objValue)) {
+        newValue = toPlainObject(objValue);
+      }
+      else if (!isObject(objValue) || isFunction(objValue)) {
+        newValue = initCloneObject(srcValue);
+      }
+    }
+    else {
+      isCommon = false;
+    }
+  }
+  if (isCommon) {
+    // Recursively merge objects and arrays (susceptible to call stack limits).
+    stack.set(srcValue, newValue);
+    mergeFunc(newValue, srcValue, srcIndex, customizer, stack);
+    stack['delete'](srcValue);
+  }
+  assignMergeValue(object, key, newValue);
+}
+
+module.exports = baseMergeDeep;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_baseRest.js":
+/*!*******************************************!*\
+  !*** ../node_modules/lodash/_baseRest.js ***!
+  \*******************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var identity = __webpack_require__(/*! ./identity */ "../node_modules/lodash/identity.js"),
+    overRest = __webpack_require__(/*! ./_overRest */ "../node_modules/lodash/_overRest.js"),
+    setToString = __webpack_require__(/*! ./_setToString */ "../node_modules/lodash/_setToString.js");
+
+/**
+ * The base implementation of `_.rest` which doesn't validate or coerce arguments.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @returns {Function} Returns the new function.
+ */
+function baseRest(func, start) {
+  return setToString(overRest(func, start, identity), func + '');
+}
+
+module.exports = baseRest;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_baseSetToString.js":
+/*!**************************************************!*\
+  !*** ../node_modules/lodash/_baseSetToString.js ***!
+  \**************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var constant = __webpack_require__(/*! ./constant */ "../node_modules/lodash/constant.js"),
+    defineProperty = __webpack_require__(/*! ./_defineProperty */ "../node_modules/lodash/_defineProperty.js"),
+    identity = __webpack_require__(/*! ./identity */ "../node_modules/lodash/identity.js");
+
+/**
+ * The base implementation of `setToString` without support for hot loop shorting.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+var baseSetToString = !defineProperty ? identity : function(func, string) {
+  return defineProperty(func, 'toString', {
+    'configurable': true,
+    'enumerable': false,
+    'value': constant(string),
+    'writable': true
+  });
+};
+
+module.exports = baseSetToString;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_baseTimes.js":
+/*!********************************************!*\
+  !*** ../node_modules/lodash/_baseTimes.js ***!
+  \********************************************/
+/***/ (function(module) {
+
+/**
+ * The base implementation of `_.times` without support for iteratee shorthands
+ * or max array length checks.
+ *
+ * @private
+ * @param {number} n The number of times to invoke `iteratee`.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the array of results.
+ */
+function baseTimes(n, iteratee) {
+  var index = -1,
+      result = Array(n);
+
+  while (++index < n) {
+    result[index] = iteratee(index);
+  }
+  return result;
+}
+
+module.exports = baseTimes;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_baseUnary.js":
+/*!********************************************!*\
+  !*** ../node_modules/lodash/_baseUnary.js ***!
+  \********************************************/
+/***/ (function(module) {
+
+/**
+ * The base implementation of `_.unary` without support for storing metadata.
+ *
+ * @private
+ * @param {Function} func The function to cap arguments for.
+ * @returns {Function} Returns the new capped function.
+ */
+function baseUnary(func) {
+  return function(value) {
+    return func(value);
+  };
+}
+
+module.exports = baseUnary;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_cloneArrayBuffer.js":
+/*!***************************************************!*\
+  !*** ../node_modules/lodash/_cloneArrayBuffer.js ***!
+  \***************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var Uint8Array = __webpack_require__(/*! ./_Uint8Array */ "../node_modules/lodash/_Uint8Array.js");
+
+/**
+ * Creates a clone of `arrayBuffer`.
+ *
+ * @private
+ * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
+ * @returns {ArrayBuffer} Returns the cloned array buffer.
+ */
+function cloneArrayBuffer(arrayBuffer) {
+  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
+  new Uint8Array(result).set(new Uint8Array(arrayBuffer));
+  return result;
+}
+
+module.exports = cloneArrayBuffer;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_cloneBuffer.js":
+/*!**********************************************!*\
+  !*** ../node_modules/lodash/_cloneBuffer.js ***!
+  \**********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+/* module decorator */ module = __webpack_require__.nmd(module);
+var root = __webpack_require__(/*! ./_root */ "../node_modules/lodash/_root.js");
+
+/** Detect free variable `exports`. */
+var freeExports =  true && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && "object" == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Built-in value references. */
+var Buffer = moduleExports ? root.Buffer : undefined,
+    allocUnsafe = Buffer ? Buffer.allocUnsafe : undefined;
+
+/**
+ * Creates a clone of  `buffer`.
+ *
+ * @private
+ * @param {Buffer} buffer The buffer to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Buffer} Returns the cloned buffer.
+ */
+function cloneBuffer(buffer, isDeep) {
+  if (isDeep) {
+    return buffer.slice();
+  }
+  var length = buffer.length,
+      result = allocUnsafe ? allocUnsafe(length) : new buffer.constructor(length);
+
+  buffer.copy(result);
+  return result;
+}
+
+module.exports = cloneBuffer;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_cloneTypedArray.js":
+/*!**************************************************!*\
+  !*** ../node_modules/lodash/_cloneTypedArray.js ***!
+  \**************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var cloneArrayBuffer = __webpack_require__(/*! ./_cloneArrayBuffer */ "../node_modules/lodash/_cloneArrayBuffer.js");
+
+/**
+ * Creates a clone of `typedArray`.
+ *
+ * @private
+ * @param {Object} typedArray The typed array to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Object} Returns the cloned typed array.
+ */
+function cloneTypedArray(typedArray, isDeep) {
+  var buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
+  return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
+}
+
+module.exports = cloneTypedArray;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_copyArray.js":
+/*!********************************************!*\
+  !*** ../node_modules/lodash/_copyArray.js ***!
+  \********************************************/
+/***/ (function(module) {
+
+/**
+ * Copies the values of `source` to `array`.
+ *
+ * @private
+ * @param {Array} source The array to copy values from.
+ * @param {Array} [array=[]] The array to copy values to.
+ * @returns {Array} Returns `array`.
+ */
+function copyArray(source, array) {
+  var index = -1,
+      length = source.length;
+
+  array || (array = Array(length));
+  while (++index < length) {
+    array[index] = source[index];
+  }
+  return array;
+}
+
+module.exports = copyArray;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_copyObject.js":
+/*!*********************************************!*\
+  !*** ../node_modules/lodash/_copyObject.js ***!
+  \*********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var assignValue = __webpack_require__(/*! ./_assignValue */ "../node_modules/lodash/_assignValue.js"),
+    baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "../node_modules/lodash/_baseAssignValue.js");
+
+/**
+ * Copies properties of `source` to `object`.
+ *
+ * @private
+ * @param {Object} source The object to copy properties from.
+ * @param {Array} props The property identifiers to copy.
+ * @param {Object} [object={}] The object to copy properties to.
+ * @param {Function} [customizer] The function to customize copied values.
+ * @returns {Object} Returns `object`.
+ */
+function copyObject(source, props, object, customizer) {
+  var isNew = !object;
+  object || (object = {});
+
+  var index = -1,
+      length = props.length;
+
+  while (++index < length) {
+    var key = props[index];
+
+    var newValue = customizer
+      ? customizer(object[key], source[key], key, object, source)
+      : undefined;
+
+    if (newValue === undefined) {
+      newValue = source[key];
+    }
+    if (isNew) {
+      baseAssignValue(object, key, newValue);
+    } else {
+      assignValue(object, key, newValue);
+    }
+  }
+  return object;
+}
+
+module.exports = copyObject;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_coreJsData.js":
+/*!*********************************************!*\
+  !*** ../node_modules/lodash/_coreJsData.js ***!
+  \*********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var root = __webpack_require__(/*! ./_root */ "../node_modules/lodash/_root.js");
+
+/** Used to detect overreaching core-js shims. */
+var coreJsData = root['__core-js_shared__'];
+
+module.exports = coreJsData;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_createAssigner.js":
+/*!*************************************************!*\
+  !*** ../node_modules/lodash/_createAssigner.js ***!
+  \*************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseRest = __webpack_require__(/*! ./_baseRest */ "../node_modules/lodash/_baseRest.js"),
+    isIterateeCall = __webpack_require__(/*! ./_isIterateeCall */ "../node_modules/lodash/_isIterateeCall.js");
+
+/**
+ * Creates a function like `_.assign`.
+ *
+ * @private
+ * @param {Function} assigner The function to assign values.
+ * @returns {Function} Returns the new assigner function.
+ */
+function createAssigner(assigner) {
+  return baseRest(function(object, sources) {
+    var index = -1,
+        length = sources.length,
+        customizer = length > 1 ? sources[length - 1] : undefined,
+        guard = length > 2 ? sources[2] : undefined;
+
+    customizer = (assigner.length > 3 && typeof customizer == 'function')
+      ? (length--, customizer)
+      : undefined;
+
+    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+      customizer = length < 3 ? undefined : customizer;
+      length = 1;
+    }
+    object = Object(object);
+    while (++index < length) {
+      var source = sources[index];
+      if (source) {
+        assigner(object, source, index, customizer);
+      }
+    }
+    return object;
+  });
+}
+
+module.exports = createAssigner;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_createBaseFor.js":
+/*!************************************************!*\
+  !*** ../node_modules/lodash/_createBaseFor.js ***!
+  \************************************************/
+/***/ (function(module) {
+
+/**
+ * Creates a base function for methods like `_.forIn` and `_.forOwn`.
+ *
+ * @private
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseFor(fromRight) {
+  return function(object, iteratee, keysFunc) {
+    var index = -1,
+        iterable = Object(object),
+        props = keysFunc(object),
+        length = props.length;
+
+    while (length--) {
+      var key = props[fromRight ? length : ++index];
+      if (iteratee(iterable[key], key, iterable) === false) {
+        break;
+      }
+    }
+    return object;
+  };
+}
+
+module.exports = createBaseFor;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_defineProperty.js":
+/*!*************************************************!*\
+  !*** ../node_modules/lodash/_defineProperty.js ***!
+  \*************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "../node_modules/lodash/_getNative.js");
+
+var defineProperty = (function() {
+  try {
+    var func = getNative(Object, 'defineProperty');
+    func({}, '', {});
+    return func;
+  } catch (e) {}
+}());
+
+module.exports = defineProperty;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_freeGlobal.js":
+/*!*********************************************!*\
+  !*** ../node_modules/lodash/_freeGlobal.js ***!
+  \*********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof __webpack_require__.g == 'object' && __webpack_require__.g && __webpack_require__.g.Object === Object && __webpack_require__.g;
+
+module.exports = freeGlobal;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_getMapData.js":
+/*!*********************************************!*\
+  !*** ../node_modules/lodash/_getMapData.js ***!
+  \*********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var isKeyable = __webpack_require__(/*! ./_isKeyable */ "../node_modules/lodash/_isKeyable.js");
+
+/**
+ * Gets the data for `map`.
+ *
+ * @private
+ * @param {Object} map The map to query.
+ * @param {string} key The reference key.
+ * @returns {*} Returns the map data.
+ */
+function getMapData(map, key) {
+  var data = map.__data__;
+  return isKeyable(key)
+    ? data[typeof key == 'string' ? 'string' : 'hash']
+    : data.map;
+}
+
+module.exports = getMapData;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_getNative.js":
+/*!********************************************!*\
+  !*** ../node_modules/lodash/_getNative.js ***!
+  \********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseIsNative = __webpack_require__(/*! ./_baseIsNative */ "../node_modules/lodash/_baseIsNative.js"),
+    getValue = __webpack_require__(/*! ./_getValue */ "../node_modules/lodash/_getValue.js");
+
+/**
+ * Gets the native function at `key` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the method to get.
+ * @returns {*} Returns the function if it's native, else `undefined`.
+ */
+function getNative(object, key) {
+  var value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+
+module.exports = getNative;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_getPrototype.js":
+/*!***********************************************!*\
+  !*** ../node_modules/lodash/_getPrototype.js ***!
+  \***********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var overArg = __webpack_require__(/*! ./_overArg */ "../node_modules/lodash/_overArg.js");
+
+/** Built-in value references. */
+var getPrototype = overArg(Object.getPrototypeOf, Object);
+
+module.exports = getPrototype;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_getRawTag.js":
+/*!********************************************!*\
+  !*** ../node_modules/lodash/_getRawTag.js ***!
+  \********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(/*! ./_Symbol */ "../node_modules/lodash/_Symbol.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the raw `toStringTag`.
+ */
+function getRawTag(value) {
+  var isOwn = hasOwnProperty.call(value, symToStringTag),
+      tag = value[symToStringTag];
+
+  try {
+    value[symToStringTag] = undefined;
+    var unmasked = true;
+  } catch (e) {}
+
+  var result = nativeObjectToString.call(value);
+  if (unmasked) {
+    if (isOwn) {
+      value[symToStringTag] = tag;
+    } else {
+      delete value[symToStringTag];
+    }
+  }
+  return result;
+}
+
+module.exports = getRawTag;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_getValue.js":
+/*!*******************************************!*\
+  !*** ../node_modules/lodash/_getValue.js ***!
+  \*******************************************/
+/***/ (function(module) {
+
+/**
+ * Gets the value at `key` of `object`.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function getValue(object, key) {
+  return object == null ? undefined : object[key];
+}
+
+module.exports = getValue;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_hashClear.js":
+/*!********************************************!*\
+  !*** ../node_modules/lodash/_hashClear.js ***!
+  \********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "../node_modules/lodash/_nativeCreate.js");
+
+/**
+ * Removes all key-value entries from the hash.
+ *
+ * @private
+ * @name clear
+ * @memberOf Hash
+ */
+function hashClear() {
+  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+  this.size = 0;
+}
+
+module.exports = hashClear;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_hashDelete.js":
+/*!*********************************************!*\
+  !*** ../node_modules/lodash/_hashDelete.js ***!
+  \*********************************************/
+/***/ (function(module) {
+
+/**
+ * Removes `key` and its value from the hash.
+ *
+ * @private
+ * @name delete
+ * @memberOf Hash
+ * @param {Object} hash The hash to modify.
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function hashDelete(key) {
+  var result = this.has(key) && delete this.__data__[key];
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+module.exports = hashDelete;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_hashGet.js":
+/*!******************************************!*\
+  !*** ../node_modules/lodash/_hashGet.js ***!
+  \******************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "../node_modules/lodash/_nativeCreate.js");
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Gets the hash value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Hash
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function hashGet(key) {
+  var data = this.__data__;
+  if (nativeCreate) {
+    var result = data[key];
+    return result === HASH_UNDEFINED ? undefined : result;
+  }
+  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+}
+
+module.exports = hashGet;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_hashHas.js":
+/*!******************************************!*\
+  !*** ../node_modules/lodash/_hashHas.js ***!
+  \******************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "../node_modules/lodash/_nativeCreate.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Checks if a hash value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Hash
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function hashHas(key) {
+  var data = this.__data__;
+  return nativeCreate ? (data[key] !== undefined) : hasOwnProperty.call(data, key);
+}
+
+module.exports = hashHas;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_hashSet.js":
+/*!******************************************!*\
+  !*** ../node_modules/lodash/_hashSet.js ***!
+  \******************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "../node_modules/lodash/_nativeCreate.js");
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/**
+ * Sets the hash `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Hash
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the hash instance.
+ */
+function hashSet(key, value) {
+  var data = this.__data__;
+  this.size += this.has(key) ? 0 : 1;
+  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
+  return this;
+}
+
+module.exports = hashSet;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_initCloneObject.js":
+/*!**************************************************!*\
+  !*** ../node_modules/lodash/_initCloneObject.js ***!
+  \**************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseCreate = __webpack_require__(/*! ./_baseCreate */ "../node_modules/lodash/_baseCreate.js"),
+    getPrototype = __webpack_require__(/*! ./_getPrototype */ "../node_modules/lodash/_getPrototype.js"),
+    isPrototype = __webpack_require__(/*! ./_isPrototype */ "../node_modules/lodash/_isPrototype.js");
+
+/**
+ * Initializes an object clone.
+ *
+ * @private
+ * @param {Object} object The object to clone.
+ * @returns {Object} Returns the initialized clone.
+ */
+function initCloneObject(object) {
+  return (typeof object.constructor == 'function' && !isPrototype(object))
+    ? baseCreate(getPrototype(object))
+    : {};
+}
+
+module.exports = initCloneObject;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_isIndex.js":
+/*!******************************************!*\
+  !*** ../node_modules/lodash/_isIndex.js ***!
+  \******************************************/
+/***/ (function(module) {
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  var type = typeof value;
+  length = length == null ? MAX_SAFE_INTEGER : length;
+
+  return !!length &&
+    (type == 'number' ||
+      (type != 'symbol' && reIsUint.test(value))) &&
+        (value > -1 && value % 1 == 0 && value < length);
+}
+
+module.exports = isIndex;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_isIterateeCall.js":
+/*!*************************************************!*\
+  !*** ../node_modules/lodash/_isIterateeCall.js ***!
+  \*************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var eq = __webpack_require__(/*! ./eq */ "../node_modules/lodash/eq.js"),
+    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "../node_modules/lodash/isArrayLike.js"),
+    isIndex = __webpack_require__(/*! ./_isIndex */ "../node_modules/lodash/_isIndex.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "../node_modules/lodash/isObject.js");
+
+/**
+ * Checks if the given arguments are from an iteratee call.
+ *
+ * @private
+ * @param {*} value The potential iteratee value argument.
+ * @param {*} index The potential iteratee index or key argument.
+ * @param {*} object The potential iteratee object argument.
+ * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
+ *  else `false`.
+ */
+function isIterateeCall(value, index, object) {
+  if (!isObject(object)) {
+    return false;
+  }
+  var type = typeof index;
+  if (type == 'number'
+        ? (isArrayLike(object) && isIndex(index, object.length))
+        : (type == 'string' && index in object)
+      ) {
+    return eq(object[index], value);
+  }
+  return false;
+}
+
+module.exports = isIterateeCall;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_isKeyable.js":
+/*!********************************************!*\
+  !*** ../node_modules/lodash/_isKeyable.js ***!
+  \********************************************/
+/***/ (function(module) {
+
+/**
+ * Checks if `value` is suitable for use as unique object key.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+ */
+function isKeyable(value) {
+  var type = typeof value;
+  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+    ? (value !== '__proto__')
+    : (value === null);
+}
+
+module.exports = isKeyable;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_isMasked.js":
+/*!*******************************************!*\
+  !*** ../node_modules/lodash/_isMasked.js ***!
+  \*******************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var coreJsData = __webpack_require__(/*! ./_coreJsData */ "../node_modules/lodash/_coreJsData.js");
+
+/** Used to detect methods masquerading as native. */
+var maskSrcKey = (function() {
+  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+  return uid ? ('Symbol(src)_1.' + uid) : '';
+}());
+
+/**
+ * Checks if `func` has its source masked.
+ *
+ * @private
+ * @param {Function} func The function to check.
+ * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+ */
+function isMasked(func) {
+  return !!maskSrcKey && (maskSrcKey in func);
+}
+
+module.exports = isMasked;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_isPrototype.js":
+/*!**********************************************!*\
+  !*** ../node_modules/lodash/_isPrototype.js ***!
+  \**********************************************/
+/***/ (function(module) {
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Checks if `value` is likely a prototype object.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+ */
+function isPrototype(value) {
+  var Ctor = value && value.constructor,
+      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
+
+  return value === proto;
+}
+
+module.exports = isPrototype;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_listCacheClear.js":
+/*!*************************************************!*\
+  !*** ../node_modules/lodash/_listCacheClear.js ***!
+  \*************************************************/
+/***/ (function(module) {
+
+/**
+ * Removes all key-value entries from the list cache.
+ *
+ * @private
+ * @name clear
+ * @memberOf ListCache
+ */
+function listCacheClear() {
+  this.__data__ = [];
+  this.size = 0;
+}
+
+module.exports = listCacheClear;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_listCacheDelete.js":
+/*!**************************************************!*\
+  !*** ../node_modules/lodash/_listCacheDelete.js ***!
+  \**************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "../node_modules/lodash/_assocIndexOf.js");
+
+/** Used for built-in method references. */
+var arrayProto = Array.prototype;
+
+/** Built-in value references. */
+var splice = arrayProto.splice;
+
+/**
+ * Removes `key` and its value from the list cache.
+ *
+ * @private
+ * @name delete
+ * @memberOf ListCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function listCacheDelete(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    return false;
+  }
+  var lastIndex = data.length - 1;
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+  --this.size;
+  return true;
+}
+
+module.exports = listCacheDelete;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_listCacheGet.js":
+/*!***********************************************!*\
+  !*** ../node_modules/lodash/_listCacheGet.js ***!
+  \***********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "../node_modules/lodash/_assocIndexOf.js");
+
+/**
+ * Gets the list cache value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf ListCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function listCacheGet(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  return index < 0 ? undefined : data[index][1];
+}
+
+module.exports = listCacheGet;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_listCacheHas.js":
+/*!***********************************************!*\
+  !*** ../node_modules/lodash/_listCacheHas.js ***!
+  \***********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "../node_modules/lodash/_assocIndexOf.js");
+
+/**
+ * Checks if a list cache value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf ListCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function listCacheHas(key) {
+  return assocIndexOf(this.__data__, key) > -1;
+}
+
+module.exports = listCacheHas;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_listCacheSet.js":
+/*!***********************************************!*\
+  !*** ../node_modules/lodash/_listCacheSet.js ***!
+  \***********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "../node_modules/lodash/_assocIndexOf.js");
+
+/**
+ * Sets the list cache `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf ListCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the list cache instance.
+ */
+function listCacheSet(key, value) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    ++this.size;
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+  return this;
+}
+
+module.exports = listCacheSet;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_mapCacheClear.js":
+/*!************************************************!*\
+  !*** ../node_modules/lodash/_mapCacheClear.js ***!
+  \************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var Hash = __webpack_require__(/*! ./_Hash */ "../node_modules/lodash/_Hash.js"),
+    ListCache = __webpack_require__(/*! ./_ListCache */ "../node_modules/lodash/_ListCache.js"),
+    Map = __webpack_require__(/*! ./_Map */ "../node_modules/lodash/_Map.js");
+
+/**
+ * Removes all key-value entries from the map.
+ *
+ * @private
+ * @name clear
+ * @memberOf MapCache
+ */
+function mapCacheClear() {
+  this.size = 0;
+  this.__data__ = {
+    'hash': new Hash,
+    'map': new (Map || ListCache),
+    'string': new Hash
+  };
+}
+
+module.exports = mapCacheClear;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_mapCacheDelete.js":
+/*!*************************************************!*\
+  !*** ../node_modules/lodash/_mapCacheDelete.js ***!
+  \*************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "../node_modules/lodash/_getMapData.js");
+
+/**
+ * Removes `key` and its value from the map.
+ *
+ * @private
+ * @name delete
+ * @memberOf MapCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function mapCacheDelete(key) {
+  var result = getMapData(this, key)['delete'](key);
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+module.exports = mapCacheDelete;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_mapCacheGet.js":
+/*!**********************************************!*\
+  !*** ../node_modules/lodash/_mapCacheGet.js ***!
+  \**********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "../node_modules/lodash/_getMapData.js");
+
+/**
+ * Gets the map value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf MapCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function mapCacheGet(key) {
+  return getMapData(this, key).get(key);
+}
+
+module.exports = mapCacheGet;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_mapCacheHas.js":
+/*!**********************************************!*\
+  !*** ../node_modules/lodash/_mapCacheHas.js ***!
+  \**********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "../node_modules/lodash/_getMapData.js");
+
+/**
+ * Checks if a map value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf MapCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function mapCacheHas(key) {
+  return getMapData(this, key).has(key);
+}
+
+module.exports = mapCacheHas;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_mapCacheSet.js":
+/*!**********************************************!*\
+  !*** ../node_modules/lodash/_mapCacheSet.js ***!
+  \**********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var getMapData = __webpack_require__(/*! ./_getMapData */ "../node_modules/lodash/_getMapData.js");
+
+/**
+ * Sets the map `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf MapCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the map cache instance.
+ */
+function mapCacheSet(key, value) {
+  var data = getMapData(this, key),
+      size = data.size;
+
+  data.set(key, value);
+  this.size += data.size == size ? 0 : 1;
+  return this;
+}
+
+module.exports = mapCacheSet;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_nativeCreate.js":
+/*!***********************************************!*\
+  !*** ../node_modules/lodash/_nativeCreate.js ***!
+  \***********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var getNative = __webpack_require__(/*! ./_getNative */ "../node_modules/lodash/_getNative.js");
+
+/* Built-in method references that are verified to be native. */
+var nativeCreate = getNative(Object, 'create');
+
+module.exports = nativeCreate;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_nativeKeysIn.js":
+/*!***********************************************!*\
+  !*** ../node_modules/lodash/_nativeKeysIn.js ***!
+  \***********************************************/
+/***/ (function(module) {
+
+/**
+ * This function is like
+ * [`Object.keys`](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * except that it includes inherited enumerable properties.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function nativeKeysIn(object) {
+  var result = [];
+  if (object != null) {
+    for (var key in Object(object)) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+module.exports = nativeKeysIn;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_nodeUtil.js":
+/*!*******************************************!*\
+  !*** ../node_modules/lodash/_nodeUtil.js ***!
+  \*******************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+/* module decorator */ module = __webpack_require__.nmd(module);
+var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "../node_modules/lodash/_freeGlobal.js");
+
+/** Detect free variable `exports`. */
+var freeExports =  true && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && "object" == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Detect free variable `process` from Node.js. */
+var freeProcess = moduleExports && freeGlobal.process;
+
+/** Used to access faster Node.js helpers. */
+var nodeUtil = (function() {
+  try {
+    // Use `util.types` for Node.js 10+.
+    var types = freeModule && freeModule.require && freeModule.require('util').types;
+
+    if (types) {
+      return types;
+    }
+
+    // Legacy `process.binding('util')` for Node.js < 10.
+    return freeProcess && freeProcess.binding && freeProcess.binding('util');
+  } catch (e) {}
+}());
+
+module.exports = nodeUtil;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_objectToString.js":
+/*!*************************************************!*\
+  !*** ../node_modules/lodash/_objectToString.js ***!
+  \*************************************************/
+/***/ (function(module) {
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/**
+ * Converts `value` to a string using `Object.prototype.toString`.
+ *
+ * @private
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ */
+function objectToString(value) {
+  return nativeObjectToString.call(value);
+}
+
+module.exports = objectToString;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_overArg.js":
+/*!******************************************!*\
+  !*** ../node_modules/lodash/_overArg.js ***!
+  \******************************************/
+/***/ (function(module) {
+
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function(arg) {
+    return func(transform(arg));
+  };
+}
+
+module.exports = overArg;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_overRest.js":
+/*!*******************************************!*\
+  !*** ../node_modules/lodash/_overRest.js ***!
+  \*******************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var apply = __webpack_require__(/*! ./_apply */ "../node_modules/lodash/_apply.js");
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max;
+
+/**
+ * A specialized version of `baseRest` which transforms the rest array.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @param {Function} transform The rest array transform.
+ * @returns {Function} Returns the new function.
+ */
+function overRest(func, start, transform) {
+  start = nativeMax(start === undefined ? (func.length - 1) : start, 0);
+  return function() {
+    var args = arguments,
+        index = -1,
+        length = nativeMax(args.length - start, 0),
+        array = Array(length);
+
+    while (++index < length) {
+      array[index] = args[start + index];
+    }
+    index = -1;
+    var otherArgs = Array(start + 1);
+    while (++index < start) {
+      otherArgs[index] = args[index];
+    }
+    otherArgs[start] = transform(array);
+    return apply(func, this, otherArgs);
+  };
+}
+
+module.exports = overRest;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_root.js":
+/*!***************************************!*\
+  !*** ../node_modules/lodash/_root.js ***!
+  \***************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "../node_modules/lodash/_freeGlobal.js");
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal || freeSelf || Function('return this')();
+
+module.exports = root;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_safeGet.js":
+/*!******************************************!*\
+  !*** ../node_modules/lodash/_safeGet.js ***!
+  \******************************************/
+/***/ (function(module) {
+
+/**
+ * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function safeGet(object, key) {
+  if (key === 'constructor' && typeof object[key] === 'function') {
+    return;
+  }
+
+  if (key == '__proto__') {
+    return;
+  }
+
+  return object[key];
+}
+
+module.exports = safeGet;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_setToString.js":
+/*!**********************************************!*\
+  !*** ../node_modules/lodash/_setToString.js ***!
+  \**********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseSetToString = __webpack_require__(/*! ./_baseSetToString */ "../node_modules/lodash/_baseSetToString.js"),
+    shortOut = __webpack_require__(/*! ./_shortOut */ "../node_modules/lodash/_shortOut.js");
+
+/**
+ * Sets the `toString` method of `func` to return `string`.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+var setToString = shortOut(baseSetToString);
+
+module.exports = setToString;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_shortOut.js":
+/*!*******************************************!*\
+  !*** ../node_modules/lodash/_shortOut.js ***!
+  \*******************************************/
+/***/ (function(module) {
+
+/** Used to detect hot functions by number of calls within a span of milliseconds. */
+var HOT_COUNT = 800,
+    HOT_SPAN = 16;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeNow = Date.now;
+
+/**
+ * Creates a function that'll short out and invoke `identity` instead
+ * of `func` when it's called `HOT_COUNT` or more times in `HOT_SPAN`
+ * milliseconds.
+ *
+ * @private
+ * @param {Function} func The function to restrict.
+ * @returns {Function} Returns the new shortable function.
+ */
+function shortOut(func) {
+  var count = 0,
+      lastCalled = 0;
+
+  return function() {
+    var stamp = nativeNow(),
+        remaining = HOT_SPAN - (stamp - lastCalled);
+
+    lastCalled = stamp;
+    if (remaining > 0) {
+      if (++count >= HOT_COUNT) {
+        return arguments[0];
+      }
+    } else {
+      count = 0;
+    }
+    return func.apply(undefined, arguments);
+  };
+}
+
+module.exports = shortOut;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_stackClear.js":
+/*!*********************************************!*\
+  !*** ../node_modules/lodash/_stackClear.js ***!
+  \*********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var ListCache = __webpack_require__(/*! ./_ListCache */ "../node_modules/lodash/_ListCache.js");
+
+/**
+ * Removes all key-value entries from the stack.
+ *
+ * @private
+ * @name clear
+ * @memberOf Stack
+ */
+function stackClear() {
+  this.__data__ = new ListCache;
+  this.size = 0;
+}
+
+module.exports = stackClear;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_stackDelete.js":
+/*!**********************************************!*\
+  !*** ../node_modules/lodash/_stackDelete.js ***!
+  \**********************************************/
+/***/ (function(module) {
+
+/**
+ * Removes `key` and its value from the stack.
+ *
+ * @private
+ * @name delete
+ * @memberOf Stack
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function stackDelete(key) {
+  var data = this.__data__,
+      result = data['delete'](key);
+
+  this.size = data.size;
+  return result;
+}
+
+module.exports = stackDelete;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_stackGet.js":
+/*!*******************************************!*\
+  !*** ../node_modules/lodash/_stackGet.js ***!
+  \*******************************************/
+/***/ (function(module) {
+
+/**
+ * Gets the stack value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Stack
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function stackGet(key) {
+  return this.__data__.get(key);
+}
+
+module.exports = stackGet;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_stackHas.js":
+/*!*******************************************!*\
+  !*** ../node_modules/lodash/_stackHas.js ***!
+  \*******************************************/
+/***/ (function(module) {
+
+/**
+ * Checks if a stack value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Stack
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function stackHas(key) {
+  return this.__data__.has(key);
+}
+
+module.exports = stackHas;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_stackSet.js":
+/*!*******************************************!*\
+  !*** ../node_modules/lodash/_stackSet.js ***!
+  \*******************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var ListCache = __webpack_require__(/*! ./_ListCache */ "../node_modules/lodash/_ListCache.js"),
+    Map = __webpack_require__(/*! ./_Map */ "../node_modules/lodash/_Map.js"),
+    MapCache = __webpack_require__(/*! ./_MapCache */ "../node_modules/lodash/_MapCache.js");
+
+/** Used as the size to enable large array optimizations. */
+var LARGE_ARRAY_SIZE = 200;
+
+/**
+ * Sets the stack `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Stack
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the stack cache instance.
+ */
+function stackSet(key, value) {
+  var data = this.__data__;
+  if (data instanceof ListCache) {
+    var pairs = data.__data__;
+    if (!Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
+      pairs.push([key, value]);
+      this.size = ++data.size;
+      return this;
+    }
+    data = this.__data__ = new MapCache(pairs);
+  }
+  data.set(key, value);
+  this.size = data.size;
+  return this;
+}
+
+module.exports = stackSet;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/_toSource.js":
+/*!*******************************************!*\
+  !*** ../node_modules/lodash/_toSource.js ***!
+  \*******************************************/
+/***/ (function(module) {
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/**
+ * Converts `func` to its source code.
+ *
+ * @private
+ * @param {Function} func The function to convert.
+ * @returns {string} Returns the source code.
+ */
+function toSource(func) {
+  if (func != null) {
+    try {
+      return funcToString.call(func);
+    } catch (e) {}
+    try {
+      return (func + '');
+    } catch (e) {}
+  }
+  return '';
+}
+
+module.exports = toSource;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/constant.js":
+/*!******************************************!*\
+  !*** ../node_modules/lodash/constant.js ***!
+  \******************************************/
+/***/ (function(module) {
+
+/**
+ * Creates a function that returns `value`.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Util
+ * @param {*} value The value to return from the new function.
+ * @returns {Function} Returns the new constant function.
+ * @example
+ *
+ * var objects = _.times(2, _.constant({ 'a': 1 }));
+ *
+ * console.log(objects);
+ * // => [{ 'a': 1 }, { 'a': 1 }]
+ *
+ * console.log(objects[0] === objects[1]);
+ * // => true
+ */
+function constant(value) {
+  return function() {
+    return value;
+  };
+}
+
+module.exports = constant;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/eq.js":
+/*!************************************!*\
+  !*** ../node_modules/lodash/eq.js ***!
+  \************************************/
+/***/ (function(module) {
+
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+function eq(value, other) {
+  return value === other || (value !== value && other !== other);
+}
+
+module.exports = eq;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/identity.js":
+/*!******************************************!*\
+  !*** ../node_modules/lodash/identity.js ***!
+  \******************************************/
+/***/ (function(module) {
+
+/**
+ * This method returns the first argument it receives.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {*} value Any value.
+ * @returns {*} Returns `value`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ *
+ * console.log(_.identity(object) === object);
+ * // => true
+ */
+function identity(value) {
+  return value;
+}
+
+module.exports = identity;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/isArguments.js":
+/*!*********************************************!*\
+  !*** ../node_modules/lodash/isArguments.js ***!
+  \*********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseIsArguments = __webpack_require__(/*! ./_baseIsArguments */ "../node_modules/lodash/_baseIsArguments.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "../node_modules/lodash/isObjectLike.js");
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Built-in value references. */
+var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+
+/**
+ * Checks if `value` is likely an `arguments` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArguments(function() { return arguments; }());
+ * // => true
+ *
+ * _.isArguments([1, 2, 3]);
+ * // => false
+ */
+var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsArguments : function(value) {
+  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') &&
+    !propertyIsEnumerable.call(value, 'callee');
+};
+
+module.exports = isArguments;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/isArray.js":
+/*!*****************************************!*\
+  !*** ../node_modules/lodash/isArray.js ***!
+  \*****************************************/
+/***/ (function(module) {
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+module.exports = isArray;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/isArrayLike.js":
+/*!*********************************************!*\
+  !*** ../node_modules/lodash/isArrayLike.js ***!
+  \*********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var isFunction = __webpack_require__(/*! ./isFunction */ "../node_modules/lodash/isFunction.js"),
+    isLength = __webpack_require__(/*! ./isLength */ "../node_modules/lodash/isLength.js");
+
+/**
+ * Checks if `value` is array-like. A value is considered array-like if it's
+ * not a function and has a `value.length` that's an integer greater than or
+ * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * _.isArrayLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLike(document.body.children);
+ * // => true
+ *
+ * _.isArrayLike('abc');
+ * // => true
+ *
+ * _.isArrayLike(_.noop);
+ * // => false
+ */
+function isArrayLike(value) {
+  return value != null && isLength(value.length) && !isFunction(value);
+}
+
+module.exports = isArrayLike;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/isArrayLikeObject.js":
+/*!***************************************************!*\
+  !*** ../node_modules/lodash/isArrayLikeObject.js ***!
+  \***************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var isArrayLike = __webpack_require__(/*! ./isArrayLike */ "../node_modules/lodash/isArrayLike.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "../node_modules/lodash/isObjectLike.js");
+
+/**
+ * This method is like `_.isArrayLike` except that it also checks if `value`
+ * is an object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array-like object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArrayLikeObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLikeObject(document.body.children);
+ * // => true
+ *
+ * _.isArrayLikeObject('abc');
+ * // => false
+ *
+ * _.isArrayLikeObject(_.noop);
+ * // => false
+ */
+function isArrayLikeObject(value) {
+  return isObjectLike(value) && isArrayLike(value);
+}
+
+module.exports = isArrayLikeObject;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/isBuffer.js":
+/*!******************************************!*\
+  !*** ../node_modules/lodash/isBuffer.js ***!
+  \******************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+/* module decorator */ module = __webpack_require__.nmd(module);
+var root = __webpack_require__(/*! ./_root */ "../node_modules/lodash/_root.js"),
+    stubFalse = __webpack_require__(/*! ./stubFalse */ "../node_modules/lodash/stubFalse.js");
+
+/** Detect free variable `exports`. */
+var freeExports =  true && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && "object" == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Built-in value references. */
+var Buffer = moduleExports ? root.Buffer : undefined;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
+
+/**
+ * Checks if `value` is a buffer.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+ * @example
+ *
+ * _.isBuffer(new Buffer(2));
+ * // => true
+ *
+ * _.isBuffer(new Uint8Array(2));
+ * // => false
+ */
+var isBuffer = nativeIsBuffer || stubFalse;
+
+module.exports = isBuffer;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/isFunction.js":
+/*!********************************************!*\
+  !*** ../node_modules/lodash/isFunction.js ***!
+  \********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "../node_modules/lodash/_baseGetTag.js"),
+    isObject = __webpack_require__(/*! ./isObject */ "../node_modules/lodash/isObject.js");
+
+/** `Object#toString` result references. */
+var asyncTag = '[object AsyncFunction]',
+    funcTag = '[object Function]',
+    genTag = '[object GeneratorFunction]',
+    proxyTag = '[object Proxy]';
+
+/**
+ * Checks if `value` is classified as a `Function` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ *
+ * _.isFunction(/abc/);
+ * // => false
+ */
+function isFunction(value) {
+  if (!isObject(value)) {
+    return false;
+  }
+  // The use of `Object#toString` avoids issues with the `typeof` operator
+  // in Safari 9 which returns 'object' for typed arrays and other constructors.
+  var tag = baseGetTag(value);
+  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+}
+
+module.exports = isFunction;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/isLength.js":
+/*!******************************************!*\
+  !*** ../node_modules/lodash/isLength.js ***!
+  \******************************************/
+/***/ (function(module) {
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/**
+ * Checks if `value` is a valid array-like length.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+ * @example
+ *
+ * _.isLength(3);
+ * // => true
+ *
+ * _.isLength(Number.MIN_VALUE);
+ * // => false
+ *
+ * _.isLength(Infinity);
+ * // => false
+ *
+ * _.isLength('3');
+ * // => false
+ */
+function isLength(value) {
+  return typeof value == 'number' &&
+    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+}
+
+module.exports = isLength;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/isObject.js":
+/*!******************************************!*\
+  !*** ../node_modules/lodash/isObject.js ***!
+  \******************************************/
+/***/ (function(module) {
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return value != null && (type == 'object' || type == 'function');
+}
+
+module.exports = isObject;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/isObjectLike.js":
+/*!**********************************************!*\
+  !*** ../node_modules/lodash/isObjectLike.js ***!
+  \**********************************************/
+/***/ (function(module) {
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && typeof value == 'object';
+}
+
+module.exports = isObjectLike;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/isPlainObject.js":
+/*!***********************************************!*\
+  !*** ../node_modules/lodash/isPlainObject.js ***!
+  \***********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "../node_modules/lodash/_baseGetTag.js"),
+    getPrototype = __webpack_require__(/*! ./_getPrototype */ "../node_modules/lodash/_getPrototype.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "../node_modules/lodash/isObjectLike.js");
+
+/** `Object#toString` result references. */
+var objectTag = '[object Object]';
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to infer the `Object` constructor. */
+var objectCtorString = funcToString.call(Object);
+
+/**
+ * Checks if `value` is a plain object, that is, an object created by the
+ * `Object` constructor or one with a `[[Prototype]]` of `null`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.8.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ * }
+ *
+ * _.isPlainObject(new Foo);
+ * // => false
+ *
+ * _.isPlainObject([1, 2, 3]);
+ * // => false
+ *
+ * _.isPlainObject({ 'x': 0, 'y': 0 });
+ * // => true
+ *
+ * _.isPlainObject(Object.create(null));
+ * // => true
+ */
+function isPlainObject(value) {
+  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
+    return false;
+  }
+  var proto = getPrototype(value);
+  if (proto === null) {
+    return true;
+  }
+  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+  return typeof Ctor == 'function' && Ctor instanceof Ctor &&
+    funcToString.call(Ctor) == objectCtorString;
+}
+
+module.exports = isPlainObject;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/isTypedArray.js":
+/*!**********************************************!*\
+  !*** ../node_modules/lodash/isTypedArray.js ***!
+  \**********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseIsTypedArray = __webpack_require__(/*! ./_baseIsTypedArray */ "../node_modules/lodash/_baseIsTypedArray.js"),
+    baseUnary = __webpack_require__(/*! ./_baseUnary */ "../node_modules/lodash/_baseUnary.js"),
+    nodeUtil = __webpack_require__(/*! ./_nodeUtil */ "../node_modules/lodash/_nodeUtil.js");
+
+/* Node.js helper references. */
+var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+
+/**
+ * Checks if `value` is classified as a typed array.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ * @example
+ *
+ * _.isTypedArray(new Uint8Array);
+ * // => true
+ *
+ * _.isTypedArray([]);
+ * // => false
+ */
+var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+
+module.exports = isTypedArray;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/keysIn.js":
+/*!****************************************!*\
+  !*** ../node_modules/lodash/keysIn.js ***!
+  \****************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var arrayLikeKeys = __webpack_require__(/*! ./_arrayLikeKeys */ "../node_modules/lodash/_arrayLikeKeys.js"),
+    baseKeysIn = __webpack_require__(/*! ./_baseKeysIn */ "../node_modules/lodash/_baseKeysIn.js"),
+    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "../node_modules/lodash/isArrayLike.js");
+
+/**
+ * Creates an array of the own and inherited enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keysIn(new Foo);
+ * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
+ */
+function keysIn(object) {
+  return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
+}
+
+module.exports = keysIn;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/merge.js":
+/*!***************************************!*\
+  !*** ../node_modules/lodash/merge.js ***!
+  \***************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseMerge = __webpack_require__(/*! ./_baseMerge */ "../node_modules/lodash/_baseMerge.js"),
+    createAssigner = __webpack_require__(/*! ./_createAssigner */ "../node_modules/lodash/_createAssigner.js");
+
+/**
+ * This method is like `_.assign` except that it recursively merges own and
+ * inherited enumerable string keyed properties of source objects into the
+ * destination object. Source properties that resolve to `undefined` are
+ * skipped if a destination value exists. Array and plain object properties
+ * are merged recursively. Other objects and value types are overridden by
+ * assignment. Source objects are applied from left to right. Subsequent
+ * sources overwrite property assignments of previous sources.
+ *
+ * **Note:** This method mutates `object`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.5.0
+ * @category Object
+ * @param {Object} object The destination object.
+ * @param {...Object} [sources] The source objects.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * var object = {
+ *   'a': [{ 'b': 2 }, { 'd': 4 }]
+ * };
+ *
+ * var other = {
+ *   'a': [{ 'c': 3 }, { 'e': 5 }]
+ * };
+ *
+ * _.merge(object, other);
+ * // => { 'a': [{ 'b': 2, 'c': 3 }, { 'd': 4, 'e': 5 }] }
+ */
+var merge = createAssigner(function(object, source, srcIndex) {
+  baseMerge(object, source, srcIndex);
+});
+
+module.exports = merge;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/stubFalse.js":
+/*!*******************************************!*\
+  !*** ../node_modules/lodash/stubFalse.js ***!
+  \*******************************************/
+/***/ (function(module) {
+
+/**
+ * This method returns `false`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.13.0
+ * @category Util
+ * @returns {boolean} Returns `false`.
+ * @example
+ *
+ * _.times(2, _.stubFalse);
+ * // => [false, false]
+ */
+function stubFalse() {
+  return false;
+}
+
+module.exports = stubFalse;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/toPlainObject.js":
+/*!***********************************************!*\
+  !*** ../node_modules/lodash/toPlainObject.js ***!
+  \***********************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var copyObject = __webpack_require__(/*! ./_copyObject */ "../node_modules/lodash/_copyObject.js"),
+    keysIn = __webpack_require__(/*! ./keysIn */ "../node_modules/lodash/keysIn.js");
+
+/**
+ * Converts `value` to a plain object flattening inherited enumerable string
+ * keyed properties of `value` to own properties of the plain object.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {Object} Returns the converted plain object.
+ * @example
+ *
+ * function Foo() {
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.assign({ 'a': 1 }, new Foo);
+ * // => { 'a': 1, 'b': 2 }
+ *
+ * _.assign({ 'a': 1 }, _.toPlainObject(new Foo));
+ * // => { 'a': 1, 'b': 2, 'c': 3 }
+ */
+function toPlainObject(value) {
+  return copyObject(value, keysIn(value));
+}
+
+module.exports = toPlainObject;
+
+
+/***/ }),
+
+/***/ "../node_modules/memoize-one/dist/memoize-one.esm.js":
+/*!***********************************************************!*\
+  !*** ../node_modules/memoize-one/dist/memoize-one.esm.js ***!
+  \***********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var safeIsNaN = Number.isNaN ||
+    function ponyfill(value) {
+        return typeof value === 'number' && value !== value;
+    };
+function isEqual(first, second) {
+    if (first === second) {
+        return true;
+    }
+    if (safeIsNaN(first) && safeIsNaN(second)) {
+        return true;
+    }
+    return false;
+}
+function areInputsEqual(newInputs, lastInputs) {
+    if (newInputs.length !== lastInputs.length) {
+        return false;
+    }
+    for (var i = 0; i < newInputs.length; i++) {
+        if (!isEqual(newInputs[i], lastInputs[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function memoizeOne(resultFn, isEqual) {
+    if (isEqual === void 0) { isEqual = areInputsEqual; }
+    var lastThis;
+    var lastArgs = [];
+    var lastResult;
+    var calledOnce = false;
+    function memoized() {
+        var newArgs = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            newArgs[_i] = arguments[_i];
+        }
+        if (calledOnce && lastThis === this && isEqual(newArgs, lastArgs)) {
+            return lastResult;
+        }
+        lastResult = resultFn.apply(this, newArgs);
+        calledOnce = true;
+        lastThis = this;
+        lastArgs = newArgs;
+        return lastResult;
+    }
+    return memoized;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (memoizeOne);
 
 
 /***/ }),
@@ -27470,6 +31129,155 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "../node_modules/react-fast-compare/index.js":
+/*!***************************************************!*\
+  !*** ../node_modules/react-fast-compare/index.js ***!
+  \***************************************************/
+/***/ (function(module) {
+
+/* global Map:readonly, Set:readonly, ArrayBuffer:readonly */
+
+var hasElementType = typeof Element !== 'undefined';
+var hasMap = typeof Map === 'function';
+var hasSet = typeof Set === 'function';
+var hasArrayBuffer = typeof ArrayBuffer === 'function' && !!ArrayBuffer.isView;
+
+// Note: We **don't** need `envHasBigInt64Array` in fde es6/index.js
+
+function equal(a, b) {
+  // START: fast-deep-equal es6/index.js 3.1.3
+  if (a === b) return true;
+
+  if (a && b && typeof a == 'object' && typeof b == 'object') {
+    if (a.constructor !== b.constructor) return false;
+
+    var length, i, keys;
+    if (Array.isArray(a)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (!equal(a[i], b[i])) return false;
+      return true;
+    }
+
+    // START: Modifications:
+    // 1. Extra `has<Type> &&` helpers in initial condition allow es6 code
+    //    to co-exist with es5.
+    // 2. Replace `for of` with es5 compliant iteration using `for`.
+    //    Basically, take:
+    //
+    //    ```js
+    //    for (i of a.entries())
+    //      if (!b.has(i[0])) return false;
+    //    ```
+    //
+    //    ... and convert to:
+    //
+    //    ```js
+    //    it = a.entries();
+    //    while (!(i = it.next()).done)
+    //      if (!b.has(i.value[0])) return false;
+    //    ```
+    //
+    //    **Note**: `i` access switches to `i.value`.
+    var it;
+    if (hasMap && (a instanceof Map) && (b instanceof Map)) {
+      if (a.size !== b.size) return false;
+      it = a.entries();
+      while (!(i = it.next()).done)
+        if (!b.has(i.value[0])) return false;
+      it = a.entries();
+      while (!(i = it.next()).done)
+        if (!equal(i.value[1], b.get(i.value[0]))) return false;
+      return true;
+    }
+
+    if (hasSet && (a instanceof Set) && (b instanceof Set)) {
+      if (a.size !== b.size) return false;
+      it = a.entries();
+      while (!(i = it.next()).done)
+        if (!b.has(i.value[0])) return false;
+      return true;
+    }
+    // END: Modifications
+
+    if (hasArrayBuffer && ArrayBuffer.isView(a) && ArrayBuffer.isView(b)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (a[i] !== b[i]) return false;
+      return true;
+    }
+
+    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
+    // START: Modifications:
+    // Apply guards for `Object.create(null)` handling. See:
+    // - https://github.com/FormidableLabs/react-fast-compare/issues/64
+    // - https://github.com/epoberezkin/fast-deep-equal/issues/49
+    if (a.valueOf !== Object.prototype.valueOf && typeof a.valueOf === 'function' && typeof b.valueOf === 'function') return a.valueOf() === b.valueOf();
+    if (a.toString !== Object.prototype.toString && typeof a.toString === 'function' && typeof b.toString === 'function') return a.toString() === b.toString();
+    // END: Modifications
+
+    keys = Object.keys(a);
+    length = keys.length;
+    if (length !== Object.keys(b).length) return false;
+
+    for (i = length; i-- !== 0;)
+      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
+    // END: fast-deep-equal
+
+    // START: react-fast-compare
+    // custom handling for DOM elements
+    if (hasElementType && a instanceof Element) return false;
+
+    // custom handling for React/Preact
+    for (i = length; i-- !== 0;) {
+      if ((keys[i] === '_owner' || keys[i] === '__v' || keys[i] === '__o') && a.$$typeof) {
+        // React-specific: avoid traversing React elements' _owner
+        // Preact-specific: avoid traversing Preact elements' __v and __o
+        //    __v = $_original / $_vnode
+        //    __o = $_owner
+        // These properties contain circular references and are not needed when
+        // comparing the actual elements (and not their owners)
+        // .$$typeof and ._store on just reasonable markers of elements
+
+        continue;
+      }
+
+      // all other properties should be traversed as usual
+      if (!equal(a[keys[i]], b[keys[i]])) return false;
+    }
+    // END: react-fast-compare
+
+    // START: fast-deep-equal
+    return true;
+  }
+
+  return a !== a && b !== b;
+}
+// end fast-deep-equal
+
+module.exports = function isEqual(a, b) {
+  try {
+    return equal(a, b);
+  } catch (error) {
+    if (((error.message || '').match(/stack|recursion/i))) {
+      // warn on circular references, don't crash
+      // browsers give this different errors name and messages:
+      // chrome/safari: "RangeError", "Maximum call stack size exceeded"
+      // firefox: "InternalError", too much recursion"
+      // edge: "Error", "Out of stack space"
+      console.warn('react-fast-compare cannot handle circular refs');
+      return false;
+    }
+    // some other error. we should definitely know about these
+    throw error;
+  }
+};
+
+
+/***/ }),
+
 /***/ "../node_modules/react-is/cjs/react-is.development.js":
 /*!************************************************************!*\
   !*** ../node_modules/react-is/cjs/react-is.development.js ***!
@@ -27673,6 +31481,3784 @@ exports.typeOf = typeOf;
 
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "../node_modules/react-is/cjs/react-is.development.js");
+}
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/Player.js":
+/*!**************************************************!*\
+  !*** ../node_modules/react-player/lib/Player.js ***!
+  \**************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var Player_exports = {};
+__export(Player_exports, {
+  default: () => Player
+});
+module.exports = __toCommonJS(Player_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_react_fast_compare = __toESM(__webpack_require__(/*! react-fast-compare */ "../node_modules/react-fast-compare/index.js"));
+var import_props = __webpack_require__(/*! ./props */ "../node_modules/react-player/lib/props.js");
+var import_utils = __webpack_require__(/*! ./utils */ "../node_modules/react-player/lib/utils.js");
+const SEEK_ON_PLAY_EXPIRY = 5e3;
+class Player extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    __publicField(this, "mounted", false);
+    __publicField(this, "isReady", false);
+    __publicField(this, "isPlaying", false);
+    // Track playing state internally to prevent bugs
+    __publicField(this, "isLoading", true);
+    // Use isLoading to prevent onPause when switching URL
+    __publicField(this, "loadOnReady", null);
+    __publicField(this, "startOnPlay", true);
+    __publicField(this, "seekOnPlay", null);
+    __publicField(this, "onDurationCalled", false);
+    __publicField(this, "handlePlayerMount", (player) => {
+      if (this.player) {
+        this.progress();
+        return;
+      }
+      this.player = player;
+      this.player.load(this.props.url);
+      this.progress();
+    });
+    __publicField(this, "getInternalPlayer", (key) => {
+      if (!this.player)
+        return null;
+      return this.player[key];
+    });
+    __publicField(this, "progress", () => {
+      if (this.props.url && this.player && this.isReady) {
+        const playedSeconds = this.getCurrentTime() || 0;
+        const loadedSeconds = this.getSecondsLoaded();
+        const duration = this.getDuration();
+        if (duration) {
+          const progress = {
+            playedSeconds,
+            played: playedSeconds / duration
+          };
+          if (loadedSeconds !== null) {
+            progress.loadedSeconds = loadedSeconds;
+            progress.loaded = loadedSeconds / duration;
+          }
+          if (progress.playedSeconds !== this.prevPlayed || progress.loadedSeconds !== this.prevLoaded) {
+            this.props.onProgress(progress);
+          }
+          this.prevPlayed = progress.playedSeconds;
+          this.prevLoaded = progress.loadedSeconds;
+        }
+      }
+      this.progressTimeout = setTimeout(this.progress, this.props.progressFrequency || this.props.progressInterval);
+    });
+    __publicField(this, "handleReady", () => {
+      if (!this.mounted)
+        return;
+      this.isReady = true;
+      this.isLoading = false;
+      const { onReady, playing, volume, muted } = this.props;
+      onReady();
+      if (!muted && volume !== null) {
+        this.player.setVolume(volume);
+      }
+      if (this.loadOnReady) {
+        this.player.load(this.loadOnReady, true);
+        this.loadOnReady = null;
+      } else if (playing) {
+        this.player.play();
+      }
+      this.handleDurationCheck();
+    });
+    __publicField(this, "handlePlay", () => {
+      this.isPlaying = true;
+      this.isLoading = false;
+      const { onStart, onPlay, playbackRate } = this.props;
+      if (this.startOnPlay) {
+        if (this.player.setPlaybackRate && playbackRate !== 1) {
+          this.player.setPlaybackRate(playbackRate);
+        }
+        onStart();
+        this.startOnPlay = false;
+      }
+      onPlay();
+      if (this.seekOnPlay) {
+        this.seekTo(this.seekOnPlay);
+        this.seekOnPlay = null;
+      }
+      this.handleDurationCheck();
+    });
+    __publicField(this, "handlePause", (e) => {
+      this.isPlaying = false;
+      if (!this.isLoading) {
+        this.props.onPause(e);
+      }
+    });
+    __publicField(this, "handleEnded", () => {
+      const { activePlayer, loop, onEnded } = this.props;
+      if (activePlayer.loopOnEnded && loop) {
+        this.seekTo(0);
+      }
+      if (!loop) {
+        this.isPlaying = false;
+        onEnded();
+      }
+    });
+    __publicField(this, "handleError", (...args) => {
+      this.isLoading = false;
+      this.props.onError(...args);
+    });
+    __publicField(this, "handleDurationCheck", () => {
+      clearTimeout(this.durationCheckTimeout);
+      const duration = this.getDuration();
+      if (duration) {
+        if (!this.onDurationCalled) {
+          this.props.onDuration(duration);
+          this.onDurationCalled = true;
+        }
+      } else {
+        this.durationCheckTimeout = setTimeout(this.handleDurationCheck, 100);
+      }
+    });
+    __publicField(this, "handleLoaded", () => {
+      this.isLoading = false;
+    });
+  }
+  componentDidMount() {
+    this.mounted = true;
+  }
+  componentWillUnmount() {
+    clearTimeout(this.progressTimeout);
+    clearTimeout(this.durationCheckTimeout);
+    if (this.isReady && this.props.stopOnUnmount) {
+      this.player.stop();
+      if (this.player.disablePIP) {
+        this.player.disablePIP();
+      }
+    }
+    this.mounted = false;
+  }
+  componentDidUpdate(prevProps) {
+    if (!this.player) {
+      return;
+    }
+    const { url, playing, volume, muted, playbackRate, pip, loop, activePlayer, disableDeferredLoading } = this.props;
+    if (!(0, import_react_fast_compare.default)(prevProps.url, url)) {
+      if (this.isLoading && !activePlayer.forceLoad && !disableDeferredLoading && !(0, import_utils.isMediaStream)(url)) {
+        console.warn(`ReactPlayer: the attempt to load ${url} is being deferred until the player has loaded`);
+        this.loadOnReady = url;
+        return;
+      }
+      this.isLoading = true;
+      this.startOnPlay = true;
+      this.onDurationCalled = false;
+      this.player.load(url, this.isReady);
+    }
+    if (!prevProps.playing && playing && !this.isPlaying) {
+      this.player.play();
+    }
+    if (prevProps.playing && !playing && this.isPlaying) {
+      this.player.pause();
+    }
+    if (!prevProps.pip && pip && this.player.enablePIP) {
+      this.player.enablePIP();
+    }
+    if (prevProps.pip && !pip && this.player.disablePIP) {
+      this.player.disablePIP();
+    }
+    if (prevProps.volume !== volume && volume !== null) {
+      this.player.setVolume(volume);
+    }
+    if (prevProps.muted !== muted) {
+      if (muted) {
+        this.player.mute();
+      } else {
+        this.player.unmute();
+        if (volume !== null) {
+          setTimeout(() => this.player.setVolume(volume));
+        }
+      }
+    }
+    if (prevProps.playbackRate !== playbackRate && this.player.setPlaybackRate) {
+      this.player.setPlaybackRate(playbackRate);
+    }
+    if (prevProps.loop !== loop && this.player.setLoop) {
+      this.player.setLoop(loop);
+    }
+  }
+  getDuration() {
+    if (!this.isReady)
+      return null;
+    return this.player.getDuration();
+  }
+  getCurrentTime() {
+    if (!this.isReady)
+      return null;
+    return this.player.getCurrentTime();
+  }
+  getSecondsLoaded() {
+    if (!this.isReady)
+      return null;
+    return this.player.getSecondsLoaded();
+  }
+  seekTo(amount, type, keepPlaying) {
+    if (!this.isReady) {
+      if (amount !== 0) {
+        this.seekOnPlay = amount;
+        setTimeout(() => {
+          this.seekOnPlay = null;
+        }, SEEK_ON_PLAY_EXPIRY);
+      }
+      return;
+    }
+    const isFraction = !type ? amount > 0 && amount < 1 : type === "fraction";
+    if (isFraction) {
+      const duration = this.player.getDuration();
+      if (!duration) {
+        console.warn("ReactPlayer: could not seek using fraction \u2013\xA0duration not yet available");
+        return;
+      }
+      this.player.seekTo(duration * amount, keepPlaying);
+      return;
+    }
+    this.player.seekTo(amount, keepPlaying);
+  }
+  render() {
+    const Player2 = this.props.activePlayer;
+    if (!Player2) {
+      return null;
+    }
+    return /* @__PURE__ */ import_react.default.createElement(
+      Player2,
+      {
+        ...this.props,
+        onMount: this.handlePlayerMount,
+        onReady: this.handleReady,
+        onPlay: this.handlePlay,
+        onPause: this.handlePause,
+        onEnded: this.handleEnded,
+        onLoaded: this.handleLoaded,
+        onError: this.handleError
+      }
+    );
+  }
+}
+__publicField(Player, "displayName", "Player");
+__publicField(Player, "propTypes", import_props.propTypes);
+__publicField(Player, "defaultProps", import_props.defaultProps);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/Preview.js":
+/*!***************************************************!*\
+  !*** ../node_modules/react-player/lib/Preview.js ***!
+  \***************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var Preview_exports = {};
+__export(Preview_exports, {
+  default: () => Preview
+});
+module.exports = __toCommonJS(Preview_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+const ICON_SIZE = "64px";
+const cache = {};
+class Preview extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    __publicField(this, "mounted", false);
+    __publicField(this, "state", {
+      image: null
+    });
+    __publicField(this, "handleKeyPress", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        this.props.onClick();
+      }
+    });
+  }
+  componentDidMount() {
+    this.mounted = true;
+    this.fetchImage(this.props);
+  }
+  componentDidUpdate(prevProps) {
+    const { url, light } = this.props;
+    if (prevProps.url !== url || prevProps.light !== light) {
+      this.fetchImage(this.props);
+    }
+  }
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+  fetchImage({ url, light, oEmbedUrl }) {
+    if (import_react.default.isValidElement(light)) {
+      return;
+    }
+    if (typeof light === "string") {
+      this.setState({ image: light });
+      return;
+    }
+    if (cache[url]) {
+      this.setState({ image: cache[url] });
+      return;
+    }
+    this.setState({ image: null });
+    return window.fetch(oEmbedUrl.replace("{url}", url)).then((response) => response.json()).then((data) => {
+      if (data.thumbnail_url && this.mounted) {
+        const image = data.thumbnail_url.replace("height=100", "height=480").replace("-d_295x166", "-d_640");
+        this.setState({ image });
+        cache[url] = image;
+      }
+    });
+  }
+  render() {
+    const { light, onClick, playIcon, previewTabIndex, previewAriaLabel } = this.props;
+    const { image } = this.state;
+    const isElement = import_react.default.isValidElement(light);
+    const flexCenter = {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    };
+    const styles = {
+      preview: {
+        width: "100%",
+        height: "100%",
+        backgroundImage: image && !isElement ? `url(${image})` : void 0,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        cursor: "pointer",
+        ...flexCenter
+      },
+      shadow: {
+        background: "radial-gradient(rgb(0, 0, 0, 0.3), rgba(0, 0, 0, 0) 60%)",
+        borderRadius: ICON_SIZE,
+        width: ICON_SIZE,
+        height: ICON_SIZE,
+        position: isElement ? "absolute" : void 0,
+        ...flexCenter
+      },
+      playIcon: {
+        borderStyle: "solid",
+        borderWidth: "16px 0 16px 26px",
+        borderColor: "transparent transparent transparent white",
+        marginLeft: "7px"
+      }
+    };
+    const defaultPlayIcon = /* @__PURE__ */ import_react.default.createElement("div", { style: styles.shadow, className: "react-player__shadow" }, /* @__PURE__ */ import_react.default.createElement("div", { style: styles.playIcon, className: "react-player__play-icon" }));
+    return /* @__PURE__ */ import_react.default.createElement(
+      "div",
+      {
+        style: styles.preview,
+        className: "react-player__preview",
+        onClick,
+        tabIndex: previewTabIndex,
+        onKeyPress: this.handleKeyPress,
+        ...previewAriaLabel ? { "aria-label": previewAriaLabel } : {}
+      },
+      isElement ? light : null,
+      playIcon || defaultPlayIcon
+    );
+  }
+}
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/ReactPlayer.js":
+/*!*******************************************************!*\
+  !*** ../node_modules/react-player/lib/ReactPlayer.js ***!
+  \*******************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var ReactPlayer_exports = {};
+__export(ReactPlayer_exports, {
+  createReactPlayer: () => createReactPlayer
+});
+module.exports = __toCommonJS(ReactPlayer_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_deepmerge = __toESM(__webpack_require__(/*! deepmerge */ "../node_modules/deepmerge/dist/cjs.js"));
+var import_memoize_one = __toESM(__webpack_require__(/*! memoize-one */ "../node_modules/memoize-one/dist/memoize-one.esm.js"));
+var import_react_fast_compare = __toESM(__webpack_require__(/*! react-fast-compare */ "../node_modules/react-fast-compare/index.js"));
+var import_props = __webpack_require__(/*! ./props */ "../node_modules/react-player/lib/props.js");
+var import_utils = __webpack_require__(/*! ./utils */ "../node_modules/react-player/lib/utils.js");
+var import_Player = __toESM(__webpack_require__(/*! ./Player */ "../node_modules/react-player/lib/Player.js"));
+const Preview = (0, import_utils.lazy)(() => __webpack_require__.e(/*! import() | reactPlayerPreview */ "vendors").then(__webpack_require__.t.bind(__webpack_require__, /*! ./Preview */ "../node_modules/react-player/lib/Preview.js", 23)));
+const IS_BROWSER = typeof window !== "undefined" && window.document && typeof document !== "undefined";
+const IS_GLOBAL = typeof __webpack_require__.g !== "undefined" && __webpack_require__.g.window && __webpack_require__.g.window.document;
+const SUPPORTED_PROPS = Object.keys(import_props.propTypes);
+const UniversalSuspense = IS_BROWSER || IS_GLOBAL ? import_react.Suspense : () => null;
+const customPlayers = [];
+const createReactPlayer = (players, fallback) => {
+  var _a;
+  return _a = class extends import_react.Component {
+    constructor() {
+      super(...arguments);
+      __publicField(this, "state", {
+        showPreview: !!this.props.light
+      });
+      // Use references, as refs is used by React
+      __publicField(this, "references", {
+        wrapper: (wrapper) => {
+          this.wrapper = wrapper;
+        },
+        player: (player) => {
+          this.player = player;
+        }
+      });
+      __publicField(this, "handleClickPreview", (e) => {
+        this.setState({ showPreview: false });
+        this.props.onClickPreview(e);
+      });
+      __publicField(this, "showPreview", () => {
+        this.setState({ showPreview: true });
+      });
+      __publicField(this, "getDuration", () => {
+        if (!this.player)
+          return null;
+        return this.player.getDuration();
+      });
+      __publicField(this, "getCurrentTime", () => {
+        if (!this.player)
+          return null;
+        return this.player.getCurrentTime();
+      });
+      __publicField(this, "getSecondsLoaded", () => {
+        if (!this.player)
+          return null;
+        return this.player.getSecondsLoaded();
+      });
+      __publicField(this, "getInternalPlayer", (key = "player") => {
+        if (!this.player)
+          return null;
+        return this.player.getInternalPlayer(key);
+      });
+      __publicField(this, "seekTo", (fraction, type, keepPlaying) => {
+        if (!this.player)
+          return null;
+        this.player.seekTo(fraction, type, keepPlaying);
+      });
+      __publicField(this, "handleReady", () => {
+        this.props.onReady(this);
+      });
+      __publicField(this, "getActivePlayer", (0, import_memoize_one.default)((url) => {
+        for (const player of [...customPlayers, ...players]) {
+          if (player.canPlay(url)) {
+            return player;
+          }
+        }
+        if (fallback) {
+          return fallback;
+        }
+        return null;
+      }));
+      __publicField(this, "getConfig", (0, import_memoize_one.default)((url, key) => {
+        const { config } = this.props;
+        return import_deepmerge.default.all([
+          import_props.defaultProps.config,
+          import_props.defaultProps.config[key] || {},
+          config,
+          config[key] || {}
+        ]);
+      }));
+      __publicField(this, "getAttributes", (0, import_memoize_one.default)((url) => {
+        return (0, import_utils.omit)(this.props, SUPPORTED_PROPS);
+      }));
+      __publicField(this, "renderActivePlayer", (url) => {
+        if (!url)
+          return null;
+        const player = this.getActivePlayer(url);
+        if (!player)
+          return null;
+        const config = this.getConfig(url, player.key);
+        return /* @__PURE__ */ import_react.default.createElement(
+          import_Player.default,
+          {
+            ...this.props,
+            key: player.key,
+            ref: this.references.player,
+            config,
+            activePlayer: player.lazyPlayer || player,
+            onReady: this.handleReady
+          }
+        );
+      });
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+      return !(0, import_react_fast_compare.default)(this.props, nextProps) || !(0, import_react_fast_compare.default)(this.state, nextState);
+    }
+    componentDidUpdate(prevProps) {
+      const { light } = this.props;
+      if (!prevProps.light && light) {
+        this.setState({ showPreview: true });
+      }
+      if (prevProps.light && !light) {
+        this.setState({ showPreview: false });
+      }
+    }
+    renderPreview(url) {
+      if (!url)
+        return null;
+      const { light, playIcon, previewTabIndex, oEmbedUrl, previewAriaLabel } = this.props;
+      return /* @__PURE__ */ import_react.default.createElement(
+        Preview,
+        {
+          url,
+          light,
+          playIcon,
+          previewTabIndex,
+          previewAriaLabel,
+          oEmbedUrl,
+          onClick: this.handleClickPreview
+        }
+      );
+    }
+    render() {
+      const { url, style, width, height, fallback: fallback2, wrapper: Wrapper } = this.props;
+      const { showPreview } = this.state;
+      const attributes = this.getAttributes(url);
+      const wrapperRef = typeof Wrapper === "string" ? this.references.wrapper : void 0;
+      return /* @__PURE__ */ import_react.default.createElement(Wrapper, { ref: wrapperRef, style: { ...style, width, height }, ...attributes }, /* @__PURE__ */ import_react.default.createElement(UniversalSuspense, { fallback: fallback2 }, showPreview ? this.renderPreview(url) : this.renderActivePlayer(url)));
+    }
+  }, __publicField(_a, "displayName", "ReactPlayer"), __publicField(_a, "propTypes", import_props.propTypes), __publicField(_a, "defaultProps", import_props.defaultProps), __publicField(_a, "addCustomPlayer", (player) => {
+    customPlayers.push(player);
+  }), __publicField(_a, "removeCustomPlayers", () => {
+    customPlayers.length = 0;
+  }), __publicField(_a, "canPlay", (url) => {
+    for (const Player2 of [...customPlayers, ...players]) {
+      if (Player2.canPlay(url)) {
+        return true;
+      }
+    }
+    return false;
+  }), __publicField(_a, "canEnablePIP", (url) => {
+    for (const Player2 of [...customPlayers, ...players]) {
+      if (Player2.canEnablePIP && Player2.canEnablePIP(url)) {
+        return true;
+      }
+    }
+    return false;
+  }), _a;
+};
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/index.js":
+/*!*************************************************!*\
+  !*** ../node_modules/react-player/lib/index.js ***!
+  \*************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var src_exports = {};
+__export(src_exports, {
+  default: () => src_default
+});
+module.exports = __toCommonJS(src_exports);
+var import_players = __toESM(__webpack_require__(/*! ./players */ "../node_modules/react-player/lib/players/index.js"));
+var import_ReactPlayer = __webpack_require__(/*! ./ReactPlayer */ "../node_modules/react-player/lib/ReactPlayer.js");
+const fallback = import_players.default[import_players.default.length - 1];
+var src_default = (0, import_ReactPlayer.createReactPlayer)(import_players.default, fallback);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/patterns.js":
+/*!****************************************************!*\
+  !*** ../node_modules/react-player/lib/patterns.js ***!
+  \****************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var patterns_exports = {};
+__export(patterns_exports, {
+  AUDIO_EXTENSIONS: () => AUDIO_EXTENSIONS,
+  DASH_EXTENSIONS: () => DASH_EXTENSIONS,
+  FLV_EXTENSIONS: () => FLV_EXTENSIONS,
+  HLS_EXTENSIONS: () => HLS_EXTENSIONS,
+  MATCH_URL_DAILYMOTION: () => MATCH_URL_DAILYMOTION,
+  MATCH_URL_FACEBOOK: () => MATCH_URL_FACEBOOK,
+  MATCH_URL_FACEBOOK_WATCH: () => MATCH_URL_FACEBOOK_WATCH,
+  MATCH_URL_KALTURA: () => MATCH_URL_KALTURA,
+  MATCH_URL_MIXCLOUD: () => MATCH_URL_MIXCLOUD,
+  MATCH_URL_MUX: () => MATCH_URL_MUX,
+  MATCH_URL_SOUNDCLOUD: () => MATCH_URL_SOUNDCLOUD,
+  MATCH_URL_STREAMABLE: () => MATCH_URL_STREAMABLE,
+  MATCH_URL_TWITCH_CHANNEL: () => MATCH_URL_TWITCH_CHANNEL,
+  MATCH_URL_TWITCH_VIDEO: () => MATCH_URL_TWITCH_VIDEO,
+  MATCH_URL_VIDYARD: () => MATCH_URL_VIDYARD,
+  MATCH_URL_VIMEO: () => MATCH_URL_VIMEO,
+  MATCH_URL_WISTIA: () => MATCH_URL_WISTIA,
+  MATCH_URL_YOUTUBE: () => MATCH_URL_YOUTUBE,
+  VIDEO_EXTENSIONS: () => VIDEO_EXTENSIONS,
+  canPlay: () => canPlay
+});
+module.exports = __toCommonJS(patterns_exports);
+var import_utils = __webpack_require__(/*! ./utils */ "../node_modules/react-player/lib/utils.js");
+const MATCH_URL_YOUTUBE = /(?:youtu\.be\/|youtube(?:-nocookie|education)?\.com\/(?:embed\/|v\/|watch\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))((\w|-){11})|youtube\.com\/playlist\?list=|youtube\.com\/user\//;
+const MATCH_URL_SOUNDCLOUD = /(?:soundcloud\.com|snd\.sc)\/[^.]+$/;
+const MATCH_URL_VIMEO = /vimeo\.com\/(?!progressive_redirect).+/;
+const MATCH_URL_MUX = /stream\.mux\.com\/(?!\w+\.m3u8)(\w+)/;
+const MATCH_URL_FACEBOOK = /^https?:\/\/(www\.)?facebook\.com.*\/(video(s)?|watch|story)(\.php?|\/).+$/;
+const MATCH_URL_FACEBOOK_WATCH = /^https?:\/\/fb\.watch\/.+$/;
+const MATCH_URL_STREAMABLE = /streamable\.com\/([a-z0-9]+)$/;
+const MATCH_URL_WISTIA = /(?:wistia\.(?:com|net)|wi\.st)\/(?:medias|embed)\/(?:iframe\/)?([^?]+)/;
+const MATCH_URL_TWITCH_VIDEO = /(?:www\.|go\.)?twitch\.tv\/videos\/(\d+)($|\?)/;
+const MATCH_URL_TWITCH_CHANNEL = /(?:www\.|go\.)?twitch\.tv\/([a-zA-Z0-9_]+)($|\?)/;
+const MATCH_URL_DAILYMOTION = /^(?:(?:https?):)?(?:\/\/)?(?:www\.)?(?:(?:dailymotion\.com(?:\/embed)?\/video)|dai\.ly)\/([a-zA-Z0-9]+)(?:_[\w_-]+)?(?:[\w.#_-]+)?/;
+const MATCH_URL_MIXCLOUD = /mixcloud\.com\/([^/]+\/[^/]+)/;
+const MATCH_URL_VIDYARD = /vidyard.com\/(?:watch\/)?([a-zA-Z0-9-_]+)/;
+const MATCH_URL_KALTURA = /^https?:\/\/[a-zA-Z]+\.kaltura.(com|org)\/p\/([0-9]+)\/sp\/([0-9]+)00\/embedIframeJs\/uiconf_id\/([0-9]+)\/partner_id\/([0-9]+)(.*)entry_id.([a-zA-Z0-9-_].*)$/;
+const AUDIO_EXTENSIONS = /\.(m4a|m4b|mp4a|mpga|mp2|mp2a|mp3|m2a|m3a|wav|weba|aac|oga|spx)($|\?)/i;
+const VIDEO_EXTENSIONS = /\.(mp4|og[gv]|webm|mov|m4v)(#t=[,\d+]+)?($|\?)/i;
+const HLS_EXTENSIONS = /\.(m3u8)($|\?)/i;
+const DASH_EXTENSIONS = /\.(mpd)($|\?)/i;
+const FLV_EXTENSIONS = /\.(flv)($|\?)/i;
+const canPlayFile = (url) => {
+  if (url instanceof Array) {
+    for (const item of url) {
+      if (typeof item === "string" && canPlayFile(item)) {
+        return true;
+      }
+      if (canPlayFile(item.src)) {
+        return true;
+      }
+    }
+    return false;
+  }
+  if ((0, import_utils.isMediaStream)(url) || (0, import_utils.isBlobUrl)(url)) {
+    return true;
+  }
+  return AUDIO_EXTENSIONS.test(url) || VIDEO_EXTENSIONS.test(url) || HLS_EXTENSIONS.test(url) || DASH_EXTENSIONS.test(url) || FLV_EXTENSIONS.test(url);
+};
+const canPlay = {
+  youtube: (url) => {
+    if (url instanceof Array) {
+      return url.every((item) => MATCH_URL_YOUTUBE.test(item));
+    }
+    return MATCH_URL_YOUTUBE.test(url);
+  },
+  soundcloud: (url) => MATCH_URL_SOUNDCLOUD.test(url) && !AUDIO_EXTENSIONS.test(url),
+  vimeo: (url) => MATCH_URL_VIMEO.test(url) && !VIDEO_EXTENSIONS.test(url) && !HLS_EXTENSIONS.test(url),
+  mux: (url) => MATCH_URL_MUX.test(url),
+  facebook: (url) => MATCH_URL_FACEBOOK.test(url) || MATCH_URL_FACEBOOK_WATCH.test(url),
+  streamable: (url) => MATCH_URL_STREAMABLE.test(url),
+  wistia: (url) => MATCH_URL_WISTIA.test(url),
+  twitch: (url) => MATCH_URL_TWITCH_VIDEO.test(url) || MATCH_URL_TWITCH_CHANNEL.test(url),
+  dailymotion: (url) => MATCH_URL_DAILYMOTION.test(url),
+  mixcloud: (url) => MATCH_URL_MIXCLOUD.test(url),
+  vidyard: (url) => MATCH_URL_VIDYARD.test(url),
+  kaltura: (url) => MATCH_URL_KALTURA.test(url),
+  file: canPlayFile
+};
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/players/DailyMotion.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/react-player/lib/players/DailyMotion.js ***!
+  \***************************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var DailyMotion_exports = {};
+__export(DailyMotion_exports, {
+  default: () => DailyMotion
+});
+module.exports = __toCommonJS(DailyMotion_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_utils = __webpack_require__(/*! ../utils */ "../node_modules/react-player/lib/utils.js");
+var import_patterns = __webpack_require__(/*! ../patterns */ "../node_modules/react-player/lib/patterns.js");
+const SDK_URL = "https://api.dmcdn.net/all.js";
+const SDK_GLOBAL = "DM";
+const SDK_GLOBAL_READY = "dmAsyncInit";
+class DailyMotion extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    __publicField(this, "callPlayer", import_utils.callPlayer);
+    __publicField(this, "onDurationChange", () => {
+      const duration = this.getDuration();
+      this.props.onDuration(duration);
+    });
+    __publicField(this, "mute", () => {
+      this.callPlayer("setMuted", true);
+    });
+    __publicField(this, "unmute", () => {
+      this.callPlayer("setMuted", false);
+    });
+    __publicField(this, "ref", (container) => {
+      this.container = container;
+    });
+  }
+  componentDidMount() {
+    this.props.onMount && this.props.onMount(this);
+  }
+  load(url) {
+    const { controls, config, onError, playing } = this.props;
+    const [, id] = url.match(import_patterns.MATCH_URL_DAILYMOTION);
+    if (this.player) {
+      this.player.load(id, {
+        start: (0, import_utils.parseStartTime)(url),
+        autoplay: playing
+      });
+      return;
+    }
+    (0, import_utils.getSDK)(SDK_URL, SDK_GLOBAL, SDK_GLOBAL_READY, (DM) => DM.player).then((DM) => {
+      if (!this.container)
+        return;
+      const Player = DM.player;
+      this.player = new Player(this.container, {
+        width: "100%",
+        height: "100%",
+        video: id,
+        params: {
+          controls,
+          autoplay: this.props.playing,
+          mute: this.props.muted,
+          start: (0, import_utils.parseStartTime)(url),
+          origin: window.location.origin,
+          ...config.params
+        },
+        events: {
+          apiready: this.props.onReady,
+          seeked: () => this.props.onSeek(this.player.currentTime),
+          video_end: this.props.onEnded,
+          durationchange: this.onDurationChange,
+          pause: this.props.onPause,
+          playing: this.props.onPlay,
+          waiting: this.props.onBuffer,
+          error: (event) => onError(event)
+        }
+      });
+    }, onError);
+  }
+  play() {
+    this.callPlayer("play");
+  }
+  pause() {
+    this.callPlayer("pause");
+  }
+  stop() {
+  }
+  seekTo(seconds, keepPlaying = true) {
+    this.callPlayer("seek", seconds);
+    if (!keepPlaying) {
+      this.pause();
+    }
+  }
+  setVolume(fraction) {
+    this.callPlayer("setVolume", fraction);
+  }
+  getDuration() {
+    return this.player.duration || null;
+  }
+  getCurrentTime() {
+    return this.player.currentTime;
+  }
+  getSecondsLoaded() {
+    return this.player.bufferedTime;
+  }
+  render() {
+    const { display } = this.props;
+    const style = {
+      width: "100%",
+      height: "100%",
+      display
+    };
+    return /* @__PURE__ */ import_react.default.createElement("div", { style }, /* @__PURE__ */ import_react.default.createElement("div", { ref: this.ref }));
+  }
+}
+__publicField(DailyMotion, "displayName", "DailyMotion");
+__publicField(DailyMotion, "canPlay", import_patterns.canPlay.dailymotion);
+__publicField(DailyMotion, "loopOnEnded", true);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/players/Facebook.js":
+/*!************************************************************!*\
+  !*** ../node_modules/react-player/lib/players/Facebook.js ***!
+  \************************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var Facebook_exports = {};
+__export(Facebook_exports, {
+  default: () => Facebook
+});
+module.exports = __toCommonJS(Facebook_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_utils = __webpack_require__(/*! ../utils */ "../node_modules/react-player/lib/utils.js");
+var import_patterns = __webpack_require__(/*! ../patterns */ "../node_modules/react-player/lib/patterns.js");
+const SDK_URL = "https://connect.facebook.net/en_US/sdk.js";
+const SDK_GLOBAL = "FB";
+const SDK_GLOBAL_READY = "fbAsyncInit";
+const PLAYER_ID_PREFIX = "facebook-player-";
+class Facebook extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    __publicField(this, "callPlayer", import_utils.callPlayer);
+    __publicField(this, "playerID", this.props.config.playerId || `${PLAYER_ID_PREFIX}${(0, import_utils.randomString)()}`);
+    __publicField(this, "mute", () => {
+      this.callPlayer("mute");
+    });
+    __publicField(this, "unmute", () => {
+      this.callPlayer("unmute");
+    });
+  }
+  componentDidMount() {
+    this.props.onMount && this.props.onMount(this);
+  }
+  load(url, isReady) {
+    if (isReady) {
+      (0, import_utils.getSDK)(SDK_URL, SDK_GLOBAL, SDK_GLOBAL_READY).then((FB) => FB.XFBML.parse());
+      return;
+    }
+    (0, import_utils.getSDK)(SDK_URL, SDK_GLOBAL, SDK_GLOBAL_READY).then((FB) => {
+      FB.init({
+        appId: this.props.config.appId,
+        xfbml: true,
+        version: this.props.config.version
+      });
+      FB.Event.subscribe("xfbml.render", (msg) => {
+        this.props.onLoaded();
+      });
+      FB.Event.subscribe("xfbml.ready", (msg) => {
+        if (msg.type === "video" && msg.id === this.playerID) {
+          this.player = msg.instance;
+          this.player.subscribe("startedPlaying", this.props.onPlay);
+          this.player.subscribe("paused", this.props.onPause);
+          this.player.subscribe("finishedPlaying", this.props.onEnded);
+          this.player.subscribe("startedBuffering", this.props.onBuffer);
+          this.player.subscribe("finishedBuffering", this.props.onBufferEnd);
+          this.player.subscribe("error", this.props.onError);
+          if (this.props.muted) {
+            this.callPlayer("mute");
+          } else {
+            this.callPlayer("unmute");
+          }
+          this.props.onReady();
+          document.getElementById(this.playerID).querySelector("iframe").style.visibility = "visible";
+        }
+      });
+    });
+  }
+  play() {
+    this.callPlayer("play");
+  }
+  pause() {
+    this.callPlayer("pause");
+  }
+  stop() {
+  }
+  seekTo(seconds, keepPlaying = true) {
+    this.callPlayer("seek", seconds);
+    if (!keepPlaying) {
+      this.pause();
+    }
+  }
+  setVolume(fraction) {
+    this.callPlayer("setVolume", fraction);
+  }
+  getDuration() {
+    return this.callPlayer("getDuration");
+  }
+  getCurrentTime() {
+    return this.callPlayer("getCurrentPosition");
+  }
+  getSecondsLoaded() {
+    return null;
+  }
+  render() {
+    const { attributes } = this.props.config;
+    const style = {
+      width: "100%",
+      height: "100%"
+    };
+    return /* @__PURE__ */ import_react.default.createElement(
+      "div",
+      {
+        style,
+        id: this.playerID,
+        className: "fb-video",
+        "data-href": this.props.url,
+        "data-autoplay": this.props.playing ? "true" : "false",
+        "data-allowfullscreen": "true",
+        "data-controls": this.props.controls ? "true" : "false",
+        ...attributes
+      }
+    );
+  }
+}
+__publicField(Facebook, "displayName", "Facebook");
+__publicField(Facebook, "canPlay", import_patterns.canPlay.facebook);
+__publicField(Facebook, "loopOnEnded", true);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/players/FilePlayer.js":
+/*!**************************************************************!*\
+  !*** ../node_modules/react-player/lib/players/FilePlayer.js ***!
+  \**************************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var FilePlayer_exports = {};
+__export(FilePlayer_exports, {
+  default: () => FilePlayer
+});
+module.exports = __toCommonJS(FilePlayer_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_utils = __webpack_require__(/*! ../utils */ "../node_modules/react-player/lib/utils.js");
+var import_patterns = __webpack_require__(/*! ../patterns */ "../node_modules/react-player/lib/patterns.js");
+const HAS_NAVIGATOR = typeof navigator !== "undefined";
+const IS_IPAD_PRO = HAS_NAVIGATOR && navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+const IS_IOS = HAS_NAVIGATOR && (/iPad|iPhone|iPod/.test(navigator.userAgent) || IS_IPAD_PRO) && !window.MSStream;
+const IS_SAFARI = HAS_NAVIGATOR && /^((?!chrome|android).)*safari/i.test(navigator.userAgent) && !window.MSStream;
+const HLS_SDK_URL = "https://cdn.jsdelivr.net/npm/hls.js@VERSION/dist/hls.min.js";
+const HLS_GLOBAL = "Hls";
+const DASH_SDK_URL = "https://cdnjs.cloudflare.com/ajax/libs/dashjs/VERSION/dash.all.min.js";
+const DASH_GLOBAL = "dashjs";
+const FLV_SDK_URL = "https://cdn.jsdelivr.net/npm/flv.js@VERSION/dist/flv.min.js";
+const FLV_GLOBAL = "flvjs";
+const MATCH_DROPBOX_URL = /www\.dropbox\.com\/.+/;
+const MATCH_CLOUDFLARE_STREAM = /https:\/\/watch\.cloudflarestream\.com\/([a-z0-9]+)/;
+const REPLACE_CLOUDFLARE_STREAM = "https://videodelivery.net/{id}/manifest/video.m3u8";
+class FilePlayer extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    // Proxy methods to prevent listener leaks
+    __publicField(this, "onReady", (...args) => this.props.onReady(...args));
+    __publicField(this, "onPlay", (...args) => this.props.onPlay(...args));
+    __publicField(this, "onBuffer", (...args) => this.props.onBuffer(...args));
+    __publicField(this, "onBufferEnd", (...args) => this.props.onBufferEnd(...args));
+    __publicField(this, "onPause", (...args) => this.props.onPause(...args));
+    __publicField(this, "onEnded", (...args) => this.props.onEnded(...args));
+    __publicField(this, "onError", (...args) => this.props.onError(...args));
+    __publicField(this, "onPlayBackRateChange", (event) => this.props.onPlaybackRateChange(event.target.playbackRate));
+    __publicField(this, "onEnablePIP", (...args) => this.props.onEnablePIP(...args));
+    __publicField(this, "onDisablePIP", (e) => {
+      const { onDisablePIP, playing } = this.props;
+      onDisablePIP(e);
+      if (playing) {
+        this.play();
+      }
+    });
+    __publicField(this, "onPresentationModeChange", (e) => {
+      if (this.player && (0, import_utils.supportsWebKitPresentationMode)(this.player)) {
+        const { webkitPresentationMode } = this.player;
+        if (webkitPresentationMode === "picture-in-picture") {
+          this.onEnablePIP(e);
+        } else if (webkitPresentationMode === "inline") {
+          this.onDisablePIP(e);
+        }
+      }
+    });
+    __publicField(this, "onSeek", (e) => {
+      this.props.onSeek(e.target.currentTime);
+    });
+    __publicField(this, "mute", () => {
+      this.player.muted = true;
+    });
+    __publicField(this, "unmute", () => {
+      this.player.muted = false;
+    });
+    __publicField(this, "renderSourceElement", (source, index) => {
+      if (typeof source === "string") {
+        return /* @__PURE__ */ import_react.default.createElement("source", { key: index, src: source });
+      }
+      return /* @__PURE__ */ import_react.default.createElement("source", { key: index, ...source });
+    });
+    __publicField(this, "renderTrack", (track, index) => {
+      return /* @__PURE__ */ import_react.default.createElement("track", { key: index, ...track });
+    });
+    __publicField(this, "ref", (player) => {
+      if (this.player) {
+        this.prevPlayer = this.player;
+      }
+      this.player = player;
+    });
+  }
+  componentDidMount() {
+    this.props.onMount && this.props.onMount(this);
+    this.addListeners(this.player);
+    const src = this.getSource(this.props.url);
+    if (src) {
+      this.player.src = src;
+    }
+    if (IS_IOS || this.props.config.forceDisableHls) {
+      this.player.load();
+    }
+  }
+  componentDidUpdate(prevProps) {
+    if (this.shouldUseAudio(this.props) !== this.shouldUseAudio(prevProps)) {
+      this.removeListeners(this.prevPlayer, prevProps.url);
+      this.addListeners(this.player);
+    }
+    if (this.props.url !== prevProps.url && !(0, import_utils.isMediaStream)(this.props.url) && !(this.props.url instanceof Array)) {
+      this.player.srcObject = null;
+    }
+  }
+  componentWillUnmount() {
+    this.player.removeAttribute("src");
+    this.removeListeners(this.player);
+    if (this.hls) {
+      this.hls.destroy();
+    }
+  }
+  addListeners(player) {
+    const { url, playsinline } = this.props;
+    player.addEventListener("play", this.onPlay);
+    player.addEventListener("waiting", this.onBuffer);
+    player.addEventListener("playing", this.onBufferEnd);
+    player.addEventListener("pause", this.onPause);
+    player.addEventListener("seeked", this.onSeek);
+    player.addEventListener("ended", this.onEnded);
+    player.addEventListener("error", this.onError);
+    player.addEventListener("ratechange", this.onPlayBackRateChange);
+    player.addEventListener("enterpictureinpicture", this.onEnablePIP);
+    player.addEventListener("leavepictureinpicture", this.onDisablePIP);
+    player.addEventListener("webkitpresentationmodechanged", this.onPresentationModeChange);
+    if (!this.shouldUseHLS(url)) {
+      player.addEventListener("canplay", this.onReady);
+    }
+    if (playsinline) {
+      player.setAttribute("playsinline", "");
+      player.setAttribute("webkit-playsinline", "");
+      player.setAttribute("x5-playsinline", "");
+    }
+  }
+  removeListeners(player, url) {
+    player.removeEventListener("canplay", this.onReady);
+    player.removeEventListener("play", this.onPlay);
+    player.removeEventListener("waiting", this.onBuffer);
+    player.removeEventListener("playing", this.onBufferEnd);
+    player.removeEventListener("pause", this.onPause);
+    player.removeEventListener("seeked", this.onSeek);
+    player.removeEventListener("ended", this.onEnded);
+    player.removeEventListener("error", this.onError);
+    player.removeEventListener("ratechange", this.onPlayBackRateChange);
+    player.removeEventListener("enterpictureinpicture", this.onEnablePIP);
+    player.removeEventListener("leavepictureinpicture", this.onDisablePIP);
+    player.removeEventListener("webkitpresentationmodechanged", this.onPresentationModeChange);
+    if (!this.shouldUseHLS(url)) {
+      player.removeEventListener("canplay", this.onReady);
+    }
+  }
+  shouldUseAudio(props) {
+    if (props.config.forceVideo) {
+      return false;
+    }
+    if (props.config.attributes.poster) {
+      return false;
+    }
+    return import_patterns.AUDIO_EXTENSIONS.test(props.url) || props.config.forceAudio;
+  }
+  shouldUseHLS(url) {
+    if (IS_SAFARI && this.props.config.forceSafariHLS || this.props.config.forceHLS) {
+      return true;
+    }
+    if (IS_IOS || this.props.config.forceDisableHls) {
+      return false;
+    }
+    return import_patterns.HLS_EXTENSIONS.test(url) || MATCH_CLOUDFLARE_STREAM.test(url);
+  }
+  shouldUseDASH(url) {
+    return import_patterns.DASH_EXTENSIONS.test(url) || this.props.config.forceDASH;
+  }
+  shouldUseFLV(url) {
+    return import_patterns.FLV_EXTENSIONS.test(url) || this.props.config.forceFLV;
+  }
+  load(url) {
+    const { hlsVersion, hlsOptions, dashVersion, flvVersion } = this.props.config;
+    if (this.hls) {
+      this.hls.destroy();
+    }
+    if (this.dash) {
+      this.dash.reset();
+    }
+    if (this.shouldUseHLS(url)) {
+      (0, import_utils.getSDK)(HLS_SDK_URL.replace("VERSION", hlsVersion), HLS_GLOBAL).then((Hls) => {
+        this.hls = new Hls(hlsOptions);
+        this.hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          this.props.onReady();
+        });
+        this.hls.on(Hls.Events.ERROR, (e, data) => {
+          this.props.onError(e, data, this.hls, Hls);
+        });
+        if (MATCH_CLOUDFLARE_STREAM.test(url)) {
+          const id = url.match(MATCH_CLOUDFLARE_STREAM)[1];
+          this.hls.loadSource(REPLACE_CLOUDFLARE_STREAM.replace("{id}", id));
+        } else {
+          this.hls.loadSource(url);
+        }
+        this.hls.attachMedia(this.player);
+        this.props.onLoaded();
+      });
+    }
+    if (this.shouldUseDASH(url)) {
+      (0, import_utils.getSDK)(DASH_SDK_URL.replace("VERSION", dashVersion), DASH_GLOBAL).then((dashjs) => {
+        this.dash = dashjs.MediaPlayer().create();
+        this.dash.initialize(this.player, url, this.props.playing);
+        this.dash.on("error", this.props.onError);
+        if (parseInt(dashVersion) < 3) {
+          this.dash.getDebug().setLogToBrowserConsole(false);
+        } else {
+          this.dash.updateSettings({ debug: { logLevel: dashjs.Debug.LOG_LEVEL_NONE } });
+        }
+        this.props.onLoaded();
+      });
+    }
+    if (this.shouldUseFLV(url)) {
+      (0, import_utils.getSDK)(FLV_SDK_URL.replace("VERSION", flvVersion), FLV_GLOBAL).then((flvjs) => {
+        this.flv = flvjs.createPlayer({ type: "flv", url });
+        this.flv.attachMediaElement(this.player);
+        this.flv.on(flvjs.Events.ERROR, (e, data) => {
+          this.props.onError(e, data, this.flv, flvjs);
+        });
+        this.flv.load();
+        this.props.onLoaded();
+      });
+    }
+    if (url instanceof Array) {
+      this.player.load();
+    } else if ((0, import_utils.isMediaStream)(url)) {
+      try {
+        this.player.srcObject = url;
+      } catch (e) {
+        this.player.src = window.URL.createObjectURL(url);
+      }
+    }
+  }
+  play() {
+    const promise = this.player.play();
+    if (promise) {
+      promise.catch(this.props.onError);
+    }
+  }
+  pause() {
+    this.player.pause();
+  }
+  stop() {
+    this.player.removeAttribute("src");
+    if (this.dash) {
+      this.dash.reset();
+    }
+  }
+  seekTo(seconds, keepPlaying = true) {
+    this.player.currentTime = seconds;
+    if (!keepPlaying) {
+      this.pause();
+    }
+  }
+  setVolume(fraction) {
+    this.player.volume = fraction;
+  }
+  enablePIP() {
+    if (this.player.requestPictureInPicture && document.pictureInPictureElement !== this.player) {
+      this.player.requestPictureInPicture();
+    } else if ((0, import_utils.supportsWebKitPresentationMode)(this.player) && this.player.webkitPresentationMode !== "picture-in-picture") {
+      this.player.webkitSetPresentationMode("picture-in-picture");
+    }
+  }
+  disablePIP() {
+    if (document.exitPictureInPicture && document.pictureInPictureElement === this.player) {
+      document.exitPictureInPicture();
+    } else if ((0, import_utils.supportsWebKitPresentationMode)(this.player) && this.player.webkitPresentationMode !== "inline") {
+      this.player.webkitSetPresentationMode("inline");
+    }
+  }
+  setPlaybackRate(rate) {
+    try {
+      this.player.playbackRate = rate;
+    } catch (error) {
+      this.props.onError(error);
+    }
+  }
+  getDuration() {
+    if (!this.player)
+      return null;
+    const { duration, seekable } = this.player;
+    if (duration === Infinity && seekable.length > 0) {
+      return seekable.end(seekable.length - 1);
+    }
+    return duration;
+  }
+  getCurrentTime() {
+    if (!this.player)
+      return null;
+    return this.player.currentTime;
+  }
+  getSecondsLoaded() {
+    if (!this.player)
+      return null;
+    const { buffered } = this.player;
+    if (buffered.length === 0) {
+      return 0;
+    }
+    const end = buffered.end(buffered.length - 1);
+    const duration = this.getDuration();
+    if (end > duration) {
+      return duration;
+    }
+    return end;
+  }
+  getSource(url) {
+    const useHLS = this.shouldUseHLS(url);
+    const useDASH = this.shouldUseDASH(url);
+    const useFLV = this.shouldUseFLV(url);
+    if (url instanceof Array || (0, import_utils.isMediaStream)(url) || useHLS || useDASH || useFLV) {
+      return void 0;
+    }
+    if (MATCH_DROPBOX_URL.test(url)) {
+      return url.replace("www.dropbox.com", "dl.dropboxusercontent.com");
+    }
+    return url;
+  }
+  render() {
+    const { url, playing, loop, controls, muted, config, width, height } = this.props;
+    const useAudio = this.shouldUseAudio(this.props);
+    const Element = useAudio ? "audio" : "video";
+    const style = {
+      width: width === "auto" ? width : "100%",
+      height: height === "auto" ? height : "100%"
+    };
+    return /* @__PURE__ */ import_react.default.createElement(
+      Element,
+      {
+        ref: this.ref,
+        src: this.getSource(url),
+        style,
+        preload: "auto",
+        autoPlay: playing || void 0,
+        controls,
+        muted,
+        loop,
+        ...config.attributes
+      },
+      url instanceof Array && url.map(this.renderSourceElement),
+      config.tracks.map(this.renderTrack)
+    );
+  }
+}
+__publicField(FilePlayer, "displayName", "FilePlayer");
+__publicField(FilePlayer, "canPlay", import_patterns.canPlay.file);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/players/Kaltura.js":
+/*!***********************************************************!*\
+  !*** ../node_modules/react-player/lib/players/Kaltura.js ***!
+  \***********************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var Kaltura_exports = {};
+__export(Kaltura_exports, {
+  default: () => Kaltura
+});
+module.exports = __toCommonJS(Kaltura_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_utils = __webpack_require__(/*! ../utils */ "../node_modules/react-player/lib/utils.js");
+var import_patterns = __webpack_require__(/*! ../patterns */ "../node_modules/react-player/lib/patterns.js");
+const SDK_URL = "https://cdn.embed.ly/player-0.1.0.min.js";
+const SDK_GLOBAL = "playerjs";
+class Kaltura extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    __publicField(this, "callPlayer", import_utils.callPlayer);
+    __publicField(this, "duration", null);
+    __publicField(this, "currentTime", null);
+    __publicField(this, "secondsLoaded", null);
+    __publicField(this, "mute", () => {
+      this.callPlayer("mute");
+    });
+    __publicField(this, "unmute", () => {
+      this.callPlayer("unmute");
+    });
+    __publicField(this, "ref", (iframe) => {
+      this.iframe = iframe;
+    });
+  }
+  componentDidMount() {
+    this.props.onMount && this.props.onMount(this);
+  }
+  load(url) {
+    (0, import_utils.getSDK)(SDK_URL, SDK_GLOBAL).then((playerjs) => {
+      if (!this.iframe)
+        return;
+      this.player = new playerjs.Player(this.iframe);
+      this.player.on("ready", () => {
+        setTimeout(() => {
+          this.player.isReady = true;
+          this.player.setLoop(this.props.loop);
+          if (this.props.muted) {
+            this.player.mute();
+          }
+          this.addListeners(this.player, this.props);
+          this.props.onReady();
+        }, 500);
+      });
+    }, this.props.onError);
+  }
+  addListeners(player, props) {
+    player.on("play", props.onPlay);
+    player.on("pause", props.onPause);
+    player.on("ended", props.onEnded);
+    player.on("error", props.onError);
+    player.on("timeupdate", ({ duration, seconds }) => {
+      this.duration = duration;
+      this.currentTime = seconds;
+    });
+  }
+  play() {
+    this.callPlayer("play");
+  }
+  pause() {
+    this.callPlayer("pause");
+  }
+  stop() {
+  }
+  seekTo(seconds, keepPlaying = true) {
+    this.callPlayer("setCurrentTime", seconds);
+    if (!keepPlaying) {
+      this.pause();
+    }
+  }
+  setVolume(fraction) {
+    this.callPlayer("setVolume", fraction);
+  }
+  setLoop(loop) {
+    this.callPlayer("setLoop", loop);
+  }
+  getDuration() {
+    return this.duration;
+  }
+  getCurrentTime() {
+    return this.currentTime;
+  }
+  getSecondsLoaded() {
+    return this.secondsLoaded;
+  }
+  render() {
+    const style = {
+      width: "100%",
+      height: "100%"
+    };
+    return /* @__PURE__ */ import_react.default.createElement(
+      "iframe",
+      {
+        ref: this.ref,
+        src: this.props.url,
+        frameBorder: "0",
+        scrolling: "no",
+        style,
+        allow: "encrypted-media; autoplay; fullscreen;",
+        referrerPolicy: "no-referrer-when-downgrade"
+      }
+    );
+  }
+}
+__publicField(Kaltura, "displayName", "Kaltura");
+__publicField(Kaltura, "canPlay", import_patterns.canPlay.kaltura);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/players/Mixcloud.js":
+/*!************************************************************!*\
+  !*** ../node_modules/react-player/lib/players/Mixcloud.js ***!
+  \************************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var Mixcloud_exports = {};
+__export(Mixcloud_exports, {
+  default: () => Mixcloud
+});
+module.exports = __toCommonJS(Mixcloud_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_utils = __webpack_require__(/*! ../utils */ "../node_modules/react-player/lib/utils.js");
+var import_patterns = __webpack_require__(/*! ../patterns */ "../node_modules/react-player/lib/patterns.js");
+const SDK_URL = "https://widget.mixcloud.com/media/js/widgetApi.js";
+const SDK_GLOBAL = "Mixcloud";
+class Mixcloud extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    __publicField(this, "callPlayer", import_utils.callPlayer);
+    __publicField(this, "duration", null);
+    __publicField(this, "currentTime", null);
+    __publicField(this, "secondsLoaded", null);
+    __publicField(this, "mute", () => {
+    });
+    __publicField(this, "unmute", () => {
+    });
+    __publicField(this, "ref", (iframe) => {
+      this.iframe = iframe;
+    });
+  }
+  componentDidMount() {
+    this.props.onMount && this.props.onMount(this);
+  }
+  load(url) {
+    (0, import_utils.getSDK)(SDK_URL, SDK_GLOBAL).then((Mixcloud2) => {
+      this.player = Mixcloud2.PlayerWidget(this.iframe);
+      this.player.ready.then(() => {
+        this.player.events.play.on(this.props.onPlay);
+        this.player.events.pause.on(this.props.onPause);
+        this.player.events.ended.on(this.props.onEnded);
+        this.player.events.error.on(this.props.error);
+        this.player.events.progress.on((seconds, duration) => {
+          this.currentTime = seconds;
+          this.duration = duration;
+        });
+        this.props.onReady();
+      });
+    }, this.props.onError);
+  }
+  play() {
+    this.callPlayer("play");
+  }
+  pause() {
+    this.callPlayer("pause");
+  }
+  stop() {
+  }
+  seekTo(seconds, keepPlaying = true) {
+    this.callPlayer("seek", seconds);
+    if (!keepPlaying) {
+      this.pause();
+    }
+  }
+  setVolume(fraction) {
+  }
+  getDuration() {
+    return this.duration;
+  }
+  getCurrentTime() {
+    return this.currentTime;
+  }
+  getSecondsLoaded() {
+    return null;
+  }
+  render() {
+    const { url, config } = this.props;
+    const id = url.match(import_patterns.MATCH_URL_MIXCLOUD)[1];
+    const style = {
+      width: "100%",
+      height: "100%"
+    };
+    const query = (0, import_utils.queryString)({
+      ...config.options,
+      feed: `/${id}/`
+    });
+    return /* @__PURE__ */ import_react.default.createElement(
+      "iframe",
+      {
+        key: id,
+        ref: this.ref,
+        style,
+        src: `https://www.mixcloud.com/widget/iframe/?${query}`,
+        frameBorder: "0",
+        allow: "autoplay"
+      }
+    );
+  }
+}
+__publicField(Mixcloud, "displayName", "Mixcloud");
+__publicField(Mixcloud, "canPlay", import_patterns.canPlay.mixcloud);
+__publicField(Mixcloud, "loopOnEnded", true);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/players/Mux.js":
+/*!*******************************************************!*\
+  !*** ../node_modules/react-player/lib/players/Mux.js ***!
+  \*******************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var Mux_exports = {};
+__export(Mux_exports, {
+  default: () => Mux
+});
+module.exports = __toCommonJS(Mux_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_patterns = __webpack_require__(/*! ../patterns */ "../node_modules/react-player/lib/patterns.js");
+const SDK_URL = "https://cdn.jsdelivr.net/npm/@mux/mux-player@VERSION/dist/mux-player.mjs";
+class Mux extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    // Proxy methods to prevent listener leaks
+    __publicField(this, "onReady", (...args) => this.props.onReady(...args));
+    __publicField(this, "onPlay", (...args) => this.props.onPlay(...args));
+    __publicField(this, "onBuffer", (...args) => this.props.onBuffer(...args));
+    __publicField(this, "onBufferEnd", (...args) => this.props.onBufferEnd(...args));
+    __publicField(this, "onPause", (...args) => this.props.onPause(...args));
+    __publicField(this, "onEnded", (...args) => this.props.onEnded(...args));
+    __publicField(this, "onError", (...args) => this.props.onError(...args));
+    __publicField(this, "onPlayBackRateChange", (event) => this.props.onPlaybackRateChange(event.target.playbackRate));
+    __publicField(this, "onEnablePIP", (...args) => this.props.onEnablePIP(...args));
+    __publicField(this, "onSeek", (e) => {
+      this.props.onSeek(e.target.currentTime);
+    });
+    __publicField(this, "onDurationChange", () => {
+      const duration = this.getDuration();
+      this.props.onDuration(duration);
+    });
+    __publicField(this, "mute", () => {
+      this.player.muted = true;
+    });
+    __publicField(this, "unmute", () => {
+      this.player.muted = false;
+    });
+    __publicField(this, "ref", (player) => {
+      this.player = player;
+    });
+  }
+  componentDidMount() {
+    this.props.onMount && this.props.onMount(this);
+    this.addListeners(this.player);
+    const playbackId = this.getPlaybackId(this.props.url);
+    if (playbackId) {
+      this.player.playbackId = playbackId;
+    }
+  }
+  componentWillUnmount() {
+    this.player.playbackId = null;
+    this.removeListeners(this.player);
+  }
+  addListeners(player) {
+    const { playsinline } = this.props;
+    player.addEventListener("play", this.onPlay);
+    player.addEventListener("waiting", this.onBuffer);
+    player.addEventListener("playing", this.onBufferEnd);
+    player.addEventListener("pause", this.onPause);
+    player.addEventListener("seeked", this.onSeek);
+    player.addEventListener("ended", this.onEnded);
+    player.addEventListener("error", this.onError);
+    player.addEventListener("ratechange", this.onPlayBackRateChange);
+    player.addEventListener("enterpictureinpicture", this.onEnablePIP);
+    player.addEventListener("leavepictureinpicture", this.onDisablePIP);
+    player.addEventListener("webkitpresentationmodechanged", this.onPresentationModeChange);
+    player.addEventListener("canplay", this.onReady);
+    if (playsinline) {
+      player.setAttribute("playsinline", "");
+    }
+  }
+  removeListeners(player) {
+    player.removeEventListener("canplay", this.onReady);
+    player.removeEventListener("play", this.onPlay);
+    player.removeEventListener("waiting", this.onBuffer);
+    player.removeEventListener("playing", this.onBufferEnd);
+    player.removeEventListener("pause", this.onPause);
+    player.removeEventListener("seeked", this.onSeek);
+    player.removeEventListener("ended", this.onEnded);
+    player.removeEventListener("error", this.onError);
+    player.removeEventListener("ratechange", this.onPlayBackRateChange);
+    player.removeEventListener("enterpictureinpicture", this.onEnablePIP);
+    player.removeEventListener("leavepictureinpicture", this.onDisablePIP);
+    player.removeEventListener("canplay", this.onReady);
+  }
+  async load(url) {
+    var _a;
+    const { onError, config } = this.props;
+    if (!((_a = globalThis.customElements) == null ? void 0 : _a.get("mux-player"))) {
+      try {
+        const sdkUrl = SDK_URL.replace("VERSION", config.version);
+        await import(
+          /* webpackIgnore: true */
+          `${sdkUrl}`
+        );
+        this.props.onLoaded();
+      } catch (error) {
+        onError(error);
+      }
+    }
+    const [, id] = url.match(import_patterns.MATCH_URL_MUX);
+    this.player.playbackId = id;
+  }
+  play() {
+    const promise = this.player.play();
+    if (promise) {
+      promise.catch(this.props.onError);
+    }
+  }
+  pause() {
+    this.player.pause();
+  }
+  stop() {
+    this.player.playbackId = null;
+  }
+  seekTo(seconds, keepPlaying = true) {
+    this.player.currentTime = seconds;
+    if (!keepPlaying) {
+      this.pause();
+    }
+  }
+  setVolume(fraction) {
+    this.player.volume = fraction;
+  }
+  enablePIP() {
+    if (this.player.requestPictureInPicture && document.pictureInPictureElement !== this.player) {
+      this.player.requestPictureInPicture();
+    }
+  }
+  disablePIP() {
+    if (document.exitPictureInPicture && document.pictureInPictureElement === this.player) {
+      document.exitPictureInPicture();
+    }
+  }
+  setPlaybackRate(rate) {
+    try {
+      this.player.playbackRate = rate;
+    } catch (error) {
+      this.props.onError(error);
+    }
+  }
+  getDuration() {
+    if (!this.player)
+      return null;
+    const { duration, seekable } = this.player;
+    if (duration === Infinity && seekable.length > 0) {
+      return seekable.end(seekable.length - 1);
+    }
+    return duration;
+  }
+  getCurrentTime() {
+    if (!this.player)
+      return null;
+    return this.player.currentTime;
+  }
+  getSecondsLoaded() {
+    if (!this.player)
+      return null;
+    const { buffered } = this.player;
+    if (buffered.length === 0) {
+      return 0;
+    }
+    const end = buffered.end(buffered.length - 1);
+    const duration = this.getDuration();
+    if (end > duration) {
+      return duration;
+    }
+    return end;
+  }
+  getPlaybackId(url) {
+    const [, id] = url.match(import_patterns.MATCH_URL_MUX);
+    return id;
+  }
+  render() {
+    const { url, playing, loop, controls, muted, config, width, height } = this.props;
+    const style = {
+      width: width === "auto" ? width : "100%",
+      height: height === "auto" ? height : "100%"
+    };
+    if (controls === false) {
+      style["--controls"] = "none";
+    }
+    return /* @__PURE__ */ import_react.default.createElement(
+      "mux-player",
+      {
+        ref: this.ref,
+        "playback-id": this.getPlaybackId(url),
+        style,
+        preload: "auto",
+        autoPlay: playing || void 0,
+        muted: muted ? "" : void 0,
+        loop: loop ? "" : void 0,
+        ...config.attributes
+      }
+    );
+  }
+}
+__publicField(Mux, "displayName", "Mux");
+__publicField(Mux, "canPlay", import_patterns.canPlay.mux);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/players/SoundCloud.js":
+/*!**************************************************************!*\
+  !*** ../node_modules/react-player/lib/players/SoundCloud.js ***!
+  \**************************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var SoundCloud_exports = {};
+__export(SoundCloud_exports, {
+  default: () => SoundCloud
+});
+module.exports = __toCommonJS(SoundCloud_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_utils = __webpack_require__(/*! ../utils */ "../node_modules/react-player/lib/utils.js");
+var import_patterns = __webpack_require__(/*! ../patterns */ "../node_modules/react-player/lib/patterns.js");
+const SDK_URL = "https://w.soundcloud.com/player/api.js";
+const SDK_GLOBAL = "SC";
+class SoundCloud extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    __publicField(this, "callPlayer", import_utils.callPlayer);
+    __publicField(this, "duration", null);
+    __publicField(this, "currentTime", null);
+    __publicField(this, "fractionLoaded", null);
+    __publicField(this, "mute", () => {
+      this.setVolume(0);
+    });
+    __publicField(this, "unmute", () => {
+      if (this.props.volume !== null) {
+        this.setVolume(this.props.volume);
+      }
+    });
+    __publicField(this, "ref", (iframe) => {
+      this.iframe = iframe;
+    });
+  }
+  componentDidMount() {
+    this.props.onMount && this.props.onMount(this);
+  }
+  load(url, isReady) {
+    (0, import_utils.getSDK)(SDK_URL, SDK_GLOBAL).then((SC) => {
+      if (!this.iframe)
+        return;
+      const { PLAY, PLAY_PROGRESS, PAUSE, FINISH, ERROR } = SC.Widget.Events;
+      if (!isReady) {
+        this.player = SC.Widget(this.iframe);
+        this.player.bind(PLAY, this.props.onPlay);
+        this.player.bind(PAUSE, () => {
+          const remaining = this.duration - this.currentTime;
+          if (remaining < 0.05) {
+            return;
+          }
+          this.props.onPause();
+        });
+        this.player.bind(PLAY_PROGRESS, (e) => {
+          this.currentTime = e.currentPosition / 1e3;
+          this.fractionLoaded = e.loadedProgress;
+        });
+        this.player.bind(FINISH, () => this.props.onEnded());
+        this.player.bind(ERROR, (e) => this.props.onError(e));
+      }
+      this.player.load(url, {
+        ...this.props.config.options,
+        callback: () => {
+          this.player.getDuration((duration) => {
+            this.duration = duration / 1e3;
+            this.props.onReady();
+          });
+        }
+      });
+    });
+  }
+  play() {
+    this.callPlayer("play");
+  }
+  pause() {
+    this.callPlayer("pause");
+  }
+  stop() {
+  }
+  seekTo(seconds, keepPlaying = true) {
+    this.callPlayer("seekTo", seconds * 1e3);
+    if (!keepPlaying) {
+      this.pause();
+    }
+  }
+  setVolume(fraction) {
+    this.callPlayer("setVolume", fraction * 100);
+  }
+  getDuration() {
+    return this.duration;
+  }
+  getCurrentTime() {
+    return this.currentTime;
+  }
+  getSecondsLoaded() {
+    return this.fractionLoaded * this.duration;
+  }
+  render() {
+    const { display } = this.props;
+    const style = {
+      width: "100%",
+      height: "100%",
+      display
+    };
+    return /* @__PURE__ */ import_react.default.createElement(
+      "iframe",
+      {
+        ref: this.ref,
+        src: `https://w.soundcloud.com/player/?url=${encodeURIComponent(this.props.url)}`,
+        style,
+        frameBorder: 0,
+        allow: "autoplay"
+      }
+    );
+  }
+}
+__publicField(SoundCloud, "displayName", "SoundCloud");
+__publicField(SoundCloud, "canPlay", import_patterns.canPlay.soundcloud);
+__publicField(SoundCloud, "loopOnEnded", true);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/players/Streamable.js":
+/*!**************************************************************!*\
+  !*** ../node_modules/react-player/lib/players/Streamable.js ***!
+  \**************************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var Streamable_exports = {};
+__export(Streamable_exports, {
+  default: () => Streamable
+});
+module.exports = __toCommonJS(Streamable_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_utils = __webpack_require__(/*! ../utils */ "../node_modules/react-player/lib/utils.js");
+var import_patterns = __webpack_require__(/*! ../patterns */ "../node_modules/react-player/lib/patterns.js");
+const SDK_URL = "https://cdn.embed.ly/player-0.1.0.min.js";
+const SDK_GLOBAL = "playerjs";
+class Streamable extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    __publicField(this, "callPlayer", import_utils.callPlayer);
+    __publicField(this, "duration", null);
+    __publicField(this, "currentTime", null);
+    __publicField(this, "secondsLoaded", null);
+    __publicField(this, "mute", () => {
+      this.callPlayer("mute");
+    });
+    __publicField(this, "unmute", () => {
+      this.callPlayer("unmute");
+    });
+    __publicField(this, "ref", (iframe) => {
+      this.iframe = iframe;
+    });
+  }
+  componentDidMount() {
+    this.props.onMount && this.props.onMount(this);
+  }
+  load(url) {
+    (0, import_utils.getSDK)(SDK_URL, SDK_GLOBAL).then((playerjs) => {
+      if (!this.iframe)
+        return;
+      this.player = new playerjs.Player(this.iframe);
+      this.player.setLoop(this.props.loop);
+      this.player.on("ready", this.props.onReady);
+      this.player.on("play", this.props.onPlay);
+      this.player.on("pause", this.props.onPause);
+      this.player.on("seeked", this.props.onSeek);
+      this.player.on("ended", this.props.onEnded);
+      this.player.on("error", this.props.onError);
+      this.player.on("timeupdate", ({ duration, seconds }) => {
+        this.duration = duration;
+        this.currentTime = seconds;
+      });
+      this.player.on("buffered", ({ percent }) => {
+        if (this.duration) {
+          this.secondsLoaded = this.duration * percent;
+        }
+      });
+      if (this.props.muted) {
+        this.player.mute();
+      }
+    }, this.props.onError);
+  }
+  play() {
+    this.callPlayer("play");
+  }
+  pause() {
+    this.callPlayer("pause");
+  }
+  stop() {
+  }
+  seekTo(seconds, keepPlaying = true) {
+    this.callPlayer("setCurrentTime", seconds);
+    if (!keepPlaying) {
+      this.pause();
+    }
+  }
+  setVolume(fraction) {
+    this.callPlayer("setVolume", fraction * 100);
+  }
+  setLoop(loop) {
+    this.callPlayer("setLoop", loop);
+  }
+  getDuration() {
+    return this.duration;
+  }
+  getCurrentTime() {
+    return this.currentTime;
+  }
+  getSecondsLoaded() {
+    return this.secondsLoaded;
+  }
+  render() {
+    const id = this.props.url.match(import_patterns.MATCH_URL_STREAMABLE)[1];
+    const style = {
+      width: "100%",
+      height: "100%"
+    };
+    return /* @__PURE__ */ import_react.default.createElement(
+      "iframe",
+      {
+        ref: this.ref,
+        src: `https://streamable.com/o/${id}`,
+        frameBorder: "0",
+        scrolling: "no",
+        style,
+        allow: "encrypted-media; autoplay; fullscreen;"
+      }
+    );
+  }
+}
+__publicField(Streamable, "displayName", "Streamable");
+__publicField(Streamable, "canPlay", import_patterns.canPlay.streamable);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/players/Twitch.js":
+/*!**********************************************************!*\
+  !*** ../node_modules/react-player/lib/players/Twitch.js ***!
+  \**********************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var Twitch_exports = {};
+__export(Twitch_exports, {
+  default: () => Twitch
+});
+module.exports = __toCommonJS(Twitch_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_utils = __webpack_require__(/*! ../utils */ "../node_modules/react-player/lib/utils.js");
+var import_patterns = __webpack_require__(/*! ../patterns */ "../node_modules/react-player/lib/patterns.js");
+const SDK_URL = "https://player.twitch.tv/js/embed/v1.js";
+const SDK_GLOBAL = "Twitch";
+const PLAYER_ID_PREFIX = "twitch-player-";
+class Twitch extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    __publicField(this, "callPlayer", import_utils.callPlayer);
+    __publicField(this, "playerID", this.props.config.playerId || `${PLAYER_ID_PREFIX}${(0, import_utils.randomString)()}`);
+    __publicField(this, "mute", () => {
+      this.callPlayer("setMuted", true);
+    });
+    __publicField(this, "unmute", () => {
+      this.callPlayer("setMuted", false);
+    });
+  }
+  componentDidMount() {
+    this.props.onMount && this.props.onMount(this);
+  }
+  load(url, isReady) {
+    const { playsinline, onError, config, controls } = this.props;
+    const isChannel = import_patterns.MATCH_URL_TWITCH_CHANNEL.test(url);
+    const id = isChannel ? url.match(import_patterns.MATCH_URL_TWITCH_CHANNEL)[1] : url.match(import_patterns.MATCH_URL_TWITCH_VIDEO)[1];
+    if (isReady) {
+      if (isChannel) {
+        this.player.setChannel(id);
+      } else {
+        this.player.setVideo("v" + id);
+      }
+      return;
+    }
+    (0, import_utils.getSDK)(SDK_URL, SDK_GLOBAL).then((Twitch2) => {
+      this.player = new Twitch2.Player(this.playerID, {
+        video: isChannel ? "" : id,
+        channel: isChannel ? id : "",
+        height: "100%",
+        width: "100%",
+        playsinline,
+        autoplay: this.props.playing,
+        muted: this.props.muted,
+        // https://github.com/CookPete/react-player/issues/733#issuecomment-549085859
+        controls: isChannel ? true : controls,
+        time: (0, import_utils.parseStartTime)(url),
+        ...config.options
+      });
+      const { READY, PLAYING, PAUSE, ENDED, ONLINE, OFFLINE, SEEK } = Twitch2.Player;
+      this.player.addEventListener(READY, this.props.onReady);
+      this.player.addEventListener(PLAYING, this.props.onPlay);
+      this.player.addEventListener(PAUSE, this.props.onPause);
+      this.player.addEventListener(ENDED, this.props.onEnded);
+      this.player.addEventListener(SEEK, this.props.onSeek);
+      this.player.addEventListener(ONLINE, this.props.onLoaded);
+      this.player.addEventListener(OFFLINE, this.props.onLoaded);
+    }, onError);
+  }
+  play() {
+    this.callPlayer("play");
+  }
+  pause() {
+    this.callPlayer("pause");
+  }
+  stop() {
+    this.callPlayer("pause");
+  }
+  seekTo(seconds, keepPlaying = true) {
+    this.callPlayer("seek", seconds);
+    if (!keepPlaying) {
+      this.pause();
+    }
+  }
+  setVolume(fraction) {
+    this.callPlayer("setVolume", fraction);
+  }
+  getDuration() {
+    return this.callPlayer("getDuration");
+  }
+  getCurrentTime() {
+    return this.callPlayer("getCurrentTime");
+  }
+  getSecondsLoaded() {
+    return null;
+  }
+  render() {
+    const style = {
+      width: "100%",
+      height: "100%"
+    };
+    return /* @__PURE__ */ import_react.default.createElement("div", { style, id: this.playerID });
+  }
+}
+__publicField(Twitch, "displayName", "Twitch");
+__publicField(Twitch, "canPlay", import_patterns.canPlay.twitch);
+__publicField(Twitch, "loopOnEnded", true);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/players/Vidyard.js":
+/*!***********************************************************!*\
+  !*** ../node_modules/react-player/lib/players/Vidyard.js ***!
+  \***********************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var Vidyard_exports = {};
+__export(Vidyard_exports, {
+  default: () => Vidyard
+});
+module.exports = __toCommonJS(Vidyard_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_utils = __webpack_require__(/*! ../utils */ "../node_modules/react-player/lib/utils.js");
+var import_patterns = __webpack_require__(/*! ../patterns */ "../node_modules/react-player/lib/patterns.js");
+const SDK_URL = "https://play.vidyard.com/embed/v4.js";
+const SDK_GLOBAL = "VidyardV4";
+const SDK_GLOBAL_READY = "onVidyardAPI";
+class Vidyard extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    __publicField(this, "callPlayer", import_utils.callPlayer);
+    __publicField(this, "mute", () => {
+      this.setVolume(0);
+    });
+    __publicField(this, "unmute", () => {
+      if (this.props.volume !== null) {
+        this.setVolume(this.props.volume);
+      }
+    });
+    __publicField(this, "ref", (container) => {
+      this.container = container;
+    });
+  }
+  componentDidMount() {
+    this.props.onMount && this.props.onMount(this);
+  }
+  load(url) {
+    const { playing, config, onError, onDuration } = this.props;
+    const id = url && url.match(import_patterns.MATCH_URL_VIDYARD)[1];
+    if (this.player) {
+      this.stop();
+    }
+    (0, import_utils.getSDK)(SDK_URL, SDK_GLOBAL, SDK_GLOBAL_READY).then((Vidyard2) => {
+      if (!this.container)
+        return;
+      Vidyard2.api.addReadyListener((data, player) => {
+        if (this.player) {
+          return;
+        }
+        this.player = player;
+        this.player.on("ready", this.props.onReady);
+        this.player.on("play", this.props.onPlay);
+        this.player.on("pause", this.props.onPause);
+        this.player.on("seek", this.props.onSeek);
+        this.player.on("playerComplete", this.props.onEnded);
+      }, id);
+      Vidyard2.api.renderPlayer({
+        uuid: id,
+        container: this.container,
+        autoplay: playing ? 1 : 0,
+        ...config.options
+      });
+      Vidyard2.api.getPlayerMetadata(id).then((meta) => {
+        this.duration = meta.length_in_seconds;
+        onDuration(meta.length_in_seconds);
+      });
+    }, onError);
+  }
+  play() {
+    this.callPlayer("play");
+  }
+  pause() {
+    this.callPlayer("pause");
+  }
+  stop() {
+    window.VidyardV4.api.destroyPlayer(this.player);
+  }
+  seekTo(amount, keepPlaying = true) {
+    this.callPlayer("seek", amount);
+    if (!keepPlaying) {
+      this.pause();
+    }
+  }
+  setVolume(fraction) {
+    this.callPlayer("setVolume", fraction);
+  }
+  setPlaybackRate(rate) {
+    this.callPlayer("setPlaybackSpeed", rate);
+  }
+  getDuration() {
+    return this.duration;
+  }
+  getCurrentTime() {
+    return this.callPlayer("currentTime");
+  }
+  getSecondsLoaded() {
+    return null;
+  }
+  render() {
+    const { display } = this.props;
+    const style = {
+      width: "100%",
+      height: "100%",
+      display
+    };
+    return /* @__PURE__ */ import_react.default.createElement("div", { style }, /* @__PURE__ */ import_react.default.createElement("div", { ref: this.ref }));
+  }
+}
+__publicField(Vidyard, "displayName", "Vidyard");
+__publicField(Vidyard, "canPlay", import_patterns.canPlay.vidyard);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/players/Vimeo.js":
+/*!*********************************************************!*\
+  !*** ../node_modules/react-player/lib/players/Vimeo.js ***!
+  \*********************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var Vimeo_exports = {};
+__export(Vimeo_exports, {
+  default: () => Vimeo
+});
+module.exports = __toCommonJS(Vimeo_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_utils = __webpack_require__(/*! ../utils */ "../node_modules/react-player/lib/utils.js");
+var import_patterns = __webpack_require__(/*! ../patterns */ "../node_modules/react-player/lib/patterns.js");
+const SDK_URL = "https://player.vimeo.com/api/player.js";
+const SDK_GLOBAL = "Vimeo";
+const cleanUrl = (url) => {
+  return url.replace("/manage/videos", "");
+};
+class Vimeo extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    // Prevent checking isLoading when URL changes
+    __publicField(this, "callPlayer", import_utils.callPlayer);
+    __publicField(this, "duration", null);
+    __publicField(this, "currentTime", null);
+    __publicField(this, "secondsLoaded", null);
+    __publicField(this, "mute", () => {
+      this.setMuted(true);
+    });
+    __publicField(this, "unmute", () => {
+      this.setMuted(false);
+    });
+    __publicField(this, "ref", (container) => {
+      this.container = container;
+    });
+  }
+  componentDidMount() {
+    this.props.onMount && this.props.onMount(this);
+  }
+  load(url) {
+    this.duration = null;
+    (0, import_utils.getSDK)(SDK_URL, SDK_GLOBAL).then((Vimeo2) => {
+      if (!this.container)
+        return;
+      const { playerOptions, title } = this.props.config;
+      this.player = new Vimeo2.Player(this.container, {
+        url: cleanUrl(url),
+        autoplay: this.props.playing,
+        muted: this.props.muted,
+        loop: this.props.loop,
+        playsinline: this.props.playsinline,
+        controls: this.props.controls,
+        ...playerOptions
+      });
+      this.player.ready().then(() => {
+        const iframe = this.container.querySelector("iframe");
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        if (title) {
+          iframe.title = title;
+        }
+      }).catch(this.props.onError);
+      this.player.on("loaded", () => {
+        this.props.onReady();
+        this.refreshDuration();
+      });
+      this.player.on("play", () => {
+        this.props.onPlay();
+        this.refreshDuration();
+      });
+      this.player.on("pause", this.props.onPause);
+      this.player.on("seeked", (e) => this.props.onSeek(e.seconds));
+      this.player.on("ended", this.props.onEnded);
+      this.player.on("error", this.props.onError);
+      this.player.on("timeupdate", ({ seconds }) => {
+        this.currentTime = seconds;
+      });
+      this.player.on("progress", ({ seconds }) => {
+        this.secondsLoaded = seconds;
+      });
+      this.player.on("bufferstart", this.props.onBuffer);
+      this.player.on("bufferend", this.props.onBufferEnd);
+      this.player.on("playbackratechange", (e) => this.props.onPlaybackRateChange(e.playbackRate));
+    }, this.props.onError);
+  }
+  refreshDuration() {
+    this.player.getDuration().then((duration) => {
+      this.duration = duration;
+    });
+  }
+  play() {
+    const promise = this.callPlayer("play");
+    if (promise) {
+      promise.catch(this.props.onError);
+    }
+  }
+  pause() {
+    this.callPlayer("pause");
+  }
+  stop() {
+    this.callPlayer("unload");
+  }
+  seekTo(seconds, keepPlaying = true) {
+    this.callPlayer("setCurrentTime", seconds);
+    if (!keepPlaying) {
+      this.pause();
+    }
+  }
+  setVolume(fraction) {
+    this.callPlayer("setVolume", fraction);
+  }
+  setMuted(muted) {
+    this.callPlayer("setMuted", muted);
+  }
+  setLoop(loop) {
+    this.callPlayer("setLoop", loop);
+  }
+  setPlaybackRate(rate) {
+    this.callPlayer("setPlaybackRate", rate);
+  }
+  getDuration() {
+    return this.duration;
+  }
+  getCurrentTime() {
+    return this.currentTime;
+  }
+  getSecondsLoaded() {
+    return this.secondsLoaded;
+  }
+  render() {
+    const { display } = this.props;
+    const style = {
+      width: "100%",
+      height: "100%",
+      overflow: "hidden",
+      display
+    };
+    return /* @__PURE__ */ import_react.default.createElement(
+      "div",
+      {
+        key: this.props.url,
+        ref: this.ref,
+        style
+      }
+    );
+  }
+}
+__publicField(Vimeo, "displayName", "Vimeo");
+__publicField(Vimeo, "canPlay", import_patterns.canPlay.vimeo);
+__publicField(Vimeo, "forceLoad", true);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/players/Wistia.js":
+/*!**********************************************************!*\
+  !*** ../node_modules/react-player/lib/players/Wistia.js ***!
+  \**********************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var Wistia_exports = {};
+__export(Wistia_exports, {
+  default: () => Wistia
+});
+module.exports = __toCommonJS(Wistia_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_utils = __webpack_require__(/*! ../utils */ "../node_modules/react-player/lib/utils.js");
+var import_patterns = __webpack_require__(/*! ../patterns */ "../node_modules/react-player/lib/patterns.js");
+const SDK_URL = "https://fast.wistia.com/assets/external/E-v1.js";
+const SDK_GLOBAL = "Wistia";
+const PLAYER_ID_PREFIX = "wistia-player-";
+class Wistia extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    __publicField(this, "callPlayer", import_utils.callPlayer);
+    __publicField(this, "playerID", this.props.config.playerId || `${PLAYER_ID_PREFIX}${(0, import_utils.randomString)()}`);
+    // Proxy methods to prevent listener leaks
+    __publicField(this, "onPlay", (...args) => this.props.onPlay(...args));
+    __publicField(this, "onPause", (...args) => this.props.onPause(...args));
+    __publicField(this, "onSeek", (...args) => this.props.onSeek(...args));
+    __publicField(this, "onEnded", (...args) => this.props.onEnded(...args));
+    __publicField(this, "onPlaybackRateChange", (...args) => this.props.onPlaybackRateChange(...args));
+    __publicField(this, "mute", () => {
+      this.callPlayer("mute");
+    });
+    __publicField(this, "unmute", () => {
+      this.callPlayer("unmute");
+    });
+  }
+  componentDidMount() {
+    this.props.onMount && this.props.onMount(this);
+  }
+  load(url) {
+    const { playing, muted, controls, onReady, config, onError } = this.props;
+    (0, import_utils.getSDK)(SDK_URL, SDK_GLOBAL).then((Wistia2) => {
+      if (config.customControls) {
+        config.customControls.forEach((control) => Wistia2.defineControl(control));
+      }
+      window._wq = window._wq || [];
+      window._wq.push({
+        id: this.playerID,
+        options: {
+          autoPlay: playing,
+          silentAutoPlay: "allow",
+          muted,
+          controlsVisibleOnLoad: controls,
+          fullscreenButton: controls,
+          playbar: controls,
+          playbackRateControl: controls,
+          qualityControl: controls,
+          volumeControl: controls,
+          settingsControl: controls,
+          smallPlayButton: controls,
+          ...config.options
+        },
+        onReady: (player) => {
+          this.player = player;
+          this.unbind();
+          this.player.bind("play", this.onPlay);
+          this.player.bind("pause", this.onPause);
+          this.player.bind("seek", this.onSeek);
+          this.player.bind("end", this.onEnded);
+          this.player.bind("playbackratechange", this.onPlaybackRateChange);
+          onReady();
+        }
+      });
+    }, onError);
+  }
+  unbind() {
+    this.player.unbind("play", this.onPlay);
+    this.player.unbind("pause", this.onPause);
+    this.player.unbind("seek", this.onSeek);
+    this.player.unbind("end", this.onEnded);
+    this.player.unbind("playbackratechange", this.onPlaybackRateChange);
+  }
+  play() {
+    this.callPlayer("play");
+  }
+  pause() {
+    this.callPlayer("pause");
+  }
+  stop() {
+    this.unbind();
+    this.callPlayer("remove");
+  }
+  seekTo(seconds, keepPlaying = true) {
+    this.callPlayer("time", seconds);
+    if (!keepPlaying) {
+      this.pause();
+    }
+  }
+  setVolume(fraction) {
+    this.callPlayer("volume", fraction);
+  }
+  setPlaybackRate(rate) {
+    this.callPlayer("playbackRate", rate);
+  }
+  getDuration() {
+    return this.callPlayer("duration");
+  }
+  getCurrentTime() {
+    return this.callPlayer("time");
+  }
+  getSecondsLoaded() {
+    return null;
+  }
+  render() {
+    const { url } = this.props;
+    const videoID = url && url.match(import_patterns.MATCH_URL_WISTIA)[1];
+    const className = `wistia_embed wistia_async_${videoID}`;
+    const style = {
+      width: "100%",
+      height: "100%"
+    };
+    return /* @__PURE__ */ import_react.default.createElement("div", { id: this.playerID, key: videoID, className, style });
+  }
+}
+__publicField(Wistia, "displayName", "Wistia");
+__publicField(Wistia, "canPlay", import_patterns.canPlay.wistia);
+__publicField(Wistia, "loopOnEnded", true);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/players/YouTube.js":
+/*!***********************************************************!*\
+  !*** ../node_modules/react-player/lib/players/YouTube.js ***!
+  \***********************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var YouTube_exports = {};
+__export(YouTube_exports, {
+  default: () => YouTube
+});
+module.exports = __toCommonJS(YouTube_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_utils = __webpack_require__(/*! ../utils */ "../node_modules/react-player/lib/utils.js");
+var import_patterns = __webpack_require__(/*! ../patterns */ "../node_modules/react-player/lib/patterns.js");
+const SDK_URL = "https://www.youtube.com/iframe_api";
+const SDK_GLOBAL = "YT";
+const SDK_GLOBAL_READY = "onYouTubeIframeAPIReady";
+const MATCH_PLAYLIST = /[?&](?:list|channel)=([a-zA-Z0-9_-]+)/;
+const MATCH_USER_UPLOADS = /user\/([a-zA-Z0-9_-]+)\/?/;
+const MATCH_NOCOOKIE = /youtube-nocookie\.com/;
+const NOCOOKIE_HOST = "https://www.youtube-nocookie.com";
+class YouTube extends import_react.Component {
+  constructor() {
+    super(...arguments);
+    __publicField(this, "callPlayer", import_utils.callPlayer);
+    __publicField(this, "parsePlaylist", (url) => {
+      if (url instanceof Array) {
+        return {
+          listType: "playlist",
+          playlist: url.map(this.getID).join(",")
+        };
+      }
+      if (MATCH_PLAYLIST.test(url)) {
+        const [, playlistId] = url.match(MATCH_PLAYLIST);
+        return {
+          listType: "playlist",
+          list: playlistId.replace(/^UC/, "UU")
+        };
+      }
+      if (MATCH_USER_UPLOADS.test(url)) {
+        const [, username] = url.match(MATCH_USER_UPLOADS);
+        return {
+          listType: "user_uploads",
+          list: username
+        };
+      }
+      return {};
+    });
+    __publicField(this, "onStateChange", (event) => {
+      const { data } = event;
+      const { onPlay, onPause, onBuffer, onBufferEnd, onEnded, onReady, loop, config: { playerVars, onUnstarted } } = this.props;
+      const { UNSTARTED, PLAYING, PAUSED, BUFFERING, ENDED, CUED } = window[SDK_GLOBAL].PlayerState;
+      if (data === UNSTARTED)
+        onUnstarted();
+      if (data === PLAYING) {
+        onPlay();
+        onBufferEnd();
+      }
+      if (data === PAUSED)
+        onPause();
+      if (data === BUFFERING)
+        onBuffer();
+      if (data === ENDED) {
+        const isPlaylist = !!this.callPlayer("getPlaylist");
+        if (loop && !isPlaylist) {
+          if (playerVars.start) {
+            this.seekTo(playerVars.start);
+          } else {
+            this.play();
+          }
+        }
+        onEnded();
+      }
+      if (data === CUED)
+        onReady();
+    });
+    __publicField(this, "mute", () => {
+      this.callPlayer("mute");
+    });
+    __publicField(this, "unmute", () => {
+      this.callPlayer("unMute");
+    });
+    __publicField(this, "ref", (container) => {
+      this.container = container;
+    });
+  }
+  componentDidMount() {
+    this.props.onMount && this.props.onMount(this);
+  }
+  getID(url) {
+    if (!url || url instanceof Array || MATCH_PLAYLIST.test(url)) {
+      return null;
+    }
+    return url.match(import_patterns.MATCH_URL_YOUTUBE)[1];
+  }
+  load(url, isReady) {
+    const { playing, muted, playsinline, controls, loop, config, onError } = this.props;
+    const { playerVars, embedOptions } = config;
+    const id = this.getID(url);
+    if (isReady) {
+      if (MATCH_PLAYLIST.test(url) || MATCH_USER_UPLOADS.test(url) || url instanceof Array) {
+        this.player.loadPlaylist(this.parsePlaylist(url));
+        return;
+      }
+      this.player.cueVideoById({
+        videoId: id,
+        startSeconds: (0, import_utils.parseStartTime)(url) || playerVars.start,
+        endSeconds: (0, import_utils.parseEndTime)(url) || playerVars.end
+      });
+      return;
+    }
+    (0, import_utils.getSDK)(SDK_URL, SDK_GLOBAL, SDK_GLOBAL_READY, (YT) => YT.loaded).then((YT) => {
+      if (!this.container)
+        return;
+      this.player = new YT.Player(this.container, {
+        width: "100%",
+        height: "100%",
+        videoId: id,
+        playerVars: {
+          autoplay: playing ? 1 : 0,
+          mute: muted ? 1 : 0,
+          controls: controls ? 1 : 0,
+          start: (0, import_utils.parseStartTime)(url),
+          end: (0, import_utils.parseEndTime)(url),
+          origin: window.location.origin,
+          playsinline: playsinline ? 1 : 0,
+          ...this.parsePlaylist(url),
+          ...playerVars
+        },
+        events: {
+          onReady: () => {
+            if (loop) {
+              this.player.setLoop(true);
+            }
+            this.props.onReady();
+          },
+          onPlaybackRateChange: (event) => this.props.onPlaybackRateChange(event.data),
+          onPlaybackQualityChange: (event) => this.props.onPlaybackQualityChange(event),
+          onStateChange: this.onStateChange,
+          onError: (event) => onError(event.data)
+        },
+        host: MATCH_NOCOOKIE.test(url) ? NOCOOKIE_HOST : void 0,
+        ...embedOptions
+      });
+    }, onError);
+    if (embedOptions.events) {
+      console.warn("Using `embedOptions.events` will likely break things. Use ReactPlayer\u2019s callback props instead, eg onReady, onPlay, onPause");
+    }
+  }
+  play() {
+    this.callPlayer("playVideo");
+  }
+  pause() {
+    this.callPlayer("pauseVideo");
+  }
+  stop() {
+    if (!document.body.contains(this.callPlayer("getIframe")))
+      return;
+    this.callPlayer("stopVideo");
+  }
+  seekTo(amount, keepPlaying = false) {
+    this.callPlayer("seekTo", amount);
+    if (!keepPlaying && !this.props.playing) {
+      this.pause();
+    }
+  }
+  setVolume(fraction) {
+    this.callPlayer("setVolume", fraction * 100);
+  }
+  setPlaybackRate(rate) {
+    this.callPlayer("setPlaybackRate", rate);
+  }
+  setLoop(loop) {
+    this.callPlayer("setLoop", loop);
+  }
+  getDuration() {
+    return this.callPlayer("getDuration");
+  }
+  getCurrentTime() {
+    return this.callPlayer("getCurrentTime");
+  }
+  getSecondsLoaded() {
+    return this.callPlayer("getVideoLoadedFraction") * this.getDuration();
+  }
+  render() {
+    const { display } = this.props;
+    const style = {
+      width: "100%",
+      height: "100%",
+      display
+    };
+    return /* @__PURE__ */ import_react.default.createElement("div", { style }, /* @__PURE__ */ import_react.default.createElement("div", { ref: this.ref }));
+  }
+}
+__publicField(YouTube, "displayName", "YouTube");
+__publicField(YouTube, "canPlay", import_patterns.canPlay.youtube);
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/players/index.js":
+/*!*********************************************************!*\
+  !*** ../node_modules/react-player/lib/players/index.js ***!
+  \*********************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var players_exports = {};
+__export(players_exports, {
+  default: () => players_default
+});
+module.exports = __toCommonJS(players_exports);
+var import_utils = __webpack_require__(/*! ../utils */ "../node_modules/react-player/lib/utils.js");
+var import_patterns = __webpack_require__(/*! ../patterns */ "../node_modules/react-player/lib/patterns.js");
+var players_default = [
+  {
+    key: "youtube",
+    name: "YouTube",
+    canPlay: import_patterns.canPlay.youtube,
+    lazyPlayer: (0, import_utils.lazy)(() => __webpack_require__.e(/*! import() | reactPlayerYouTube */ "vendors").then(__webpack_require__.t.bind(__webpack_require__, /*! ./YouTube */ "../node_modules/react-player/lib/players/YouTube.js", 23)))
+  },
+  {
+    key: "soundcloud",
+    name: "SoundCloud",
+    canPlay: import_patterns.canPlay.soundcloud,
+    lazyPlayer: (0, import_utils.lazy)(() => __webpack_require__.e(/*! import() | reactPlayerSoundCloud */ "vendors").then(__webpack_require__.t.bind(__webpack_require__, /*! ./SoundCloud */ "../node_modules/react-player/lib/players/SoundCloud.js", 23)))
+  },
+  {
+    key: "vimeo",
+    name: "Vimeo",
+    canPlay: import_patterns.canPlay.vimeo,
+    lazyPlayer: (0, import_utils.lazy)(() => __webpack_require__.e(/*! import() | reactPlayerVimeo */ "vendors").then(__webpack_require__.t.bind(__webpack_require__, /*! ./Vimeo */ "../node_modules/react-player/lib/players/Vimeo.js", 23)))
+  },
+  {
+    key: "mux",
+    name: "Mux",
+    canPlay: import_patterns.canPlay.mux,
+    lazyPlayer: (0, import_utils.lazy)(() => __webpack_require__.e(/*! import() | reactPlayerMux */ "vendors").then(__webpack_require__.t.bind(__webpack_require__, /*! ./Mux */ "../node_modules/react-player/lib/players/Mux.js", 23)))
+  },
+  {
+    key: "facebook",
+    name: "Facebook",
+    canPlay: import_patterns.canPlay.facebook,
+    lazyPlayer: (0, import_utils.lazy)(() => __webpack_require__.e(/*! import() | reactPlayerFacebook */ "vendors").then(__webpack_require__.t.bind(__webpack_require__, /*! ./Facebook */ "../node_modules/react-player/lib/players/Facebook.js", 23)))
+  },
+  {
+    key: "streamable",
+    name: "Streamable",
+    canPlay: import_patterns.canPlay.streamable,
+    lazyPlayer: (0, import_utils.lazy)(() => __webpack_require__.e(/*! import() | reactPlayerStreamable */ "vendors").then(__webpack_require__.t.bind(__webpack_require__, /*! ./Streamable */ "../node_modules/react-player/lib/players/Streamable.js", 23)))
+  },
+  {
+    key: "wistia",
+    name: "Wistia",
+    canPlay: import_patterns.canPlay.wistia,
+    lazyPlayer: (0, import_utils.lazy)(() => __webpack_require__.e(/*! import() | reactPlayerWistia */ "vendors").then(__webpack_require__.t.bind(__webpack_require__, /*! ./Wistia */ "../node_modules/react-player/lib/players/Wistia.js", 23)))
+  },
+  {
+    key: "twitch",
+    name: "Twitch",
+    canPlay: import_patterns.canPlay.twitch,
+    lazyPlayer: (0, import_utils.lazy)(() => __webpack_require__.e(/*! import() | reactPlayerTwitch */ "vendors").then(__webpack_require__.t.bind(__webpack_require__, /*! ./Twitch */ "../node_modules/react-player/lib/players/Twitch.js", 23)))
+  },
+  {
+    key: "dailymotion",
+    name: "DailyMotion",
+    canPlay: import_patterns.canPlay.dailymotion,
+    lazyPlayer: (0, import_utils.lazy)(() => __webpack_require__.e(/*! import() | reactPlayerDailyMotion */ "vendors").then(__webpack_require__.t.bind(__webpack_require__, /*! ./DailyMotion */ "../node_modules/react-player/lib/players/DailyMotion.js", 23)))
+  },
+  {
+    key: "mixcloud",
+    name: "Mixcloud",
+    canPlay: import_patterns.canPlay.mixcloud,
+    lazyPlayer: (0, import_utils.lazy)(() => __webpack_require__.e(/*! import() | reactPlayerMixcloud */ "vendors").then(__webpack_require__.t.bind(__webpack_require__, /*! ./Mixcloud */ "../node_modules/react-player/lib/players/Mixcloud.js", 23)))
+  },
+  {
+    key: "vidyard",
+    name: "Vidyard",
+    canPlay: import_patterns.canPlay.vidyard,
+    lazyPlayer: (0, import_utils.lazy)(() => __webpack_require__.e(/*! import() | reactPlayerVidyard */ "vendors").then(__webpack_require__.t.bind(__webpack_require__, /*! ./Vidyard */ "../node_modules/react-player/lib/players/Vidyard.js", 23)))
+  },
+  {
+    key: "kaltura",
+    name: "Kaltura",
+    canPlay: import_patterns.canPlay.kaltura,
+    lazyPlayer: (0, import_utils.lazy)(() => __webpack_require__.e(/*! import() | reactPlayerKaltura */ "vendors").then(__webpack_require__.t.bind(__webpack_require__, /*! ./Kaltura */ "../node_modules/react-player/lib/players/Kaltura.js", 23)))
+  },
+  {
+    key: "file",
+    name: "FilePlayer",
+    canPlay: import_patterns.canPlay.file,
+    canEnablePIP: (url) => {
+      return import_patterns.canPlay.file(url) && (document.pictureInPictureEnabled || (0, import_utils.supportsWebKitPresentationMode)()) && !import_patterns.AUDIO_EXTENSIONS.test(url);
+    },
+    lazyPlayer: (0, import_utils.lazy)(() => __webpack_require__.e(/*! import() | reactPlayerFilePlayer */ "vendors").then(__webpack_require__.t.bind(__webpack_require__, /*! ./FilePlayer */ "../node_modules/react-player/lib/players/FilePlayer.js", 23)))
+  }
+];
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/props.js":
+/*!*************************************************!*\
+  !*** ../node_modules/react-player/lib/props.js ***!
+  \*************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var props_exports = {};
+__export(props_exports, {
+  defaultProps: () => defaultProps,
+  propTypes: () => propTypes
+});
+module.exports = __toCommonJS(props_exports);
+var import_prop_types = __toESM(__webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js"));
+const { string, bool, number, array, oneOfType, shape, object, func, node } = import_prop_types.default;
+const propTypes = {
+  url: oneOfType([string, array, object]),
+  playing: bool,
+  loop: bool,
+  controls: bool,
+  volume: number,
+  muted: bool,
+  playbackRate: number,
+  width: oneOfType([string, number]),
+  height: oneOfType([string, number]),
+  style: object,
+  progressInterval: number,
+  playsinline: bool,
+  pip: bool,
+  stopOnUnmount: bool,
+  light: oneOfType([bool, string, object]),
+  playIcon: node,
+  previewTabIndex: number,
+  previewAriaLabel: string,
+  fallback: node,
+  oEmbedUrl: string,
+  wrapper: oneOfType([
+    string,
+    func,
+    shape({ render: func.isRequired })
+  ]),
+  config: shape({
+    soundcloud: shape({
+      options: object
+    }),
+    youtube: shape({
+      playerVars: object,
+      embedOptions: object,
+      onUnstarted: func
+    }),
+    facebook: shape({
+      appId: string,
+      version: string,
+      playerId: string,
+      attributes: object
+    }),
+    dailymotion: shape({
+      params: object
+    }),
+    vimeo: shape({
+      playerOptions: object,
+      title: string
+    }),
+    mux: shape({
+      attributes: object,
+      version: string
+    }),
+    file: shape({
+      attributes: object,
+      tracks: array,
+      forceVideo: bool,
+      forceAudio: bool,
+      forceHLS: bool,
+      forceSafariHLS: bool,
+      forceDisableHls: bool,
+      forceDASH: bool,
+      forceFLV: bool,
+      hlsOptions: object,
+      hlsVersion: string,
+      dashVersion: string,
+      flvVersion: string
+    }),
+    wistia: shape({
+      options: object,
+      playerId: string,
+      customControls: array
+    }),
+    mixcloud: shape({
+      options: object
+    }),
+    twitch: shape({
+      options: object,
+      playerId: string
+    }),
+    vidyard: shape({
+      options: object
+    })
+  }),
+  onReady: func,
+  onStart: func,
+  onPlay: func,
+  onPause: func,
+  onBuffer: func,
+  onBufferEnd: func,
+  onEnded: func,
+  onError: func,
+  onDuration: func,
+  onSeek: func,
+  onPlaybackRateChange: func,
+  onPlaybackQualityChange: func,
+  onProgress: func,
+  onClickPreview: func,
+  onEnablePIP: func,
+  onDisablePIP: func
+};
+const noop = () => {
+};
+const defaultProps = {
+  playing: false,
+  loop: false,
+  controls: false,
+  volume: null,
+  muted: false,
+  playbackRate: 1,
+  width: "640px",
+  height: "360px",
+  style: {},
+  progressInterval: 1e3,
+  playsinline: false,
+  pip: false,
+  stopOnUnmount: true,
+  light: false,
+  fallback: null,
+  wrapper: "div",
+  previewTabIndex: 0,
+  previewAriaLabel: "",
+  oEmbedUrl: "https://noembed.com/embed?url={url}",
+  config: {
+    soundcloud: {
+      options: {
+        visual: true,
+        // Undocumented, but makes player fill container and look better
+        buying: false,
+        liking: false,
+        download: false,
+        sharing: false,
+        show_comments: false,
+        show_playcount: false
+      }
+    },
+    youtube: {
+      playerVars: {
+        playsinline: 1,
+        showinfo: 0,
+        rel: 0,
+        iv_load_policy: 3,
+        modestbranding: 1
+      },
+      embedOptions: {},
+      onUnstarted: noop
+    },
+    facebook: {
+      appId: "1309697205772819",
+      version: "v3.3",
+      playerId: null,
+      attributes: {}
+    },
+    dailymotion: {
+      params: {
+        api: 1,
+        "endscreen-enable": false
+      }
+    },
+    vimeo: {
+      playerOptions: {
+        autopause: false,
+        byline: false,
+        portrait: false,
+        title: false
+      },
+      title: null
+    },
+    mux: {
+      attributes: {},
+      version: "2"
+    },
+    file: {
+      attributes: {},
+      tracks: [],
+      forceVideo: false,
+      forceAudio: false,
+      forceHLS: false,
+      forceDASH: false,
+      forceFLV: false,
+      hlsOptions: {},
+      hlsVersion: "1.1.4",
+      dashVersion: "3.1.3",
+      flvVersion: "1.5.0",
+      forceDisableHls: false
+    },
+    wistia: {
+      options: {},
+      playerId: null,
+      customControls: null
+    },
+    mixcloud: {
+      options: {
+        hide_cover: 1
+      }
+    },
+    twitch: {
+      options: {},
+      playerId: null
+    },
+    vidyard: {
+      options: {}
+    }
+  },
+  onReady: noop,
+  onStart: noop,
+  onPlay: noop,
+  onPause: noop,
+  onBuffer: noop,
+  onBufferEnd: noop,
+  onEnded: noop,
+  onError: noop,
+  onDuration: noop,
+  onSeek: noop,
+  onPlaybackRateChange: noop,
+  onPlaybackQualityChange: noop,
+  onProgress: noop,
+  onClickPreview: noop,
+  onEnablePIP: noop,
+  onDisablePIP: noop
+};
+
+
+/***/ }),
+
+/***/ "../node_modules/react-player/lib/utils.js":
+/*!*************************************************!*\
+  !*** ../node_modules/react-player/lib/utils.js ***!
+  \*************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var utils_exports = {};
+__export(utils_exports, {
+  callPlayer: () => callPlayer,
+  getConfig: () => getConfig,
+  getSDK: () => getSDK,
+  isBlobUrl: () => isBlobUrl,
+  isMediaStream: () => isMediaStream,
+  lazy: () => lazy,
+  omit: () => omit,
+  parseEndTime: () => parseEndTime,
+  parseStartTime: () => parseStartTime,
+  queryString: () => queryString,
+  randomString: () => randomString,
+  supportsWebKitPresentationMode: () => supportsWebKitPresentationMode
+});
+module.exports = __toCommonJS(utils_exports);
+var import_react = __toESM(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+var import_load_script = __toESM(__webpack_require__(/*! load-script */ "../node_modules/load-script/index.js"));
+var import_deepmerge = __toESM(__webpack_require__(/*! deepmerge */ "../node_modules/deepmerge/dist/cjs.js"));
+const lazy = (componentImportFn) => import_react.default.lazy(async () => {
+  const obj = await componentImportFn();
+  return typeof obj.default === "function" ? obj : obj.default;
+});
+const MATCH_START_QUERY = /[?&#](?:start|t)=([0-9hms]+)/;
+const MATCH_END_QUERY = /[?&#]end=([0-9hms]+)/;
+const MATCH_START_STAMP = /(\d+)(h|m|s)/g;
+const MATCH_NUMERIC = /^\d+$/;
+function parseTimeParam(url, pattern) {
+  if (url instanceof Array) {
+    return void 0;
+  }
+  const match = url.match(pattern);
+  if (match) {
+    const stamp = match[1];
+    if (stamp.match(MATCH_START_STAMP)) {
+      return parseTimeString(stamp);
+    }
+    if (MATCH_NUMERIC.test(stamp)) {
+      return parseInt(stamp);
+    }
+  }
+  return void 0;
+}
+function parseTimeString(stamp) {
+  let seconds = 0;
+  let array = MATCH_START_STAMP.exec(stamp);
+  while (array !== null) {
+    const [, count, period] = array;
+    if (period === "h")
+      seconds += parseInt(count, 10) * 60 * 60;
+    if (period === "m")
+      seconds += parseInt(count, 10) * 60;
+    if (period === "s")
+      seconds += parseInt(count, 10);
+    array = MATCH_START_STAMP.exec(stamp);
+  }
+  return seconds;
+}
+function parseStartTime(url) {
+  return parseTimeParam(url, MATCH_START_QUERY);
+}
+function parseEndTime(url) {
+  return parseTimeParam(url, MATCH_END_QUERY);
+}
+function randomString() {
+  return Math.random().toString(36).substr(2, 5);
+}
+function queryString(object) {
+  return Object.keys(object).map((key) => `${key}=${object[key]}`).join("&");
+}
+function getGlobal(key) {
+  if (window[key]) {
+    return window[key];
+  }
+  if (window.exports && window.exports[key]) {
+    return window.exports[key];
+  }
+  if (window.module && window.module.exports && window.module.exports[key]) {
+    return window.module.exports[key];
+  }
+  return null;
+}
+const requests = {};
+const getSDK = enableStubOn(function getSDK2(url, sdkGlobal, sdkReady = null, isLoaded = () => true, fetchScript = import_load_script.default) {
+  const existingGlobal = getGlobal(sdkGlobal);
+  if (existingGlobal && isLoaded(existingGlobal)) {
+    return Promise.resolve(existingGlobal);
+  }
+  return new Promise((resolve, reject) => {
+    if (requests[url]) {
+      requests[url].push({ resolve, reject });
+      return;
+    }
+    requests[url] = [{ resolve, reject }];
+    const onLoaded = (sdk) => {
+      requests[url].forEach((request) => request.resolve(sdk));
+    };
+    if (sdkReady) {
+      const previousOnReady = window[sdkReady];
+      window[sdkReady] = function() {
+        if (previousOnReady)
+          previousOnReady();
+        onLoaded(getGlobal(sdkGlobal));
+      };
+    }
+    fetchScript(url, (err) => {
+      if (err) {
+        requests[url].forEach((request) => request.reject(err));
+        requests[url] = null;
+      } else if (!sdkReady) {
+        onLoaded(getGlobal(sdkGlobal));
+      }
+    });
+  });
+});
+function getConfig(props, defaultProps) {
+  return (0, import_deepmerge.default)(defaultProps.config, props.config);
+}
+function omit(object, ...arrays) {
+  const omitKeys = [].concat(...arrays);
+  const output = {};
+  const keys = Object.keys(object);
+  for (const key of keys) {
+    if (omitKeys.indexOf(key) === -1) {
+      output[key] = object[key];
+    }
+  }
+  return output;
+}
+function callPlayer(method, ...args) {
+  if (!this.player || !this.player[method]) {
+    let message = `ReactPlayer: ${this.constructor.displayName} player could not call %c${method}%c \u2013 `;
+    if (!this.player) {
+      message += "The player was not available";
+    } else if (!this.player[method]) {
+      message += "The method was not available";
+    }
+    console.warn(message, "font-weight: bold", "");
+    return null;
+  }
+  return this.player[method](...args);
+}
+function isMediaStream(url) {
+  return typeof window !== "undefined" && typeof window.MediaStream !== "undefined" && url instanceof window.MediaStream;
+}
+function isBlobUrl(url) {
+  return /^blob:/.test(url);
+}
+function supportsWebKitPresentationMode(video = document.createElement("video")) {
+  const notMobile = /iPhone|iPod/.test(navigator.userAgent) === false;
+  return video.webkitSupportsPresentationMode && typeof video.webkitSetPresentationMode === "function" && notMobile;
+}
+function enableStubOn(fn) {
+  if (false) {}
+  return fn;
 }
 
 
@@ -32952,6 +40538,17 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "../node_modules/redux-logger/dist/redux-logger.js":
+/*!*********************************************************!*\
+  !*** ../node_modules/redux-logger/dist/redux-logger.js ***!
+  \*********************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+!function(e,t){ true?t(exports):0}(this,function(e){"use strict";function t(e,t){e.super_=t,e.prototype=Object.create(t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}})}function r(e,t){Object.defineProperty(this,"kind",{value:e,enumerable:!0}),t&&t.length&&Object.defineProperty(this,"path",{value:t,enumerable:!0})}function n(e,t,r){n.super_.call(this,"E",e),Object.defineProperty(this,"lhs",{value:t,enumerable:!0}),Object.defineProperty(this,"rhs",{value:r,enumerable:!0})}function o(e,t){o.super_.call(this,"N",e),Object.defineProperty(this,"rhs",{value:t,enumerable:!0})}function i(e,t){i.super_.call(this,"D",e),Object.defineProperty(this,"lhs",{value:t,enumerable:!0})}function a(e,t,r){a.super_.call(this,"A",e),Object.defineProperty(this,"index",{value:t,enumerable:!0}),Object.defineProperty(this,"item",{value:r,enumerable:!0})}function f(e,t,r){var n=e.slice((r||t)+1||e.length);return e.length=t<0?e.length+t:t,e.push.apply(e,n),e}function u(e){var t="undefined"==typeof e?"undefined":N(e);return"object"!==t?t:e===Math?"math":null===e?"null":Array.isArray(e)?"array":"[object Date]"===Object.prototype.toString.call(e)?"date":"function"==typeof e.toString&&/^\/.*\//.test(e.toString())?"regexp":"object"}function l(e,t,r,c,s,d,p){s=s||[],p=p||[];var g=s.slice(0);if("undefined"!=typeof d){if(c){if("function"==typeof c&&c(g,d))return;if("object"===("undefined"==typeof c?"undefined":N(c))){if(c.prefilter&&c.prefilter(g,d))return;if(c.normalize){var h=c.normalize(g,d,e,t);h&&(e=h[0],t=h[1])}}}g.push(d)}"regexp"===u(e)&&"regexp"===u(t)&&(e=e.toString(),t=t.toString());var y="undefined"==typeof e?"undefined":N(e),v="undefined"==typeof t?"undefined":N(t),b="undefined"!==y||p&&p[p.length-1].lhs&&p[p.length-1].lhs.hasOwnProperty(d),m="undefined"!==v||p&&p[p.length-1].rhs&&p[p.length-1].rhs.hasOwnProperty(d);if(!b&&m)r(new o(g,t));else if(!m&&b)r(new i(g,e));else if(u(e)!==u(t))r(new n(g,e,t));else if("date"===u(e)&&e-t!==0)r(new n(g,e,t));else if("object"===y&&null!==e&&null!==t)if(p.filter(function(t){return t.lhs===e}).length)e!==t&&r(new n(g,e,t));else{if(p.push({lhs:e,rhs:t}),Array.isArray(e)){var w;e.length;for(w=0;w<e.length;w++)w>=t.length?r(new a(g,w,new i(void 0,e[w]))):l(e[w],t[w],r,c,g,w,p);for(;w<t.length;)r(new a(g,w,new o(void 0,t[w++])))}else{var x=Object.keys(e),S=Object.keys(t);x.forEach(function(n,o){var i=S.indexOf(n);i>=0?(l(e[n],t[n],r,c,g,n,p),S=f(S,i)):l(e[n],void 0,r,c,g,n,p)}),S.forEach(function(e){l(void 0,t[e],r,c,g,e,p)})}p.length=p.length-1}else e!==t&&("number"===y&&isNaN(e)&&isNaN(t)||r(new n(g,e,t)))}function c(e,t,r,n){return n=n||[],l(e,t,function(e){e&&n.push(e)},r),n.length?n:void 0}function s(e,t,r){if(r.path&&r.path.length){var n,o=e[t],i=r.path.length-1;for(n=0;n<i;n++)o=o[r.path[n]];switch(r.kind){case"A":s(o[r.path[n]],r.index,r.item);break;case"D":delete o[r.path[n]];break;case"E":case"N":o[r.path[n]]=r.rhs}}else switch(r.kind){case"A":s(e[t],r.index,r.item);break;case"D":e=f(e,t);break;case"E":case"N":e[t]=r.rhs}return e}function d(e,t,r){if(e&&t&&r&&r.kind){for(var n=e,o=-1,i=r.path?r.path.length-1:0;++o<i;)"undefined"==typeof n[r.path[o]]&&(n[r.path[o]]="number"==typeof r.path[o]?[]:{}),n=n[r.path[o]];switch(r.kind){case"A":s(r.path?n[r.path[o]]:n,r.index,r.item);break;case"D":delete n[r.path[o]];break;case"E":case"N":n[r.path[o]]=r.rhs}}}function p(e,t,r){if(r.path&&r.path.length){var n,o=e[t],i=r.path.length-1;for(n=0;n<i;n++)o=o[r.path[n]];switch(r.kind){case"A":p(o[r.path[n]],r.index,r.item);break;case"D":o[r.path[n]]=r.lhs;break;case"E":o[r.path[n]]=r.lhs;break;case"N":delete o[r.path[n]]}}else switch(r.kind){case"A":p(e[t],r.index,r.item);break;case"D":e[t]=r.lhs;break;case"E":e[t]=r.lhs;break;case"N":e=f(e,t)}return e}function g(e,t,r){if(e&&t&&r&&r.kind){var n,o,i=e;for(o=r.path.length-1,n=0;n<o;n++)"undefined"==typeof i[r.path[n]]&&(i[r.path[n]]={}),i=i[r.path[n]];switch(r.kind){case"A":p(i[r.path[n]],r.index,r.item);break;case"D":i[r.path[n]]=r.lhs;break;case"E":i[r.path[n]]=r.lhs;break;case"N":delete i[r.path[n]]}}}function h(e,t,r){if(e&&t){var n=function(n){r&&!r(e,t,n)||d(e,t,n)};l(e,t,n)}}function y(e){return"color: "+F[e].color+"; font-weight: bold"}function v(e){var t=e.kind,r=e.path,n=e.lhs,o=e.rhs,i=e.index,a=e.item;switch(t){case"E":return[r.join("."),n,"→",o];case"N":return[r.join("."),o];case"D":return[r.join(".")];case"A":return[r.join(".")+"["+i+"]",a];default:return[]}}function b(e,t,r,n){var o=c(e,t);try{n?r.groupCollapsed("diff"):r.group("diff")}catch(e){r.log("diff")}o?o.forEach(function(e){var t=e.kind,n=v(e);r.log.apply(r,["%c "+F[t].text,y(t)].concat(P(n)))}):r.log("—— no diff ——");try{r.groupEnd()}catch(e){r.log("—— diff end —— ")}}function m(e,t,r,n){switch("undefined"==typeof e?"undefined":N(e)){case"object":return"function"==typeof e[n]?e[n].apply(e,P(r)):e[n];case"function":return e(t);default:return e}}function w(e){var t=e.timestamp,r=e.duration;return function(e,n,o){var i=["action"];return i.push("%c"+String(e.type)),t&&i.push("%c@ "+n),r&&i.push("%c(in "+o.toFixed(2)+" ms)"),i.join(" ")}}function x(e,t){var r=t.logger,n=t.actionTransformer,o=t.titleFormatter,i=void 0===o?w(t):o,a=t.collapsed,f=t.colors,u=t.level,l=t.diff,c="undefined"==typeof t.titleFormatter;e.forEach(function(o,s){var d=o.started,p=o.startedTime,g=o.action,h=o.prevState,y=o.error,v=o.took,w=o.nextState,x=e[s+1];x&&(w=x.prevState,v=x.started-d);var S=n(g),k="function"==typeof a?a(function(){return w},g,o):a,j=D(p),E=f.title?"color: "+f.title(S)+";":"",A=["color: gray; font-weight: lighter;"];A.push(E),t.timestamp&&A.push("color: gray; font-weight: lighter;"),t.duration&&A.push("color: gray; font-weight: lighter;");var O=i(S,j,v);try{k?f.title&&c?r.groupCollapsed.apply(r,["%c "+O].concat(A)):r.groupCollapsed(O):f.title&&c?r.group.apply(r,["%c "+O].concat(A)):r.group(O)}catch(e){r.log(O)}var N=m(u,S,[h],"prevState"),P=m(u,S,[S],"action"),C=m(u,S,[y,h],"error"),F=m(u,S,[w],"nextState");if(N)if(f.prevState){var L="color: "+f.prevState(h)+"; font-weight: bold";r[N]("%c prev state",L,h)}else r[N]("prev state",h);if(P)if(f.action){var T="color: "+f.action(S)+"; font-weight: bold";r[P]("%c action    ",T,S)}else r[P]("action    ",S);if(y&&C)if(f.error){var M="color: "+f.error(y,h)+"; font-weight: bold;";r[C]("%c error     ",M,y)}else r[C]("error     ",y);if(F)if(f.nextState){var _="color: "+f.nextState(w)+"; font-weight: bold";r[F]("%c next state",_,w)}else r[F]("next state",w);l&&b(h,w,r,k);try{r.groupEnd()}catch(e){r.log("—— log end ——")}})}function S(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=Object.assign({},L,e),r=t.logger,n=t.stateTransformer,o=t.errorTransformer,i=t.predicate,a=t.logErrors,f=t.diffPredicate;if("undefined"==typeof r)return function(){return function(e){return function(t){return e(t)}}};if(e.getState&&e.dispatch)return console.error("[redux-logger] redux-logger not installed. Make sure to pass logger instance as middleware:\n// Logger with default options\nimport { logger } from 'redux-logger'\nconst store = createStore(\n  reducer,\n  applyMiddleware(logger)\n)\n// Or you can create your own logger with custom options http://bit.ly/redux-logger-options\nimport createLogger from 'redux-logger'\nconst logger = createLogger({\n  // ...options\n});\nconst store = createStore(\n  reducer,\n  applyMiddleware(logger)\n)\n"),function(){return function(e){return function(t){return e(t)}}};var u=[];return function(e){var r=e.getState;return function(e){return function(l){if("function"==typeof i&&!i(r,l))return e(l);var c={};u.push(c),c.started=O.now(),c.startedTime=new Date,c.prevState=n(r()),c.action=l;var s=void 0;if(a)try{s=e(l)}catch(e){c.error=o(e)}else s=e(l);c.took=O.now()-c.started,c.nextState=n(r());var d=t.diff&&"function"==typeof f?f(r,l):t.diff;if(x(u,Object.assign({},t,{diff:d})),u.length=0,c.error)throw c.error;return s}}}}var k,j,E=function(e,t){return new Array(t+1).join(e)},A=function(e,t){return E("0",t-e.toString().length)+e},D=function(e){return A(e.getHours(),2)+":"+A(e.getMinutes(),2)+":"+A(e.getSeconds(),2)+"."+A(e.getMilliseconds(),3)},O="undefined"!=typeof performance&&null!==performance&&"function"==typeof performance.now?performance:Date,N="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},P=function(e){if(Array.isArray(e)){for(var t=0,r=Array(e.length);t<e.length;t++)r[t]=e[t];return r}return Array.from(e)},C=[];k="object"===("undefined"==typeof __webpack_require__.g?"undefined":N(__webpack_require__.g))&&__webpack_require__.g?__webpack_require__.g:"undefined"!=typeof window?window:{},j=k.DeepDiff,j&&C.push(function(){"undefined"!=typeof j&&k.DeepDiff===c&&(k.DeepDiff=j,j=void 0)}),t(n,r),t(o,r),t(i,r),t(a,r),Object.defineProperties(c,{diff:{value:c,enumerable:!0},observableDiff:{value:l,enumerable:!0},applyDiff:{value:h,enumerable:!0},applyChange:{value:d,enumerable:!0},revertChange:{value:g,enumerable:!0},isConflict:{value:function(){return"undefined"!=typeof j},enumerable:!0},noConflict:{value:function(){return C&&(C.forEach(function(e){e()}),C=null),c},enumerable:!0}});var F={E:{color:"#2196F3",text:"CHANGED:"},N:{color:"#4CAF50",text:"ADDED:"},D:{color:"#F44336",text:"DELETED:"},A:{color:"#2196F3",text:"ARRAY:"}},L={level:"log",logger:console,logErrors:!0,collapsed:void 0,predicate:void 0,duration:!1,timestamp:!0,stateTransformer:function(e){return e},actionTransformer:function(e){return e},errorTransformer:function(e){return e},colors:{title:function(){return"inherit"},prevState:function(){return"#9E9E9E"},action:function(){return"#03A9F4"},nextState:function(){return"#4CAF50"},error:function(){return"#F20404"}},diff:!1,diffPredicate:void 0,transformer:void 0},T=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=e.dispatch,r=e.getState;return"function"==typeof t||"function"==typeof r?S()({dispatch:t,getState:r}):void console.error("\n[redux-logger v3] BREAKING CHANGE\n[redux-logger v3] Since 3.0.0 redux-logger exports by default logger with default settings.\n[redux-logger v3] Change\n[redux-logger v3] import createLogger from 'redux-logger'\n[redux-logger v3] to\n[redux-logger v3] import { createLogger } from 'redux-logger'\n")};e.defaults=L,e.createLogger=S,e.logger=T,e.default=T,Object.defineProperty(e,"__esModule",{value:!0})});
+
+
+/***/ }),
+
 /***/ "../node_modules/redux-thunk/es/index.js":
 /*!***********************************************!*\
   !*** ../node_modules/redux-thunk/es/index.js ***!
@@ -33719,6 +41316,318 @@ function applyMiddleware() {
 
 
 
+
+/***/ }),
+
+/***/ "../node_modules/reselect/es/defaultMemoize.js":
+/*!*****************************************************!*\
+  !*** ../node_modules/reselect/es/defaultMemoize.js ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createCacheKeyComparator: function() { return /* binding */ createCacheKeyComparator; },
+/* harmony export */   defaultEqualityCheck: function() { return /* binding */ defaultEqualityCheck; },
+/* harmony export */   defaultMemoize: function() { return /* binding */ defaultMemoize; }
+/* harmony export */ });
+// Cache implementation based on Erik Rasmussen's `lru-memoize`:
+// https://github.com/erikras/lru-memoize
+var NOT_FOUND = 'NOT_FOUND';
+
+function createSingletonCache(equals) {
+  var entry;
+  return {
+    get: function get(key) {
+      if (entry && equals(entry.key, key)) {
+        return entry.value;
+      }
+
+      return NOT_FOUND;
+    },
+    put: function put(key, value) {
+      entry = {
+        key: key,
+        value: value
+      };
+    },
+    getEntries: function getEntries() {
+      return entry ? [entry] : [];
+    },
+    clear: function clear() {
+      entry = undefined;
+    }
+  };
+}
+
+function createLruCache(maxSize, equals) {
+  var entries = [];
+
+  function get(key) {
+    var cacheIndex = entries.findIndex(function (entry) {
+      return equals(key, entry.key);
+    }); // We found a cached entry
+
+    if (cacheIndex > -1) {
+      var entry = entries[cacheIndex]; // Cached entry not at top of cache, move it to the top
+
+      if (cacheIndex > 0) {
+        entries.splice(cacheIndex, 1);
+        entries.unshift(entry);
+      }
+
+      return entry.value;
+    } // No entry found in cache, return sentinel
+
+
+    return NOT_FOUND;
+  }
+
+  function put(key, value) {
+    if (get(key) === NOT_FOUND) {
+      // TODO Is unshift slow?
+      entries.unshift({
+        key: key,
+        value: value
+      });
+
+      if (entries.length > maxSize) {
+        entries.pop();
+      }
+    }
+  }
+
+  function getEntries() {
+    return entries;
+  }
+
+  function clear() {
+    entries = [];
+  }
+
+  return {
+    get: get,
+    put: put,
+    getEntries: getEntries,
+    clear: clear
+  };
+}
+
+var defaultEqualityCheck = function defaultEqualityCheck(a, b) {
+  return a === b;
+};
+function createCacheKeyComparator(equalityCheck) {
+  return function areArgumentsShallowlyEqual(prev, next) {
+    if (prev === null || next === null || prev.length !== next.length) {
+      return false;
+    } // Do this in a for loop (and not a `forEach` or an `every`) so we can determine equality as fast as possible.
+
+
+    var length = prev.length;
+
+    for (var i = 0; i < length; i++) {
+      if (!equalityCheck(prev[i], next[i])) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+}
+// defaultMemoize now supports a configurable cache size with LRU behavior,
+// and optional comparison of the result value with existing values
+function defaultMemoize(func, equalityCheckOrOptions) {
+  var providedOptions = typeof equalityCheckOrOptions === 'object' ? equalityCheckOrOptions : {
+    equalityCheck: equalityCheckOrOptions
+  };
+  var _providedOptions$equa = providedOptions.equalityCheck,
+      equalityCheck = _providedOptions$equa === void 0 ? defaultEqualityCheck : _providedOptions$equa,
+      _providedOptions$maxS = providedOptions.maxSize,
+      maxSize = _providedOptions$maxS === void 0 ? 1 : _providedOptions$maxS,
+      resultEqualityCheck = providedOptions.resultEqualityCheck;
+  var comparator = createCacheKeyComparator(equalityCheck);
+  var cache = maxSize === 1 ? createSingletonCache(comparator) : createLruCache(maxSize, comparator); // we reference arguments instead of spreading them for performance reasons
+
+  function memoized() {
+    var value = cache.get(arguments);
+
+    if (value === NOT_FOUND) {
+      // @ts-ignore
+      value = func.apply(null, arguments);
+
+      if (resultEqualityCheck) {
+        var entries = cache.getEntries();
+        var matchingEntry = entries.find(function (entry) {
+          return resultEqualityCheck(entry.value, value);
+        });
+
+        if (matchingEntry) {
+          value = matchingEntry.value;
+        }
+      }
+
+      cache.put(arguments, value);
+    }
+
+    return value;
+  }
+
+  memoized.clearCache = function () {
+    return cache.clear();
+  };
+
+  return memoized;
+}
+
+/***/ }),
+
+/***/ "../node_modules/reselect/es/index.js":
+/*!********************************************!*\
+  !*** ../node_modules/reselect/es/index.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createSelector: function() { return /* binding */ createSelector; },
+/* harmony export */   createSelectorCreator: function() { return /* binding */ createSelectorCreator; },
+/* harmony export */   createStructuredSelector: function() { return /* binding */ createStructuredSelector; },
+/* harmony export */   defaultEqualityCheck: function() { return /* reexport safe */ _defaultMemoize__WEBPACK_IMPORTED_MODULE_0__.defaultEqualityCheck; },
+/* harmony export */   defaultMemoize: function() { return /* reexport safe */ _defaultMemoize__WEBPACK_IMPORTED_MODULE_0__.defaultMemoize; }
+/* harmony export */ });
+/* harmony import */ var _defaultMemoize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./defaultMemoize */ "../node_modules/reselect/es/defaultMemoize.js");
+
+
+
+function getDependencies(funcs) {
+  var dependencies = Array.isArray(funcs[0]) ? funcs[0] : funcs;
+
+  if (!dependencies.every(function (dep) {
+    return typeof dep === 'function';
+  })) {
+    var dependencyTypes = dependencies.map(function (dep) {
+      return typeof dep === 'function' ? "function " + (dep.name || 'unnamed') + "()" : typeof dep;
+    }).join(', ');
+    throw new Error("createSelector expects all input-selectors to be functions, but received the following types: [" + dependencyTypes + "]");
+  }
+
+  return dependencies;
+}
+
+function createSelectorCreator(memoize) {
+  for (var _len = arguments.length, memoizeOptionsFromArgs = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    memoizeOptionsFromArgs[_key - 1] = arguments[_key];
+  }
+
+  var createSelector = function createSelector() {
+    for (var _len2 = arguments.length, funcs = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      funcs[_key2] = arguments[_key2];
+    }
+
+    var _recomputations = 0;
+
+    var _lastResult; // Due to the intricacies of rest params, we can't do an optional arg after `...funcs`.
+    // So, start by declaring the default value here.
+    // (And yes, the words 'memoize' and 'options' appear too many times in this next sequence.)
+
+
+    var directlyPassedOptions = {
+      memoizeOptions: undefined
+    }; // Normally, the result func or "output selector" is the last arg
+
+    var resultFunc = funcs.pop(); // If the result func is actually an _object_, assume it's our options object
+
+    if (typeof resultFunc === 'object') {
+      directlyPassedOptions = resultFunc; // and pop the real result func off
+
+      resultFunc = funcs.pop();
+    }
+
+    if (typeof resultFunc !== 'function') {
+      throw new Error("createSelector expects an output function after the inputs, but received: [" + typeof resultFunc + "]");
+    } // Determine which set of options we're using. Prefer options passed directly,
+    // but fall back to options given to createSelectorCreator.
+
+
+    var _directlyPassedOption = directlyPassedOptions,
+        _directlyPassedOption2 = _directlyPassedOption.memoizeOptions,
+        memoizeOptions = _directlyPassedOption2 === void 0 ? memoizeOptionsFromArgs : _directlyPassedOption2; // Simplifying assumption: it's unlikely that the first options arg of the provided memoizer
+    // is an array. In most libs I've looked at, it's an equality function or options object.
+    // Based on that, if `memoizeOptions` _is_ an array, we assume it's a full
+    // user-provided array of options. Otherwise, it must be just the _first_ arg, and so
+    // we wrap it in an array so we can apply it.
+
+    var finalMemoizeOptions = Array.isArray(memoizeOptions) ? memoizeOptions : [memoizeOptions];
+    var dependencies = getDependencies(funcs);
+    var memoizedResultFunc = memoize.apply(void 0, [function recomputationWrapper() {
+      _recomputations++; // apply arguments instead of spreading for performance.
+
+      return resultFunc.apply(null, arguments);
+    }].concat(finalMemoizeOptions)); // If a selector is called with the exact same arguments we don't need to traverse our dependencies again.
+
+    var selector = memoize(function dependenciesChecker() {
+      var params = [];
+      var length = dependencies.length;
+
+      for (var i = 0; i < length; i++) {
+        // apply arguments instead of spreading and mutate a local list of params for performance.
+        // @ts-ignore
+        params.push(dependencies[i].apply(null, arguments));
+      } // apply arguments instead of spreading for performance.
+
+
+      _lastResult = memoizedResultFunc.apply(null, params);
+      return _lastResult;
+    });
+    Object.assign(selector, {
+      resultFunc: resultFunc,
+      memoizedResultFunc: memoizedResultFunc,
+      dependencies: dependencies,
+      lastResult: function lastResult() {
+        return _lastResult;
+      },
+      recomputations: function recomputations() {
+        return _recomputations;
+      },
+      resetRecomputations: function resetRecomputations() {
+        return _recomputations = 0;
+      }
+    });
+    return selector;
+  }; // @ts-ignore
+
+
+  return createSelector;
+}
+var createSelector = /* #__PURE__ */createSelectorCreator(_defaultMemoize__WEBPACK_IMPORTED_MODULE_0__.defaultMemoize);
+// Manual definition of state and output arguments
+var createStructuredSelector = function createStructuredSelector(selectors, selectorCreator) {
+  if (selectorCreator === void 0) {
+    selectorCreator = createSelector;
+  }
+
+  if (typeof selectors !== 'object') {
+    throw new Error('createStructuredSelector expects first argument to be an object ' + ("where each property is a selector, instead received a " + typeof selectors));
+  }
+
+  var objectKeys = Object.keys(selectors);
+  var resultSelector = selectorCreator( // @ts-ignore
+  objectKeys.map(function (key) {
+    return selectors[key];
+  }), function () {
+    for (var _len3 = arguments.length, values = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+      values[_key3] = arguments[_key3];
+    }
+
+    return values.reduce(function (composition, value, index) {
+      composition[objectKeys[index]] = value;
+      return composition;
+    }, {});
+  });
+  return resultSelector;
+};
 
 /***/ }),
 

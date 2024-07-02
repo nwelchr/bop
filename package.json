@@ -1,7 +1,6 @@
 {
   "name": "bop",
   "private": true,
-  "type": "module",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
