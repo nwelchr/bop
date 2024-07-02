@@ -60,7 +60,7 @@ class NewSession extends React.Component {
                         <Link to="/login" className="login">
                             Log in
                         </Link>
-                        <h2>Here's a taste of what you're missing:</h2>
+                        <h2>A taste of what we offer:</h2>
                     </section>
                     <section className="image-links">
                         {albums.map((album, i) => (

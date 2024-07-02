@@ -5,7 +5,6 @@ body {
     font-family: 'HelveticaNeue-Light', sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
 }
 
 a {
@@ -87,7 +86,8 @@ a {
     linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
     linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%),
     linear-gradient(white, white);
-    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
 }
 
 .main-content-wrapper {
@@ -96,13 +96,14 @@ a {
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding-top: 150px;
+    padding-top: 50px;
 
     .main-content-intro {
         color: #fff;
         display: flex;
         flex-direction: column;
         align-items: center;
+		gap: 50px;
 
         h1 {
             font-size: 80px;
@@ -112,7 +113,8 @@ a {
 
         h2 {
             font-size: 25px;
-            padding: 25px 15px 15px 15px;
+			letter-spacing: -.4px;
+			font-weight: 300;
         }
 
         .login {
@@ -127,7 +129,7 @@ a {
             color: #fff;
             font-weight: bold;
             letter-spacing: 1px;
-            transition: background-color .5s ease;
+            transition: background-color 0.5s ease;
         }
 
         .login:hover {
@@ -137,10 +139,11 @@ a {
     }
 
     .image-links {
-        padding: 20px 0px 80px 0px;
         display: flex;
         justify-content: center;
+        align-items: center;
         gap: 1rem;
+        padding: 20px 0;
 
         div {
             width: 225px !important;
@@ -152,7 +155,7 @@ a {
         }
 
         .music-index-item:hover .media__body.index-page {
-            opacity: .75;
+            opacity: 0.75;
             transform: scale(1.01);
         }
 
@@ -161,11 +164,11 @@ a {
         }
 
         .music-index-item:active .media .media__image.index-page {
-            transform: scale(.98);
+            transform: scale(0.98);
         }
 
         .index-page {
-            transition: .3s ease;
+            transition: 0.3s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
