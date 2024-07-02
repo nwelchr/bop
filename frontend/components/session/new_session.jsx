@@ -274,7 +274,7 @@ class NewSession extends React.Component {
         <LoggedOutComponent
           login={this.props.login}
           loginDemoUser={this.props.loginDemoUser}
-          fetchSongThenPlay={this.props.fetchSongThenPlay}
+          // fetchSongThenPlay={this.props.fetchSongThenPlay}
         />
       );
     // <LoggedInComponent

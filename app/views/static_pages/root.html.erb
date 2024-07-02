@@ -1,9 +1,10 @@
 <% if logged_in? %>
   <script type="text/javascript">
-    window.currentUser = <%= render(
-      "api/users/user.json.jbuilder",
-      user: current_user
-    ).html_safe %>
+    document.addEventListener("DOMContentLoaded", function() {
+      setTimeout(function() {
+        window.currentUser = <%= raw render(partial: "api/users/user", formats: [:json], locals: { user: current_user }) %>;
+      }, 100); // Delay of 100ms
+    });
   </script>
 <% end %>
 
@@ -13,7 +14,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'UA-118658713-1');
 </script>
 

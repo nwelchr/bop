@@ -15,5 +15,12 @@ module Bop
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.content_security_policy do |policy|
+      policy.connect_src :self, "http://localhost:35729"
+    end
+
+    config.action_dispatch.default_headers.merge!({
+      'Content-Security-Policy' => "default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https: http:; style-src 'self' 'unsafe-inline' https: http:; img-src 'self' data: https: http:;"
+    })
   end
 end
