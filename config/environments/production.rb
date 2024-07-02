@@ -3,6 +3,11 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # config/environments/production.rb
+  config.active_storage.service = :local
+  # If you plan to use S3 in the future, you can set it to :s3
+  # config.active_storage.service = :s3
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
