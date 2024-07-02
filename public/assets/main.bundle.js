@@ -3287,118 +3287,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "../node_modules/react-router-dom/esm/react-router-dom.js");
 
 
-const albumCovers = ["https://s3.us-east-2.amazonaws.com/bop-songs/Beyonce%CC%81+Lemonade+(2017)/album_cover.jpg", "https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg", "https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg", "https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg", "https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg", "https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg"];
-const albumNames = ["Lemonade", "All Wet", "Ponyboy", "Little Joy", "Depression Cherry", "Blonde"];
-const artistNames = ["Beyonce", "Mr. Oizo", "SOPHIE", "Little Joy", "Beach House", "Frank Ocean"];
-class LoggedInComponent extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
-  constructor(props) {
-    super(props);
-  }
-  componentDidMount() {
-    const dropdown = document.querySelector(".dropdown");
-    dropdown.addEventListener("click", e => {
-      e.preventDefault();
-      const i = dropdown.querySelector("i");
-      i.classList.toggle("fa-angle-down");
-      i.classList.toggle("fa-angle-up");
-      const dropdownMenu = dropdown.querySelector(".dropdown-menu");
-      const modalScreen = document.querySelector(".modal-screen");
-      dropdownMenu.classList.toggle("clicked");
-      modalScreen.classList.toggle("clicked");
-    });
-  }
-  renderIndexItems() {
-    return [...Array(6)].map((_, i) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      key: i,
-      className: `index-item-wrapper fade-up fu${i + 1}`
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "media-wrapper"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "button-wrapper"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-      className: "music-index-item",
-      to: `/albums/2`
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
-      className: "item-wrapper"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "media"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-      alt: "",
-      className: "media__image",
-      src: albumCovers[i]
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: `media__body index-page`
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-      className: "item-span"
-    }, albumNames[i]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-      className: "owner-span"
-    }, artistNames[i])), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "media-loaded"
-    })))))));
-  }
-  render() {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      id: "wrapper"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", {
-      className: "navbar navbar-logged-in"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", {
-      className: "navbar-collapse"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-      className: "navbar-logo"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-      to: "/"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-      src: "https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png",
-      className: "logo"
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
-      className: "navbar-links"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-      href: "https://github.com/nwelchr/bop"
-    }, "Dev Info")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
-      className: "divider"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
-      className: "dropdown"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-      id: "profile",
-      src: this.props.currentUser.profile_picture
-    }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Profile"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-      className: "fa fa-angle-down"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
-      className: "dropdown-menu"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "arrow-up"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-      className: "account",
-      href: ""
-    }, "Account")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-      className: "log-out",
-      onClick: this.props.logout
-    }, "Log Out"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "modal-screen"
-    }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("main", {
-      className: "main-content-wrapper new-session"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
-      className: "main-content-intro"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Jump Back In, ", this.props.currentUser.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Pick up your music right where you left off."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-      to: "/browse",
-      className: "web-player-link"
-    }, "Open Web Player")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
-      className: "image-links"
-    }, this.renderIndexItems())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("footer", {
-      className: "footer-wrapper"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("footer", {
-      className: "footer-content"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-      className: "navbar-logo"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-      to: "/"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-      src: "https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png",
-      className: "logo"
-    }))))));
-  }
-}
-class LoggedOutComponent extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
+const albums = [{
+  cover: "https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg",
+  name: "Depression Cherry",
+  artist: "Beach House"
+}, {
+  cover: "https://s3.us-east-2.amazonaws.com/bop-songs/Mr.+Oizo+-+All+Wet+(2016)+/album_cover.jpg",
+  name: "All Wet",
+  artist: "Mr. Oizo"
+}, {
+  cover: "https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg",
+  name: "Ponyboy",
+  artist: "SOPHIE"
+}];
+class NewSession extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -3411,13 +3313,8 @@ class LoggedOutComponent extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       duration: 0,
       loop: false
     };
-
-    // this.onPlay = this.onPlay.bind(this);
     this.stop = this.stop.bind(this);
     this.load = this.load.bind(this);
-    // this.onPause = this.onPause.bind(this);
-    // this.onEnded = this.onEnded.bind(this);
-    // this.onDuration = this.onDuration.bind(this);
   }
   load(url) {
     if (this.state.playing === true) this.stop();
@@ -3433,34 +3330,6 @@ class LoggedOutComponent extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       playing: false,
       played: 0
     });
-  }
-  renderIndexItems() {
-    return [...Array(6)].map((_, i) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      key: i,
-      className: `index-item-wrapper fade-up fu${i + 1}`
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "media-wrapper"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "button-wrapper"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-      className: "music-index-item"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
-      className: "item-wrapper"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "media"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-      alt: "",
-      className: "media__image",
-      src: albumCovers[i]
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: `media__body index-page`
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-      className: "item-span"
-    }, albumNames[i]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-      className: "owner-span"
-    }, artistNames[i])), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "media-loaded"
-    })))))));
   }
   render() {
     const _this$state = this.state,
@@ -3501,7 +3370,32 @@ class LoggedOutComponent extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       className: "web-player-link"
     }, "Log in"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Get a taste of what you're missing.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
       className: "image-links"
-    }, this.renderIndexItems())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("footer", {
+    }, albums.map((album, i) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      key: i,
+      className: `index-item-wrapper fade-up fu${i + 1}`
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "media-wrapper"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "button-wrapper"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+      className: "music-index-item"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+      className: "item-wrapper"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "media"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+      alt: "",
+      className: "media__image",
+      src: album.cover
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: `media__body index-page`
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+      className: "item-span"
+    }, album.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+      className: "owner-span"
+    }, album.artist)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "media-loaded"
+    }))))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("footer", {
       className: "footer-wrapper"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("footer", {
       className: "footer-content"
@@ -3513,22 +3407,6 @@ class LoggedOutComponent extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       src: "https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png",
       className: "logo"
     }))))));
-  }
-}
-class NewSession extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    if (!this.props.currentUser) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(LoggedOutComponent, {
-      login: this.props.login,
-      loginDemoUser: this.props.loginDemoUser
-      // fetchSongThenPlay={this.props.fetchSongThenPlay}
-    });
-    // <LoggedInComponent
-    //   currentUser={this.props.currentUser}
-    //   logout={this.props.logout}
-    // />;
   }
 }
 /* harmony default export */ __webpack_exports__["default"] = (NewSession);
