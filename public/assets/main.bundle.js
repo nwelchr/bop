@@ -851,8 +851,8 @@ const App = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(
 }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__.AuthRoute, {
   path: "/signup",
   component: _session_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
-}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__.ProtectedRoute, {
-  path: "/browse",
+}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
+  path: "/",
   component: _main_page_main_page_container__WEBPACK_IMPORTED_MODULE_5__["default"]
 })));
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -1612,7 +1612,7 @@ class MediaPlayer extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     });
   }
   render() {
-    console.log(this.state.playing === true);
+    console.log(this.state.playing === true, 'is playing');
     const _this$state = this.state,
       currentSong = _this$state.currentSong,
       playing = _this$state.playing,

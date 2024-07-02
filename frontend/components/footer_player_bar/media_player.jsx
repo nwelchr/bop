@@ -316,7 +316,7 @@ class MediaPlayer extends React.Component {
   }
 
   render() {
-    console.log(this.state.playing === true);
+    console.log(this.state.playing === true, 'is playing');
 
     const {
       currentSong,
