@@ -17,7 +17,7 @@ const App = () => (
       <AutoRedirectRoute exact path="/" component={NewSessionContainer} />
       <AuthRoute path="/login" component={LoginFormContainer} />
       <AuthRoute path="/signup" component={SignupFormContainer} />
-      <MainPageContainer />
+      <ProtectedRoute path="/browse" component={MainPageContainer} />
     </Switch>
   </div>
 );

@@ -551,7 +551,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Hello, World!');
   let store;
   if (window.currentUser) {
     const preloadedState = {
@@ -852,7 +851,10 @@ const App = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(
 }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__.AuthRoute, {
   path: "/signup",
   component: _session_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
-}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_main_page_main_page_container__WEBPACK_IMPORTED_MODULE_5__["default"], null)));
+}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__.ProtectedRoute, {
+  path: "/browse",
+  component: _main_page_main_page_container__WEBPACK_IMPORTED_MODULE_5__["default"]
+})));
 /* harmony default export */ __webpack_exports__["default"] = (App);
 
 /***/ }),

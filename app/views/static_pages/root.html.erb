@@ -1,9 +1,7 @@
 <% if logged_in? %>
   <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
-      setTimeout(function() {
-        window.currentUser = <%= raw render(partial: "api/users/user", formats: [:json], locals: { user: current_user }) %>;
-      }, 100); // Delay of 100ms
+      window.currentUser = <%= raw render(partial: "api/users/user", formats: [:json], locals: { user: current_user }) %>;
     });
   </script>
 <% end %>
