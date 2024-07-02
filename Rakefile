@@ -4,11 +4,13 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require_relative 'config/application'
-require 'rubocop/rake_task'
 
 Rails.application.load_tasks
 
-RuboCop::RakeTask.new do |task|
-  task.patterns = ['**/*.rb']
-  task.fail_on_error = true
+if %w[development test].include?(ENV['RAILS_ENV'])
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new do |task|
+    task.patterns = ['**/*.rb']
+    task.fail_on_error = true
+  end
 end

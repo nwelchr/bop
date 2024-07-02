@@ -31,14 +31,13 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
+  gem 'rubocop-performance', require: false
   gem 'selenium-webdriver'
 end
 
 group :development do
   gem 'listen', '~> 3.2'
   gem 'web-console', '>= 4.0.1'
-  # gem 'spring'
-  # gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'guard'
   gem 'guard-livereload', require: false
   gem 'guard-rspec', require: false
