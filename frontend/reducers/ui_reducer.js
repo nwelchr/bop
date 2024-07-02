@@ -8,11 +8,11 @@ import dropdownsReducer from './dropdowns_reducer';
 import tracklistReducer from './tracklist_reducer';
 
 const uiReducer = combineReducers({
-    playbar: playbarReducer,
-    tracklist: tracklistReducer,
-    loading: loadingReducer,
-    modals: modalsReducer,
-    dropdowns: dropdownsReducer
+  playbar: playbarReducer,
+  tracklist: tracklistReducer,
+  loading: loadingReducer,
+  modals: modalsReducer,
+  dropdowns: dropdownsReducer,
 });
 
 export default uiReducer;

@@ -33,7 +33,8 @@ class UserAccountPage extends React.Component {
             <h1 className="username">{currentUser.username}</h1>
             <button
               onClick={this.handleLogout}
-              className="new-playlist-cancel playlist-modal-button new-playlist-button">
+              className="new-playlist-cancel playlist-modal-button new-playlist-button"
+            >
               Logout
             </button>
           </section>
@@ -43,18 +44,15 @@ class UserAccountPage extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUser: state.session.currentUser,
-  background: { backgroundColor: '#814949' }
+  background: { backgroundColor: '#814949' },
 });
 
-const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout())
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(logout()),
 });
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(UserAccountPage)
+  connect(mapStateToProps, mapDispatchToProps)(UserAccountPage)
 );

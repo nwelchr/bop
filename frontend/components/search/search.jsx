@@ -1,5 +1,5 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import SearchBar from './search_bar';
 import SearchResults from './search_results';
@@ -11,20 +11,18 @@ class Search extends React.Component {
 
   render() {
     return (
-      <main className="main" style={{background: 'transparent'}}>
+      <main className="main" style={{ background: 'transparent' }}>
         <div className="search-container">
-            <SearchBar />
-            <Route path="/search/results/" component={SearchResults} />
+          <SearchBar />
+          <Route path="/search/results/" component={SearchResults} />
         </div>
       </main>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-});
+const mapStateToProps = (state, ownProps) => ({});
 
-const mapDispatchToProps = dispatch => ({
-});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

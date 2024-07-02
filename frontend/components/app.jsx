@@ -8,7 +8,7 @@ import { Route, Switch } from 'react-router-dom';
 import {
   AuthRoute,
   ProtectedRoute,
-  AutoRedirectRoute
+  AutoRedirectRoute,
 } from '../util/route_util';
 
 const App = () => (

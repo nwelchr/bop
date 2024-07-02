@@ -1,15 +1,15 @@
-import React from "react";
-import { closePlaylistForm } from "../../actions/ui_actions";
-import { connect } from "react-redux";
-import { createPlaylist, fetchPlaylist } from "../../actions/playlist_actions";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import { closePlaylistForm } from '../../actions/ui_actions';
+import { connect } from 'react-redux';
+import { createPlaylist, fetchPlaylist } from '../../actions/playlist_actions';
+import { withRouter } from 'react-router-dom';
 
 class NewPlaylistModal extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: ""
+      name: '',
     };
 
     this.handleInput = this.handleInput.bind(this);
@@ -25,11 +25,9 @@ class NewPlaylistModal extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props
-      .createPlaylist(this.state)
-      .then(response => {
-        this.redirect(response.payload.playlist.id);
-      });
+    this.props.createPlaylist(this.state).then((response) => {
+      this.redirect(response.payload.playlist.id);
+    });
   }
 
   redirect(id) {
@@ -38,12 +36,12 @@ class NewPlaylistModal extends React.Component {
   }
 
   handleCancel() {
-    this.setState({ playlistName: "" });
+    this.setState({ playlistName: '' });
     this.props.closePlaylistForm();
   }
 
   handleEnter(e) {
-    if (e.key === "Enter") this.handleSubmit(e);
+    if (e.key === 'Enter') this.handleSubmit(e);
   }
 
   render() {
@@ -103,10 +101,10 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     closePlaylistForm: () => dispatch(closePlaylistForm()),
-    createPlaylist: playlist => dispatch(createPlaylist(playlist))
+    createPlaylist: (playlist) => dispatch(createPlaylist(playlist)),
   };
 };
 

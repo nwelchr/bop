@@ -10,9 +10,9 @@ class UserResults extends React.Component {
     const { users } = this.props;
     return (
       <ul>
-          {users.map(user => 
-                      <UserIndexItem key={user.id} user={user} renderButton={true} />
-          )}
+        {users.map((user) => (
+          <UserIndexItem key={user.id} user={user} renderButton={true} />
+        ))}
       </ul>
     );
   }

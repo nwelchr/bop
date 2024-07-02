@@ -5,7 +5,7 @@ import SessionForm from './session_form';
 import {
   signup,
   login,
-  clearSessionErrors
+  clearSessionErrors,
 } from '../../actions/session_actions';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -17,20 +17,20 @@ const mapStateToProps = (state, ownProps) => ({
     </p>
   ),
   usernameInput: true,
-  emailPlaceholder: 'Email address'
+  emailPlaceholder: 'Email address',
 });
 
-const mapDispatchToProps = dispatch => ({
-  processForm: user => dispatch(signup(user)),
+const mapDispatchToProps = (dispatch) => ({
+  processForm: (user) => dispatch(signup(user)),
   clearSessionErrors: () => dispatch(clearSessionErrors()),
   loginDemoUser: () =>
     dispatch(
       login({
         username: 'Demo User',
         email: 'demo@demo.com',
-        password: 'password'
+        password: 'password',
       })
-    )
+    ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SessionForm);

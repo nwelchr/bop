@@ -10,9 +10,13 @@ class ArtistResults extends React.Component {
     const { artists } = this.props;
     return (
       <ul>
-          {artists.map(artist => 
-                      <ArtistIndexItem key={artist.id} artist={artist} renderButton={true} />
-          )}
+        {artists.map((artist) => (
+          <ArtistIndexItem
+            key={artist.id}
+            artist={artist}
+            renderButton={true}
+          />
+        ))}
       </ul>
     );
   }

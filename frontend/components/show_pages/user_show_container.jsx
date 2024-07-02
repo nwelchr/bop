@@ -9,20 +9,22 @@ import { follow, unfollow } from '../../actions/follow_actions';
 import UserShow from './user_show';
 
 const mapStateToProps = (state, ownProps) => {
-    
-    return({
-        user: state.entities.users[parseInt(ownProps.match.params.userId)],
-        loading: state.ui.loading.global,
-        background: { 'backgroundColor': '#0e3633' },
-        currentUser: state.session.currentUser
-    });
+  return {
+    user: state.entities.users[parseInt(ownProps.match.params.userId)],
+    loading: state.ui.loading.global,
+    background: { backgroundColor: '#0e3633' },
+    currentUser: state.session.currentUser,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return ({
-        fetchUser: (userId) => dispatch(fetchUser(userId)),
-        follow: (userId) => dispatch(follow('User', userId)), 
-        unfollow: (userId) => dispatch(unfollow('User', userId)) 
-    });};
+  return {
+    fetchUser: (userId) => dispatch(fetchUser(userId)),
+    follow: (userId) => dispatch(follow('User', userId)),
+    unfollow: (userId) => dispatch(unfollow('User', userId)),
+  };
+};
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserShow));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UserShow)
+);

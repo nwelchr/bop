@@ -1,0 +1,14 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 3.2
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  ExcludedMethods: ["Rake::TaskLib#init"]
+
+Rails:
+  Enabled: true

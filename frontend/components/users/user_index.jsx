@@ -9,60 +9,65 @@ import NewPlaylistModal from '../modals/new_playlist_modal';
 import BrowseNavbar from '../navbar/browse_navbar';
 
 class UserIndex extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = this.props;
-    }
+    this.state = this.props;
+  }
 
-    componentDidMount() {
-        this.props.fetchUsers();
-    }
+  componentDidMount() {
+    this.props.fetchUsers();
+  }
 
-    openModal() {
-        this.setState({ isModalOpen: true });
-    }
+  openModal() {
+    this.setState({ isModalOpen: true });
+  }
 
-    closeModal() {
-        this.setState({ isModalOpen: false });
-    }
-    
+  closeModal() {
+    this.setState({ isModalOpen: false });
+  }
 
-    render () {
-        if (this.props.loading) { return  <div />;}
-        else {
-            return (
-            <main className="main" style={this.props.background}>
-                <main className="index-page-wrapper">
-                <BrowseNavbar />
-                    <main className="music-index">
-                    <div className="music-index-wrapper">
-                        <ul>
-                            {this.props.users.map(user => 
-                                        <UserIndexItem key={user.id} user={user} renderButton={false} />
-                            )}
-                        </ul>
-                        </div>
-                    </main>
-                </main>
+  render() {
+    if (this.props.loading) {
+      return <div />;
+    } else {
+      return (
+        <main className="main" style={this.props.background}>
+          <main className="index-page-wrapper">
+            <BrowseNavbar />
+            <main className="music-index">
+              <div className="music-index-wrapper">
+                <ul>
+                  {this.props.users.map((user) => (
+                    <UserIndexItem
+                      key={user.id}
+                      user={user}
+                      renderButton={false}
+                    />
+                  ))}
+                </ul>
+              </div>
             </main>
-        );
+          </main>
+        </main>
+      );
     }
-    }
+  }
 }
 
 const mapStateToProps = (state) => {
-    return({
-        users: Object.values(state.entities.users),
-        loading: state.ui.loading.global,
-        background: { 'backgroundColor': '#2e263b' },
-    });
+  return {
+    users: Object.values(state.entities.users),
+    loading: state.ui.loading.global,
+    background: { backgroundColor: '#2e263b' },
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return ({
-        fetchUsers: () => dispatch(fetchUsers()),
-        openPlaylistForm: () => dispatch(openPlaylistForm())
-    });};
+  return {
+    fetchUsers: () => dispatch(fetchUsers()),
+    openPlaylistForm: () => dispatch(openPlaylistForm()),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserIndex);

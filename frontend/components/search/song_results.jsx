@@ -10,19 +10,14 @@ class SongResults extends React.Component {
     const { songs } = this.props;
     return (
       <main className="show-page-main search-songs">
-                  <section className="show-songs song-container">
-                    <ol>
-                      {this.props.songs.map(song => {
-                        return (
-                          <SongIndexItemContainer
-                            key={song.id}
-                            song={song}
-                          />
-                        );
-                      })}
-                    </ol>
-                  </section>
-                </main>
+        <section className="show-songs song-container">
+          <ol>
+            {this.props.songs.map((song) => {
+              return <SongIndexItemContainer key={song.id} song={song} />;
+            })}
+          </ol>
+        </section>
+      </main>
     );
   }
 }

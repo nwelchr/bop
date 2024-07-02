@@ -13,20 +13,20 @@ const mapStateToProps = (state, ownProps) => ({
     </p>
   ),
   usernameInput: null,
-  emailPlaceholder: 'Email address or username'
+  emailPlaceholder: 'Email address or username',
 });
 
-const mapDispatchToProps = dispatch => ({
-  processForm: user => dispatch(login(user)),
+const mapDispatchToProps = (dispatch) => ({
+  processForm: (user) => dispatch(login(user)),
   clearSessionErrors: () => dispatch(clearSessionErrors()),
   loginDemoUser: () =>
     dispatch(
       login({
         username: 'Demo User',
         email: 'demo@demo.com',
-        password: 'password'
+        password: 'password',
       })
-    )
+    ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SessionForm);

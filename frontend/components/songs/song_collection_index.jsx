@@ -1,9 +1,9 @@
-import React from "react";
-import { NavLink, Link } from "react-router-dom";
-import { AuthRoute } from "../../util/route_util";
-import SongIndexItemContainer from "./song_index_item_container";
+import React from 'react';
+import { NavLink, Link } from 'react-router-dom';
+import { AuthRoute } from '../../util/route_util';
+import SongIndexItemContainer from './song_index_item_container';
 
-import YourMusicTopNavBar from "../navbar/top_navbar";
+import YourMusicTopNavBar from '../navbar/top_navbar';
 
 class SongIndex extends React.Component {
   constructor(props) {
@@ -29,12 +29,9 @@ class SongIndex extends React.Component {
                 <main className="show-page-main">
                   <section className="show-songs song-container">
                     <ol>
-                      {this.props.songs.map(song => {
+                      {this.props.songs.map((song) => {
                         return (
-                          <SongIndexItemContainer
-                            key={song.id}
-                            song={song}
-                          />
+                          <SongIndexItemContainer key={song.id} song={song} />
                         );
                       })}
                     </ol>

@@ -1,17 +1,17 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
-import { AuthRoute } from "../../util/route_util";
-import SongIndexItemContainer from "../songs/song_index_item_container";
-import AlbumIndexItem from "../albums/album_index_item";
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { AuthRoute } from '../../util/route_util';
+import SongIndexItemContainer from '../songs/song_index_item_container';
+import AlbumIndexItem from '../albums/album_index_item';
 
 class AlbumShow extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      loading: true
+      loading: true,
     };
-    
+
     this.redirect = this.redirect.bind(this);
     this.handleResponse = this.handleResponse.bind(this);
   }
@@ -19,12 +19,14 @@ class AlbumShow extends React.Component {
   componentDidMount() {
     this.props
       .fetchAlbum(this.props.match.params.albumId)
-      .then(response => this.handleResponse());
+      .then((response) => this.handleResponse());
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.albumId != nextProps.match.params.albumId) {
-      this.props.fetchAlbum(nextProps.match.params.albumId).then(response => this.handleResponse());
+      this.props
+        .fetchAlbum(nextProps.match.params.albumId)
+        .then((response) => this.handleResponse());
     }
   }
 
@@ -33,16 +35,25 @@ class AlbumShow extends React.Component {
   }
 
   redirect() {
-    this.props.history.push("/collection/albums");
+    this.props.history.push('/collection/albums');
   }
 
   createAlbumSongs() {
-    if (!(typeof this.props.album.songIds === "undefined" || typeof this.props.songs === "undefined")) {
-      const selectedSongs = this.props.songs.filter((song) => (this.props.album.songIds).includes(song.id));
-      const songs = this.props.album.songIds.map(songId => selectedSongs.find((song) => song.id === songId));   
+    if (
+      !(
+        typeof this.props.album.songIds === 'undefined' ||
+        typeof this.props.songs === 'undefined'
+      )
+    ) {
+      const selectedSongs = this.props.songs.filter((song) =>
+        this.props.album.songIds.includes(song.id)
+      );
+      const songs = this.props.album.songIds.map((songId) =>
+        selectedSongs.find((song) => song.id === songId)
+      );
       this.AlbumSongs = (
         <ol>
-          {songs.map(song => {
+          {songs.map((song) => {
             return (
               <SongIndexItemContainer
                 key={song.id}
@@ -59,7 +70,7 @@ class AlbumShow extends React.Component {
   }
 
   render() {
-    if (this.state.loading || (typeof this.props.album === "undefined")) {
+    if (this.state.loading || typeof this.props.album === 'undefined') {
       return <div />;
     } else {
       this.createAlbumSongs();

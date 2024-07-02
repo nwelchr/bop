@@ -1,23 +1,23 @@
-import merge from "lodash/merge";
+import merge from 'lodash/merge';
 
-import { RECEIVE_SONGS, RECEIVE_SONG } from "../actions/song_actions";
+import { RECEIVE_SONGS, RECEIVE_SONG } from '../actions/song_actions';
 
 import {
   RECEIVE_PLAYLIST,
   RECEIVE_PLAYLIST_WITH_TRACKLIST,
-} from "../actions/playlist_actions";
+} from '../actions/playlist_actions';
 
-import { RECEIVE_PLAYLIST_SONG_SAVE } from "../actions/song_actions";
+import { RECEIVE_PLAYLIST_SONG_SAVE } from '../actions/song_actions';
 
 import {
   RECEIVE_ALBUM,
   RECEIVE_ALBUM_WITH_TRACKLIST,
-} from "../actions/album_actions";
+} from '../actions/album_actions';
 
 import {
   RECEIVE_ARTIST,
   RECEIVE_ARTIST_WITH_TRACKLIST,
-} from "../actions/artist_actions";
+} from '../actions/artist_actions';
 
 const songsReducer = (oldState = [], action) => {
   Object.freeze(oldState);

@@ -20,7 +20,7 @@ class MediaPlayer extends React.Component {
       duration: 0,
       loop: 'none',
       shuffle: false,
-      shuffledTracklist: []
+      shuffledTracklist: [],
     };
 
     this.togglePlay = this.togglePlay.bind(this);
@@ -72,20 +72,20 @@ class MediaPlayer extends React.Component {
       console.log('SET SHUFFLED TRACKLIST ON FIRST SONG?');
       this.setState({ shuffledTracklist });
       const firstShuffledSong = nextProps.songs.find(
-        song => song.id === shuffledTracklist[0]
+        (song) => song.id === shuffledTracklist[0]
       );
       this.props.playSong(firstShuffledSong, nextProps.currentSongParams);
       console.log('WHAT IS GOING ON HERE', nextProps.playing);
       this.setState({
         playing: nextProps.playing,
-        currentSong: firstShuffledSong.mp3_url
+        currentSong: firstShuffledSong.mp3_url,
       });
       return;
     } else if (nextProps.currentSong !== this.props.currentSong) {
       console.log('WHAT THE HELL IS GOING ON HERE', nextProps.playing);
       this.setState({
         playing: nextProps.playing,
-        currentSong: nextProps.currentSong.mp3_url
+        currentSong: nextProps.currentSong.mp3_url,
       });
     }
     // for some reason this wasn't changing if i wasn't shuffling and i was clicking on another indexitem play button
@@ -109,7 +109,7 @@ class MediaPlayer extends React.Component {
 
           this.setState({
             playing: nextProps.playing,
-            currentSong: nextProps.currentSong.mp3_url
+            currentSong: nextProps.currentSong.mp3_url,
           });
         }
       } else if (nextProps.currentSong !== this.props.currentSong) {
@@ -120,7 +120,7 @@ class MediaPlayer extends React.Component {
 
         this.setState({
           playing: nextProps.playing,
-          currentSong: nextProps.currentSong.mp3_url
+          currentSong: nextProps.currentSong.mp3_url,
         });
       }
     }
@@ -130,7 +130,7 @@ class MediaPlayer extends React.Component {
     this.setState({
       url: url,
       played: 0,
-      playing: true
+      playing: true,
     });
   }
 
@@ -166,7 +166,9 @@ class MediaPlayer extends React.Component {
       }
     }
     const nextSongId = tracklist[currSongIdx + 1];
-    const nextSong = this.props.songs.filter(song => song.id === nextSongId)[0];
+    const nextSong = this.props.songs.filter(
+      (song) => song.id === nextSongId
+    )[0];
     this.setState({ played: 0 });
     this.props.playSong(nextSong, this.props.currentSongParams);
   }
@@ -197,7 +199,9 @@ class MediaPlayer extends React.Component {
     }
 
     const nextSongId = tracklist[currSongIdx - 1];
-    const nextSong = this.props.songs.filter(song => song.id === nextSongId)[0];
+    const nextSong = this.props.songs.filter(
+      (song) => song.id === nextSongId
+    )[0];
     this.props.playSong(nextSong, this.props.currentSongParams);
   }
 
@@ -232,7 +236,7 @@ class MediaPlayer extends React.Component {
           this.props.currentSong.id
         );
         this.setState({
-          shuffledTracklist
+          shuffledTracklist,
         });
       }
     }
@@ -252,7 +256,7 @@ class MediaPlayer extends React.Component {
       shuffleIdx = shuffledArr.indexOf(nextSong);
       [shuffledArr[0], shuffledArr[shuffleIdx]] = [
         shuffledArr[shuffleIdx],
-        shuffledArr[0]
+        shuffledArr[0],
       ];
     }
 
@@ -322,7 +326,7 @@ class MediaPlayer extends React.Component {
       played,
       loaded,
       duration,
-      loop
+      loop,
     } = this.state;
 
     // const playIcon = <i className="fa fa-play-circle" />;
@@ -350,14 +354,14 @@ class MediaPlayer extends React.Component {
       played < 0.001
         ? { width: '0' }
         : {
-            width: `${played * 100 + 0.5 - played * 0.5}%`
+            width: `${played * 100 + 0.5 - played * 0.5}%`,
           };
 
     let volumeStyle =
       volume < 0.001
         ? { width: '0' }
         : {
-            width: `${volume * 100 + 0.5 - volume * 0.5}%`
+            width: `${volume * 100 + 0.5 - volume * 0.5}%`,
           };
 
     return (

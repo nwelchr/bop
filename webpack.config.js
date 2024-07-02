@@ -1,17 +1,21 @@
-var path = require("path");
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-module.exports = {
-  mode: "development",
-  context: path.resolve(__dirname, "frontend"),
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default {
+  mode: 'development',
+  context: path.resolve(__dirname, 'frontend'),
   entry: {
-    main: "./bop.jsx",
+    main: './bop.jsx',
   },
   output: {
-    path: path.resolve(__dirname, "public", "assets"),
-    filename: "[name].bundle.js",
-    chunkFilename: "[name].[contenthash].bundle.js",
-    publicPath: "/assets/",
-    sourceMapFilename: "[file].map",
+    path: path.resolve(__dirname, 'public', 'assets'),
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].[contenthash].bundle.js',
+    publicPath: '/assets/',
+    sourceMapFilename: '[file].map',
   },
   module: {
     rules: [
@@ -19,28 +23,28 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
           },
         },
       },
     ],
   },
-  devtool: "source-map",
+  devtool: 'source-map',
   optimization: {
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
       cacheGroups: {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
-          name: "vendors",
-          chunks: "all",
+          name: 'vendors',
+          chunks: 'all',
         },
       },
     },
   },
   resolve: {
-    extensions: [".js", ".jsx", "*"],
+    extensions: ['.js', '.jsx', '*'], // Add the "*" extension here
   },
 };

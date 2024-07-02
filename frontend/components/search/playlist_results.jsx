@@ -10,9 +10,13 @@ class PlaylistResults extends React.Component {
     const { playlists } = this.props;
     return (
       <ul>
-          {playlists.map(playlist => 
-                      <PlaylistIndexItem key={playlist.id} playlist={playlist} renderButton={true} />
-          )}
+        {playlists.map((playlist) => (
+          <PlaylistIndexItem
+            key={playlist.id}
+            playlist={playlist}
+            renderButton={true}
+          />
+        ))}
       </ul>
     );
   }

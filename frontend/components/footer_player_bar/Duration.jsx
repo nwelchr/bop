@@ -1,11 +1,7 @@
 import React from 'react';
 
 const Duration = ({ seconds }) => {
-  return (
-    <time dateTime={Math.round(seconds)}>
-      {parseDuration(seconds)}
-    </time>
-  );
+  return <time dateTime={Math.round(seconds)}>{parseDuration(seconds)}</time>;
 };
 
 const parseDuration = (seconds) => {

@@ -7,9 +7,9 @@ import SideNavBar from './side_nav_bar';
 import FooterPlayerBar from '../footer_player_bar/footer_player_bar';
 
 class MusicPage extends React.Component {
-    render() {
-        return null;
-    }
+  render() {
+    return null;
+  }
 }
 
 export default MusicPage;

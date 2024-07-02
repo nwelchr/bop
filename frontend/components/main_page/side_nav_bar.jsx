@@ -33,7 +33,8 @@ class SideNavBar extends React.Component {
               <NavLink
                 exact
                 to="/collection/playlists"
-                activeClassName="selected">
+                activeClassName="selected"
+              >
                 Your Music
               </NavLink>
             </li>
@@ -45,7 +46,8 @@ class SideNavBar extends React.Component {
             exact
             to="/account"
             className="account-link"
-            activeClassName="selected">
+            activeClassName="selected"
+          >
             <img
               src={currentUser.profile_picture}
               className="account-link-profile-picture"

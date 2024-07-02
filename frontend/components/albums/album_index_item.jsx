@@ -1,11 +1,11 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { pause, play, playSong } from "../../actions/audio_actions";
-import { fetchSong, fetchSongs } from "../../actions/song_actions";
-import { fetchAlbumThenPlaySong } from "../../actions/album_actions";
+import { pause, play, playSong } from '../../actions/audio_actions';
+import { fetchSong, fetchSongs } from '../../actions/song_actions';
+import { fetchAlbumThenPlaySong } from '../../actions/album_actions';
 
 class AlbumIndexItem extends React.Component {
   constructor(props) {
@@ -16,33 +16,19 @@ class AlbumIndexItem extends React.Component {
 
   componentDidMount() {
     $(document)
-      .on("mouseenter", ".media-wrapper", function() {
+      .on('mouseenter', '.media-wrapper', function () {
         const that = this;
-        $(this)
-          .find(":button")
-          .show();
-        $(this)
-          .find(".media__body")
-          .addClass("hovering");
-        $(this)
-          .find(".play-pause")
-          .addClass("hovering");
-        $(this).on("onclick", ":button", function() {
-          $(that)
-            .find(".media__body")
-            .addClass("hovering");
+        $(this).find(':button').show();
+        $(this).find('.media__body').addClass('hovering');
+        $(this).find('.play-pause').addClass('hovering');
+        $(this).on('onclick', ':button', function () {
+          $(that).find('.media__body').addClass('hovering');
         });
       })
-      .on("mouseleave", ".media-wrapper", function() {
-        $(this)
-          .find(":button")
-          .hide();
-        $(this)
-          .find(".media__body")
-          .removeClass("hovering");
-        $(this)
-          .find(".play-pause")
-          .removeClass("hovering");
+      .on('mouseleave', '.media-wrapper', function () {
+        $(this).find(':button').hide();
+        $(this).find('.media__body').removeClass('hovering');
+        $(this).find('.play-pause').removeClass('hovering');
       });
   }
 
@@ -62,12 +48,12 @@ class AlbumIndexItem extends React.Component {
     if (
       !currentSong ||
       !songIds.includes(currentSong.id) ||
-      Object.keys(this.props.currentSongParams)[0] !== "albumId" ||
+      Object.keys(this.props.currentSongParams)[0] !== 'albumId' ||
       Object.values(this.props.currentSongParams)[0] !==
         `${this.props.album.id}`
     ) {
       this.props.fetchAlbumThenPlaySong(this.props.album.id, {
-        albumId: `${this.props.album.id}`
+        albumId: `${this.props.album.id}`,
       });
     } else if (currentSong && !playing) {
       this.props.play();
@@ -90,11 +76,11 @@ class AlbumIndexItem extends React.Component {
       currentSong &&
       songIds &&
       songIds.includes(currentSong.id) &&
-      Object.keys(currentSongParams)[0] === "albumId" &&
+      Object.keys(currentSongParams)[0] === 'albumId' &&
       Object.values(currentSongParams)[0] === `${this.props.album.id}`
     ) {
       playPauseIcon = pauseIcon;
-      albumIndexClass = "playing";
+      albumIndexClass = 'playing';
     } else {
       playPauseIcon = playIcon;
       albumIndexClass = null;
@@ -156,20 +142,20 @@ class AlbumIndexItem extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentSong: state.ui.playbar.currentSong,
   currentSongParams: state.ui.playbar.currentSongParams,
-  playing: state.ui.playbar.playing
+  playing: state.ui.playbar.playing,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   play: () => dispatch(play()),
   pause: () => dispatch(pause()),
-  playSong: song => dispatch(playSong(song)),
+  playSong: (song) => dispatch(playSong(song)),
   fetchAlbumThenPlaySong: (albumId, params) =>
     dispatch(fetchAlbumThenPlaySong(albumId, params)),
-  fetchSong: songId => dispatch(fetchSong(songId)),
-  fetchSongs: () => dispatch(fetchSongs())
+  fetchSong: (songId) => dispatch(fetchSong(songId)),
+  fetchSongs: () => dispatch(fetchSongs()),
 });
 
 export default withRouter(

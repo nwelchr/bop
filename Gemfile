@@ -28,6 +28,8 @@ group :development, :test do
   gem 'annotate'
   gem 'jquery-ui-rails'
   gem 'rspec-rails'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 end
 
 group :development do

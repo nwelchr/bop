@@ -10,9 +10,9 @@ class AlbumResults extends React.Component {
     const { albums } = this.props;
     return (
       <ul>
-          {albums.map(album => 
-                      <AlbumIndexItem key={album.id} album={album} renderButton={true} />
-          )}
+        {albums.map((album) => (
+          <AlbumIndexItem key={album.id} album={album} renderButton={true} />
+        ))}
       </ul>
     );
   }

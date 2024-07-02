@@ -1,14 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { pause, play, playSong } from "../../actions/audio_actions";
-import { fetchSong, fetchSongs } from "../../actions/song_actions";
+import { pause, play, playSong } from '../../actions/audio_actions';
+import { fetchSong, fetchSongs } from '../../actions/song_actions';
 import {
   fetchArtistThenPlaySong,
-  fetchArtist
-} from "../../actions/artist_actions";
+  fetchArtist,
+} from '../../actions/artist_actions';
 
 class ArtistIndexItem extends React.Component {
   constructor(props) {
@@ -19,33 +19,19 @@ class ArtistIndexItem extends React.Component {
 
   componentDidMount() {
     $(document)
-      .on("mouseenter", ".media-wrapper", function() {
+      .on('mouseenter', '.media-wrapper', function () {
         const that = this;
-        $(this)
-          .find(":button")
-          .show();
-        $(this)
-          .find(".media__body")
-          .addClass("hovering");
-        $(this)
-        .find(".play-pause")
-        .addClass("hovering");
-        $(this).on("onclick", ":button", function() {
-          $(that)
-            .find(".media__body")
-            .addClass("hovering");
+        $(this).find(':button').show();
+        $(this).find('.media__body').addClass('hovering');
+        $(this).find('.play-pause').addClass('hovering');
+        $(this).on('onclick', ':button', function () {
+          $(that).find('.media__body').addClass('hovering');
         });
       })
-      .on("mouseleave", ".media-wrapper", function() {
-        $(this)
-          .find(":button")
-          .hide();
-        $(this)
-          .find(".media__body")
-          .removeClass("hovering");
-        $(this)
-        .find(".play-pause")
-        .removeClass("hovering");
+      .on('mouseleave', '.media-wrapper', function () {
+        $(this).find(':button').hide();
+        $(this).find('.media__body').removeClass('hovering');
+        $(this).find('.play-pause').removeClass('hovering');
       });
   }
 
@@ -64,14 +50,14 @@ class ArtistIndexItem extends React.Component {
     // or if the artist does have that song in it,
     // fetch the artist in question and play it
     if (
-      !currentSong 
-        || !songIds.includes(currentSong.id) 
-        || Object.keys(this.props.currentSongParams)[0] !== "artistId" 
-        || Object.values(this.props.currentSongParams)[0] !==
-            `${this.props.artist.id}`
+      !currentSong ||
+      !songIds.includes(currentSong.id) ||
+      Object.keys(this.props.currentSongParams)[0] !== 'artistId' ||
+      Object.values(this.props.currentSongParams)[0] !==
+        `${this.props.artist.id}`
     ) {
       this.props.fetchArtistThenPlaySong(this.props.artist.id, {
-        artistId: `${this.props.artist.id}`
+        artistId: `${this.props.artist.id}`,
       });
     } else if (currentSong && !playing) {
       this.props.play();
@@ -82,7 +68,7 @@ class ArtistIndexItem extends React.Component {
 
   render() {
     const artistIndexStyle = {
-      borderRadius: "50%"
+      borderRadius: '50%',
     };
 
     const { currentSong, currentSongParams, playing, artist } = this.props;
@@ -93,15 +79,16 @@ class ArtistIndexItem extends React.Component {
     const pauseIcon = <div className="icon pause index-item"></div>;
 
     let playPauseIcon, artistIndexClass;
-    if (playing &&
-        currentSong &&
-        songIds &&
-        songIds.includes(currentSong.id) &&
-        Object.keys(currentSongParams)[0] === "artistId" &&
-        Object.values(currentSongParams)[0] === `${this.props.artist.id}`
-      ) {
+    if (
+      playing &&
+      currentSong &&
+      songIds &&
+      songIds.includes(currentSong.id) &&
+      Object.keys(currentSongParams)[0] === 'artistId' &&
+      Object.values(currentSongParams)[0] === `${this.props.artist.id}`
+    ) {
       playPauseIcon = pauseIcon;
-      artistIndexClass = "playing";
+      artistIndexClass = 'playing';
     } else {
       playPauseIcon = playIcon;
       artistIndexClass = null;
@@ -144,19 +131,19 @@ class ArtistIndexItem extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   currentSong: state.ui.playbar.currentSong,
-  currentSongParams: state.ui.playbar.currentSongParams,  
-  playing: state.ui.playbar.playing
+  currentSongParams: state.ui.playbar.currentSongParams,
+  playing: state.ui.playbar.playing,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   play: () => dispatch(play()),
   pause: () => dispatch(pause()),
   playSong: () => dispatch(playSong()),
   fetchArtistThenPlaySong: (artistId, params) =>
     dispatch(fetchArtistThenPlaySong(artistId, params)),
-  fetchArtist: artistId => dispatch(fetchArtist(artistId)),
-  fetchSong: songId => dispatch(fetchSong(songId)),
-  fetchSongs: () => dispatch(fetchSongs())
+  fetchArtist: (artistId) => dispatch(fetchArtist(artistId)),
+  fetchSong: (songId) => dispatch(fetchSong(songId)),
+  fetchSongs: () => dispatch(fetchSongs()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtistIndexItem);

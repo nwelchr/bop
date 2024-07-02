@@ -7,7 +7,7 @@ const albumCovers = [
   'https://s3.us-east-2.amazonaws.com/bop-songs/Ponyboy/album_cover.jpg',
   'https://s3.us-east-2.amazonaws.com/bop-songs/Little+Joy+(2008)/album_cover.jpg',
   'https://s3.us-east-2.amazonaws.com/bop-songs/Beach+House+-+Depression+Cherry/album_cover.jpg',
-  'https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg'
+  'https://s3.us-east-2.amazonaws.com/bop-songs/1914+Frank+Ocean+Blonde+(2016)/album_cover.jpg',
 ];
 const albumNames = [
   'Lemonade',
@@ -15,7 +15,7 @@ const albumNames = [
   'Ponyboy',
   'Little Joy',
   'Depression Cherry',
-  'Blonde'
+  'Blonde',
 ];
 const artistNames = [
   'Beyonce',
@@ -23,7 +23,7 @@ const artistNames = [
   'SOPHIE',
   'Little Joy',
   'Beach House',
-  'Frank Ocean'
+  'Frank Ocean',
 ];
 
 class LoggedInComponent extends React.Component {
@@ -34,7 +34,7 @@ class LoggedInComponent extends React.Component {
   componentDidMount() {
     const dropdown = document.querySelector('.dropdown');
 
-    dropdown.addEventListener('click', e => {
+    dropdown.addEventListener('click', (e) => {
       e.preventDefault();
 
       const i = dropdown.querySelector('i');
@@ -158,7 +158,7 @@ class LoggedOutComponent extends React.Component {
       played: 0,
       loaded: 0,
       duration: 0,
-      loop: false
+      loop: false,
     };
 
     // this.onPlay = this.onPlay.bind(this);
@@ -174,7 +174,7 @@ class LoggedOutComponent extends React.Component {
     this.setState({
       url: url,
       played: 0,
-      playing: true
+      playing: true,
     });
   }
 

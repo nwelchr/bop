@@ -6,25 +6,22 @@ import { openPlaylistForm } from '../../actions/ui_actions';
 
 const makeMapStateToProps = () => {
   const getUserPlaylists = makeGetUserPlaylists();
-  const mapStateToProps = state => {
+  const mapStateToProps = (state) => {
     return {
       playlists: getUserPlaylists(state),
       loading: state.ui.loading.global,
       background: { backgroundColor: '#2e263b' },
-      currentUser: state.session.currentUser
+      currentUser: state.session.currentUser,
     };
   };
   return mapStateToProps;
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchPlaylists: () => dispatch(fetchPlaylists()),
-    openPlaylistForm: () => dispatch(openPlaylistForm())
+    openPlaylistForm: () => dispatch(openPlaylistForm()),
   };
 };
 
-export default connect(
-  makeMapStateToProps,
-  mapDispatchToProps
-)(PlaylistIndex);
+export default connect(makeMapStateToProps, mapDispatchToProps)(PlaylistIndex);

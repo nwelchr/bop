@@ -22,7 +22,7 @@ class BrowseIndex extends React.Component {
       const { playlists, currentUser } = this.props;
       let newPlaylists;
       newPlaylists = playlists
-        ? this.props.playlists.map(playlist => (
+        ? this.props.playlists.map((playlist) => (
             <PlaylistIndexItem
               key={playlist.id}
               playlist={playlist}

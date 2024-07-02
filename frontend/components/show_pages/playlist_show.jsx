@@ -1,8 +1,8 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
-import { AuthRoute } from "../../util/route_util";
-import SongIndexItemContainer from "../songs/song_index_item_container";
-import PlaylistIndexItem from "../playlists/playlist_index_item";
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { AuthRoute } from '../../util/route_util';
+import SongIndexItemContainer from '../songs/song_index_item_container';
+import PlaylistIndexItem from '../playlists/playlist_index_item';
 
 import AddToPlaylistModal from '../modals/add_to_playlist_modal';
 
@@ -25,12 +25,16 @@ class PlaylistShow extends React.Component {
   componentDidMount() {
     this.props
       .fetchPlaylist(this.props.match.params.playlistId)
-      .then(response => this.handleResponse());
+      .then((response) => this.handleResponse());
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.playlistId != nextProps.match.params.playlistId) {
-      this.props.fetchPlaylist(nextProps.match.params.playlistId).then(response => this.handleResponse());
+    if (
+      this.props.match.params.playlistId != nextProps.match.params.playlistId
+    ) {
+      this.props
+        .fetchPlaylist(nextProps.match.params.playlistId)
+        .then((response) => this.handleResponse());
     }
   }
 
@@ -42,23 +46,29 @@ class PlaylistShow extends React.Component {
     e.preventDefault();
     this.props
       .deletePlaylist(this.props.playlist.id)
-      .then(response => this.redirect());
+      .then((response) => this.redirect());
   }
 
   handleClick(followText) {
     const { playlist, follow, unfollow } = this.props;
-    followText === "Follow Playlist" ? follow(playlist.id) : unfollow(playlist.id);
+    followText === 'Follow Playlist'
+      ? follow(playlist.id)
+      : unfollow(playlist.id);
   }
 
   redirect() {
-    this.props.history.push("/collection/playlists");
+    this.props.history.push('/collection/playlists');
   }
 
   createPlaylistSongs() {
-    if (!(typeof this.props.playlist.songIds === "undefined")) {
-      const selectedSongs = this.props.songs.filter((song) => (this.props.playlist.songIds).includes(song.id));
-      const songs = this.props.playlist.songIds.map(songId => selectedSongs.find((song) => song.id === songId));  
-      
+    if (!(typeof this.props.playlist.songIds === 'undefined')) {
+      const selectedSongs = this.props.songs.filter((song) =>
+        this.props.playlist.songIds.includes(song.id)
+      );
+      const songs = this.props.playlist.songIds.map((songId) =>
+        selectedSongs.find((song) => song.id === songId)
+      );
+
       // if songs haven't been fetched yet (i.e. after adding song to playlist and waiting for new songs to populate)
       // return an empty div
       if (songs.includes(undefined)) {
@@ -66,7 +76,7 @@ class PlaylistShow extends React.Component {
       }
       this.PlaylistSongs = (
         <ol>
-          {songs.map(song => {
+          {songs.map((song) => {
             return (
               <SongIndexItemContainer
                 key={song.id}
@@ -100,20 +110,30 @@ class PlaylistShow extends React.Component {
   }
 
   render() {
-    if (this.state.loading || (typeof this.props.playlist === "undefined")) {
+    if (this.state.loading || typeof this.props.playlist === 'undefined') {
       return <div />;
     } else {
       this.createPlaylistSongs();
-      if (this.PlaylistSongs === undefined) return <div />; 
+      if (this.PlaylistSongs === undefined) return <div />;
       this.createDeletePlaylistButton();
 
       const { currentUser, playlist } = this.props;
 
       let followButton = null;
-      if (!(currentUser.playlistIds.includes(playlist.id))) {
-        let followText = (currentUser.followed_playlists && currentUser.followed_playlists.includes(playlist.id)) ? "Unfollow Playlist" : "Follow Playlist";
-        followButton = <button onClick={() => this.handleClick(followText)}
-         className="follow-button">{followText}</button>;
+      if (!currentUser.playlistIds.includes(playlist.id)) {
+        let followText =
+          currentUser.followed_playlists &&
+          currentUser.followed_playlists.includes(playlist.id)
+            ? 'Unfollow Playlist'
+            : 'Follow Playlist';
+        followButton = (
+          <button
+            onClick={() => this.handleClick(followText)}
+            className="follow-button"
+          >
+            {followText}
+          </button>
+        );
       }
 
       return (

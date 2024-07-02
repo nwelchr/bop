@@ -7,37 +7,37 @@ export const RECEIVE_ALBUMS = 'RECEIVE_ALBUMS';
 export const RECEIVE_ALBUM = 'RECEIVE_ALBUM';
 export const RECEIVE_ALBUM_WITH_TRACKLIST = 'RECEIVE_ALBUM_WITH_TRACKLIST';
 
-const receiveAlbums = albums => ({
+const receiveAlbums = (albums) => ({
   type: RECEIVE_ALBUMS,
-  albums
+  albums,
 });
 
-export const receiveAlbum = payload => ({
+export const receiveAlbum = (payload) => ({
   type: RECEIVE_ALBUM,
-  payload
+  payload,
 });
 
-export const receiveAlbumWithTracklist = payload => ({
+export const receiveAlbumWithTracklist = (payload) => ({
   type: RECEIVE_ALBUM_WITH_TRACKLIST,
-  payload
+  payload,
 });
 
-export const fetchAlbums = shouldFetchAll => dispatch => {
+export const fetchAlbums = (shouldFetchAll) => (dispatch) => {
   dispatch(startLoading());
-  return APIUtil.fetchAlbums(shouldFetchAll).then(albums => {
+  return APIUtil.fetchAlbums(shouldFetchAll).then((albums) => {
     return dispatch(receiveAlbums(albums));
   });
 };
 
-export const fetchAlbum = albumId => dispatch => {
+export const fetchAlbum = (albumId) => (dispatch) => {
   dispatch(startLoading());
-  return APIUtil.fetchAlbum(albumId).then(album => {
+  return APIUtil.fetchAlbum(albumId).then((album) => {
     return dispatch(receiveAlbum(album));
   });
 };
 
-export const fetchAlbumThenPlaySong = (albumId, params) => dispatch =>
-  APIUtil.fetchAlbum(albumId).then(payload => {
+export const fetchAlbumThenPlaySong = (albumId, params) => (dispatch) =>
+  APIUtil.fetchAlbum(albumId).then((payload) => {
     dispatch(receiveAlbumWithTracklist(payload));
     const songToPlay = payload.songs[Object.values(payload.album.songIds)[0]];
     // true is for playing first song in the tracklist/shuffledTracklist
