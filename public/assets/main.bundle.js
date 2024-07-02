@@ -3301,41 +3301,7 @@ const albums = [{
   artist: "SOPHIE"
 }];
 class NewSession extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentSong: "",
-      playing: false,
-      volume: 0.8,
-      muted: false,
-      played: 0,
-      loaded: 0,
-      duration: 0,
-      loop: false
-    };
-    this.stop = this.stop.bind(this);
-    this.load = this.load.bind(this);
-  }
-  load(url) {
-    if (this.state.playing === true) this.stop();
-    this.setState({
-      url: url,
-      played: 0,
-      playing: true
-    });
-  }
-  stop() {
-    this.setState({
-      url: null,
-      playing: false,
-      played: 0
-    });
-  }
   render() {
-    const _this$state = this.state,
-      url = _this$state.url,
-      playing = _this$state.playing,
-      currentSong = _this$state.currentSong;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       id: "wrapper"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", {
@@ -3367,8 +3333,8 @@ class NewSession extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       className: "main-content-intro"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Music for everyone."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
       to: "/login",
-      className: "web-player-link"
-    }, "Log in"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Get a taste of what you're missing.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
+      className: "login"
+    }, "Log in"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Here's a taste of what you're missing:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
       className: "image-links"
     }, albums.map((album, i) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       key: i,
@@ -3395,18 +3361,7 @@ class NewSession extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       className: "owner-span"
     }, album.artist)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "media-loaded"
-    }))))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("footer", {
-      className: "footer-wrapper"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("footer", {
-      className: "footer-content"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-      className: "navbar-logo"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-      to: "/"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-      src: "https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png",
-      className: "logo"
-    }))))));
+    }))))))))));
   }
 }
 /* harmony default export */ __webpack_exports__["default"] = (NewSession);

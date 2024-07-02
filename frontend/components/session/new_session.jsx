@@ -20,39 +20,7 @@ const albums = [
 ]
 
 class NewSession extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            currentSong: "",
-            playing: false,
-            volume: 0.8,
-            muted: false,
-            played: 0,
-            loaded: 0,
-            duration: 0,
-            loop: false,
-        }
-
-        this.stop = this.stop.bind(this)
-        this.load = this.load.bind(this)
-    }
-
-    load(url) {
-        if (this.state.playing === true) this.stop()
-        this.setState({
-            url: url,
-            played: 0,
-            playing: true,
-        })
-    }
-
-    stop() {
-        this.setState({ url: null, playing: false, played: 0 })
-    }
-
     render() {
-        const { url, playing, currentSong } = this.state
         return (
             <div id="wrapper">
                 <nav className="navbar navbar-logged-out">
@@ -89,11 +57,10 @@ class NewSession extends React.Component {
                 <main className="main-content-wrapper">
                     <section className="main-content-intro">
                         <h1>Music for everyone.</h1>
-                        <Link to="/login" className="web-player-link">
+                        <Link to="/login" className="login">
                             Log in
                         </Link>
-
-                        <h2>Get a taste of what you're missing.</h2>
+                        <h2>Here's a taste of what you're missing:</h2>
                     </section>
                     <section className="image-links">
                         {albums.map((album, i) => (
@@ -130,18 +97,6 @@ class NewSession extends React.Component {
                         ))}
                     </section>
                 </main>
-                <footer className="footer-wrapper">
-                    <footer className="footer-content">
-                        <span className="navbar-logo">
-                            <Link to="/">
-                                <img
-                                    src="https://s3.us-east-2.amazonaws.com/bop-images/logos/logo-white.png"
-                                    className="logo"
-                                />
-                            </Link>
-                        </span>
-                    </footer>
-                </footer>
             </div>
         )
     }
