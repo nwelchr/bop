@@ -25,7 +25,7 @@
     "npm": ">=8.0.0"
   },
   "scripts": {
-    "start": "concurrently \"rails server\" \"npx webpack --watch\" \"bundle exec guard\"",
+    "start": "concurrently --kill-others-on-fail \"npx webpack --watch\" \"rails server\" \"bundle exec guard\"",
     "postinstall": "webpack",
     "sass": "guard -P livereload",
     "lint": "eslint 'frontend/**/*.{js,jsx}'",
